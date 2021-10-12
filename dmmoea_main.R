@@ -9,41 +9,71 @@ dir <- rstudioapi::getActiveDocumentContext()$path #*** Doesnt work when sourcin
 dir <- paste0(dirname(dir), "/")
 setwd( dir )
 
-# Load libraries
-source("dmmoea_libraries.R")
-
-# Load functions
 source("dmmoea_functions.R")
 
-# Load data
-source("dmmoea_distances.R")
-
-# Load parameters
 source("dmmoea_parameters.R")
 
-#Required to parallel code
-fun.list <- c(lsf.str())
-package.list <- c(.packages())
+source("dmmoea_libraries.R")
 
-params <- parameters() # Initialize parameters
-dist <- load.gene.distance(params$path) # Testing with only Arabidopsis
-k <- params$k_series[1] # Testing with only k=4
-alpha <- params$alpha_series # Testing with alpha=1
+source("dmmoea_distances.R")
 
-# Initialize Random population
-initial.population <- generate.initial.pop(params, k, dist$n.genes) 
+params <- parameters()
+distances <- load.gene.distance("arabidopsis")
 
-# Set test path
-test_path <- "X:\\Universidad\\dmmoea\\Tests\\arabidopsis\\"
-test_output <- "arabidopsis\\A_" #<test_folder>//<Test name>_
+diversity.metric <- "jaccard"
+diversity.level <- 3
 
-# Original MOC-GaPBK and NSGA2 Tests
-experiment <- "nsga2" # "memetic", "moc", "nsga2"
-seed <- params$seed
+output.base <- file.path(dir, "/Tests/arabidopsis")
+  
+path.nsga2 <- "nsga2/test"
+path.dnsga2 <- "dnsga2/test"
+path.dmnsga2 <- "dmnsga2/test"
+
+output.path.nsga2 <- file.path(output.base, path.nsga2)
+output.path.dnsga2 <- file.path(output.base, path.dnsga2)
+output.path.dmnsga2 <- file.path(output.base, path.dmnsga2)
+K <- 4
+
+start_time <- Sys.time()
+# Diverse memetic NSGA-2 tests
+source("dmmoea_functions.R")
+pareto.results.1 <- diverse_memetic_nsga2(distances, K, diversity.metric, diversity.level,  params, output.path.dmnsga2)
+
+end_time <- Sys.time()
+
+# Extracting results
+results <- evaluate_solutions(pareto.results.1$population, pareto.results.1$clustering, K, dist, alpha, params, output.dnsga2)
+
+print(paste("DMNSGA-2 ended!. Execution finished in", round(end_time - start_time, 2), "minutes"))
+
+
+
+start_time <- Sys.time()
+
+pareto.results.2 <- dnsga2(distances, K, diversity.metric, diversity.level, params, output.path.dnsga2)
+
+end_time <- Sys.time()
+
+# Extracting results
+#source("dmmoea_functions.R")
+results <- evaluate_solutions(pareto.results.2$population, pareto.results.1$clustering, K, distances, params, output.path.dnsga2)
+
+print(paste("DNSGA-2 ended!. Execution finished in", round(end_time - start_time, 2), "minutes"))
+
+
+
+
+
+
+#projected.pareto <- hipervolume_projection(pareto[, (4+1):(4+params$objDim)], output)
+
+# Original NSGA-II Tests
+
 # Seeds used for arabidopsis: 4321 for test A, 1234 for test B
 
-pareto <- nsga2(dist, initial.population, k, alpha, params)
+pareto.results.2 <- nsga2(dist, k, params, output.nsga2)
 
+results <- evaluate_solutions(pareto.results.2$population, pareto.results.2$clustering, k, dist, alpha, output.nsga2)
 #pareto <- NSGA2(initial_pareto, 1, param$popSize, param$evaluations, "B_main_log_moc.txt", test_output, experiment)
 #write.table(pareto, path=paste0(test_path, , sep = ",",col.names = TRUE, quote = FALSE)
 
@@ -456,6 +486,4 @@ NSGA2 <- function(populationP, agente, popSize, evaluations, outfile, test_name,
   
   return(poblacion_pareto)
 }
-
-
 

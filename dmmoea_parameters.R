@@ -8,7 +8,8 @@ parameters=function(){
   #Number of cores.
   nucleos<- 4
   #Objective functions.
-  nombre_objetivos<-c("XieBeni","XieBeni") 
+  nombre_objetivos<-c("XieBeni","XieBeni")
+  maximize <- c(FALSE, FALSE)
   #"XB-exp", "XB-bio"; "Dev-exp", "Dev-bio"; "Sep-exp", "Sep-bio"
   
   #Number of objectives functions. Always 2.
@@ -22,21 +23,32 @@ parameters=function(){
   serie_k<-c(4:6) 
   #serie_k <- 4
   
+  ##Initial population params
+  min_radius <- 0.1 # Minimum radius to calculate cluster density
+  max_radius <- 0.5 # Maximum radius to calculate cluster density
+  density_tol <- 0.05 # Percentage of data points as minimum acceptable density
+  auto_adjust_initial_params <- TRUE # If true ignore all 3 previous parameters and auto adjust
+  
+  ##Memetic parameters
+  agents <- 4
+  phases <- 3
+  
   ##Evolutionary parameters
-  poblacion_inicial_aleatorio<-TRUE
-  generation<- 100
-  convergencia <- 10 #Integer. Commonly 10.
-  popSize <- 40 #total number of population
-  ratCruz<-0.80
-  ratMuta<-0.01
+  poblacion_inicial_aleatorio<-FALSE
+  generation<- 20
+  convergencia <- 15 # Maximum number of generations without change
+  popSize <- 20 #total number of population
+  ratCruz<-0.90
+  ratMuta<-0.2
   tourSize <- 2 #ceiling(popSize*0.20)
-  tolerancia <- 0.05 # ADDED
+  tolerancia <- 0.05 # Minimum convergence index to consider "no changes"
   evaluations <- 5e6 # Number of maximum solutions an algorithm can search until stopped
   seed <- 123
   
-  return(list( path=path, cores=nucleos, objectives=nombre_objetivos, objDim=objDim, neighbors=vecinos,
-               alpha_series=serie_alfa, k_series=serie_k, is_random_population=poblacion_inicial_aleatorio,
-               generations=generation, popSize=popSize, ratCruz=ratCruz, ratMuta=ratMuta, tourSize=tourSize,
-               tol=tolerancia, evaluations=evaluations, convergency.limit=convergencia, seed=seed))
+  return(list( path=path, cores=nucleos, objectives=nombre_objetivos, objDim=objDim, obj_maximize=maximize, neighbors=vecinos,
+               alpha_series=serie_alfa, k_series=serie_k, min_radius=min_radius, max_radius=max_radius, density_tol=density_tol, 
+               auto_adjust_initial_params=auto_adjust_initial_params, is_random_population=poblacion_inicial_aleatorio,
+               generations=generation, popSize=popSize, mating.rate=ratCruz, mutation.rate=ratMuta, tourSize=tourSize,
+               convergence.tol=tolerancia, evaluations=evaluations, convergence.limit=convergencia, agents=agents, phases=phases, seed=seed))
               #obj1_criteria=obj1_criteria, obj2_criteria=obj2_criteria, 
 }

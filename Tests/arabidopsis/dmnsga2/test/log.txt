@@ -1,0 +1,93 @@
+
+2021-10-12 03:17:23: Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2021-10-12 03:17:32: [Agent 2] Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2021-10-12 03:17:32: [Agent 2] A
+2021-10-12 03:17:32: [Agent 4] Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2021-10-12 03:17:32: [Agent 1] Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2021-10-12 03:17:32: [Agent 4] A
+2021-10-12 03:17:32: [Agent 1] A
+2021-10-12 03:17:32: [Agent 3] Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2021-10-12 03:17:32: [Agent 3] A
+2021-10-12 03:17:33: [Agent 2] B
+2021-10-12 03:17:33: [Agent 2] Entering selection, crossover, mutation for generation  1
+2021-10-12 03:17:33: [Agent 4] B
+2021-10-12 03:17:33: [Agent 4] Entering selection, crossover, mutation for generation  1
+2021-10-12 03:17:33: [Agent 1] B
+2021-10-12 03:17:33: [Agent 1] Entering selection, crossover, mutation for generation  1
+2021-10-12 03:17:33: [Agent 3] B
+2021-10-12 03:17:33: [Agent 3] Entering selection, crossover, mutation for generation  1
+[1] "Convergence index: 0"
+2021-10-12 03:17:35: [Agent 2] C
+2021-10-12 03:17:35: [Agent 2] Entering selection, crossover, mutation for generation  2
+[1] "Convergence index: 0"
+2021-10-12 03:17:35: [Agent 4] C
+2021-10-12 03:17:35: [Agent 4] Entering selection, crossover, mutation for generation  2
+[1] "Convergence index: 0.666666666666667"
+2021-10-12 03:17:35: [Agent 1] C
+2021-10-12 03:17:35: [Agent 1] Entering selection, crossover, mutation for generation  2
+[1] "Convergence index: 0"
+2021-10-12 03:17:35: [Agent 3] C
+2021-10-12 03:17:35: [Agent 3] Entering selection, crossover, mutation for generation  2
+[1] "Convergence index: 0"
+2021-10-12 03:17:36: [Agent 2] C
+2021-10-12 03:17:36: [Agent 2] Entering selection, crossover, mutation for generation  3
+[1] "Convergence index: 0.25"
+2021-10-12 03:17:36: [Agent 4] C
+2021-10-12 03:17:36: [Agent 4] Entering selection, crossover, mutation for generation  3
+[1] "Convergence index: 0.333333333333333"
+2021-10-12 03:17:36: [Agent 3] C
+2021-10-12 03:17:36: [Agent 3] Entering selection, crossover, mutation for generation  3
+[1] "Convergence index: 0.666666666666667"
+2021-10-12 03:17:38: [Agent 2] C
+2021-10-12 03:17:38: [Agent 2] Entering selection, crossover, mutation for generation  4
+[1] "Convergence index: 0.5"
+2021-10-12 03:17:38: [Agent 4] C
+2021-10-12 03:17:38: [Agent 4] Entering selection, crossover, mutation for generation  4
+[1] "Convergence index: 0.666666666666667"
+2021-10-12 03:17:38: [Agent 3] C
+2021-10-12 03:17:38: [Agent 3] Entering selection, crossover, mutation for generation  4
+[1] "Convergence index: 0"
+2021-10-12 03:17:39: [Agent 2] C
+2021-10-12 03:17:39: [Agent 2] Entering selection, crossover, mutation for generation  5
+[1] "Convergence index: 0"
+2021-10-12 03:17:39: [Agent 4] C
+2021-10-12 03:17:39: [Agent 4] Entering selection, crossover, mutation for generation  5
+[1] "Convergence index: 0"
+2021-10-12 03:17:39: [Agent 3] C
+2021-10-12 03:17:39: [Agent 3] Entering selection, crossover, mutation for generation  5
+[1] "Convergence index: 0"
+2021-10-12 03:17:40: [Agent 2] C
+2021-10-12 03:17:40: [Agent 2] Entering selection, crossover, mutation for generation  6
+[1] "Convergence index: 0"
+2021-10-12 03:17:40: [Agent 4] C
+2021-10-12 03:17:40: [Agent 4] Entering selection, crossover, mutation for generation  6
+[1] "Convergence index: 0"
+2021-10-12 03:17:41: [Agent 3] C
+2021-10-12 03:17:41: [Agent 3] Entering selection, crossover, mutation for generation  6
+[1] "Convergence index: 0.2"
+2021-10-12 03:17:42: [Agent 2] C
+2021-10-12 03:17:42: [Agent 2] Entering selection, crossover, mutation for generation  7
+[1] "Convergence index: 0"
+2021-10-12 03:17:42: [Agent 3] C
+2021-10-12 03:17:42: [Agent 3] Entering selection, crossover, mutation for generation  7
+[1] "Convergence index: 0"
+2021-10-12 03:17:42: [Agent 4] C
+2021-10-12 03:17:42: [Agent 4] Entering selection, crossover, mutation for generation  7
+[1] "Convergence index: 0.8"
+2021-10-12 03:17:43: [Agent 2] C
+2021-10-12 03:17:43: [Agent 2] Finished dnsga2!
+  V1 V2  V3 V4        f1       f2 rnkIndex cd.density
+1 63 83 109 53  6.926983 9.360073        1        Inf
+2 59 83 109 39 12.570704 5.247624        1        Inf
+3 75 93 126 94 70.943299 5.605569        2        Inf
+4 59 39  95 73 13.330594 7.124672        2        Inf
+5 75 78 126 94 38.793683 6.106598        2 0.03745551
+[1] "Convergence index: 0"
+2021-10-12 03:17:43: [Agent 3] C
+2021-10-12 03:17:43: [Agent 3] Finished dnsga2!
+   V1 V2 V3 V4         f1       f2 rnkIndex cd.density
+1 117 58 66 10   7.210383 6.049419        1        Inf
+2 128 51 66 36  14.773028 3.478533        1        Inf
+3 117 56 51 36   8.923313 4.466731        1  0.1818869
+4 117 51 56 36   8.923313 4.466731        1  0.0949913
+5 128 55 66 36 111.624992 3.478533        2        Inf
