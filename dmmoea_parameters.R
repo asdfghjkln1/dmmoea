@@ -36,7 +36,7 @@ parameters=function(){
   ##Evolutionary parameters
   poblacion_inicial_aleatorio<-FALSE
   generation<- 20
-  convergencia <- 15 # Maximum number of generations without change
+  convergencia <- 15 # Maximum number of generations without change (not used, set to 3/4 of generations)
   popSize <- 20 #total number of population
   ratCruz<-0.90
   ratMuta<-0.2
@@ -49,6 +49,6 @@ parameters=function(){
                alpha_series=serie_alfa, k_series=serie_k, min_radius=min_radius, max_radius=max_radius, density_tol=density_tol, 
                auto_adjust_initial_params=auto_adjust_initial_params, is_random_population=poblacion_inicial_aleatorio,
                generations=generation, popSize=popSize, mating.rate=ratCruz, mutation.rate=ratMuta, tourSize=tourSize,
-               convergence.tol=tolerancia, evaluations=evaluations, convergence.limit=convergencia, agents=agents, phases=phases, seed=seed))
+               convergence.tol=tolerancia, evaluations=evaluations, agents=agents, phases=phases, seed=seed))
               #obj1_criteria=obj1_criteria, obj2_criteria=obj2_criteria, 
 }

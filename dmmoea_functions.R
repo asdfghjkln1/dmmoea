@@ -123,7 +123,6 @@ cluster_data <- function(distances, population, alpha){
   #dist.compounded <- alpha*bio.dist + (1-alpha)*exp.dist
   #dist.compounded <- as.data.frame(dist.compounded)
   gene.len <- distances$n.genes
-  genes <- 1:gene.len
   clustering.results <- list(1:pop.size)
   grouping<-rep(NA,gene.len)
   p <- 1
@@ -131,20 +130,18 @@ cluster_data <- function(distances, population, alpha){
     for(gene in 1:gene.len){
       medoid.distances <- alpha*exp.dist[gene, population[p, 1:K]] + (1-alpha)*bio.dist[gene, population[p, 1:K]]
       #medoid.distances <- dist.compounded[gene, population[p, 1:K]] # Doesn't work this way, not sure why
-      # Note: sometimes all distances are 1, it chooses always index 1
       gene.clust <- unname(which.min(medoid.distances))
       grouping[gene] <- gene.clust
       
     }
     clustering.results[[p]] <- grouping
     names(clustering.results[[p]])<-rownames(exp.dist)
-    
     col <- 1
     # For every cluster, check for singletons. 
     # Replace medoid until all clusters in the solution has more than 2 elements
     while(col <= K){
       if(length(which(unlist(grouping) == col)) < 3){
-        replacement <- setdiff(genes, intersect(genes, population[p, 1:K]))
+        replacement <- setdiff(1:gene.len, intersect(1:gene.len, population[p, 1:K]))
         population[p, col] <- sample(replacement, 1)
         new.medoids <- population[p, 1:K]
         #** Update groups for new medoids
@@ -165,14 +162,22 @@ cluster_data <- function(distances, population, alpha){
   return(list("population"=population, "clustering.results"=clustering.results))
 }
 
-evaluate_population <- function(population, cluster_results, distances, params){
+evaluate_population <- function(population, distances, K, params){
+  
+  for(i in 1:nrow(population)){
+    a <- unlist(population[i, 1:4])
+    if(any(duplicated(a))){
+      print("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO")
+      print(population)
+    }
+  }
   
   objectives <- params$objectives
   obj.dim <- length(objectives)
   obj1 <- objectives[1]
   obj2 <- objectives[2]
-  
-  p <- length(cluster_results) # not used atm
+  population <- as.matrix(population)
+  #p <- length(cluster_results) # not used atm
   
   if(obj1 == "XieBeni"){
     f1 <- evaluate_xie_beni(population, distances$exp.dist)
@@ -189,31 +194,14 @@ evaluate_population <- function(population, cluster_results, distances, params){
     print("Objective function not available!")
     return(NULL)
   }
-  
   obj.values <- cbind(f1,f2)
   population <- dominance_ranking_sorting(population, obj.values)
-  
+  # Sometimes, f1 or f2 gives value Inf. Remove problematic solution
+  population <- as.data.frame(population)
+  obj.values <- population[, c("f1", "f2")]
+  population <- population[is.finite(rowSums(obj.values)), ]
+  print(paste0("Population nrow: ", nrow(population)))
   return(population)
-}
-
-dominance_ranking_sorting <- function(population, obj.values){
-  
-  ranking <- nsga2R::fastNonDominatedSorting(obj.values)
-  rnkIndex <- integer(nrow(population))
-  i <- 1
-  while (i <= length(ranking)) {
-    rnkIndex[ranking[[i]]] <- i
-    i <- i + 1
-  } 
-  population <- cbind(population, obj.values, rnkIndex)
-  
-  # Calculate Crowding Distance
-  objRange <- apply(obj.values, 2, max) - apply(obj.values, 2, min)
-  cd <- nsga2R::crowdingDist4frnt(population, ranking, objRange) # Calculate CD
-  cd.density <- apply(cd,1,sum)
-  population <- cbind(population, cd.density) # Add cd density column
-  population <- population[order(rnkIndex, -cd.density), ] # Order by cd
-  return(as.data.frame(population))
 }
 
 # Xie-Beni clustering coefficient evaluation
@@ -265,10 +253,14 @@ nsga2 <- function(distances, K, params, output.path){
   P.data <- cluster_data(distances, P, params$alpha)
   P <- P.data$population
   P.clustering.groups <- P.data$clustering.results
-  P <- evaluate_population(P, P.clustering.groups, distances, params)
+  P <- evaluate_population(P, distances, K, params)
+  P.clustering.groups <- P.clustering.groups[as.numeric(rownames(P))]
   current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
   
+  #Set condition for early convergence if pareto front does not change
   generations.no.changes <- 0
+  generations.no.change.limit <- round(params$generations*3/4) 
+  
   has.converged <- FALSE
   
   ## Main generation loop
@@ -288,28 +280,29 @@ nsga2 <- function(distances, K, params, output.path){
     Q.data <- cluster_data(distances, Q, params$alpha)
     Q <- Q.data$population
     Q.clustering.groups <- Q.data$clustering.results
-    Q <- evaluate_population(Q, Q.clustering.groups, distances, params)
-    Q.clustering.groups <- Q.clustering.groups[order(as.numeric(rownames(Q)))]
+    Q <- evaluate_population(Q, distances, K, params)
+    Q.clustering.groups <- Q.clustering.groups[as.numeric(rownames(Q))]
     rownames(Q) <- 1:nrow(Q)
     
     ## Create population R as the combination of P and Q
     R <- rbind(P,Q)
     R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
-    dup.index <- duplicated(R[, 1:K])
-    R <- as.matrix(R[!dup.index, 1:(K+params$objDim)])
-    R.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(R)))] # Update clustering
+    R <- remove_duplicated(R, K)
+    #dup.index <- duplicated(R[, 1:K])
+    #R <- as.matrix(R[!dup.index, 1:(K+params$objDim)])
+    R.clustering.groups <- R.clustering.groups[as.numeric(rownames(R))] # Update clustering
     
     obj.values <- R[, (K+1):ncol(R)] # Select objective values
     R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(R)))] # Update clustering
+    R.clustering.groups <- R.clustering.groups[as.numeric(rownames(R))] # Update clustering
     rownames(R)<-1:nrow(R)
     
     ## Population fitness selection
     P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
-    P.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(P_next_generation)))] # Update clustering
+    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
     rownames(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
-    pareto.clustering <- P.clustering.groups[ order(as.numeric(rownames(new.pareto.front))) ]
+    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front))]
     
     ## Output pareto front plot
     plot_pareto(current.pareto.front, new.pareto.front, g, output.path) # Output pareto front
@@ -324,7 +317,7 @@ nsga2 <- function(distances, K, params, output.path){
       generations.no.changes <- 0 # Reset counter if changes detected
     }
     ## Check for stop criteria
-    if(generations.no.changes > params$convergence.limit || g >= params$generation){
+    if(generations.no.changes >= generations.no.change.limit || g >= params$generations){
       has.converged <- TRUE
     }
     ## Continue to next generation
@@ -336,16 +329,159 @@ nsga2 <- function(distances, K, params, output.path){
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
 
+
 #### Diverse NSGA-2 ####
-dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, output.path, generations=NULL, P.size=NULL, agent=NULL, initial_population=NULL){
+dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, output.path){
+  
+  log.file <- file.path(output.path, paste0("log.txt"))
+  sink(log.file, append=FALSE)
+  
+  Log(paste("Initiating DNSGA-2 with diversity level",diversity.level, "and metric", diversity.metric,"..."))
+  
+  # Initialize population
+  if(params$is_random_population){
+    # Random population
+    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed, params$is_random_population) 
+  }else if(diversity.level >= 1){
+    P <- generate_diverse_initial_pop(distances, params, K, diverse_population = TRUE)
+  }else{
+    P <- generate_diverse_initial_pop(distances, params, K, diverse_population = FALSE)
+  }
+  
+  P.size <- params$popSize # Population size
+  generations <- params$generations # Maximum generations
+  #Set condition for early convergence if pareto front does not change
+  generations.no.change.limit <- round(generations*3/4) 
+  
+  num.genes <- distances$n.genes
+  g <- 1 # Current generation
+  
+  ## Initialize and evaluate population P
+  P.data <- cluster_data(distances, P, params$alpha)
+  P <- P.data$population
+  P.clustering.groups <- P.data$clustering.results
+  P.rows <- rownames(P) # Save original rownames to reorder clustering
+  P <- evaluate_population(P, distances, K,  params)
+  # Reorder clustering to match population
+  P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)] 
+  rownames(P) <- 1:nrow(P)
+  current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
+  generations.no.changes <- 0
+  has.converged <- FALSE
+  
+  ## Main generation loop
+  while(!has.converged){
+    
+    Log(paste("Entering selection, crossover, mutation for generation ", g))
+    
+    if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
+      to.fill <- P.size-nrow(P)
+      P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
+      P.fill <- as.data.frame(P.fill.data$population)
+      rownames(P.fill) <- as.character(round(runif(to.fill, 0, 1)*1e4))
+      P.fill.clustering <- P.fill.data$clustering.results
+      P.fill.rows <- row.names(P.fill)
+      P.fill <- evaluate_population(P.fill, distances, K, params)
+      P.fill.clustering <- P.fill.clustering[match((rownames(P.fill)), P.fill.rows)]
+      P <- rbind(P, P.fill)
+      P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
+      obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
+      P.rows <- rownames(P)
+      P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
+      P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)]  # Update clustering
+      rownames(P)<-1:nrow(P)
+    }
+    
+    ###### Selection, Crossover, Mutation  ######
+    
+    ## Selection
+    mating_pool <- tournamentSelection(P, P.size, params$tourSize)
+    
+    ##Crossover and Mutation
+    if(diversity.level >= 3){
+      Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, K, params, P.size=P.size) 
+    }else{
+      Q <- population_mating_and_mutation(mating_pool, K, num.genes, params, P.size=P.size)
+    }
+    
+    ## Evaluate solutions in population
+    Q.data <- cluster_data(distances, Q, params$alpha)
+    Q <- Q.data$population
+    Q.clustering.groups <- Q.data$clustering.results
+    Q.rows <- rownames(Q) 
+    Q <- evaluate_population(Q, distances, K, params)
+    Q.clustering.groups <- Q.clustering.groups[match((rownames(Q)), Q.rows) ]
+    rownames(Q) <- 1:nrow(Q)
+    
+    ## Create population R as the combination of P and Q
+    R <- rbind(P,Q)
+    R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
+    R <- remove_duplicated(R, K)
+    #dup.index <- duplicated(R[, 1:K])
+    #R <- as.matrix(R[!dup.index, 1:(K+params$objDim)])
+    R.clustering.groups <- R.clustering.groups[as.numeric(rownames(R))] # Update clustering
+    
+    obj.values <- R[, (K+1):(K+params$objDim)] # Select objective values
+    R.rows <- rownames(R)
+    R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
+    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
+    rownames(R)<-1:nrow(R)
+    ## Population fitness selection
+    if(diversity.level >= 2){
+      P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, P.size, K, diversity.metric)
+    }else{
+      P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
+    }
+    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
+    rownames(P_next_generation) <- 1:nrow(P_next_generation)
+    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
+    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front)) ]
+    
+    if(missing(agent)){
+      plot_pareto(current.pareto.front, new.pareto.front, g, output.path) # Output pareto front
+    }else if(!missing(phase)){
+      plot_pareto(current.pareto.front, new.pareto.front, g, output.path, agent=agent, phase=phase) # Output pareto front
+    }
+    
+    ## Measure convergence of pareto front
+    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g)
+    
+    ## Check how different is the new pareto front, count generations with no changes
+    if(convergence.index <= params$convergence.tol){
+      generations.no.changes <- generations.no.changes + 1 
+    }else{
+      generations.no.changes <- 0 # Reset counter if changes detected
+    }
+    ## Check for stop criteria
+    if(generations.no.changes > generations.no.change.limit || g >= generations){
+      has.converged <- TRUE
+    }
+    
+    ## Continue to next generation
+    g <- g + 1
+    P <- P_next_generation
+    current.pareto.front <- new.pareto.front
+  }
+  return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
+}
+
+
+#### Diverse NSGA-2 ####
+dnsga2_agent <- function(distances, K, diversity.metric, diversity.level, params, output.path, generations=NULL, P.size=NULL, agent=NULL, phase=NULL, initial_population=NULL){
   
   if(missing(agent)){
     print(paste("Initiating DNSGA-2 with diversity level",diversity.level, "and metric", diversity.metric,"..."))
   }else{
-    log.file <- file.path(output.path, "log.txt")
-    sink(log.file, append=TRUE) # Register in log output file
+    log.file <- file.path(output.path, paste0("log_",agent,".txt"))
+    if(file.exists(log.file)){
+      sink(log.file, append=TRUE) # Register in log output file
+    }else{
+      sink(log.file, append=FALSE)
+    }
+    # Load function workspace
     source("dmmoea_libraries.R")
-    source("dmmoea_functions.R") # Load function workspace
+    source("dmmoea_functions.R")
     Log(paste("Initiating DNSGA-2 with diversity level",diversity.level, "and metric", diversity.metric,"..."), agent=agent)
   }
   
@@ -366,24 +502,24 @@ dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, outp
     P.size <- params$popSize # Population size
   } 
   if(missing(generations)){
-    generations <- params$generation # Maximum generations
+    generations <- params$generations # Maximum generations
   }
+  #Set condition for early convergence if pareto front does not change
+  generations.no.change.limit <- round(generations*3/4) 
   
   num.genes <- distances$n.genes
   g <- 1 # Current generation
   
-  Log("A", agent=agent)
   ## Initialize and evaluate population P
   P.data <- cluster_data(distances, P, params$alpha)
   P <- P.data$population
   P.clustering.groups <- P.data$clustering.results
-  P <- evaluate_population(P, P.clustering.groups, distances, params)
-  P.clustering.groups <- P.clustering.groups[order(as.numeric(rownames(P)))]
+  P.rows <- rownames(P) # Save original rownames to reorder clustering
+  P <- evaluate_population(P, distances, K,  params)
+  # Reorder clustering to match population
+  P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)] 
   rownames(P) <- 1:nrow(P)
-
-  Log("B", agent=agent)
   current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
-  
   generations.no.changes <- 0
   has.converged <- FALSE
   
@@ -396,11 +532,41 @@ dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, outp
       Log(paste("Entering selection, crossover, mutation for generation ", g), agent=agent)
     }
     
+    if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
+      Log("FILLING")
+      to.fill <- P.size-nrow(P)
+      P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
+      P.fill <- as.data.frame(P.fill.data$population)
+      Log("A")
+      rownames(P.fill) <- as.character(round(runif(to.fill, 0, 1)*1e4))
+      print(P.fill)
+      P.fill.clustering <- P.fill.data$clustering.results
+      P.fill.rows <- row.names(P.fill)
+      Log("A1")
+      P.fill <- evaluate_population(P.fill, distances, K, params)
+      Log("A2")
+      P.fill.clustering <- P.fill.clustering[match((rownames(P.fill)), P.fill.rows)]
+      Log("B")
+      print(P)
+      print(P.fill)
+      P <- rbind(P, P.fill)
+      P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
+      obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
+      P.rows <- rownames(P)
+      Log("C")
+      P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
+      P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)]  # Update clustering
+      rownames(P)<-1:nrow(P)
+      Log("FILLING FINISHED")
+      print(P)
+    }
+    
     ###### Selection, Crossover, Mutation  ######
     
     ## Selection
     mating_pool <- tournamentSelection(P, P.size, params$tourSize)
-    
+  
     ##Crossover and Mutation
     if(diversity.level >= 3){
       Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, K, params, P.size=P.size) 
@@ -411,39 +577,41 @@ dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, outp
     ## Evaluate solutions in population
     Q.data <- cluster_data(distances, Q, params$alpha)
     Q <- Q.data$population
-    Q.clustering.groups <- Q.data$clustering.results
     
-    Q <- evaluate_population(Q, Q.clustering.groups, distances, params)
-    Q.clustering.groups <- Q.clustering.groups[order(as.numeric(rownames(Q)))]
+    Q.clustering.groups <- Q.data$clustering.results
+    Q.rows <- rownames(Q) 
+    Q <- evaluate_population(Q, distances, K, params)
+    Q.clustering.groups <- Q.clustering.groups[match((rownames(Q)), Q.rows) ]
     rownames(Q) <- 1:nrow(Q)
     
     ## Create population R as the combination of P and Q
     R <- rbind(P,Q)
     R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
-    dup.index <- duplicated(R[, 1:K])
-    R <- as.matrix(R[!dup.index, 1:(K+params$objDim)])
-    R.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(R)))] # Update clustering
+    R <- remove_duplicated(R, K)
+    #dup.index <- duplicated(R[, 1:K])
+    #R <- as.matrix(R[!dup.index, 1:(K+params$objDim)])
+    R.clustering.groups <- R.clustering.groups[as.numeric(rownames(R))] # Update clustering
 
-    obj.values <- R[, (K+1):ncol(R)] # Select objective values
+    obj.values <- R[, (K+1):(K+params$objDim)] # Select objective values
+    R.rows <- rownames(R)
     R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(R)))] # Update clustering
+    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
     rownames(R)<-1:nrow(R)
-  
     ## Population fitness selection
     if(diversity.level >= 2){
       P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, P.size, K, diversity.metric)
     }else{
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
-    P.clustering.groups <- R.clustering.groups[order(as.numeric(rownames(P_next_generation)))] # Update clustering
+    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
     rownames(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
-    pareto.clustering <- P.clustering.groups[ order(as.numeric(rownames(new.pareto.front))) ]
+    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front)) ]
     
     if(missing(agent)){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path) # Output pareto front
-    }else{
-      plot_pareto(current.pareto.front, new.pareto.front, g, output.path, agent=agent) # Output pareto front
+    }else if(!missing(phase)){
+      plot_pareto(current.pareto.front, new.pareto.front, g, output.path, agent=agent, phase=phase) # Output pareto front
     }
     
     ## Measure convergence of pareto front
@@ -456,20 +624,17 @@ dnsga2 <- function(distances, K, diversity.metric, diversity.level, params, outp
       generations.no.changes <- 0 # Reset counter if changes detected
     }
     ## Check for stop criteria
-    if(generations.no.changes > params$convergence.limit || g >= generations){
+    if(generations.no.changes > generations.no.change.limit || g >= generations){
       has.converged <- TRUE
     }
     
     ## Continue to next generation
     g <- g + 1
     P <- P_next_generation
+    print("End generation")
+    print(P)
     current.pareto.front <- new.pareto.front
-    
-    Log("C", agent=agent)
   }
-  
-  Log("Finished dnsga2!", agent)
-  print(P_next_generation)
   
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
@@ -497,21 +662,59 @@ convergence_coefficient <- function(current.pareto, new.pareto, generation){
   return(convergence.index)
 }
 
+dominance_ranking_sorting <- function(population, obj.values){
+  if(nrow(population) == 1){
+    print(population)
+    population <- cbind(population, obj.values, "rnkIndex"=1, "cd.density"=1)
+    print(population)
+    return(population)
+  }
+  ranking <- nsga2R::fastNonDominatedSorting(obj.values)
+  rnkIndex <- integer(nrow(population))
+  i <- 1
+  while (i <= length(ranking)) {
+    rnkIndex[ranking[[i]]] <- i
+    i <- i + 1
+  } 
+  population <- cbind(population, obj.values, rnkIndex)
+  
+  # Calculate Crowding Distance
+  objRange <- apply(obj.values, 2, max) - apply(obj.values, 2, min)
+  cd <- nsga2R::crowdingDist4frnt(population, ranking, objRange) # Calculate CD
+  cd.density <- apply(cd,1,sum)
+  population <- cbind(population, cd.density) # Add cd density column
+  population <- population[order(rnkIndex, -cd.density), ] # Order by cd
+  return(as.data.frame(population))
+}
+
 fitness_selection_crowding_distance <- function(R, P.size, K){
+  if(nrow(R) <= P.size){
+    Log("Population size is lower than original population, returning...")
+    return(R)
+  }
   R <- as.data.frame(R)
   last.rank <- R[P.size, "rnkIndex"]
   rank <- last.rank
-  i <- P.size
-  while(rank == last.rank){
-    rank <- R[i, "rnkIndex"]
-    i <- i - 1
+  if(last.rank == 1){
+    last.ranking.solutions <- R[R$rnkIndex == 1, ]
+    last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
+    last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
+    return(last.ranking.solutions)
+    
+  }else{
+    i <- P.size
+    while(rank == last.rank){
+      rank <- R[i, "rnkIndex"]
+      i <- i - 1
+    }
+    preselected <- R[1:(i+1), ]
+    remaining <- P.size - nrow(preselected)
+    last.ranking.solutions <- R[R$rnkIndex == last.rank, ]
+    last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
+    last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
+    return(rbind(preselected, last.ranking.solutions))
+    
   }
-  preselected <- R[1:(i+1), ]
-  remaining <- P.size - nrow(preselected)
-  last.ranking.solutions <- R[R$rnkIndex == last.rank, ]
-  last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
-  last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
-  return(rbind(preselected, last.ranking.solutions))
 }
 
 fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
@@ -519,30 +722,41 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
     Log("Population size is lower than original population, returning...")
     return(R)
   }
-  
   R <- as.data.frame(R)
   last.rank <- R[P.size, "rnkIndex"]
   if(R[P.size + 1, "rnkIndex"] > last.rank){ # No need to check if there's dominance
     return(R[1:P.size, ])
   }
   rank <- last.rank
-  i <- P.size
-  while(rank == last.rank){
-    rank <- R[i, "rnkIndex"]
-    i <- i - 1
-  }
-  preselected <- R[1:(i+1), ]
-  remaining <- P.size - nrow(preselected)
-  last.ranking.solutions.index <- which(R$rnkIndex == last.rank)
-  last.ranking.solutions <- R[last.ranking.solutions.index, ]
-  groups <- groups[last.ranking.solutions.index]
-  diversity.matrix <- calculate_diversity_matrix(groups, metric)
+  if(last.rank == 1){ # If there are only rank 1 solutions in pareto, do this.
+    last.ranking.solutions.index <- which(R$rnkIndex == 1)
+    last.ranking.solutions <- R[last.ranking.solutions.index, ]
+    groups <- groups[last.ranking.solutions.index]
+    diversity.matrix <- calculate_diversity_matrix(groups, metric)
+    # Calculate mean distance from a solution to every other, and order it by decreasing
+    mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
+    last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
+    last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
+    return (last.ranking.solutions)
+  }else{ # Else, search for last pareto frontier and only compare those.
+    i <- P.size
+    while(rank == last.rank){
+      rank <- R[i, "rnkIndex"]
+      i <- i - 1
+    }
+    preselected <- R[1:(i+1), ]
+    remaining <- P.size - nrow(preselected)
+    last.ranking.solutions.index <- which(R$rnkIndex == last.rank)
+    last.ranking.solutions <- R[last.ranking.solutions.index, ]
+    groups <- groups[last.ranking.solutions.index]
+    diversity.matrix <- calculate_diversity_matrix(groups, metric)
   
-  # Calculate mean distance from a solution to every other, and order it by decreasing
-  mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
-  last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
-  last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
-  return(rbind(preselected, last.ranking.solutions))
+    # Calculate mean distance from a solution to every other, and order it by decreasing
+    mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
+    last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
+    last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
+    return(rbind(preselected, last.ranking.solutions)) 
+  }
 }
 
 population_mating_and_mutation <- function(mating_pool, K, num.genes, params){
@@ -587,6 +801,8 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
   if(missing(P.size)){
     P.size <- params$popSize
   }
+  
+  
   D <- distances$exp.dist #******** Using expression distance temporally *******
   Q <- matrix(0, nrow = P.size, ncol = K)
   mat.rate <- params$mating.rate
@@ -624,7 +840,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
         gene <- sample(elems.group, 1)
         #print(paste("Gene ", k, "mutated"))
       }
-      # This only occurs in rare cases when random value was already in offspring chrmosome
+      # This only occurs in rare cases when random value was already in offspring chromosome
       # Adding a while makes sure no error can occur
       while(is.element(gene, Q[p, ])){ 
         #*** More diversity criteria can be added here ***
@@ -648,6 +864,7 @@ calculate_diversity_matrix <- function(groups, metric){
   for(i in 1:(size-1)){
     for(j in (i+1):size){
       diversity.matrix[i, j] = diversity_metric(unname(groups[[i]]), unname(groups[[j]]), metric)
+      diversity.matrix[j, i] = diversity.matrix[i, j]
     }
   }
   return(diversity.matrix)
@@ -707,31 +924,31 @@ rand_index <- function(yy, ny, yn, nn){
 
 # Plot partial pareto front
 # **** Use normalization or absolute values??? To be reviewed *****
-plot_pareto <- function(old.pareto, new.pareto, generation, output.path, agent=NULL){
+plot_pareto <- function(old.pareto, new.pareto, generation, output.path, agent=NULL, phase=NULL){
   #print(paste("Pareto front for generation", generation))
   #print(new.pareto)
   output.path <- file.path(output.path, "pareto")
-  new.pareto <- new.pareto[, c("f1", "f2")]
-  old.pareto <- old.pareto[, c("f1", "f2")]
-  #new.pareto <- as.data.frame(eaf::normalise(new.pareto[, c("f1", "f2")], c(0,1)))
-  #old.pareto <- as.data.frame(eaf::normalise(old.pareto[, c("f1", "f2")], c(0,1)))
+  #new.pareto <- new.pareto[, c("f1", "f2")]
+  #old.pareto <- old.pareto[, c("f1", "f2")]
+  new.pareto <- as.data.frame(eaf::normalise(new.pareto[, c("f1", "f2")], c(0,1)))
+  old.pareto <- as.data.frame(eaf::normalise(old.pareto[, c("f1", "f2")], c(0,1)))
   
   # Define an scale function and normalize
   #scaler <- function(x){ (x-min(x))/(max(x)-min(x)) }
-  #if(nrow(new.pareto) == 1 && nrow(old.pareto) == 1){ # If new pareto has 1 solution, normalize in reference
-  #  temp <- rbind(old.pareto, new.pareto)
-  #  temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
-  #  old.pareto <- temp[1, ]
-  #  new.pareto <- temp[2, ]
-  #}else if(nrow(old.pareto) == 1){
-  #  temp <- rbind(old.pareto, new.pareto)
-  #  temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
-  #  old.pareto <- temp[1, ]
-  #}else if(nrow(new.pareto) == 1){
-  #  temp <- rbind(new.pareto, old.pareto)
-  #  temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
-  #  new.pareto <- temp[1, ]
-  #}
+  if(nrow(new.pareto) == 1 && nrow(old.pareto) == 1){ # If new pareto has 1 solution, normalize in reference
+    temp <- rbind(old.pareto, new.pareto)
+    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    old.pareto <- temp[1, ]
+    new.pareto <- temp[2, ]
+  }else if(nrow(old.pareto) == 1){
+    temp <- rbind(old.pareto, new.pareto)
+    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    old.pareto <- temp[1, ]
+  }else if(nrow(new.pareto) == 1){
+    temp <- rbind(new.pareto, old.pareto)
+    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    new.pareto <- temp[1, ]
+  }
   #}else{
   #new.pareto <- (new.pareto-min(new.pareto))/(max(new.pareto)-min(new.pareto))
   #old.pareto <- (old.pareto-min(old.pareto))/(max(old.pareto)-min(old.pareto))
@@ -748,15 +965,56 @@ plot_pareto <- function(old.pareto, new.pareto, generation, output.path, agent=N
     geom_point(aes(color = Pareto), size=2) +
     geom_line(aes(group = Pareto, alpha=alpha)) +
     scale_alpha_continuous(guide=FALSE) +
-    xlim(0, max(pareto$f1)) +
-    ylim(0, max(pareto$f2))  
+    xlim(0, 1) + #max(pareto$f1)) +
+    ylim(0, 1)#max(pareto$f2))  
   )
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
   if(missing(agent)){
-    filename <- file.path(output.path, paste0("g_", generation, "agent_", agent,".png")) 
-  }else{
+    dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
     filename <- file.path(output.path, paste0("g_", generation, ".png"))
+  }else if(missing(phase)){
+    folder <- file.path(output.path, paste0("agent_", agent))
+    dir.create(folder, recursive = TRUE, showWarnings = FALSE)
+    filename <- file.path(folder, paste0("g_", generation,".png")) 
+  }else{
+    folder <- file.path(output.path, paste0("agent_", agent))
+    dir.create(folder, recursive = TRUE, showWarnings = FALSE)
+    filename <- file.path(folder, paste0("_phase_", phase, "_g_", generation, ".png")) 
   }
+  suppressWarnings(ggsave(filename, height=5, width=7))
+}
+
+plot_phase_population <- function(solutions, phase, output.path, is_final=FALSE){
+  output.path <- file.path(output.path, "pareto")
+  if(missing(is_final) || is_final==FALSE){
+    plot.title <- paste0("Phase ", phase)
+    folder <- file.path(output.path, "phases")
+    filename <- file.path(folder, paste0("phase_", phase, ".png"))
+  }else{
+    plot.title <- "Diverse Memetic NSGA-II results"
+    folder <- file.path(output.path)
+    filename <- file.path(output.path, "pareto_results.png") 
+  }
+  ranks <- solutions[, "rnkIndex"]
+  population <- as.data.frame(eaf::normalise(solutions[ , c("f1", "f2")], c(0,1)))
+  population <- cbind(population, ranks)
+  colnames(population) <- c("f1", "f2", "Solutions")
+  #pareto <- solutions[ranks == 1, ]
+  population[ranks == 1, "Solutions"] <- "Pareto front"
+  population[ranks != 1, "Solutions"] <- "Dominated"
+  population$Solutions <- as.factor(population$Solutions)
+  alpha <- ifelse(population$Solutions == "Dominated", 0.5, 1)
+  #pareto$color <- rep("grey", nrow(pareto))
+  #** TODO: Add evaluation metric as subtitle in labels x and y 
+  suppressWarnings(ggplot(population, aes(x=f1, y=f2, colour=Solutions)) +
+                     labs(title=plot.title, x="Expression Index", y="Biological Index") +
+                     geom_point(aes(color = Solutions), size=2, alpha=alpha) +
+                     scale_color_manual(values=c("#6E4F59", "#F24949")) +
+                     scale_alpha_continuous(guide=FALSE) +
+                     xlim(0, 1) + #max(pareto$f1)) +
+                     ylim(0, 1)#max(pareto$f2))  
+  )
+
+  dir.create(folder, recursive = TRUE, showWarnings = FALSE)
   suppressWarnings(ggsave(filename, height=5, width=7))
 }
 
@@ -847,6 +1105,126 @@ hipervolume_projection <- function(pareto, ref.vector, output.path){
 
 #### Memetic algorithm functions #####
 
+diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric){
+  Pop.A <- Agent.A$population[FALSE, ]
+  Pop.B <- Agent.B$population[FALSE, ]
+  Clust.A <- Agent.A$clustering
+  Clust.B <- Agent.B$clustering
+  p <- nrow(Pop.A)
+  q <- nrow(Pop.B)
+  # Create a distance matrix between chromosomes of the union of both populations
+  clust <- c(Clust.A, Clust.B)
+  distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
+  # Create a list with population membership to swap solutions between populations
+  pop.membership <- c( rep("A", p), rep("B", q) )
+  
+  # For every solution, check if its closer to B population rather than A population and viceversa
+  for(i in 1:(p+q)){ #** Note: Maybe use a random order instead of sequential? **
+    mean.dist.A <- mean(distance.matrix[i, pop.membership == "A"])
+    mean.dist.B <- mean(distance.matrix[i, pop.membership == "B"])
+    if(mean.dist.A < mean.dist.B){
+      pop.membership[i] = "A"
+      Pop.A <- rbind(Pop.A, Agent.A$population[i, ])
+    }else{
+      pop.membership[i] = "B"
+      Pop.B <- rbind(Pop.B, Agent.B$population[i, ])
+    }
+  }
+  Agent.A$population <- Pop.A
+  Agent.A$clustering <- Agent.A$clustering[as.numeric(rownames(Pop.A))]
+  Agent.B$population <- Pop.B
+  Agent.B$clustering <- Agent.B$clustering[as.numeric(rownames(Pop.B))]
+  
+  return(list("Agent.A"=Agent.A, "Agent.B"=Agent.B))
+  
+}
+
+fitness_sync <- function(Pop.A, Pop.B, obj_maximize, obj_indexes, pop_limit){
+  
+  Pop.A <- as.data.frame(Pop.A)
+  Pop.B <- as.data.frame(Pop.B)
+  #Pop.A <- Agent.A$population
+  #Pop.B <- Agent.B$population
+  #Clust.A <- Agent.A$clustering
+  #Clust.B <- Agent.B$clustering
+  pop_agent_a <- nrow(Pop.A)
+  pop_agent_b <- nrow(Pop.B)
+  
+  if(obj_maximize[1] == TRUE && obj_maximize[2] == TRUE){
+    for(j in 1:pop_agent_a){
+      for(i in 1:pop_agent_b){
+        if(Pop.B[j, "f1"] > Pop.A[i, "f1"] && Pop.B[j, "f2"] > Pop.A[i, "f2"] ){
+          Pop.A <- rbind(Pop.A, Pop.B[j,])
+          
+        }else if(Pop.B[j, "f1"] < Pop.A[i, "f1"] && Pop.B[j, "f2"] < Pop.A[i, "f2"] ){
+          Pop.B <- rbind(Pop.B, Pop.A[j,])
+        }
+      }
+    }
+  }else if(obj_maximize[1] == TRUE && obj_maximize[2] == FALSE){
+    for(j in 1:pop_agent_b){
+      for(i in 1:pop_agent_a){
+        if(Pop.B[j, "f1"] > Pop.A[i, "f1"] && Pop.B[j, "f2"] < Pop.A[i, "f2"] ){
+          Pop.A <- rbind(Pop.A, Pop.B[j,])
+        }else if(Pop.B[j, "f1"] < Pop.A[i, "f1"] && Pop.B[j, "f2"] > Pop.A[i, "f2"] ){
+          Pop.B <- rbind(Pop.B, Pop.A[j,])
+        }
+      }
+    }
+  }else if(obj_maximize[1] == TRUE){
+    for(j in 1:pop_agent_b){
+      for(i in 1:pop_agent_a){
+        if(Pop.B[j, "f1"] < Pop.A[i, "f1"] && Pop.B[j, "f2"] > Pop.A[i, "f2"] ){
+          Pop.A <- rbind(Pop.A, Pop.B[j,])
+        }else if(Pop.B[j, "f1"] > Pop.A[i, "f1"] && Pop.B[j, "f2"] < Pop.A[i, "f2"] ){
+          Pop.B <- rbind(Pop.B, Pop.A[j,])
+        }
+      }
+    }
+  }else{
+    for(j in 1:pop_agent_b){
+      for(i in 1:pop_agent_a){
+        if(Pop.B[j, "f1"] < Pop.A[i, "f1"] && Pop.B[j, "f2"] < Pop.A[i, "f2"] ){
+          Pop.A <- rbind(Pop.A, Pop.B[j,])
+        }else if(Pop.B[j, "f1"] > Pop.A[i, "f1"] && Pop.B[j, "f2"] > Pop.A[i, "f2"] ){
+          Pop.B <- rbind(Pop.B, Pop.A[j,])
+        }
+      }
+    }
+  }
+  # Population A non-dominated sorting
+  objectives <- as.matrix(Pop.A[, obj_indexes])
+  ranking <- nsga2R::fastNonDominatedSorting(objectives)
+  rankIndex <-integer(nrow(Pop.A))
+  i <- 1
+  while (i <= length(ranking)) {
+    rankIndex[ranking[[i]]] <- i
+    i <- i + 1
+  }
+  Pop.A[, "rnkIndex"] <- rankIndex
+  Pop.A <- Pop.A[order(rankIndex), ]
+  if(nrow(Pop.B) > pop_limit){
+    Pop.A <- Pop.A[1:pop_limit, ]
+  }
+  # Population B non-dominated sorting
+  objectives <- as.matrix(Pop.B[, obj_indexes])
+  ranking <- nsga2R::fastNonDominatedSorting(objectives)
+  rankIndex <-integer(nrow(Pop.B))
+  i <- 1
+  while (i <= length(ranking)) {
+    rankIndex[ranking[[i]]] <- i
+    i <- i + 1
+  }
+  Pop.B[, "rnkIndex"] <- rankIndex
+  Pop.B <- Pop.B[order(rankIndex), ]
+  if(nrow(Pop.B) > pop_limit){
+    Pop.B <- Pop.B[1:pop_limit, ] 
+  }
+
+  return(list(Pop.A, Pop.B))
+}
+
+
 #https://stackoverflow.com/questions/10903787/how-can-i-print-when-using-dopar
 #From hendalst
 Log <- function(text, agent, ...) {
@@ -862,14 +1240,14 @@ diverse_memetic_nsga2 <- function(distances, K, diversity.metric, diversity.leve
   
   agents <- params$agents
   P.size <- params$popSize
-  phases <- params$phases
+  phases <- params$phases + 1
   phase <- 1
   Agents <- list()
   
   dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
   output.log.file <- file.path(output.path, "log.txt")
   
-  sink(output.log.file, append=TRUE)
+  sink(output.log.file, append=FALSE)
   writeLines(c(""), output.log.file)
   
   Log(paste("Initiating DNSGA-2 with diversity level",diversity.level, "and metric", diversity.metric,"..."))
@@ -885,15 +1263,15 @@ diverse_memetic_nsga2 <- function(distances, K, diversity.metric, diversity.leve
   num.genes <- distances$n.genes
   g <- 1 # Current generation
   
+  ## Only uncomment if evaluating and plotting initial population is neccessary
   ## Initialize and evaluate population P
-  P.data <- cluster_data(distances, P, params$alpha)
-  P <- P.data$population
-  P.clustering.groups <- P.data$clustering.results
-  P <- evaluate_population(P, P.clustering.groups, distances, params)
-  P.clustering.groups <- P.clustering.groups[order(as.numeric(rownames(P)))]
-  rownames(P) <- 1:nrow(P)
-  
-  current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
+  #P.data <- cluster_data(distances, P, params$alpha)
+  #P <- P.data$population
+  #P.clustering.groups <- P.data$clustering.results
+  #P <- evaluate_population(P, distances, params)
+  #P.clustering.groups <- P.clustering.groups[as.numeric(rownames(P))]
+  rownames(P) <- 1:P.size
+  #current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
   
   generations.no.changes <- 0
   has.converged <- FALSE
@@ -909,98 +1287,122 @@ diverse_memetic_nsga2 <- function(distances, K, diversity.metric, diversity.leve
     Agents <- c(Agents, list( P[ unlist( solutions[i] ) , ] ) )  
   }
   
-  cl <<- makeCluster(agents)
+  cores <- detectCores()
+  if(cores < agents){
+    warning(paste0("[Warning] Number of cores (", cores ,") is lower than agent number (",agents,"). Lower agent number is suggested"))
+    cl <<- makeCluster(cores)
+  }else{
+    cl <<- makeCluster(agents)
+  }
   registerDoParallel(cl)
   
   source("dmmoea_functions.R")
   exported_func <- c("dnsga2")
-  #exported_func <- c("dnsga2", "cluster_data", "evaluate_population", "evaluate_xie_beni", "dominance_ranking_sorting", "Log")
+  #exported_func <- c("dnsga2", "cluster_data", "evaluate_population", "evaluate_xie_beni", "Log")
   #clusterExport(cl, c("agents", "phases", exported_func))
   clusterExport(cl, exported_func)
   
   while (phase <= phases) {
     
     Agents <- foreach(i=1:params$agents, .combine = c, .export=c("pop.per.agent", "gen.per.phase", "phase"), .inorder = FALSE) %dopar% {
-      
-      #pareto_agent <- dnsga2(Agents[[i]], i, pop_per_agent, ev_per_agent, param, phase)
-      pareto_agent <- dnsga2(initial_population=Agents[[i]], agent=i, P.size=pop.per.agent, generations=gen.per.phase, distances, K, diversity.metric, diversity.level, params, output.path)
+      # For every agent, call an NSGA-II procedure
+      pareto_agent <- dnsga2(initial_population=Agents[[i]], agent=i, phase=phase, P.size=pop.per.agent, 
+                             generations=gen.per.phase, distances, K, diversity.metric, 
+                             diversity.level, params, output.path)
       return( list( pareto_agent ) )
     }
-    print(Agents)
     
-    Log(paste("Phase", phase, "Agents finished!"))
-    
-    # Synchronize agents
-    print(agents)
-    for(i in 1:agents){
-      for(j in 1:agents){
-        if(i == j) {
-          next
-        }
-        #solutions_taken <- population / param$num_agents
-        #threshold <- population - solutions_taken
-        #temp <- tournamentSelection(rbind(Agents[[i]], Agents[[j]]), pop_agent_i + pop_agent_j, param$tourSize)
-        
-        #Agents[[i]] <- fitness(Agents[[i]], Agents[[j]], "min", "min", pop_per_agent)
-        print(paste("Testing agent", i, ",",j))
-      }
-    }
-    Log("Phase %d synchronization ended!\n", phase)
-    Log("Phase %d solutions: \n", phase)
-    print(Agents)
-    
-    #We need to discard the other information before using it for the new phase population
     if(phase != phases){
+      ##*** TODO: output pareto front for this phase ***
+      # Aggregate solutions across agents
+      res <- aggregate_agents(Agents, agents, K, params$objDim)
+      res$population <- remove_duplicated(res$population, K)
+      # Plot current solutions for this phase
+      plot_phase_population(res$population, phase, output.path)
+      
+      #We need to discard the other information (clustering) before using it for the new phase population
       for(i in 1:agents){
-        Agents[[i]] <- Agents[[i]][ , 1:K]
+        Agents[[i]] <- remove_duplicated(Agents[[i]]$population, K)
+        #Agents[[i]] <- Agents[[i]]$population
+        Log(paste("Agent",i,"solutions for next phase:"))
+        print(Agents[[i]])
       }
+    }else{
+      # If all phases ended, algorithm finished!
+      Log("Agent finished last phase!, exiting...")
+      break
     }
     
-    print("Next phase")
+    Log(paste("Phase", phase, "Agents finished!. Starting sync stage..."))
+    # Synchronize every pair of agents
+    obj_indexes <- (K+1):(K+params$objDim)
+    for(i in 1:(agents-1)){
+      for(j in (i+1):agents){
+        
+        if(diversity.metric >= 4){
+          res <- diverse_fitness_sync(Agents[[i]], Agents[[j]], diversity.metric)
+        }else{
+          res <- fitness_sync(Agents[[i]], Agents[[j]], params$obj_maximize, obj_indexes, pop.per.agent)
+        }
+        Agents[[i]] <- res[[1]] # Population agent A
+        Agents[[j]] <- res[[2]] # Population agent B
+      }
+    }
+    Log(paste("Phase", phase, "synchronization ended!"))
+    
+    Log("Next phase")
     phase <- phase + 1
   }
   
-  #best_solutions_target <- Agents[[j]][1:solutions_taken, ]
-  #worst_solutions_agent <- Agents[[i]][threshold: .N, ]
-  #if(best_solutions_target$obj1[1,] < worst_solutions_agent$obj1[threshold, ] &&
-  #   best_solutions_target$obj2[1,] < worst_solutions_agent$obj2[threshold, ]) { #POR AHORA CON MINIMIZACION
-  #  Agent[[i]][threshold:.N, ] <- best_solutions_target
-  #  cat(paste(Sys.time()),"Agent",i,"takes the",solutions_taken,"best solutions of agent",j)
-  #}
+  stopCluster(cl) # Clean workers
+  closeAllConnections() # Close output log files
   
-  pareto <- data.frame()
-  for(i in 1:agents){
-    pareto <- rbind(pareto, Agents[[i]])
+  # This doesnt work :(
+  #sink(type="message") # Return output to console
+  
+  # Aggregate solutions across agents and return
+  solutions<- aggregate_agents(Agents, agents, K, params$objDim)
+  solutions$population <- remove_duplicated(solutions$population, K)
+  plot_phase_population(solutions$population, phases, output.path, is_final=TRUE)
+  Log("Resulting population:")
+  print(solutions$population)
+  return(solutions)
+}
+
+aggregate_agents <- function(Agents, n.agents, K, obj.dim){
+  population <- Agents[[1]]$population
+  clustering <- Agents[[1]]$clustering
+  for(i in 2:n.agents){
+    population <- rbind(population, Agents[[i]]$population)
+    clustering <- c(clustering, Agents[[i]]$clustering)
   }
-  pareto<- pareto[!duplicated(pareto),] # Delete duplicates
-  
-  Log("Deep Memetic NSGA-2 Algorithm finished!!")
-  
-  
-  # Pruning non pareto-front solutions
-  #objetives <- as.matrix(pareto[, c("f1", "f2")]) 
-  #ranks <- NonDomSorting(objetives) 
-  #pareto <- pareto[ unlist(ranks[[1]]) , ] #Select the rank 1 indices
-  # No need to limit number of population now
-  #if(nrow(pareto) > pop_size){
-  #  pareto <- pareto[1:pop_size, ]
-  #}
-  
-  #Obtain results
-  #guarda_paretos=carga_guarda_pareto(alfa, num_k,  distancias$matriz_exp,  distancias$distancia_exp, distancias$distancia_bio, pop_per_agent, pareto, FALSE)
-  
-  #File result
-  #exp.name <- paste0(output_result_file, "\\B_memetic")
-  
-  #save results
-  #write.table(guarda_paretos$pareto_clustering, file = paste0(exp.name,"_clustering.csv"),sep = ",",col.names = TRUE, quote = FALSE)
-  #write.table(guarda_paretos$pareto_objectives, file = paste0(exp.name,".csv"),sep = ",",col.names = TRUE, row.names = TRUE,quote = FALSE)
-  #write.table(guarda_paretos$pareto_silhouette, file = paste0(exp.name,"_silhouettes.csv"),sep = ",",col.names = FALSE, quote = FALSE)
-  
-  #show results
-  #Log("Showing results: \n")
-  #print(pareto)
-  #print(guarda_paretos)
-  
-  return(pareto)
+  n.pop <- nrow(population)
+  rownames(population) <- 1:n.pop
+  obj.values <- population[ , (K+1):(K+obj.dim)]
+  population <- dominance_ranking_sorting(population[, 1:K], obj.values)
+  clustering <- clustering[as.numeric(rownames(population))]
+  return(list("population"=population, "clustering"=clustering))
+}
+
+fill_population <- function(P, K, n.genes, fill){
+  filled <- 1
+  filled.pop <- matrix(nrow = fill, ncol = K)
+  while(filled <= fill){
+    sample.chr <- sample(1:nrow(P), 1)
+    chr <- P[sample.chr, 1:K]
+    sample.medoid <- sample(1:K, 1)
+    sample.gene <- sample(1:n.genes, 1)
+    if(!is.element(sample.gene, P[sample.chr, ])){
+      chr[1, sample.medoid] <- sample.gene
+      filled.pop[filled,1:K] <- unlist(chr)
+      filled <- filled + 1
+    }
+  }
+  return(filled.pop)
+}
+
+remove_duplicated <- function(population, K){
+  pop <- population[, 1:K]
+  pop <- t(apply(pop, 1, function(x) sort(x)))
+  return(population[!duplicated(pop), ])
 }
