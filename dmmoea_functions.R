@@ -1826,7 +1826,7 @@ normalize_results <- function(results.path){
     for(f in 1:length(experiments)){
       exp.name <- experiments[f] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
       #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
-      pareto <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
+      pareto <- read.csv(file.path(exp.name, paste0(basename(exp.name), ".csv")), header = FALSE)
       max.values <- apply(pareto, 2, max)
       min.values <- apply(pareto, 2, min)
       if(max.values[1] > max.f1){

@@ -1,0 +1,5 @@
+# Instance list
+arabidopsis --plot=FALSE --print=TRUE
+sporulation --plot=FALSE --print=TRUE
+cell_cycle --plot=FALSE --print=TRUE
+serum --plot=FALSE --print=TRUE
