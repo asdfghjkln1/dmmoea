@@ -1,4 +1,4 @@
-load.gene.distance <- function(path){
+load.gene.distance <- function(path, alpha){
     
     # Load data matrix
     data.matrix<-as.matrix(read.table(paste(path,"/BD.csv",sep=""), header=T, sep=","))
@@ -10,5 +10,8 @@ load.gene.distance <- function(path){
     # Load expression-based distance matrix
     exp.dist <-read.table(paste(path,"/matriz_distancia_expresion_pearson.csv",sep=""), header=T, sep=",")
     
-    return(list(data.matrix=data.matrix, exp.dist=exp.dist, bio.dist=bio.dist, n.genes=n.genes))  
+    comp.dist <- alpha*exp.dist + (1-alpha)*exp.dist
+    #print(comp.dist[1:20, 1:20])
+    
+    return(list(data.matrix=data.matrix, exp.dist=exp.dist, bio.dist=bio.dist, comp.dist=comp.dist, n.genes=n.genes))  
 }

@@ -1,3 +1,9 @@
+
+Tests/runs
+Tests/tuning/nsga2/
+Tests/tuning/dnsga2/
+Tests/tuning/dmnsga2/
+
 # History files
 .Rhistory
 .Rapp.history
