@@ -93,7 +93,7 @@ evaluate_run_results <- function(path){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE)
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
-        hv <- eaf::hypervolume(data=data, reference=c(2,2), maximise = TRUE)
+        hv <- calculate_hypervolume(data, c(2,2), maximise = FALSE)
         values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,"Hypervolume"=hv)
         plot.data <- rbind(plot.data, values)
       }

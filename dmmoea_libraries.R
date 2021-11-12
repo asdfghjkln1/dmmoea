@@ -11,10 +11,10 @@ if(!require(factoextra)){
   install.packages("factoextra")
   library(factoextra)
 }
-if(!require(eaf)){
-  install.packages("eaf")
-  library(eaf)
-}
+#if(!require(eaf)){
+#  install.packages("eaf")
+#  library(eaf)
+#}
 if(!require(irace)){
   install.packages("irace")
   library(irace)

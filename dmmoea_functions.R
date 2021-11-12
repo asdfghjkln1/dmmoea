@@ -13,11 +13,11 @@ generate_diverse_initial_pop <- function(distances, params, p.size=NULL, diverse
   if(missing(p.size)){
     p.size <- params$popSize
   }
-  # Normalize distance matrix
+  # Normalise distance matrix
   #D <- distances$comp.dist # params$alpha*distances$bio.dist + (1-params$alpha)*distances$exp.dist # Doesn't work? Weird numbers
   #D <- distances$exp.dist
   D <- distances$comp.dist
-  D <- as.data.frame(eaf::normalise(D, c(0,1)))
+  #D <- as.data.frame(eaf::normalise(D, c(0,1)))
   D.size <- nrow(D)
   population <- matrix(nrow=p.size, ncol=K)
   
@@ -1058,23 +1058,26 @@ plot_pareto <- function(old.pareto, new.pareto, generation, output.path, agent=N
   output.path <- file.path(output.path, "pareto")
   #new.pareto <- new.pareto[, c("f1", "f2")]
   #old.pareto <- old.pareto[, c("f1", "f2")]
-  new.pareto <- as.data.frame(eaf::normalise(new.pareto[, c("f1", "f2")], c(0,1)))
-  old.pareto <- as.data.frame(eaf::normalise(old.pareto[, c("f1", "f2")], c(0,1)))
+  #new.pareto <- as.data.frame(eaf::normalise(new.pareto[, c("f1", "f2")], c(0,1)))
+  #old.pareto <- as.data.frame(eaf::normalise(old.pareto[, c("f1", "f2")], c(0,1)))
+  new.pareto <- normalise_pareto(new.pareto[, c("f1", "f2")])
+  old.pareto <- normalise_pareto(old.pareto[, c("f1", "f2")])
   
-  # Define an scale function and normalize
+  # Define an scale function and normalise
   #scaler <- function(x){ (x-min(x))/(max(x)-min(x)) }
-  if(nrow(new.pareto) == 1 && nrow(old.pareto) == 1){ # If new pareto has 1 solution, normalize in reference
+  if(nrow(new.pareto) == 1 && nrow(old.pareto) == 1){ # If new pareto has 1 solution, normalise in reference
     temp <- rbind(old.pareto, new.pareto)
-    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    #temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    temp <- normalise_pareto(temp)
     old.pareto <- temp[1, ]
     new.pareto <- temp[2, ]
   }else if(nrow(old.pareto) == 1){
     temp <- rbind(old.pareto, new.pareto)
-    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    temp <- normalise_pareto(temp)
     old.pareto <- temp[1, ]
   }else if(nrow(new.pareto) == 1){
     temp <- rbind(new.pareto, old.pareto)
-    temp <- as.data.frame(eaf::normalise(temp, c(0,1)))
+    temp <- normalise_pareto(temp)
     new.pareto <- temp[1, ]
   }
   #}else{
@@ -1123,7 +1126,8 @@ plot_phase_population <- function(solutions, phase, output.path, is_final=FALSE,
     filename <- file.path(output.path, "pareto_results.png") 
   }
   ranks <- solutions[, "rnkIndex"]
-  population <- as.data.frame(eaf::normalise(solutions[ , c("f1", "f2")], c(0,1)))
+  #population <- as.data.frame(eaf::normalise(solutions[ , c("f1", "f2")], c(0,1)))
+  population <- normalise_pareto(solutions[ , c("f1", "f2")])
   population <- cbind(population, ranks)
   colnames(population) <- c("f1", "f2", "Solutions")
   #pareto <- solutions[ranks == 1, ]
@@ -1268,7 +1272,8 @@ plot_algorithm_comparison_pareto <- function(exp.path){
     dataset <- datasets[i]
     data <- plot.data[plot.data$Dataset == dataset, ]
     data.norm <- data
-    data.norm[, c("f1", "f2")] <- eaf::normalise(data.norm[, c("f1", "f2")], c(0,1))
+    #data.norm[, c("f1", "f2")] <- eaf::normalise(data.norm[, c("f1", "f2")], c(0,1))
+    data.norm[, c("f1", "f2")] <- normalise_pareto(data.norm[, c("f1", "f2")])
     
     ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
@@ -1279,7 +1284,7 @@ plot_algorithm_comparison_pareto <- function(exp.path){
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,".png")), height=7, width=7) 
     
     ggplot(data.norm, aes(x=f1, y=f2, color=Algorithm)) +
-      labs(title=paste0("Normalized pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
+      labs(title=paste0("Normalised pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
       geom_point() +
       geom_line() +
       theme(legend.position="top") +
@@ -1813,7 +1818,17 @@ remove_duplicated <- function(population, K){
   return(population[!duplicated(pop), ])
 }
 
-normalize_results <- function(results.path){
+normalise_pareto <- function(data, dims=2){
+  max <- apply(data, 2, max)
+  min <- apply(data, 2, min)
+  for(i in 1:dims){
+    scaler <- function(x){ (x-min[i])/(max[i]-min[i]) }
+    data[, i] <- scaler(data[, i])
+  }
+  return(as.data.frame(data))
+}
+
+normalise_results <- function(results.path){
   max.f1 <- 0
   min.f1 <- Inf
   max.f2 <- 0
@@ -1880,4 +1895,26 @@ update_normalization_limits <- function(results.path, experiment.path){
     write.table(limits, file=file.path(results.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE) 
   }
   return(limits)
+}
+
+calculate_hypervolume <- function(pareto, point, maximize=FALSE){
+  pareto <- pareto[order(pareto[, 1], decreasing=TRUE), ]
+  if(maximize){
+    hv <- (point[1] - pareto[1, 1])*(point[2] - pareto[1, 2])
+    for(i in 1:(nrow(pareto)-1)){
+      w <- (pareto[i, 1] - pareto[i+1, 1])
+      h <- (point[2] - pareto[i+1, 2])
+      hv <- hv + w*h
+    }
+  }else{
+    # Is it really the same?
+    hv <- (point[1] - pareto[1, 1])*(point[2] - pareto[1, 2])
+    for(i in 1:(nrow(pareto)-1)){
+      w <- (pareto[i, 1] - pareto[i+1, 1])
+      h <- (point[2] - pareto[i+1, 2])
+      hv <- hv + w*h
+    }
+  }
+  return(hv)
+  
 }

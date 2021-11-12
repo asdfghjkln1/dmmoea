@@ -99,7 +99,7 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
   ##** CAREFUL WHEN ADDING MORE OBJECTIVES !! **## 
   if(configuration[['objectives']] == "XieBeni" || configuration[['objectives']] == "Dunn" || configuration[['objectives']] == "BallHall"){
     if(!file.exists(file.path(base.path, "limits.csv"))){
-      limits <- normalize_results(base.path)
+      limits <- normalise_results(base.path)
     }else{
       limits <- update_normalization_limits(base.path, instance.path)
     }
@@ -119,7 +119,7 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
     pareto <- read.csv(instance.path, header=FALSE, sep=",")
     maximize <- FALSE
   }
-  hv <- eaf::hypervolume(data=pareto, reference=ref.point, maximize)
+  hv <- calculate_hypervolume(pareto, ref.point, maximize)
 
   res <- data.frame("id"=exp.id, "Algorithm"=configuration[['algorithm']], "Dataset"=dataset.name,"Hypervolume"=hv)
   if(file.exists(file.path(base.path, "plot_data.csv"))){
