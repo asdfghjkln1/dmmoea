@@ -1,3 +1,4 @@
+#!bin/usr/env Rstudio
 run_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)

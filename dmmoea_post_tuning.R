@@ -1,3 +1,4 @@
+#!bin/usr/env Rstudio
 execute_tests <- function(params, path, output.folder, algorithm, dataset, n.times=1){
   setwd(path)
   source("dmmoea_functions.R")
