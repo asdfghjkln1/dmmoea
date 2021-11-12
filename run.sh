@@ -1,7 +1,7 @@
 #!/bin/bash
 set +e
 # PATH=$PATH:/bin/usr:Rscript
-export $WD_PATH=$(pwd)
+export WD_PATH=$(pwd)
 export PARAMS_NSGA="parameters_nsga.txt"
 export PARAMS_DNSGA="parameters_dnsga.txt"
 export PARAMS_DMNSGA="parameters_dmnsga.txt"
