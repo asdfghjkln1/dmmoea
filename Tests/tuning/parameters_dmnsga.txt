@@ -5,15 +5,14 @@ evaluations "--evaluations " o (2000)
 popSize "--p_size " o (12, 20, 32, 40)
 mating_rate "--mat_rate " r (0.5, 0.9)
 mutation_rate "--mut_rate " r (0.01, 0.5)
-tourSize "--tourSize " o (2)
 alpha "--alpha " o (0.5)
 is_random_population "--rand_pop" o (0, 1)
 diversity_metric "--diversity_metric " c (jaccard) | algorithm != "nsga2"
-diversity_level "--diversity_level " o (4) | algorithm != "nsga2"
+diversity_level "--diversity_level " o (1,2,3,4) | algorithm != "nsga2"
 auto_adjust_initial_params "--auto_adjust" o (0, 1) | algorithm != "nsga2"
-min_density_radius "--min_density_radius " o (0.01) | auto_adjust_initial_params == 0
-max_density_radius "--max_density_radius " o (0.2) | auto_adjust_initial_params == 0
-density_tol "--density_tol " o (0.01) | auto_adjust_initial_params == 0
+min_density_radius "--min_density_radius " r (0.01, 0.1) | auto_adjust_initial_params == 0
+max_density_radius "--max_density_radius " r (0.2, 0.4) | auto_adjust_initial_params == 0
+density_tol "--density_tol " r (0.01, 0.1) | auto_adjust_initial_params == 0
 phases "--phases " o (1, 2, 4) | algorithm == "dmnsga2"
 agents "--agents " o (2, 4) | algorithm == "dmnsga2"
 sync_off "--sync_off " o (0, 1) | algorithm == "dmnsga2"

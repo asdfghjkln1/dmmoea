@@ -1048,6 +1048,37 @@ rand_index <- function(yy, ny, yn, nn){
   return ( (yy + nn) / sum(matrix) )
 }
 
+# Not working
+normalized_mutual_information <- function(A.groups, B.groups){
+  N <- length(A.groups)
+  tab.a <- table(A.groups)
+  P.a <- unname(apply(tab.a, 1, function(x) x/N))
+  print(P.a)
+  tab.b <- table(B.groups)
+  P.b <- unname(apply(tab.b, 1, function(x) x/N))
+  print(P.b)
+  H_A <- -1*sum(P.a*log(P.a))
+  H_B <- -1*sum(P.a*log(P.a))
+  
+  NMI_den <- sqrt(H_A*H_B)
+  print(NMI_den)
+  
+  K <- max(A.groups)
+  NMI_num <- 0
+  
+  for(j in 1:K){
+    for(k in 1:K){
+      P.ab <- sum(A.groups == B.groups & A.groups == j & B.groups == k)/N
+      print(paste0(j, ",", k))
+      print(P.ab)
+      NMI_num <- NMI_num + P.ab*log( P.ab / ( P.a[j]*P.b[k] ) ) 
+      print("NMI")
+      print(NMI_num)
+    }
+  }
+  return(NMI_num/NMI_den)
+}
+
 #### Evaluation and result plotting functions ####
 
 # Plot partial pareto front

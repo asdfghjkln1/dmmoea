@@ -31,7 +31,6 @@ target.runner <- function(experiment, scenario){
   params$popSize <- as.numeric(configuration[['popSize']])
   params$mating_rate <- as.numeric(configuration[['mating_rate']])
   params$mutation_rate <- as.numeric(configuration[['mutation_rate']])
-  params$tourSize <- as.numeric(configuration[['tourSize']])
   params$alpha <- as.numeric(configuration[['alpha']])
   params$is_random_population <- as.numeric(configuration[['is_random_population']])
   params$auto_adjust_initial_params <- as.numeric(configuration[['auto_adjust_initial_params']])

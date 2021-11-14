@@ -137,7 +137,6 @@ test_best_configurations <- function(){
     params$popSize <- best_params$popSize
     params$mating_rate <- best_params$mating_rate
     params$mutation_rate <- best_params$mutation_rate
-    params$tourSize <- best_params$tourSize
     params$alpha <- best_params$alpha
     params$is_random_population <- best_params$is_random_population
     params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
