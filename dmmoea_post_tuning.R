@@ -74,13 +74,13 @@ get_evaluation_limits <- function(path){
   write.table(limits, file=file.path(path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
 }
 
-evaluate_run_results <- function(path){
+evaluate_run_results <- function(path, maximize){
   limits <- read.csv(file.path(path, "limits.csv"), header = TRUE)
   scaler.f1 <- function(x){ (x-limits$min.f1)/(limits$max.f1-limits$min.f1) }
   scaler.f2 <- function(x){ (x-limits$min.f2)/(limits$max.f2-limits$min.f2) }
   algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)
-  plot.data <- as.data.frame(matrix(nrow=0, ncol=4))
-  colnames(plot.data) <- c("id", "Algorithm", "Dataset", "Hypervolume")
+  plot.data <- as.data.frame(matrix(nrow=0, ncol=6))
+  colnames(plot.data) <- c("id", "Algorithm", "Dataset", "Hypervolume", "Silhouette", "Delta")
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     if(algorithm == "figures"){ next }
@@ -88,13 +88,16 @@ evaluate_run_results <- function(path){
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       exp.path <- file.path(path, algorithm, dataset)
+      evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",")
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE)
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
-        hv <- calculate_hypervolume(data, c(2,2), maximise = FALSE)
-        values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,"Hypervolume"=hv)
+        hv <- calculate_hypervolume(data, c(2,2), maximize)
+        sil <- evaluation.file[k, "avg_sil"]
+        delta <- evaluation.file[k, "delta"]
+        values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,"Hypervolume"=hv, "Silhouette"=sil, "Delta"=delta)
         plot.data <- rbind(plot.data, values)
       }
     }
@@ -130,9 +133,9 @@ test_best_configurations <- function(){
     if(algorithm == "figures"){ next }
     best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE)
     # Initialize params
-    params <- init_parameters()
+    params <- init_parameters(objectives=best_params$objectives)
     params$K <- best_params$K
-    params$objectives <- best_params$objectives
+    #params$objectives <- best_params$objectives
     params$evaluations <- best_params$evaluations
     params$popSize <- best_params$popSize
     params$mating_rate <- best_params$mating_rate
@@ -145,6 +148,7 @@ test_best_configurations <- function(){
       params$max_density_radius <- best_params$max_density_radius
       params$density_tol <- best_params$density_tol
     }
+    params$diversity_metric <- best_params$diversity_metric
     params$phases <- best_params$phases
     params$agents <- best_params$agents
     params$sync_off <- best_params$sync_off
@@ -161,7 +165,7 @@ test_best_configurations <- function(){
   }
   
   get_evaluation_limits(test.path)
-  evaluate_run_results(test.path)
+  evaluate_run_results(test.path, params$obj_maximize)
   
   plot.data <- read.table(file.path(test.path, "plot_data.csv"), sep=",", header=TRUE)
   plot_algorithm_comparison(test.path, plot.data)

@@ -22,11 +22,11 @@ target.runner <- function(experiment, scenario){
   #dataset <- configuration[['dataset']]
   experiment$configuration[['dataset']] <- dataset.name
   
-  params <- init_parameters(dataset.name = dataset.name)
+  params <- init_parameters(dataset.name = dataset.name, objectives=configuration[['objectives']])
 
   algorithm <- configuration[['algorithm']]
   params$K <- as.numeric(configuration[['K']])
-  params$objectives <- configuration[['objectives']]
+  #params$objectives <- configuration[['objectives']]
   params$evaluations <- as.numeric(configuration[['evaluations']])
   params$popSize <- as.numeric(configuration[['popSize']])
   params$mating_rate <- as.numeric(configuration[['mating_rate']])
@@ -39,6 +39,7 @@ target.runner <- function(experiment, scenario){
     params$max_density_radius <- as.numeric(configuration[['max_density_radius']])
     params$density_tol <- as.numeric(configuration[['density_tol']]) 
   }
+  params$diversity_metric <- configuration[['diversity_metric']]
   params$phases <- as.numeric(configuration[['phases']])
   params$agents <- as.numeric(configuration[['agents']])
   params$sync_off <- as.numeric(configuration[['sync_off']])
@@ -114,9 +115,9 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
     maximize <- FALSE
     ref.point <- c(2,2)
   }else if(configuration[['objectives']] == "Silhouette"){
-    ref.point <- c(1,1)
+    ref.point <- c(0,0)
     pareto <- read.csv(instance.path, header=FALSE, sep=",")
-    maximize <- FALSE
+    maximize <- TRUE
   }
   hv <- calculate_hypervolume(pareto, ref.point, maximize)
 

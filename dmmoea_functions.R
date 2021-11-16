@@ -998,41 +998,44 @@ calculate_diversity_matrix <- function(groups, metric){
 }
 
 diversity_metric <- function(group1, group2, metric){
-  n.elem <- length(group1)
-  pairs <- t(combn(1:n.elem, 2))
-  yy <- 0 # True positive
-  nn <- 0 # True negative
-  yn <- 0 # False positive
-  ny <- 0 # False negative
-  for(pair in 1:nrow(pairs)){
-    p1 <- pairs[pair, 1] # Gene 1 
-    p2 <- pairs[pair, 2] # Gene 2
-    g1.p1 <- group1[p1] # Group of gene 1 in group1
-    g1.p2 <- group1[p2] # Group of gene 2 in group1
-    g2.p1 <- group2[p1] # Group of gene 1 in group2
-    g2.p2 <- group2[p2] # Group of gene 2 in group2
-    if((g1.p1 == g1.p2) && (g2.p1 == g2.p2)){ # genes are in same cluster, in both solutions
-      yy <- yy + 1
-    }else if(g1.p1 == g1.p2){ # genes are in same cluster in group1, but not in group2
-      yn <- yn + 1
-    }else if(g2.p1 == g2.p2){ # genes are in same cluster in group2, but not in group1
-      ny <- ny + 1
-    }else{ # genes are not in the same cluster according to both solutions
-      nn <- nn + 1
-    }
-  }
-  if(metric == "jaccard"){
-    return(jaccard_index(yy,ny,yn,nn))
-  }else if(metric == "rand"){
-    return(rand_index(yy,ny,yn,nn))
-  #...
+  if(metric == "NMI"){
+    return(normalized_mutual_information(group1, group2))
   }else{
-    warning(paste("ERROR: Metric", metric, "not supported!"))
-    return(FALSE)
+    n.elem <- length(group1)
+    pairs <- t(combn(1:n.elem, 2))
+    yy <- 0 # True positive
+    nn <- 0 # True negative
+    yn <- 0 # False positive
+    ny <- 0 # False negative
+    for(pair in 1:nrow(pairs)){
+      p1 <- pairs[pair, 1] # Gene 1 
+      p2 <- pairs[pair, 2] # Gene 2
+      g1.p1 <- group1[p1] # Group of gene 1 in group1
+      g1.p2 <- group1[p2] # Group of gene 2 in group1
+      g2.p1 <- group2[p1] # Group of gene 1 in group2
+      g2.p2 <- group2[p2] # Group of gene 2 in group2
+      if((g1.p1 == g1.p2) && (g2.p1 == g2.p2)){ # genes are in same cluster, in both solutions
+        yy <- yy + 1
+      }else if(g1.p1 == g1.p2){ # genes are in same cluster in group1, but not in group2
+        yn <- yn + 1
+      }else if(g2.p1 == g2.p2){ # genes are in same cluster in group2, but not in group1
+        ny <- ny + 1
+      }else{ # genes are not in the same cluster according to both solutions
+        nn <- nn + 1
+      }
+    }
+    if(metric == "jaccard"){
+      return(jaccard_index(yy,ny,yn,nn))
+    }else if(metric == "rand"){
+      return(rand_index(yy,ny,yn,nn))
+      #...
+    }else{
+      warning(paste("ERROR: Metric", metric, "not supported!"))
+      return(FALSE) 
+    }
   } 
   #conf.matrix <- matrix(c(yy, ny, yn, nn), nrow=2, ncol=2)
   #return(conf.matrix)
-  
 }
 
 jaccard_index <- function(yy, ny, yn, nn){
@@ -1040,12 +1043,12 @@ jaccard_index <- function(yy, ny, yn, nn){
   #ny <- matrix[2,1]
   #yn <- matrix[1,2]
   #nn <- matrix[2,2]
-  return( yy / (yy + yn + ny) )
+  return( round(1 - (yy / (yy + yn + ny)), 3) )
 }
 
 # Do not use rand index
 rand_index <- function(yy, ny, yn, nn){
-  return ( (yy + nn) / sum(matrix) )
+  return ( round(1 - ((yy + nn) / (yy + yn + ny + nn)), 3) )
 }
 
 # Not working
@@ -1053,30 +1056,28 @@ normalized_mutual_information <- function(A.groups, B.groups){
   N <- length(A.groups)
   tab.a <- table(A.groups)
   P.a <- unname(apply(tab.a, 1, function(x) x/N))
-  print(P.a)
   tab.b <- table(B.groups)
   P.b <- unname(apply(tab.b, 1, function(x) x/N))
-  print(P.b)
   H_A <- -1*sum(P.a*log(P.a))
   H_B <- -1*sum(P.a*log(P.a))
   
   NMI_den <- sqrt(H_A*H_B)
-  print(NMI_den)
   
-  K <- max(A.groups)
-  NMI_num <- 0
   
-  for(j in 1:K){
-    for(k in 1:K){
-      P.ab <- sum(A.groups == B.groups & A.groups == j & B.groups == k)/N
-      print(paste0(j, ",", k))
-      print(P.ab)
-      NMI_num <- NMI_num + P.ab*log( P.ab / ( P.a[j]*P.b[k] ) ) 
-      print("NMI")
-      print(NMI_num)
-    }
-  }
-  return(NMI_num/NMI_den)
+  #K <- max(A.groups)
+  NMI_num <- infotheo::mutinformation(A.groups, B.groups)
+  
+  #for(j in 1:K){
+  #  for(k in 1:K){
+  #    P.ab <- sum(A.groups == j & B.groups == k)/N
+  #    print(paste0(j, ",", k))
+  #    print(P.ab)
+  #    NMI_num <- NMI_num + P.ab*log( P.ab / ( P.a[j]*P.b[k] ) ) 
+  #    print("NMI")
+  #    print(NMI_num)
+  #  }
+  #}
+  return( round(1 - (NMI_num/NMI_den), 3) )
 }
 
 #### Evaluation and result plotting functions ####
@@ -1228,34 +1229,45 @@ plot_experiment_results <- function(exp.path){
 
 plot_algorithm_comparison <- function(exp.path, plot.data=NULL){
   if(!missing(plot.data)){
+    dir.create(file.path(exp.path, "figures"), recursive=TRUE, showWarnings = FALSE)
     ggplot(plot.data, aes(x=Dataset, y=Hypervolume, fill=Algorithm)) +
       labs(title="Hypervolume values by algorithm", y="Hypervolume") +
       geom_boxplot() +
       facet_wrap(~Dataset, scale="free")
-    
-    dir.create(file.path(exp.path, "figures"), recursive=TRUE, showWarnings = FALSE)
     ggsave(file.path(exp.path, "figures", "hv_results.png"), height=7, width=7)
-    return()
-  }
-  folder.path <- file.path(exp.path)
-  algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
-  for(i in 1:length(algorithms)){
-    algorithm <- algorithms[i]
-    data.file <- file.path(folder.path, algorithm, "plot_data.csv")
-    evaluations <- read.table(data.file, sep=",", header = TRUE, row.names=NULL)
-    if(i == 1){
-      plot.data.metrics <- evaluations
-    }else{
-      plot.data.metrics <- rbind(plot.data.metrics, evaluations)
+    
+    ggplot(plot.data, aes(x=Dataset, y=Silhouette, fill=Algorithm)) +
+      labs(title="Silhouette index values by algorithm", y="Average population silhouette") +
+      geom_boxplot() +
+      facet_wrap(~Dataset, scale="free")
+    ggsave(file.path(exp.path, "figures", "sil_results.png"), height=7, width=7)
+    
+    ggplot(plot.data, aes(x=Dataset, y=Delta, fill=Algorithm)) +
+      labs(title="Delta index values by algorithm", y="Delta index") +
+      geom_boxplot() +
+      facet_wrap(~Dataset, scale="free")
+    ggsave(file.path(exp.path, "figures", "delta_results.png"), height=7, width=7)
+  }else{
+    folder.path <- file.path(exp.path)
+    algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
+    for(i in 1:length(algorithms)){
+      algorithm <- algorithms[i]
+      data.file <- file.path(folder.path, algorithm, "plot_data.csv")
+      evaluations <- read.table(data.file, sep=",", header = TRUE, row.names=NULL)
+      if(i == 1){
+        plot.data.metrics <- evaluations
+      }else{
+        plot.data.metrics <- rbind(plot.data.metrics, evaluations)
+      }
     }
+    ggplot(plot.data.metrics, aes(x=Dataset, y=Hypervolume, fill=Algorithm)) +
+      labs(title="Hypervolume values by algorithm", y="Hypervolume") +
+      geom_boxplot() +
+      facet_wrap(~Dataset, scale="free")
+    
+    dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
+    ggsave(file.path(folder.path, "figures", "hv_results.png"), height=5, width=7)
   }
-  ggplot(plot.data.metrics, aes(x=Dataset, y=Hypervolume, fill=Algorithm)) +
-    labs(title="Hypervolume values by algorithm", y="Hypervolume") +
-    geom_boxplot() +
-    facet_wrap(~Dataset, scale="free")
-  
-  dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
-  ggsave(file.path(folder.path, "figures", "hv_results.png"), height=5, width=7)
 }
 
 plot_algorithm_comparison_pareto <- function(exp.path){
@@ -1341,8 +1353,8 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   N <- nrow(pareto)
   #dist.compounded <- distances$comp.dist #params$alpha*distances$exp.dist + (1-params$alpha)*distances$bio.dist
   #gene.dist <- distances$exp.dist 
-  gene.dist <- distances$bio.dist#comp.dist 
-  gene.dist2 <- distances$comp.dist
+  gene.dist <- distances$comp.dist 
+  #gene.dist2 <- distances$comp.dist
   
   # Create silhouette results table
   labels <- rep(NA, K)
@@ -1356,13 +1368,9 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   for(i in 1:N){
     # Calculate Silhouette metric
     sil <- cluster::silhouette(clustering[[i]], gene.dist)
-    sil2 <- cluster::silhouette(clustering[[i]], gene.dist2)
     pam.res <- cluster::pam(gene.dist, metric = "euclidean", k = K, medoids = pareto[i, 1:K], do.swap = FALSE)
-    pam.res2 <- cluster::pam(gene.dist2, metric = "euclidean", k = K, medoids = pareto[i, 1:K], do.swap = FALSE)
     plot.pam <- factoextra::fviz_cluster(pam.res, geom = "point")
-    plot.pam2 <- factoextra::fviz_cluster(pam.res2, geom = "point")
     plot.sil <- factoextra::fviz_silhouette(sil, print.summary=FALSE)
-    plot.sil2 <- factoextra::fviz_silhouette(sil2, print.summary=FALSE)
     
     if(plot){
       out.file <- file.path(output, "clustering", paste0("p", i, "_pam.png"))
@@ -1373,37 +1381,13 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
       png(out.file.2)
       print(plot.sil)
       dev.off() 
-      
-      out.file <- file.path(output, "clustering", paste0("p", i, "_pam_bio.png"))
-      png(out.file)
-      print(plot.pam2)
-      dev.off()
-      out.file.2 <- file.path(output, "clustering", paste0("p", i, "_sil_bio.png"))
-      png(out.file.2)
-      print(plot.sil2)
-      dev.off() 
     }
-    #plot(sil, main=paste("Silhouette plot: Solution", i), border=1, col=1:N, nmax.lab=10)
     res <- summary(sil)
     
     silhouette.res[i, 1:K] <- unname(res$clus.avg.widths)
     silhouette.res[i, K+1] <- res$avg.width
-    #results[i, 1] <- mean(sil[,"sil_width"])
   }
   rownames(silhouette.res) <- 1:N
-  
-  # Calculate Hypervolume metric
-  # Calculate nadir point for hypervolume
-  #nadir.point <- rep(NA, objDim)
-  #for(obj in 1:objDim){
-  #  if(obj_maximize[obj]){
-  #    nadir.point[obj] <- min(population[, K+obj])*1.2 # worse sol. + delta distance  
-  #  }else{
-  #  nadir.point[obj] <- max(population[, K+obj])*1.2 # worse sol. + delta distance  
-  #  }
-  #}
-  #nadir.point <- c(1,1)
-  #hv.res <- eaf::hypervolume(population[ , obj.index], nadir.point, obj_maximize)
   
   # Calculate Delta spread
   delta <- delta_spread(pareto, obj.index)
@@ -1931,15 +1915,21 @@ update_normalization_limits <- function(results.path, experiment.path){
 calculate_hypervolume <- function(pareto, point, maximize=FALSE){
   pareto <- pareto[order(pareto[, 1], decreasing=TRUE), ]
   if(maximize){
-    hv <- (point[1] - pareto[1, 1])*(point[2] - pareto[1, 2])
+    hv <- (pareto[1, 1] - point[1])*(pareto[1, 2] - point[2])
+    if(nrow(pareto) == 1){
+      return(hv)
+    }
     for(i in 1:(nrow(pareto)-1)){
-      w <- (pareto[i, 1] - pareto[i+1, 1])
-      h <- (point[2] - pareto[i+1, 2])
+      h <- (pareto[i+1, 1] - pareto[i, 1])
+      w <- (point[2] - pareto[i+1, 2])
       hv <- hv + w*h
     }
   }else{
     # Is it really the same?
     hv <- (point[1] - pareto[1, 1])*(point[2] - pareto[1, 2])
+    if(nrow(pareto) == 1){
+      return(hv)
+    }
     for(i in 1:(nrow(pareto)-1)){
       w <- (pareto[i, 1] - pareto[i+1, 1])
       h <- (point[2] - pareto[i+1, 2])
