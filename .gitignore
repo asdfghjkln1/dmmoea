@@ -1,8 +1,28 @@
+#/*
+#!/.gitignore
+#!/Tests
+#/Tests/*
 
-Tests/runs
-Tests/tuning/nsga2/
-Tests/tuning/dnsga2/
-Tests/tuning/dmnsga2/
+/Tests/runs/*
+/Tests/runs/dmnsga2/
+/Tests/runs/nsga2/
+/Tests/runs/dnsga2/
+
+
+/Tests/tuning/nsga2/arabidopsis/
+/Tests/tuning/nsga2/cell_cycle/
+/Tests/tuning/nsga2/serum/
+/Tests/tuning/nsga2/sporulation/
+/Tests/tuning/dnsga2/arabidopsis
+/Tests/tuning/dnsga2/cell_cycle
+/Tests/tuning/dnsga2/serum
+/Tests/tuning/dnsga2/sporulation
+/Tests/tuning/dmnsga2/arabidopsis/
+/Tests/tuning/dmnsga2/cell_cycle/
+/Tests/tuning/dmnsga2/serum/
+/Tests/tuning/dmnsga2/sporulation/
+
+
 
 # History files
 .Rhistory
