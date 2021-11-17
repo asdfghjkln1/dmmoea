@@ -1,4 +1,4 @@
-dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE)
+dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE, showWarnings = FALSE)
 .libPaths(Sys.getenv("R_LIBS_USER"))
 lib <- Sys.getenv("R_LIBS_USER")
 

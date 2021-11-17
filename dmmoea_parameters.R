@@ -1,6 +1,6 @@
 
 
-init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", diversity.metric="jaccard"){
+init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", diversity_metric="jaccard"){
   
   #test.path <- "X:\\Universidad\\dmmoea\\Tests\\tuning"
   
@@ -17,10 +17,11 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   obj_names<- objectives
   maximize <- rep(FALSE, objDim)
   for(i in 1:objDim){
-    if(obj_names == "Deviation" || obj_names == "Separation"){
+    if(obj_names == "Deviation" || obj_names == "Silhouette" || obj_names == "Separation"){
       maximize[i] = TRUE
     }
   }
+  #maximize <- ifelse(obj_names == "Deviation" || obj_names == "Silhouette" || obj_names == "Separation", TRUE, FALSE)
   
   # Ponderation of expression matrix to biologic matrix
   alpha <- 0.5
@@ -40,7 +41,7 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   phases <- 3
   sync_off <- FALSE
   diversity_level <- 4
-  diversity_metric <- diversity.metric
+  diversity_metric <- diversity_metric
   
   ##Evolutionary parameters
   poblacion_inicial_aleatorio<-FALSE
