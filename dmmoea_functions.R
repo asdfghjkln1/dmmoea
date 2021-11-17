@@ -162,9 +162,9 @@ cluster_data <- function(distances, population, alpha){
   return(list("population"=population, "clustering.results"=clustering.results))
 }
 
-evaluate_silhouette <- function(gene.dist, groups, N, K){
+evaluate_silhouette <- function(gene.dist, groups, N){
   # Create silhouette results table
-  f <- rep(NA, K)
+  f <- rep(NA, N)
   for(i in 1:N){
     sil <- cluster::silhouette(groups[[i]], gene.dist)
     res <- summary(sil)
@@ -189,7 +189,7 @@ evaluate_population <- function(population, distances, groups, params){
   }else if(obj1 == "Dunn"){
     f1 <- evaluate_dunn_index(distances$exp.dist, groups, nrow(population))
   }else if(obj1 == "Silhouette"){
-    f1 <- evaluate_silhouette(distances$exp.dist, groups, nrow(population), K)
+    f1 <- evaluate_silhouette(distances$exp.dist, groups, nrow(population))
   }else{
     #TO DO implement
     warning("Objective function not available!")
@@ -203,7 +203,7 @@ evaluate_population <- function(population, distances, groups, params){
   }else if(obj2 == "Dunn"){
     f2 <- evaluate_dunn_index(distances$bio.dist, groups, nrow(population))
   }else if(obj2 == "Silhouette"){
-    f2 <- evaluate_silhouette(distances$bio.dist, groups, nrow(population), K)
+    f2 <- evaluate_silhouette(distances$bio.dist, groups, nrow(population))
   }else{
     #TO DO implement
     warning("Objective function not available!")
@@ -361,7 +361,7 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
-      Log("Not enough solutions in population. Filling", to.fill, "solutions")
+      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
@@ -507,7 +507,7 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     }
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
-      Log("Not enough solutions in population. Filling", to.fill, "solutions")
+      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
@@ -651,7 +651,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
-      Log("Not enough solutions in population. Filling", to.fill, "solutions", agent=agent)
+      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions", agent=agent))
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
@@ -794,7 +794,7 @@ dominance_ranking_sorting <- function(population, obj.values){
 
 fitness_selection_crowding_distance <- function(R, P.size, K){
   if(nrow(R) <= P.size){
-    print("Population size is lower than original population, returning...")
+    #print("Population size is lower than original population, returning...")
     return(R)
   }
   R <- as.data.frame(R)
@@ -819,8 +819,6 @@ fitness_selection_crowding_distance <- function(R, P.size, K){
     last.ranking.solutions <- R[R$rnkIndex == last.rank, ]
     last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
-    #print("Result: ")
-    #print(rbind(preselected, last.ranking.solutions))
     return(rbind(preselected, last.ranking.solutions))
     
   }
@@ -828,7 +826,7 @@ fitness_selection_crowding_distance <- function(R, P.size, K){
 
 fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
   if(nrow(R) <= P.size){
-    print("Population size is lower than original population, returning...")
+    #print("Population size is lower than original population, returning...")
     return(R)
   }
   R <- as.data.frame(R)
@@ -1289,7 +1287,7 @@ plot_algorithm_comparison_pareto <- function(exp.path){
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
-          obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE)
+          obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE, row.names=NULL)
           pareto.dataset <- rbind(pareto.dataset, obj.values)
         }
       }
@@ -1494,8 +1492,9 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   q <- length(Clust.B)
   # Create a distance matrix between chromosomes of the union of both populations
   clust <- c(Clust.A, Clust.B)
+  rownames(Agent.A$population) <- 1:p
+  rownames(Agent.B$population) <- (p+1):(p+q)
   Pop <- rbind(Agent.A$population, Agent.B$population)
-  rownames(Pop) <- 1:(p+q)
   distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
   distance.matrix <- as.dist(distance.matrix)
   hc <- hclust(distance.matrix, method="average")
@@ -1557,6 +1556,8 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
   Clust.B <- Agent.B$clustering
   pop_agent_a <- nrow(Pop.A)
   pop_agent_b <- nrow(Pop.B)
+  rownames(Pop.A) <- 1:pop_agent_a
+  rownames(Pop.B) <- (pop_agent_a+1):(pop_agent_a+pop_agent_b)
   
   # Create a factor 1 from maximization or -1 for minimization
   obj <- c( ifelse(obj_maximize[1], 1, -1), ifelse(obj_maximize[2], 1, -1) )
@@ -1776,6 +1777,10 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, debug=FALSE, p
       }
     }
     if(debug){
+      for(i in 1:agents){
+        print(paste0("Agent ", i, " recieves:"))
+        print(Agents[[i]]$population)
+      }
       Log(paste("Phase", phase, "synchronization ended!"))
     }
     phase <- phase + 1
@@ -1798,12 +1803,16 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, debug=FALSE, p
 aggregate_agents <- function(Agents, n.agents, K, obj.dim){
   population <- Agents[[1]]$population
   clustering <- Agents[[1]]$clustering
+  row.count <- nrow(population)
+  row.names(population) <- 1:row.count
   for(i in 2:n.agents){
+    row.names(Agents[[i]]$population) <- (row.count+1):(row.count+nrow(Agents[[i]]$population))
     population <- rbind(population, Agents[[i]]$population)
     clustering <- c(clustering, Agents[[i]]$clustering)
+    row.count <- nrow(population)
   }
-  n.pop <- nrow(population)
-  rownames(population) <- 1:n.pop
+  #n.pop <- nrow(population)
+  #rownames(population) <- 1:n.pop
   obj.values <- population[ , (K+1):(K+obj.dim)]
   population <- dominance_ranking_sorting(population[, 1:K], obj.values)
   clustering <- clustering[as.numeric(rownames(population))]
@@ -1856,7 +1865,7 @@ normalise_results <- function(results.path){
     for(f in 1:length(experiments)){
       exp.name <- experiments[f] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
       #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
-      pareto <- read.csv(file.path(exp.name, paste0(basename(exp.name), ".csv")), header = FALSE)
+      pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
       max.values <- apply(pareto, 2, max)
       min.values <- apply(pareto, 2, min)
       if(max.values[1] > max.f1){
@@ -1886,7 +1895,7 @@ normalise_results <- function(results.path){
 
 update_normalization_limits <- function(results.path, experiment.path){
   limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
-  pareto <- read.csv(experiment.path, header=FALSE, sep=",")
+  pareto <- read.table(experiment.path, header=FALSE, sep=",", header =FALSE)
   max.values <- apply(pareto, 2, max)
   min.values <- apply(pareto, 2, min)
   changed <- FALSE

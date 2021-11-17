@@ -52,7 +52,7 @@ get_evaluation_limits <- function(path){
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
-        data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE)
+        data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
         max.values <- apply(data, 2, max)
         min.values <- apply(data, 2, min)
         if(max.values[1] > max.f1){
@@ -88,11 +88,11 @@ evaluate_run_results <- function(path, maximize){
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       exp.path <- file.path(path, algorithm, dataset)
-      evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",")
+      evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",", row.names=NULL)
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
-        data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE)
+        data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
         hv <- calculate_hypervolume(data, c(2,2), maximize)
         sil <- evaluation.file[k, "avg_sil"]
@@ -131,7 +131,7 @@ test_best_configurations <- function(){
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     if(algorithm == "figures"){ next }
-    best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE)
+    best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
     # Initialize params
     params <- init_parameters(objectives=best_params$objectives)
     params$K <- best_params$K
@@ -167,7 +167,7 @@ test_best_configurations <- function(){
   get_evaluation_limits(test.path)
   evaluate_run_results(test.path, params$obj_maximize)
   
-  plot.data <- read.table(file.path(test.path, "plot_data.csv"), sep=",", header=TRUE)
+  plot.data <- read.table(file.path(test.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot_algorithm_comparison(test.path, plot.data)
   plot_algorithm_comparison_pareto(test.path)
 }
