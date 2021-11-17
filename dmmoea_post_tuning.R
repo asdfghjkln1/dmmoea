@@ -1,39 +1,3 @@
-#!bin/usr/env Rstudio
-execute_tests <- function(params, path, output.folder, algorithm, dataset, n.times=1){
-  setwd(path)
-  source("dmmoea_functions.R")
-  source("dmmoea_parameters.R")
-  source("dmmoea_libraries.R")
-  source("dmmoea_distances.R")
-  source("dmmoea_irace_conf.R")
-  distances <- load.gene.distance(dataset, params$alpha)
-  for(i in 1:n.times){
-    output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
-    if(dir.exists(output.exp)){
-      next
-    }
-    #output.exp <- get_new_dirname(output.exp)
-    print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
-    dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
-    exp.id <- basename(output.exp)
-    if(algorithm == "dmnsga2"){
-      #print("DMNSGA2")
-      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
-    }else if(algorithm == "dnsga2"){
-      #print("DNSGA2")
-      res <- dnsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
-    }else if(algorithm == "nsga2"){
-      #print("NSGA2")
-      res <- nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
-    }else{
-      print("Algorithm not supported!!")
-    }
-    
-    evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
-  }
-}
-
 get_evaluation_limits <- function(path){
   max.f1 <- 0
   min.f1 <- Inf
