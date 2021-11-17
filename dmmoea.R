@@ -19,10 +19,10 @@ run_experiments <- function(){
   source("dmmoea_irace_conf.R")
   
   test.path <<- file.path(path, "Tests", "tuning")
+  dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   parameters <- readParameters(file = file.path(test.path, parameters.file))
   
   scenario <- readScenario(filename=file.path(test.path, scenario.file))
-  #scenario2$parameterFile <- test.path
   scenario$trainInstancesFile <- file.path(test.path, "instances.txt")
   scenario$testInstancesFile <- file.path(test.path, "test_instances.txt")
   scenario$logFile <- file.path(test.path, algorithm,"irace-log.Rdata")
@@ -30,13 +30,10 @@ run_experiments <- function(){
     scenario$recoveryFile <- file.path(test.path, algorithm, "irace-log-backup.Rdata")
   }
   
-  dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   
   #checkIraceScenario(scenario, parameters = parameters)
   
-  start_time <- Sys.time()
   tuned_confs <- irace(scenario = scenario, parameters = parameters)
-  end_time <- Sys.time()
   print(paste("irace finished!"))
 
   print("Starting plotting")

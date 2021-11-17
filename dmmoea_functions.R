@@ -1234,6 +1234,12 @@ plot_experiment_results <- function(exp.path){
     geom_boxplot()
   
   ggsave(file.path(folder.path, "delta_results.png"), width = 6, height = 4)
+  
+  ggplot(plot.data.metrics, aes(x=Dataset, y=time, fill=Dataset)) +
+    labs(title="Execution time comparison", y="Time (seconds)") +
+    geom_boxplot()
+  
+  ggsave(file.path(folder.path, "time_results.png"), width = 6, height = 4)
 }
 
 plot_algorithm_comparison <- function(exp.path, plot.data=NULL){
@@ -1350,7 +1356,7 @@ plot_algorithm_comparison_pareto <- function(exp.path){
 
 ## Evaluation Metrics
 
-evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, plot=FALSE){
+evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time, plot=FALSE){
   output <- file.path(output.base, exp.id) # Path of overall results from instance (like normalization limits)
   #if(plot){
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
@@ -1408,7 +1414,7 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   }
   # Append this experiment evaluations (row) to instance's file (data.frame)
   eval.file <- file.path(output.base, "evaluations.csv")
-  res <- data.frame("exp_id"=exp.id, "Dataset"=dataset.name, "avg_sil"=mean(silhouette.res[, "Average sil"]), "delta"=delta)#, "hypervolume"=hv.res)
+  res <- data.frame("exp_id"=exp.id, "Dataset"=dataset.name, "avg_sil"=mean(silhouette.res[, "Average sil"]), "delta"=delta, "time"=time)#, "hypervolume"=hv.res)
   if(file.exists(eval.file)){
     write.table(res, file = eval.file, sep = ",", append = TRUE, quote = FALSE,
                 col.names = FALSE, row.names = FALSE)
@@ -1906,7 +1912,7 @@ normalise_results <- function(results.path){
 
 update_normalization_limits <- function(results.path, experiment.path){
   limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
-  pareto <- read.table(experiment.path, header=FALSE, sep=",", header =FALSE)
+  pareto <- read.table(experiment.path, header=FALSE, sep=",")
   max.values <- apply(pareto, 2, max)
   min.values <- apply(pareto, 2, min)
   changed <- FALSE

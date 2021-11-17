@@ -55,6 +55,7 @@ target.runner <- function(experiment, scenario){
   output.exp <- get_new_dirname(output.exp)
   exp.id <- basename(output.exp)
   #start_time <- Sys.time()
+  tic()
   if(algorithm == "dmnsga2"){
     res <- diverse_memetic_nsga2(distances, params, output.exp, debug=debug, plot=plot)
   }else if(algorithm == "dnsga2"){
@@ -65,9 +66,12 @@ target.runner <- function(experiment, scenario){
     print("Algorithm not supported!!")
     return(list(cost=Inf))
   }
+  t <- toc()
+  elapsed <- unname(t[["toc"]] - t[["tic"]])
+  
   
   eval <- evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                             params$objDim, params$obj_maximize, output, exp.id, algorithm, dataset.name, plot=plot)
+                             params$objDim, params$obj_maximize, output, exp.id, algorithm, dataset.name, time=t, plot=plot)
   #end_time <- Sys.time()
   #time <- round(end_time - start_time, 2)
   #print(paste("Instance",exp.id,"ended in", time, "seconds"))

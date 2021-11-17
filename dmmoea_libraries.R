@@ -18,6 +18,10 @@ if(!require(factoextra)){
 #  install.packages("eaf")
 #  library(eaf)
 #}
+if(!require(tictoc)){
+  install.packages("tictoc", lib=lib)
+  library(tictoc, lib.loc=lib)
+}
 if(!require(irace)){
   install.packages("irace", lib=lib)
   library(irace, lib.loc=lib)
