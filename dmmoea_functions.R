@@ -209,12 +209,21 @@ evaluate_population <- function(population, distances, groups, params){
     warning("Objective function not available!")
     return(NULL)
   }
+  
+  # Fixing possible outliers from evaluation metrics, replace bugged values (NA) with worst values
+  custom.max <- function(x) ifelse( !all(is.na(x)), max(x, na.rm=T), Inf)
+  custom.min <- function(x) ifelse( !all(is.na(x)), min(x, na.rm=T), -Inf)
+  worst.f1 <- ifelse(params$obj_maximize[1], custom.min(f1), custom.max(f1))
+  worst.f2 <- ifelse(params$obj_maximize[2], custom.min(f2), custom.max(f2))
+  for(i in 1:nrow(population)){
+    f1[i] <- ifelse(is.na(f1[i]), worst.f1, f1[i])
+    f2[i] <- ifelse(is.na(f2[i]), worst.f2, f2[i])
+  }
+  #apply(f1, 1, function(x) ifelse(is.na(x), worst.f1, x))
+  #apply(f2, 1, function(x) ifelse(is.na(x), worst.f2, x))
+  
   obj.values <- cbind(f1,f2)
   population <- dominance_ranking_sorting(population, obj.values)
-  # Sometimes, f1 or f2 gives value Inf. Remove problematic solution
-  #population <- as.data.frame(population)
-  #obj.values <- population[, c("f1", "f2")]
-  #population <- population[is.finite(rowSums(obj.values)), ]
   return(population)
 }
 
@@ -223,12 +232,11 @@ evaluate_population <- function(population, distances, groups, params){
 evaluate_xie_beni <- function(population, distances){
   
   obj.function <-rep(0, nrow(population))
-  
+  n <- nrow(distances) # number of elements
+  K <- ncol(population) # number of medoids
   for (p in 1:nrow(population)) {
     
     # Initialize matrix
-    n <- nrow(distances) # number of elements
-    K <- ncol(population) # number of medoids
     D <- matrix(0, K, n) #Matriz de distancia centros x elementos
     
     # Calculate square distances of each element to its medoid
@@ -247,10 +255,13 @@ evaluate_xie_beni <- function(population, distances){
       s[pair] = distances[combs[pair, 1], combs[pair, 2]]^2
     }
     s <- s[s > 0]
-    
     XB.denominator <- min(s)
 
-    obj.function[[p]]=XB.numerator/(n*XB.denominator)
+    if(is.finite(XB.denominator)){
+      obj.function[[p]]=XB.numerator/(n*XB.denominator) 
+    }else{
+      obj.function[[p]]=NA
+    }
   }
   return(unlist(obj.function))
 }
@@ -361,7 +372,7 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
-      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
+      print(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
