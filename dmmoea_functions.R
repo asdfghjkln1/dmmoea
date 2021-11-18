@@ -1356,7 +1356,7 @@ plot_algorithm_comparison_pareto <- function(exp.path){
 
 ## Evaluation Metrics
 
-evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time, plot=FALSE){
+evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, plot=FALSE){
   output <- file.path(output.base, exp.id) # Path of overall results from instance (like normalization limits)
   #if(plot){
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
@@ -1414,6 +1414,8 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   }
   # Append this experiment evaluations (row) to instance's file (data.frame)
   eval.file <- file.path(output.base, "evaluations.csv")
+  #print("At evaluate_solutions")
+  #print(paste(exp.id, dataset.name, mean(silhouette.res[, "Average sil"]), delta, time))
   res <- data.frame("exp_id"=exp.id, "Dataset"=dataset.name, "avg_sil"=mean(silhouette.res[, "Average sil"]), "delta"=delta, "time"=time)#, "hypervolume"=hv.res)
   if(file.exists(eval.file)){
     write.table(res, file = eval.file, sep = ",", append = TRUE, quote = FALSE,

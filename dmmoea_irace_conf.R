@@ -67,11 +67,11 @@ target.runner <- function(experiment, scenario){
     return(list(cost=Inf))
   }
   t <- toc()
-  elapsed <- unname(t[["toc"]] - t[["tic"]])
+  t <- unname(t[["toc"]] - t[["tic"]])
   
   
   eval <- evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                             params$objDim, params$obj_maximize, output, exp.id, algorithm, dataset.name, time=t, plot=plot)
+                             params$objDim, params$obj_maximize, output, exp.id, algorithm, dataset.name, t, plot=plot)
   #end_time <- Sys.time()
   #time <- round(end_time - start_time, 2)
   #print(paste("Instance",exp.id,"ended in", time, "seconds"))
