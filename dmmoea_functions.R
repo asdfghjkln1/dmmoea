@@ -435,7 +435,7 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g)
+    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
     if(convergence.index <= params$convergence_tol){
@@ -588,7 +588,7 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g)
+    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
     if(convergence.index <= params$convergence_tol){
@@ -729,7 +729,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g)
+    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
     if(convergence.index <= params$convergence_tol){
@@ -757,7 +757,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
 
-convergence_coefficient <- function(current.pareto, new.pareto, generation){
+convergence_coefficient <- function(current.pareto, new.pareto, generation, maximize){
   if(generation == 0){
     return(FALSE) # Cant converge at first generation
   }
@@ -765,11 +765,14 @@ convergence_coefficient <- function(current.pareto, new.pareto, generation){
   new.dominated <- 0
   current.pareto <- as.data.frame(current.pareto)
   new.pareto <- as.data.frame(new.pareto)
+  
+  obj <- c( ifelse(maximize[1], 1, -1), ifelse(maximize[2], 1, -1) )
+  
   for(i in 1:nrow(new.pareto)){
     for(j in 1:nrow(current.pareto)){
-      if((new.pareto[i,"f1"] < current.pareto[j,"f1"]) && (new.pareto[i,"f2"] < current.pareto[j,"f2"])){
+      if((obj[1]*new.pareto[i,"f1"] < obj[1]*current.pareto[j,"f1"]) && (obj[2]*new.pareto[i,"f2"] < obj[2]*current.pareto[j,"f2"])){
         old.dominated <- old.dominated + 1
-      }else if((new.pareto[i,"f1"] > current.pareto[j,"f1"]) && (new.pareto[i,"f2"] > current.pareto[j,"f2"])){
+      }else if((obj[1]*new.pareto[i,"f1"] > obj[1]*current.pareto[j,"f1"]) && (obj[1]*new.pareto[i,"f2"] > obj[1]*current.pareto[j,"f2"])){
         new.dominated <- new.dominated + 1
       }
     } 
@@ -930,6 +933,8 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
   mat.rate <- params$mating_rate
   mut.rate <- params$mutation_rate
   
+  in.density.radius <- list()
+  
   genes <- 1:nrow(D)
   for(p in 1:P.size){
     pair <- sample(1:nrow(mating_pool), 2, replace = FALSE)
@@ -957,12 +962,13 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
       }
       if(mutation.prob < mut.rate){
         #*** More diversity criteria can be added here ***
-        density.radius <- params$mutation_radius
         selected <- FALSE
         # Define a radius and randomly select a gene to mutate.
+        density.radius <- params$mutation_radius
         # Grow radius is no gene is found nearby.
         while(!selected){
           in.radius <- which(distances$comp.dist[gene.chr.1, ] <= density.radius)
+          in.radius <- which(!(in.radius %in% in.density.radius))
           if(length(in.radius) > 0){
             gene <- sample(in.radius, 1) 
             selected <- TRUE
@@ -985,6 +991,13 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
         gene <- sample(genes, 1)
       }
       Q[p, k] <- gene
+      # Remember the selected gene neighbors, so a mutation cant be assigned those
+      in.radius <- which(D[gene, ] <= density.radius)
+      in.density.radius <- c(in.density.radius, in.radius)
+      # If almost all of the genes are marked, reset.
+      if(length(in.density.radius)/nrow(D) > 0.8){
+        in.density.radius <- list()
+      }
     }
   }
   rownames(Q) <- (nrow(mating_pool)+1):(nrow(mating_pool)*2)
@@ -1690,7 +1703,8 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, debug=FALSE, p
   }else if(diversity.level >= 1){
     P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = TRUE)
   }else{
-    P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = FALSE)
+    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) # Random population
+    #P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = FALSE)
   }
   
   g <- 1 # Current generation

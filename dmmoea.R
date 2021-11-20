@@ -25,7 +25,7 @@ run_experiments <- function(){
   scenario <- readScenario(filename=file.path(test.path, scenario.file))
   scenario$trainInstancesFile <- file.path(test.path, "instances.txt")
   scenario$testInstancesFile <- file.path(test.path, "test_instances.txt")
-  scenario$logFile <- file.path(test.path, algorithm,"irace-log.Rdata")
+  #scenario$logFile <- file.path(test.path, algorithm,"irace-log.Rdata")
   if(file.exists(file.path(test.path, algorithm, "irace-log-backup.Rdata"))){
     scenario$recoveryFile <- file.path(test.path, algorithm, "irace-log-backup.Rdata")
   }
@@ -48,8 +48,8 @@ run_experiments <- function(){
   
   print("Post analysis finished")
   
-  file.rename(file.path(test.path, algorithm, "irace-log.Rdata"), 
-              file.path(test.path, algorithm, "irace-log-backup.Rdata"))
+  #file.rename(file.path(test.path, algorithm, "irace-log.Rdata"), 
+   #           file.path(test.path, algorithm, "irace-log-backup.Rdata"))
 }
 
 post_analysis <- function(exp.path, log.file.path){

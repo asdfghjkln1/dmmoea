@@ -22,6 +22,10 @@ if(!require(tictoc)){
   install.packages("tictoc", lib=lib)
   library(tictoc, lib.loc=lib)
 }
+if(!require(infotheo)){
+  install.packages("infotheo", lib=lib)
+  library(infotheo, lib.loc=lib)
+}
 if(!require(irace)){
   install.packages("irace", lib=lib)
   library(irace, lib.loc=lib)
