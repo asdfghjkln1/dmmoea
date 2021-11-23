@@ -1943,8 +1943,10 @@ get_normalization_limits <- function(base.path){
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       experiments <- list.dirs(path=file.path(base.path, algorithm, dataset), full.names=TRUE, recursive = FALSE)
+      if(length(experiments) > 0){ next }
       for(k in 1:length(experiments)){
         exp.name <- experiments[k] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
+        if(!file.exists(exp.name, paste0(exp.name, ".csv"))){ next }
         #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
         pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
         max.values <- apply(pareto, 2, max)
