@@ -1,0 +1,69 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: tictoc
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Warning: Assuming 'mu = firstTest' because 'mu' cannot be lower than 'firstTest'
+# 2021-11-21 02:04:49 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 5
+# minNbSurvival: 1
+# nbParameters: 12
+# seed: 12315
+# confidence level: 0.95
+# budget: 2000
+# mu: 20
+# deterministic: FALSE
+
+# 2021-11-21 02:04:49 -03: Iteration 1 of 5
+# experimentsUsedSoFar: 0
+# remainingBudget: 2000
+# currentBudget: 400
+# nbConfigurations: 16
+# 2021-11-21 02:04:49 -03: Sample 16 configurations from uniform distribution
+# 2021-11-21 02:04:49 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+1147.442 sec elapsed
+1836.22 sec elapsed
+1857.078 sec elapsed
+2303.103 sec elapsed
+1393.787 sec elapsed
+2119.277 sec elapsed
+1740.919 sec elapsed
+1995.324 sec elapsed
+2607.103 sec elapsed
+1111.589 sec elapsed
+1699.922 sec elapsed
+Error in loadNamespace(x) : there is no package called ‘infotheo’
+Error: == irace == A child process triggered a fatal error
+In addition: Warning message:
+In parallel::mclapply(experiments, exec.target.runner, mc.preschedule = !scenario$loadBalancing,  :
+  5 function calls resulted in an error
+Execution halted
