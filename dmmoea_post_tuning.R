@@ -88,7 +88,7 @@ test_best_configurations <- function(){
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
   
-  tune.path <- file.path(path, "Tests", "tuning", obj_fun)
+  tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
   test.path <- file.path(path, "Tests", "runs", obj_fun)
   
   algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)

@@ -19,7 +19,7 @@ run_experiments <- function(){
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
   
-  test.path <<- file.path(path, "Tests", "tuning", obj_fun)
+  test.path <<- file.path(path, "Tests", paste0("tuning_", obj_fun))
   
   if(!file.exists(paste0(test.path, "limits.csv"))){
     if(length(list.dirs(test.path) > 0)){

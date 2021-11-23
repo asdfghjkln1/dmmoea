@@ -109,10 +109,14 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
       print("Limits:")
       print(limits)
     }
+    
     max.f1 <- as.numeric(limits["max.f1"])
     max.f2 <- as.numeric(limits["max.f2"])
     min.f1 <- as.numeric(limits["min.f1"])
     min.f2 <- as.numeric(limits["min.f2"])
+    pareto[1] <- lapply(pareto[1], function(x) ifelse(x < max.f1, x, max.f1))
+    pareto[2] <- lapply(pareto[2], function(x) ifelse(x < max.f2, x, max.f2))
+    
     scaler.f1 <- function(x){ (x-min.f1)/(max.f1-min.f1) }
     scaler.f2 <- function(x){ (x-min.f2)/(max.f2-min.f2) }
     pareto <- read.csv(instance.path, header=FALSE, sep=",")
