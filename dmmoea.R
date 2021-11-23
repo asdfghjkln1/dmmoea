@@ -3,7 +3,7 @@ run_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
   if(argnum != 5){
-    print(paste0("Not enough parameters (", argnum, "/4)"))
+    print(paste0("Not enough parameters (", argnum, "/5)"))
     return(-1)
   }
   algorithm <- args[1]
@@ -21,9 +21,14 @@ run_experiments <- function(){
   
   test.path <<- file.path(path, "Tests", "tuning", obj_fun)
   
-  print("Updating normalizaton limits...")
-  get_normalization_limits(test.path)
-  print("Ready.")
+  if(!file.exists(paste0(test.path, "limits.csv"))){
+    if(length(list.dirs(test.path) > 0)){
+      print("Updating normalizaton limits...")
+      get_normalization_limits(test.path) 
+      print("Ready.")  
+    }
+    
+  }
   
   dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   parameters <- readParameters(file = file.path(test.path, parameters.file))
@@ -42,7 +47,12 @@ run_experiments <- function(){
   tuned_confs <- irace(scenario = scenario, parameters = parameters)
   print(paste("irace finished!"))
 
+  print("Updating normalizaton limits...")
+  get_normalization_limits(test.path) 
+  print("Ready.")
+  
   print("Starting plotting")
+  
   
   plot_experiment_results(file.path(test.path, algorithm))
   plot_algorithm_comparison(test.path)
