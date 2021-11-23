@@ -2,15 +2,16 @@
 run_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 4){
+  if(argnum != 5){
     print(paste0("Not enough parameters (", argnum, "/4)"))
     return(-1)
   }
   algorithm <- args[1]
   path <- args[2] 
+  obj_fun <- args[3]
   #dataset <- args[2]
-  parameters.file <- args[3]
-  scenario.file <- args[4]
+  parameters.file <- args[4]
+  scenario.file <- args[5]
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -18,7 +19,7 @@ run_experiments <- function(){
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
   
-  test.path <<- file.path(path, "Tests", "tuning")
+  test.path <<- file.path(path, "Tests", "tuning", obj_fun)
   
   print("Updating normalizaton limits...")
   get_normalization_limits(test.path)
