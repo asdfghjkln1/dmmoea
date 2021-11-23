@@ -1951,13 +1951,12 @@ get_normalization_limits <- function(base.path){
         #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
         pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
         max.values <- apply(pareto, 2, max)
-        data[row, ] <- max.values
+        data[row, ] <- round(max.values, 3)
         row <- row + 1
         #min.values <- apply(pareto, 2, min)
       }
     }
   }
-  print(data)
   cut <- 0.9
   ggplot(data, aes(x=max.f1)) +
     geom_histogram() +

@@ -19,14 +19,14 @@ run_normalization <- function(){
   test.path <<- file.path(path, "Tests", paste0("tuning_", test))
   
   if(!file.exists(file.path(test.path, "limits.csv"))){
-    print("Limits not exists")
+    print("limits.csv not exists")
     if(length(list.dirs(test.path) > 0)){
       print("Updating normalizaton limits...")
       get_normalization_limits(test.path) 
       print("Ready.")  
     }
   }else{
-    print("Limits exists")
+    print("limits.csv exists")
     limits <- read.table(file.path(test.path, "limits.csv"), sep=",", row.names = NULL, header = TRUE)
     print(limits)
   }
