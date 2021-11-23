@@ -934,6 +934,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
   mut.rate <- params$mutation_rate
   
   in.density.radius <- list()
+  density.radius <- params$mutation_radius
   
   genes <- 1:nrow(D)
   for(p in 1:P.size){
@@ -1885,16 +1886,16 @@ normalise_pareto <- function(data, dims=2){
   return(as.data.frame(data))
 }
 
-normalise_results <- function(results.path){
+normalise_results <- function(base.path, algorithm){
   max.f1 <- 0
   min.f1 <- Inf
   max.f2 <- 0
   min.f2 <- Inf
-  datasets <- list.dirs(path=file.path(results.path), full.names=FALSE, recursive = FALSE)
+  datasets <- list.dirs(path=file.path(base.path, algorithm), full.names=FALSE, recursive = FALSE)
   #pareto <- list()
   for(i in 1:length(datasets)){
     dataset <- datasets[i]
-    experiments <- list.dirs(path=file.path(results.path, dataset), full.names=TRUE, recursive = FALSE)
+    experiments <- list.dirs(path=file.path(base.path, dataset), full.names=TRUE, recursive = FALSE)
     for(f in 1:length(experiments)){
       exp.name <- experiments[f] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
       #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
@@ -1915,7 +1916,7 @@ normalise_results <- function(results.path){
       }
     }
     limits <- data.frame("min.f1"=min.f1, "max.f1"=max.f1, "min.f2"=min.f2, "max.f2"=max.f2)
-    write.table(limits, file=file.path(results.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
+    write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
     #scaler.f1 <- function(x){ (x-min.f1)/(max.f1-min.f1) }
     #scaler.f2 <- function(x){ (x-min.f2)/(max.f2-min.f2) }
     #for(f in 1:length(files)){
@@ -1926,8 +1927,56 @@ normalise_results <- function(results.path){
   return(limits)
 }
 
-update_normalization_limits <- function(results.path, experiment.path){
-  limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
+get_normalization_limits <- function(base.path){
+  #max.f1 <- 0
+  min.f1 <- 0
+  #max.f2 <- 0
+  min.f2 <- 0
+  data <- data.frame("max.f1"=NA, "max.f2"=NA)
+  row <- 1
+  algorithms <- list.dirs(path=file.path(base.path), full.names=FALSE, recursive = FALSE)
+  for(i in 1:length(algorithms)){
+    algorithm <- algorithms[i]
+    if(algorithm == "figures"){ next }
+    datasets <- list.dirs(path=file.path(base.path, algorithm), full.names=FALSE, recursive = FALSE)
+    #pareto <- list()
+    for(j in 1:length(datasets)){
+      dataset <- datasets[j]
+      experiments <- list.dirs(path=file.path(base.path, algorithm, dataset), full.names=TRUE, recursive = FALSE)
+      for(k in 1:length(experiments)){
+        exp.name <- experiments[k] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
+        #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
+        pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
+        max.values <- apply(pareto, 2, max)
+        data[row, ] <- max.values
+        row <- row + 1
+        #min.values <- apply(pareto, 2, min)
+      }
+    }
+  }
+  
+  cut <- 0.9
+  ggplot(data, aes(x=max.f1)) +
+    geom_histogram() +
+    labs(title="Distribution of expression objective function limits", x="Frecuency") +
+    geom_vline(xintercept = quantile(data$max.f1, cut))
+  
+  ggsave(file.path(base.path, "limit_f1.png"), width = 6, height = 4)
+  
+  ggplot(data, aes(x=max.f2)) +
+    geom_histogram() +
+    labs(title="Distribution of biological objective function limits", x="Frecuency") +
+    geom_vline(xintercept = quantile(data$max.f2, cut))
+  
+  ggsave(file.path(base.path, "limit_f2.png"), width = 6, height = 4)
+  
+  limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut))
+  write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
+  return(limits)
+}
+
+update_normalization_limits <- function(base.path, experiment.path){
+  limits <- read.csv(file.path(base.path, "limits.csv"), header = TRUE)
   pareto <- read.table(experiment.path, header=FALSE, sep=",")
   max.values <- apply(pareto, 2, max)
   min.values <- apply(pareto, 2, min)
@@ -1949,7 +1998,7 @@ update_normalization_limits <- function(results.path, experiment.path){
     changed <- TRUE
   }
   if(changed){
-    write.table(limits, file=file.path(results.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE) 
+    write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE) 
   }
   return(limits)
 }

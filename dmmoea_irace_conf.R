@@ -55,7 +55,7 @@ target.runner <- function(experiment, scenario){
   output.exp <- get_new_dirname(output.exp)
   exp.id <- basename(output.exp)
   #start_time <- Sys.time()
-  tic()
+  tic(quiet = TRUE)
   if(algorithm == "dmnsga2"){
     res <- diverse_memetic_nsga2(distances, params, output.exp, debug=debug, plot=plot)
   }else if(algorithm == "dnsga2"){
@@ -102,10 +102,12 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
   
   ##** CAREFUL WHEN ADDING MORE OBJECTIVES !! **## 
   if(configuration[['objectives']] == "XieBeni" || configuration[['objectives']] == "Dunn" || configuration[['objectives']] == "BallHall"){
-    if(!file.exists(file.path(base.path, "limits.csv"))){
-      limits <- normalise_results(base.path)
+    if(!file.exists(file.path(test.path, "limits.csv"))){
+      limits <- get_normalization_limits(test.path) #normalise_results(test.path)
     }else{
-      limits <- update_normalization_limits(base.path, instance.path)
+      limits <- read.table(file.path(test.path, "limits.csv"), sep=",", header = TRUE, row.names = FALSE)#update_normalization_limits(test.path, instance.path)
+      print("Limits:")
+      print(limits)
     }
     max.f1 <- as.numeric(limits["max.f1"])
     max.f2 <- as.numeric(limits["max.f2"])
@@ -117,7 +119,7 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
     pareto <- data.frame("f1"=scaler.f1(pareto[, 1]), "f2"=scaler.f2(pareto[, 2]))
     #write.table(norm.pareto, file = instance.path, append=FALSE, sep=",", quote=FALSE, col.names=FALSE, row.names=FALSE)
     maximize <- FALSE
-    ref.point <- c(2,2)
+    ref.point <- c(1,1)
   }else if(configuration[['objectives']] == "Silhouette"){
     ref.point <- c(0,0)
     pareto <- read.csv(instance.path, header=FALSE, sep=",")

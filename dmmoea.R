@@ -19,6 +19,11 @@ run_experiments <- function(){
   source("dmmoea_irace_conf.R")
   
   test.path <<- file.path(path, "Tests", "tuning")
+  
+  print("Updating normalizaton limits...")
+  get_normalization_limits(test.path)
+  print("Ready.")
+  
   dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   parameters <- readParameters(file = file.path(test.path, parameters.file))
   
