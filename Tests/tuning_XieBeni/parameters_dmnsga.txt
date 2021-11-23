@@ -13,8 +13,8 @@ auto_adjust_initial_params "--auto_adjust" o (0, 1) | algorithm != "nsga2"
 min_density_radius "--min_density_radius " o (0.01) | auto_adjust_initial_params == 0
 max_density_radius "--max_density_radius " o (0.2) | auto_adjust_initial_params == 0
 density_tol "--density_tol " o (0.01) | auto_adjust_initial_params == 0
-phases "--phases " o (1, 2, 4) | algorithm == "dmnsga2"
-agents "--agents " o (2, 4) | algorithm == "dmnsga2"
+phases "--phases " o (1, 2, 3) | algorithm == "dmnsga2"
+agents "--agents " o (2, 4, 6) | algorithm == "dmnsga2"
 sync_off "--sync_off " o (0, 1) | algorithm == "dmnsga2"
 convergence_tol "--conv_tol " o (0.05)
 mutation_radius "--mut_radius " r (0.05, 0.5) | algorithm != "nsga2" 

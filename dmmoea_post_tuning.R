@@ -74,13 +74,13 @@ evaluate_run_results <- function(path, maximize){
 test_best_configurations <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 2){
-    print(paste0("Not enough parameters (", argnum, "/2)"))
+  if(argnum != 3){
+    print(paste0("Not enough parameters (", argnum, "/3)"))
     return(-1)
   }
   path <- args[1] 
   trials <- args[2]
-  
+  obj_fun <- args[3]
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -88,8 +88,8 @@ test_best_configurations <- function(){
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
   
-  tune.path <- file.path(path, "Tests", "tuning")
-  test.path <- file.path(path, "Tests", "runs")
+  tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
+  test.path <- file.path(path, "Tests", "runs", obj_fun)
   
   algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
