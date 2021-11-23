@@ -21,14 +21,16 @@ run_experiments <- function(){
   
   test.path <<- file.path(path, "Tests", paste0("tuning_", obj_fun))
   
-  if(!file.exists(paste0(test.path, "limits.csv"))){
-    if(length(list.dirs(test.path) > 0)){
-      print("Updating normalizaton limits...")
-      get_normalization_limits(test.path) 
-      print("Ready.")  
-    }
-    
-  }
+  #if(file.exists(file.path(test.path, "limits.csv"))){
+  #  print("Limits exists")
+  #  limits <- read.table(file.path(test.path, "limits.csv"), sep=",", row.names = NULL, header = TRUE)
+  #  print(limits)
+  #  if(length(list.dirs(test.path) > 0)){
+  #    print("Updating normalizaton limits...")
+  #    #get_normalization_limits(test.path) 
+  #    #print("Ready.")  
+  #  }
+  #}
   
   dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   parameters <- readParameters(file = file.path(test.path, parameters.file))

@@ -103,9 +103,10 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
   ##** CAREFUL WHEN ADDING MORE OBJECTIVES !! **## 
   if(configuration[['objectives']] == "XieBeni" || configuration[['objectives']] == "Dunn" || configuration[['objectives']] == "BallHall"){
     if(!file.exists(file.path(test.path, "limits.csv"))){
+      print("Limits not found!!")
       limits <- get_normalization_limits(test.path) #normalise_results(test.path)
     }else{
-      limits <- read.table(file.path(test.path, "limits.csv"), sep=",", header = TRUE, row.names = FALSE)#update_normalization_limits(test.path, instance.path)
+      limits <- read.csv(file.path(test.path, "limits.csv"), header = TRUE) #read.table(file.path(test.path, "limits.csv"), sep=",", header = TRUE, row.names = FALSE)#update_normalization_limits(test.path, instance.path)
       print("Limits:")
       print(limits)
     }
