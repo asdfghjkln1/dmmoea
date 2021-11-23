@@ -1939,11 +1939,12 @@ get_normalization_limits <- function(base.path){
     algorithm <- algorithms[i]
     if(algorithm == "figures"){ next }
     datasets <- list.dirs(path=file.path(base.path, algorithm), full.names=FALSE, recursive = FALSE)
+    if(length(datasets) == 0) { next }
     #pareto <- list()
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       experiments <- list.dirs(path=file.path(base.path, algorithm, dataset), full.names=TRUE, recursive = FALSE)
-      if(length(experiments) > 0){ next }
+      if(length(experiments) == 0){ next }
       for(k in 1:length(experiments)){
         exp.name <- experiments[k] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
         if(!file.exists(exp.name, paste0(basename(exp.name), ".csv"))){ next }
@@ -1956,7 +1957,7 @@ get_normalization_limits <- function(base.path){
       }
     }
   }
-  
+  print(data)
   cut <- 0.9
   ggplot(data, aes(x=max.f1)) +
     geom_histogram() +

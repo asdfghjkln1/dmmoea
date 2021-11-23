@@ -2,7 +2,7 @@
 run_normalization <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 1){
+  if(argnum != 2){
     print(paste0("Not enough parameters (", argnum, "/1)"))
     return(-1)
   }
@@ -10,10 +10,11 @@ run_normalization <- function(){
   test <- args[2]
   setwd(path)
   source("dmmoea_functions.R")
-  source("dmmoea_parameters.R")
-  source("dmmoea_libraries.R")
-  source("dmmoea_distances.R")
-  source("dmmoea_irace_conf.R")
+  library(ggplot2)
+  #source("dmmoea_parameters.R")
+  #source("dmmoea_libraries.R")
+  #source("dmmoea_distances.R")
+  #source("dmmoea_irace_conf.R")
   
   test.path <<- file.path(path, "Tests", paste0("tuning_", test))
   
