@@ -29,6 +29,11 @@ run_normalization <- function(){
     print("limits.csv exists")
     limits <- read.table(file.path(test.path, "limits.csv"), sep=",", row.names = NULL, header = TRUE)
     print(limits)
+    if(length(list.dirs(test.path) > 0)){
+      print("Updating anyway...")
+      get_normalization_limits(test.path)
+      print("Ready.")
+    }
   }
   
   return(0)

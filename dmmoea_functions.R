@@ -1961,18 +1961,18 @@ get_normalization_limits <- function(base.path){
   ggplot(data, aes(x=max.f1)) +
     geom_histogram() +
     labs(title="Distribution of expression objective function limits", x="Frecuency") +
-    geom_vline(xintercept = quantile(data$max.f1, cut))
+    geom_vline(xintercept = quantile(data$max.f1, cut, na.rm=TRUE))
   
   ggsave(file.path(base.path, "limit_f1.png"), width = 6, height = 4)
   
   ggplot(data, aes(x=max.f2)) +
     geom_histogram() +
     labs(title="Distribution of biological objective function limits", x="Frecuency") +
-    geom_vline(xintercept = quantile(data$max.f2, cut))
+    geom_vline(xintercept = quantile(data$max.f2, cut, na.rm=TRUE))
   
   ggsave(file.path(base.path, "limit_f2.png"), width = 6, height = 4)
   
-  limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut))
+  limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut, na.rm=TRUE))
   write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
   return(limits)
 }
