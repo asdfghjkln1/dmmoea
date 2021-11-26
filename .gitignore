@@ -37,6 +37,8 @@
 dmnsga_output.txt
 dnsga_output.txt
 nsga_output.txt
+irace.Rdata
+nohup.out
 
 # History files
 .Rhistory
