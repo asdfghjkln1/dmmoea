@@ -53,8 +53,8 @@ target.runner <- function(experiment, scenario){
   exp.id <- paste0(dataset.name, "_", experiment$id.configuration)
   output.exp <- file.path(output, exp.id)
   output.exp <- get_new_dirname(output.exp)
+  dir.create(output.exp, recursive = TRUE, showWarnings = FALSE)
   exp.id <- basename(output.exp)
-  #start_time <- Sys.time()
   tic(quiet = TRUE)
   if(algorithm == "dmnsga2"){
     res <- diverse_memetic_nsga2(distances, params, output.exp, debug=debug, plot=plot)
