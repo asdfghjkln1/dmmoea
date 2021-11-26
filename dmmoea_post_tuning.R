@@ -38,38 +38,51 @@ get_evaluation_limits <- function(path){
   write.table(limits, file=file.path(path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
 }
 
-evaluate_run_results <- function(path, maximize){
+evaluate_run_results <- function(path, maximize=FALSE, alpha=0.5){
   limits <- read.csv(file.path(path, "limits.csv"), header = TRUE)
   scaler.f1 <- function(x){ (x-limits$min.f1)/(limits$max.f1-limits$min.f1) }
   scaler.f2 <- function(x){ (x-limits$min.f2)/(limits$max.f2-limits$min.f2) }
   algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)
   plot.data <- as.data.frame(matrix(nrow=0, ncol=6))
+  plot.data.diveristy <- as.data.frame(matrix(nrow=0, ncol=6))
   colnames(plot.data) <- c("id", "Algorithm", "Dataset", "Hypervolume", "Silhouette", "Delta")
+  colnames(plot.data.diversity) <- c("id", "Algorithm", "Dataset", "Metric", "Diversity", "Cluster_Ratio")
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     if(algorithm == "figures"){ next }
     datasets <- list.dirs(path=file.path(path, algorithm), full.names = FALSE, recursive = FALSE)
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
+      distances <- load.gene.distance(dataset, alpha=alpha)
       exp.path <- file.path(path, algorithm, dataset)
       evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",", row.names=NULL)
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
+        data.pareto <- read.table(file.path(exp.path, experiment, "population.csv"), sep=",", header=FALSE, row.names=NULL)
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
-        hv <- calculate_hypervolume(data, c(2,2), maximize)
+        hv <- calculate_hypervolume(data, c(1,1), maximize)
         sil <- evaluation.file[k, "avg_sil"]
         delta <- evaluation.file[k, "delta"]
-        values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,"Hypervolume"=hv, "Silhouette"=sil, "Delta"=delta)
+        diversity.jaccard <- diversity_analysis(data.pareto, distances, metric="jaccard", 
+                                        path=file.path(exp.path, experiment), alpha=alpha, plot=TRUE)
+        diversity.NMI <- diversity_analysis(data.pareto, distances, metric="NMI", 
+                                        path=file.path(exp.path, experiment), alpha=alpha, plot=TRUE)
+        values.diversity <- data.frame("id"=rep(experiment, 2), "Algorithm"=rep(algorithm, 2), 
+                                       "Dataset"=rep(dataset,2), "Metric"=c("jaccard", "NMI"), 
+                                       "Diversity"=c(diversity.jaccard$avg.dist, diversity.NMI$avg.dist),
+                                       "Cluster_Ratio"=c(diversity.jaccard$k.best, diversity.NMI$k.best))
+        values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,
+                             "Hypervolume"=hv, "Silhouette"=sil, "Delta"=delta)
         plot.data <- rbind(plot.data, values)
+        plot.data.diversity <- rbind(plot.data.diversity, values.diversity)
       }
     }
   }
   write.table(plot.data, file=file.path(path, "plot_data.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
+  write.table(plot.data.diveristy, file=file.path(path, "plot_data_diversity.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
 }
-
-
 
 test_best_configurations <- function(){
   args <- commandArgs(trailingOnly = TRUE)
@@ -132,9 +145,45 @@ test_best_configurations <- function(){
   evaluate_run_results(test.path, params$obj_maximize)
   
   plot.data <- read.table(file.path(test.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
+  plot.data.diversity <- read.table(file.path(test.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
   plot_algorithm_comparison(test.path, plot.data)
+  plot_algorithm_comparison_diversity(test.path, plot.data.diversity)
   plot_algorithm_comparison_pareto(test.path)
 }
 
+execute_tests <- function(params, path, output.folder, algorithm, dataset, n.times=1){
+  setwd(path)
+  source("dmmoea_functions.R")
+  source("dmmoea_parameters.R")
+  source("dmmoea_libraries.R")
+  source("dmmoea_distances.R")
+  source("dmmoea_irace_conf.R")
+  distances <- load.gene.distance(dataset, params$alpha)
+  for(i in 1:n.times){
+    output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
+    if(dir.exists(output.exp)){
+      next
+    }
+    #output.exp <- get_new_dirname(output.exp)
+    print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
+    dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
+    exp.id <- basename(output.exp)
+    if(algorithm == "dmnsga2"){
+      #print("DMNSGA2")
+      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+    }else if(algorithm == "dnsga2"){
+      #print("DNSGA2")
+      res <- dnsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+    }else if(algorithm == "nsga2"){
+      #print("NSGA2")
+      res <- nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+    }else{
+      print("Algorithm not supported!!")
+    }
+    
+    evaluate_solutions(res$population, res$clustering, distances, params$K, 
+                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
+  }
+}
 
 test_best_configurations()

@@ -14,10 +14,10 @@ if(!require(factoextra)){
   install.packages("factoextra", lib=lib)
   library(factoextra, lib.loc=lib)
 }
-#if(!require(eaf)){
-#  install.packages("eaf")
-#  library(eaf)
-#}
+if(!require(NbClust)){
+  install.packages("NbClust")
+  library(NbClust)
+}
 if(!require(tictoc)){
   install.packages("tictoc", lib=lib)
   library(tictoc, lib.loc=lib)

@@ -1299,6 +1299,33 @@ plot_algorithm_comparison <- function(exp.path, plot.data=NULL){
   }
 }
 
+plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
+  dir.create(file.path(exp.path, "figures"), recursive=TRUE, showWarnings = FALSE)
+  ggplot(plot.data[plot.data$Metric=="jaccard", ], aes(x=Dataset, y=Diversity, fill=Algorithm)) +
+    labs(title="Diversity in pareto front per algorithm", subtitle="Jaccard dissimilarity", y="Average separation in pareto front") +
+    geom_boxplot() +
+    facet_wrap(~Dataset, scale="free")
+  ggsave(file.path(exp.path, "figures", "diversity_results_jaccard.png"), height=7, width=7)
+  
+  ggplot(plot.data[plot.data$Metric=="NMI", ], aes(x=Dataset, y=Diversity, fill=Algorithm)) +
+    labs(title="Diversity in pareto front per algorithm", subtitle="NMI dissimilarity", y="Average separation in pareto front") +
+    geom_boxplot() +
+    facet_wrap(~Dataset, scale="free")
+  ggsave(file.path(exp.path, "figures", "diversity_results_NMI.png"), height=7, width=7)
+  
+  ggplot(plot.data, aes(x=Dataset, y=Cluster_Ratio, fill=Algorithm)) +
+    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions") +
+    geom_boxplot() +
+    facet_wrap(~Dataset, scale="free")
+  ggsave(file.path(exp.path, "figures", "clust_ratio_results.png"), height=7, width=7)
+  
+  ggplot(plot.data[plot.data$Metric=="NMI", ], aes(x=Dataset, y=Cluster_Ratio, fill=Algorithm)) +
+    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions") +
+    geom_boxplot() +
+    facet_wrap(~Dataset, scale="free")
+  ggsave(file.path(exp.path, "figures", "clust_ratio_results_NMI.png"), height=7, width=7)
+}
+
 plot_algorithm_comparison_pareto <- function(exp.path){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
@@ -1445,7 +1472,7 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #  dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #}
   write.table(pareto[, obj.index], file = file.path(output, id), sep=",", append=FALSE, quote=FALSE, col.names=FALSE, row.names=FALSE)
-  write.table(pareto, file = file.path(output, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
+  write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
   #write.csv(delta, file.path(output.path, "delta.csv"), row.names=FALSE)
   #write(hv.res, file.path(output.path, "hypervolume.txt"))
   return(list("results"=res, "pareto"=pareto[, obj.index]))
@@ -2032,5 +2059,48 @@ epsilon_multiplicative <- function(S, R){
   inner.epsilon <- function(S, r) { apply(S, 1, function(x) max(x/r)) } 
   res <- apply(R, 1, function(x) min(inner.epsilon(S ,x)))
   return(max(res))
-  
 }
+
+diversity_analysis <- function(P, distances, metric, exp.path=NULL, alpha=0.5, plot=FALSE){
+  P <- as.matrix(P)
+  res.P <- cluster_data(distances, P, alpha)
+  P <- res.P$population
+  P.groups <- res.P$clustering.results 
+  d.matrix.P <- calculate_diversity_matrix(P.groups, metric)
+  avg.dist <- mean(d.matrix.P[lower.tri(d.matrix.P, diag = FALSE)])
+  d.matrix.P <- as.dist(d.matrix.P)
+  min.k <- 2
+  max.k <- max(nrow(P) - 2, min.k + 2) #max(round(sqrt(nrow(P)), 1), 4)
+  print(paste0("(", min.k, " - " , max.k, ")"))
+  if(nrow(P) < 4){
+    #warning("This pareto front has too few solutions, diversity may not be accurate!!")
+    return(list("diss"=d.matrix.P, "avg.dist"=avg.dist, "k.ratio"=mean(c(max.k, min.k))/nrow(P)))
+  }
+  
+  #indexes <- c("frey", "dunn", "cindex", "silhouette", "mcclain")
+  values <- list()
+  for(i in 1:length(indexes)){
+    best <- NbClust::NbClust(diss = d.matrix.P, distance = NULL, index=indexes[i],
+                             min.nc = min.k, max.nc = max.k, method = "single")
+    values[i] <- as.integer(best$Best.nc["Number_clusters"])
+  }
+  getmode <- function(v) {
+    uniqv <- unique(v)
+    uniqv[which.max(tabulate(match(v, uniqv)))]
+  }
+  best.k <- max(getmode(unlist(values)), min.k + 2)
+  if(plot && !is.null(exp.path)){
+    pam.res <- cluster::pam(x=d.matrix.P, diss=FALSE, k = best.k, do.swap = FALSE)
+    plot.pam <- factoextra::fviz_cluster(pam.res, geom = "point", main=paste0("Pareto similarity clustering (", metric, ")"))
+    dir.create(file.path(exp.path, "diversity"), recursive = TRUE, showWarnings = FALSE)
+    out.file <- file.path(exp.path, "diversity", paste0("p", i, "_", metric, ".png"))
+    png(out.file)
+    print(plot.pam)
+    dev.off()
+  }
+  return(list("diss"=d.matrix.P, "avg.dist"=avg.dist, "k.ratio"=best.k/nrow(P)))
+}
+
+
+
+

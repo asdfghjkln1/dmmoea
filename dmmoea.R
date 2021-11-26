@@ -49,25 +49,26 @@ run_experiments <- function(){
   tuned_confs <- irace(scenario = scenario, parameters = parameters)
   print(paste("irace finished!"))
 
-  print("Updating normalizaton limits...")
-  get_normalization_limits(test.path) 
-  print("Ready.")
+  #print("Updating normalizaton limits...")
+  #get_normalization_limits(test.path) 
+  #print("Ready.")
   
-  print("Starting plotting")
+  #print("Starting plotting")
   
   
-  plot_experiment_results(file.path(test.path, algorithm))
-  plot_algorithm_comparison(test.path)
-  plot_algorithm_comparison_pareto(test.path)
+  #plot_experiment_results(file.path(test.path, algorithm))
+  #plot_algorithm_comparison(test.path)
+  #plot_algorithm_comparison_pareto(test.path)
   
-  print("Plotting finished")
+  #print("Plotting finished")
+  print("Starting post analysis...")
   
   post_analysis(file.path(test.path, algorithm), scenario$logFile)
   
   print("Post analysis finished")
   
-  #file.rename(file.path(test.path, algorithm, "irace-log.Rdata"), 
-   #           file.path(test.path, algorithm, "irace-log-backup.Rdata"))
+  file.rename(file.path(test.path, algorithm, "irace-log.Rdata"), 
+              file.path(test.path, algorithm, "irace-log-backup.Rdata"))
 }
 
 post_analysis <- function(exp.path, log.file.path){
