@@ -1977,34 +1977,6 @@ get_normalization_limits <- function(base.path){
   return(limits)
 }
 
-update_normalization_limits <- function(base.path, experiment.path){
-  limits <- read.csv(file.path(base.path, "limits.csv"), header = TRUE)
-  pareto <- read.table(experiment.path, header=FALSE, sep=",")
-  max.values <- apply(pareto, 2, max)
-  min.values <- apply(pareto, 2, min)
-  changed <- FALSE
-  if(max.values[1] > limits[1, "max.f1"]){
-    limits[1, "max.f1"] <- unname(max.values[1])
-    changed <- TRUE
-  }
-  if(max.values[2] > limits[1, "max.f2"]){
-    limits[1, "max.f2"] <- unname(max.values[2])
-    changed <- TRUE
-  }
-  if(min.values[1] < limits[1, "min.f1"]){
-    limits[1, "min.f1"] <- unname(min.values[1])
-    changed <- TRUE
-  }
-  if(min.values[2] < limits[1, "min.f2"]){
-    limits[1, "min.f2"] <- unname(min.values[2])
-    changed <- TRUE
-  }
-  if(changed){
-    write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE) 
-  }
-  return(limits)
-}
-
 calculate_hypervolume <- function(pareto, point, maximize=FALSE){
   pareto <- pareto[order(pareto[, 1], decreasing=TRUE), ]
   if(maximize){
@@ -2018,7 +1990,6 @@ calculate_hypervolume <- function(pareto, point, maximize=FALSE){
       hv <- hv + w*h
     }
   }else{
-    # Is it really the same?
     hv <- (point[1] - pareto[1, 1])*(point[2] - pareto[1, 2])
     if(nrow(pareto) == 1){
       return(hv)
@@ -2030,5 +2001,36 @@ calculate_hypervolume <- function(pareto, point, maximize=FALSE){
     }
   }
   return(hv)
+}
+
+# Comparation Metrics for post-tuning
+
+inverse_generational_distance_plus <- function(S, R){
+  # s: objective values pair (f1, f2) for solution of S
+  # r: objective values pair (f1, f2) for solution of R
+  # m: objective dimensions
+  d.plus <- function(s,r) { 
+    d <- sum(apply( s - r, 2, function(x) ifelse(x < 0, 0, x) ))^2 
+    return(d)
+  }
+  IGD.plus <- 0
+  for(i in 1:nrow(R)){
+    r <- R[i, ]
+    res <- apply(S, 1, function(x) d.plus(x, r))
+    IGD.plus <- IGD.plus + min(res)
+  }
+  return(IGD.plus)
+}
+
+epsilon_multiplicative <- function(S, R){
+  
+  #for(i in 1:nrow(R)){
+  #  r <- R[i, ]
+  #  res <- apply(S, 1, function(x) min(max(x/r)))
+  #}
+  #apply(R, 1, function(x) max( apply(x, 1, function(y) min(max(y/x)))))
+  inner.epsilon <- function(S, r) { apply(S, 1, function(x) max(x/r)) } 
+  res <- apply(R, 1, function(x) min(inner.epsilon(S ,x)))
+  return(max(res))
   
 }
