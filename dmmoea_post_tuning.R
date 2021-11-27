@@ -132,9 +132,11 @@ test_best_configurations <- function(){
     params$convergence_tol <- best_params$convergence_tol
     params$mutation_radius <- best_params$mutation_radius
     params$seed <- runif(1, 0, 1)*1235
-    datasets <- list.dirs(path=file.path(tune.path, algorithm),full.names = FALSE, recursive = FALSE)
+    datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
+      print("Starting dataset:")
+      print(dataset)
       output.folder <- file.path(test.path, algorithm, dataset)
       execute_tests(params, path, output.folder, algorithm, dataset, n.times=trials) 
       
