@@ -15,8 +15,8 @@ if(!require(factoextra)){
   library(factoextra, lib.loc=lib)
 }
 if(!require(NbClust)){
-  install.packages("NbClust")
-  library(NbClust)
+  install.packages("NbClust", lib=lib)
+  library(NbClust, lib.loc=lib)
 }
 if(!require(tictoc)){
   install.packages("tictoc", lib=lib)

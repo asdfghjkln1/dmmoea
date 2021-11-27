@@ -1871,12 +1871,8 @@ aggregate_agents <- function(Agents, n.agents, K, obj.dim){
   clustering <- Agents[[1]]$clustering
   row.count <- nrow(population)
   row.names(population) <- 1:row.count
-  print(paste0("Rownames agent 1:"))
-  print(row.names(population))
   for(i in 2:n.agents){
     row.names(Agents[[i]]$population) <- (row.count+1):(row.count+nrow(Agents[[i]]$population))
-    print(paste0("Rownames agent ", i))
-    print(row.names(Agents[[i]]$population))
     population <- rbind(population, Agents[[i]]$population)
     clustering <- c(clustering, Agents[[i]]$clustering)
     row.count <- nrow(population)
