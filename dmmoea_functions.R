@@ -134,7 +134,7 @@ cluster_data <- function(distances, population, alpha){
       
     }
     clustering.results[[p]] <- grouping
-    names(clustering.results[[p]])<-rownames(dist.compounded)
+    names(clustering.results[[p]])<-row.names(dist.compounded)
     col <- 1
     # For every cluster, check for singletons. 
     # Replace medoid until all clusters in the solution has more than 2 elements
@@ -151,7 +151,7 @@ cluster_data <- function(distances, population, alpha){
           grouping[gene] <- gene.clust
         }
         clustering.results[[p]] <- grouping
-        names(clustering.results[[p]])<-rownames(dist.compounded)
+        names(clustering.results[[p]])<-row.names(dist.compounded)
         col <- 1 # Check for singletons in previous medoids, until every medoid has no singletons
       }else{
         col <- col + 1
@@ -354,7 +354,7 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
   P.clustering.groups <- P.data$clustering.results
   P <- evaluate_population(P, distances, P.clustering.groups, params)
   evaluation.count <- evaluation.count + nrow(P)
-  P.clustering.groups <- P.clustering.groups[as.numeric(rownames(P))]
+  P.clustering.groups <- P.clustering.groups[as.numeric(row.names(P))]
   current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
   #Set condition for early convergence if pareto front does not change
   generations.no.changes <- 0
@@ -376,19 +376,19 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      rownames(P.fill) <- as.character(round(runif(to.fill, 0, 1)*1e4))
+      row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
       evaluation.count <- evaluation.count + nrow(P.fill)
-      P.fill.clustering <- P.fill.clustering[match((rownames(P.fill)), P.fill.rows)]
+      P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
       P <- rbind(P, P.fill)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
-      P.rows <- rownames(P)
+      P.rows <- row.names(P)
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
-      P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)]  # Update clustering
-      rownames(P)<-1:nrow(P)
+      P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
+      row.names(P)<-1:nrow(P)
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -403,31 +403,31 @@ nsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     Q.data <- cluster_data(distances, Q, params$alpha)
     Q <- Q.data$population
     Q.clustering.groups <- Q.data$clustering.results
-    Q.rows <- rownames(Q) 
+    Q.rows <- row.names(Q) 
     Q <- evaluate_population(Q, distances, Q.clustering.groups, params)
     evaluation.count <- evaluation.count + nrow(Q)
-    Q.clustering.groups <- Q.clustering.groups[match((rownames(Q)), Q.rows) ]
-    rownames(Q) <- 1:nrow(Q)
+    Q.clustering.groups <- Q.clustering.groups[match((row.names(Q)), Q.rows) ]
+    row.names(Q) <- 1:nrow(Q)
     
     ## Create population R as the combination of P and Q
     R <- rbind(P,Q)
     R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- remove_duplicated(R, K)
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
     
     obj.values <- R[, (K+1):(K+params$objDim)] # Select objective values
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
-    rownames(R)<-1:nrow(R)
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
+    row.names(R)<-1:nrow(R)
     
     ## Population fitness selection
     P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
-    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
-    rownames(P_next_generation) <- 1:nrow(P_next_generation)
+    P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
+    row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
-    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front))]
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
     
     ## Output pareto front plot
     if(plot){
@@ -504,8 +504,8 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
   P.clustering.groups <- P.data$clustering.results
   P <- evaluate_population(P, distances, P.clustering.groups, params)
   evaluation.count <- evaluation.count + nrow(P)
-  P.clustering.groups <- P.clustering.groups[as.numeric(rownames(P))]
-  rownames(P) <- 1:P.size
+  P.clustering.groups <- P.clustering.groups[as.numeric(row.names(P))]
+  row.names(P) <- 1:P.size
   current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
   generations.no.changes <- 0
   has.converged <- FALSE
@@ -522,19 +522,19 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      rownames(P.fill) <- as.character(round(runif(to.fill, 0, 1)*1e4))
+      row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
       evaluation.count <- evaluation.count + nrow(P.fill)
-      P.fill.clustering <- P.fill.clustering[match((rownames(P.fill)), P.fill.rows)]
+      P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
       P <- rbind(P, P.fill)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
-      P.rows <- rownames(P)
+      P.rows <- row.names(P)
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
-      P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)]  # Update clustering
-      rownames(P)<-1:nrow(P)
+      P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
+      row.names(P)<-1:nrow(P)
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -553,24 +553,24 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     Q.data <- cluster_data(distances, Q, params$alpha)
     Q <- Q.data$population
     Q.clustering.groups <- Q.data$clustering.results
-    Q.rows <- rownames(Q) 
+    Q.rows <- row.names(Q) 
     Q <- evaluate_population(Q, distances, Q.clustering.groups, params)
     evaluation.count <- evaluation.count + nrow(Q)
-    Q.clustering.groups <- Q.clustering.groups[match((rownames(Q)), Q.rows) ]
-    rownames(Q) <- 1:nrow(Q)
+    Q.clustering.groups <- Q.clustering.groups[match((row.names(Q)), Q.rows) ]
+    row.names(Q) <- 1:nrow(Q)
     
     ## Create population R as the combination of P and Q
     R <- rbind(P,Q)
     R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- remove_duplicated(R, K)
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
     
     obj.values <- R[, (K+1):(K+params$objDim)] # Select objective values
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
-    rownames(R)<-1:nrow(R)
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
+    row.names(R)<-1:nrow(R)
     
     ## Population fitness selection
     if(diversity.level >= 2){
@@ -578,10 +578,10 @@ dnsga2 <- function(distances, params, output.path, debug=FALSE, plot=FALSE){
     }else{
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
-    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
-    rownames(P_next_generation) <- 1:nrow(P_next_generation)
+    P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
+    row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
-    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front)) ]
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
     
     if(plot){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path) # Output pareto front 
@@ -666,19 +666,20 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      rownames(P.fill) <- as.character(round(runif(to.fill, 0, 1)*1e4))
+      row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
       evaluation.count <- evaluation.count + nrow(P.fill)
-      P.fill.clustering <- P.fill.clustering[match((rownames(P.fill)), P.fill.rows)]
+      P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
       P <- rbind(P, P.fill)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
-      P.rows <- rownames(P)
+      P.rows <- row.names(P)
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
-      P.clustering.groups <- P.clustering.groups[match((rownames(P)), P.rows)]  # Update clustering
-      rownames(P)<-1:nrow(P)
+      P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
+      row.names(P)<-1:nrow(P)
+      Log("Filling finished!")
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -695,24 +696,24 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     Q.data <- cluster_data(distances, Q, params$alpha)
     Q <- Q.data$population
     Q.clustering.groups <- Q.data$clustering.results
-    Q.rows <- rownames(Q) 
+    Q.rows <- row.names(Q) 
     Q <- evaluate_population(Q, distances, Q.clustering.groups, params)
     evaluation.count <- evaluation.count + nrow(Q)
-    Q.clustering.groups <- Q.clustering.groups[match((rownames(Q)), Q.rows) ]
-    rownames(Q) <- 1:nrow(Q)
+    Q.clustering.groups <- Q.clustering.groups[match((row.names(Q)), Q.rows) ]
+    row.names(Q) <- 1:nrow(Q)
     
     ## Create population R as the combination of P and Q
     R <- rbind(P,Q)
     R.clustering.groups <- c(P.clustering.groups, Q.clustering.groups)
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- remove_duplicated(R, K)
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
 
     obj.values <- R[, (K+1):(K+params$objDim)] # Select objective values
-    R.rows <- rownames(R)
+    R.rows <- row.names(R)
     R <- dominance_ranking_sorting(R[, 1:K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[match((rownames(R)), R.rows)] # Update clustering
-    rownames(R)<-1:nrow(R)
+    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
+    row.names(R)<-1:nrow(R)
   
     ## Population fitness selection
     if(diversity.level >= 2){
@@ -720,10 +721,10 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }else{
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
-    P.clustering.groups <- R.clustering.groups[as.numeric(rownames(P_next_generation))] # Update clustering
-    rownames(P_next_generation) <- 1:nrow(P_next_generation)
+    P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
+    row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
-    pareto.clustering <- P.clustering.groups[as.numeric(rownames(new.pareto.front)) ]
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
     if(plot){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path, agent=agent, phase=phase) # Output pareto front
     }
@@ -917,7 +918,7 @@ population_mating_and_mutation <- function(mating_pool, num.genes, params, P.siz
       Q[p, k] <- gene
     }
   }
-  rownames(Q) <- (nrow(mating_pool)+1):(nrow(mating_pool)*2)
+  row.names(Q) <- (nrow(mating_pool)+1):(nrow(mating_pool)*2)
   return(Q)
 }
 
@@ -1001,7 +1002,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
       }
     }
   }
-  rownames(Q) <- (nrow(mating_pool)+1):(nrow(mating_pool)*2)
+  row.names(Q) <- (nrow(mating_pool)+1):(nrow(mating_pool)*2)
   return(Q)
 }
 
@@ -1443,7 +1444,7 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
     silhouette.res[i, 1:K] <- unname(res$clus.avg.widths)
     silhouette.res[i, K+1] <- res$avg.width
   }
-  rownames(silhouette.res) <- 1:N
+  row.names(silhouette.res) <- 1:N
   
   # Calculate Delta spread
   delta <- delta_spread(pareto, obj.index)
@@ -1552,8 +1553,8 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   q <- length(Clust.B)
   # Create a distance matrix between chromosomes of the union of both populations
   clust <- c(Clust.A, Clust.B)
-  rownames(Agent.A$population) <- 1:p
-  rownames(Agent.B$population) <- (p+1):(p+q)
+  row.names(Agent.A$population) <- 1:p
+  row.names(Agent.B$population) <- (p+1):(p+q)
   Pop <- rbind(Agent.A$population, Agent.B$population)
   distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
   distance.matrix <- as.dist(distance.matrix)
@@ -1564,8 +1565,8 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   Pop.B <- Pop[pop.membership == 2, ]
   Clust.A <- clust[pop.membership == 1]
   Clust.B <- clust[pop.membership == 2]
-  A.rows <- rownames(Pop.A)
-  B.rows <- rownames(Pop.B)
+  A.rows <- row.names(Pop.A)
+  B.rows <- row.names(Pop.B)
   # Population A non-dominated sorting
   objectives <- as.matrix(Pop.A[, obj_indexes])
   ranking <- nsga2R::fastNonDominatedSorting(objectives)
@@ -1595,9 +1596,9 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
     Pop.B <- Pop.B[1:pop_limit, ] 
   }
   Agent.A$population <- Pop.A
-  Agent.A$clustering <- Clust.A[match(rownames(Pop.A), A.rows)]
+  Agent.A$clustering <- Clust.A[match(row.names(Pop.A), A.rows)]
   Agent.B$population <- Pop.B
-  Agent.B$clustering <- Clust.B[match(rownames(Pop.B), B.rows)]
+  Agent.B$clustering <- Clust.B[match(row.names(Pop.B), B.rows)]
   return(list("Agent.A"=Agent.A, "Agent.B"=Agent.B))
   
 }
@@ -1616,8 +1617,8 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
   Clust.B <- Agent.B$clustering
   pop_agent_a <- nrow(Pop.A)
   pop_agent_b <- nrow(Pop.B)
-  rownames(Pop.A) <- 1:pop_agent_a
-  rownames(Pop.B) <- (pop_agent_a+1):(pop_agent_a+pop_agent_b)
+  row.names(Pop.A) <- 1:pop_agent_a
+  row.names(Pop.B) <- (pop_agent_a+1):(pop_agent_a+pop_agent_b)
   
   # Create a factor 1 from maximization or -1 for minimization
   obj <- c( ifelse(obj_maximize[1], 1, -1), ifelse(obj_maximize[2], 1, -1) )
@@ -1652,8 +1653,8 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
       if(taken == max.taken){ break }
     }
   }
-  A.rows <- rownames(Pop.A)
-  B.rows <- rownames(Pop.B)
+  A.rows <- row.names(Pop.A)
+  B.rows <- row.names(Pop.B)
   # Population A non-dominated sorting
   objectives <- as.matrix(Pop.A[, obj_indexes])
   ranking <- nsga2R::fastNonDominatedSorting(objectives)
@@ -1684,9 +1685,9 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
   }
 
   Agent.A$population <- Pop.A
-  Agent.A$clustering <- Clust.A[match(rownames(Pop.A), A.rows)]
+  Agent.A$clustering <- Clust.A[match(row.names(Pop.A), A.rows)]
   Agent.B$population <- Pop.B
-  Agent.B$clustering <- Clust.B[match(rownames(Pop.B), B.rows)]
+  Agent.B$clustering <- Clust.B[match(row.names(Pop.B), B.rows)]
   
   return(list("Agent.A"=Agent.A, "Agent.B"=Agent.B))
 }
@@ -1742,8 +1743,8 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, debug=FALSE, p
   P.clustering.groups <- P.data$clustering.results
   P <- evaluate_population(P, distances, P.clustering.groups, params)
   evaluation.count <- evaluation.count + nrow(P)
-  P.clustering.groups <- P.clustering.groups[as.numeric(rownames(P))]
-  rownames(P) <- 1:P.size
+  P.clustering.groups <- P.clustering.groups[as.numeric(row.names(P))]
+  row.names(P) <- 1:P.size
   current.pareto.front <- P[P$rnkIndex == 1, ] # Current pareto front
   
   if(plot){
@@ -1787,6 +1788,7 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, debug=FALSE, p
       pareto_agent <- dnsga2_agent(distances, params, output.path, P.size=pop.per.agent, agent=i, phase=phase, 
                                    evaluations=evaluations.per.agent, 
                                    initial_population=Agents[[i]], debug=debug, plot=plot)
+      print(pareto_agent$population)
       #parameters: distances, diversity.metric, diversity.level, params, output.path, generations, P.size, agent, phase, initial_population
       return( list( pareto_agent ) )
     }
@@ -1869,17 +1871,21 @@ aggregate_agents <- function(Agents, n.agents, K, obj.dim){
   clustering <- Agents[[1]]$clustering
   row.count <- nrow(population)
   row.names(population) <- 1:row.count
+  print(paste0("Rownames agent 1:"))
+  print(row.names(population))
   for(i in 2:n.agents){
     row.names(Agents[[i]]$population) <- (row.count+1):(row.count+nrow(Agents[[i]]$population))
+    print(paste0("Rownames agent ", i))
+    print(row.names(Agents[[i]]$population))
     population <- rbind(population, Agents[[i]]$population)
     clustering <- c(clustering, Agents[[i]]$clustering)
     row.count <- nrow(population)
   }
   #n.pop <- nrow(population)
-  #rownames(population) <- 1:n.pop
+  #row.names(population) <- 1:n.pop
   obj.values <- population[ , (K+1):(K+obj.dim)]
   population <- dominance_ranking_sorting(population[, 1:K], obj.values)
-  clustering <- clustering[as.numeric(rownames(population))]
+  clustering <- clustering[as.numeric(row.names(population))]
   return(list("population"=population, "clustering"=clustering))
 }
 
