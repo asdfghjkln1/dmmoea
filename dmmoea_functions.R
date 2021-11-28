@@ -1625,7 +1625,7 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
   pop_agent_b <- nrow(Pop.B)
   row.names(Pop.A) <- 1:pop_agent_a
   row.names(Pop.B) <- (pop_agent_a+1):(pop_agent_a+pop_agent_b)
-  
+  K <- min(obj_indexes) - 1 
   # Create a factor 1 from maximization or -1 for minimization
   obj <- c( ifelse(obj_maximize[1], 1, -1), ifelse(obj_maximize[2], 1, -1) )
   
