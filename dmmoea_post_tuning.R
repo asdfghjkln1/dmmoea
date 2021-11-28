@@ -126,9 +126,10 @@ test_best_configurations <- function(){
       params$density_tol <- best_params$density_tol
     }
     params$diversity_metric <- best_params$diversity_metric
+    params$diversity_metric <- best_params$diversity_level
     params$phases <- best_params$phases
     params$agents <- best_params$agents
-    params$sync_off <- best_params$sync_off
+    params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
     params$convergence_tol <- best_params$convergence_tol
     params$mutation_radius <- best_params$mutation_radius
     params$seed <- runif(1, 0, 1)*1235

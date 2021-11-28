@@ -40,9 +40,11 @@ target.runner <- function(experiment, scenario){
     params$density_tol <- as.numeric(configuration[['density_tol']]) 
   }
   params$diversity_metric <- configuration[['diversity_metric']]
+  params$diversity_level <- configuration[['diversity_level']]
   params$phases <- as.numeric(configuration[['phases']])
   params$agents <- as.numeric(configuration[['agents']])
   params$sync_off <- as.numeric(configuration[['sync_off']])
+  if(is.na(params$sync_off)){ params$sync_off <- 0}
   params$convergence_tol <- as.numeric(configuration[['convergence_tol']])
   params$mutation_radius <- as.numeric(configuration[['mutation_radius']])
   params$seed <- as.numeric(experiment$seed)
