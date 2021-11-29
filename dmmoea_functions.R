@@ -169,7 +169,6 @@ evaluate_silhouette <- function(gene.dist, groups, N){
     sil <- cluster::silhouette(groups[[i]], gene.dist)
     res <- summary(sil)
     f[i] <- res$avg.width
-    
   }
   return(f)
 }
@@ -672,14 +671,21 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
       evaluation.count <- evaluation.count + nrow(P.fill)
       P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
+      Log("Row binding: ")
+      print(P)
+      Log("And")
+      print(P.fill)
       P <- rbind(P, P.fill)
+      Log("Row bind finished!")
+      row.names(P) <- 1:nrow(P)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
       P.rows <- row.names(P)
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
       P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
       row.names(P)<-1:nrow(P)
-      Log("Filling finished!")
+      Log("Filling finished!. Population is now: ")
+      print(P)
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -1619,7 +1625,7 @@ fitness_sync <- function(Agent.A, Agent.B, obj_maximize, obj_indexes, pop_limit)
   pop_agent_b <- nrow(Pop.B)
   row.names(Pop.A) <- 1:pop_agent_a
   row.names(Pop.B) <- (pop_agent_a+1):(pop_agent_a+pop_agent_b)
-  
+  K <- min(obj_indexes) - 1 
   # Create a factor 1 from maximization or -1 for minimization
   obj <- c( ifelse(obj_maximize[1], 1, -1), ifelse(obj_maximize[2], 1, -1) )
   
@@ -1888,6 +1894,7 @@ aggregate_agents <- function(Agents, n.agents, K, obj.dim){
 fill_population <- function(P, K, n.genes, fill){
   filled <- 1
   filled.pop <- matrix(nrow = fill, ncol = K)
+  temp <- P
   while(filled <= fill){
     sample.chr <- sample(1:nrow(P), 1)
     chr <- P[sample.chr, 1:K]
@@ -1895,8 +1902,11 @@ fill_population <- function(P, K, n.genes, fill){
     sample.gene <- sample(1:n.genes, 1)
     if(!is.element(sample.gene, P[sample.chr, ])){
       chr[1, sample.medoid] <- sample.gene
-      filled.pop[filled,1:K] <- unlist(chr)
-      filled <- filled + 1
+      temp[filled+1, ] <- unlist(chr)
+      if(!any(duplicated(temp))){
+        filled.pop[filled,1:K] <- unlist(chr)
+        filled <- filled + 1
+      }
     }
   }
   return(filled.pop)
@@ -2064,46 +2074,6 @@ epsilon_multiplicative <- function(S, R){
   inner.epsilon <- function(S, r) { apply(S, 1, function(x) max(x/r)) } 
   res <- apply(R, 1, function(x) min(inner.epsilon(S ,x)))
   return(max(res))
-}
-
-diversity_analysis <- function(P, distances, metric, exp.path=NULL, alpha=0.5, plot=FALSE){
-  P <- as.matrix(P)
-  res.P <- cluster_data(distances, P, alpha)
-  P <- res.P$population
-  P.groups <- res.P$clustering.results 
-  d.matrix.P <- calculate_diversity_matrix(P.groups, metric)
-  avg.dist <- mean(d.matrix.P[lower.tri(d.matrix.P, diag = FALSE)])
-  d.matrix.P <- as.dist(d.matrix.P)
-  min.k <- 2
-  max.k <- max(nrow(P) - 2, min.k + 2) #max(round(sqrt(nrow(P)), 1), 4)
-  print(paste0("(", min.k, " - " , max.k, ")"))
-  if(nrow(P) < 4){
-    #warning("This pareto front has too few solutions, diversity may not be accurate!!")
-    return(list("diss"=d.matrix.P, "avg.dist"=avg.dist, "k.ratio"=mean(c(max.k, min.k))/nrow(P)))
-  }
-  
-  #indexes <- c("frey", "dunn", "cindex", "silhouette", "mcclain")
-  values <- list()
-  for(i in 1:length(indexes)){
-    best <- NbClust::NbClust(diss = d.matrix.P, distance = NULL, index=indexes[i],
-                             min.nc = min.k, max.nc = max.k, method = "single")
-    values[i] <- as.integer(best$Best.nc["Number_clusters"])
-  }
-  getmode <- function(v) {
-    uniqv <- unique(v)
-    uniqv[which.max(tabulate(match(v, uniqv)))]
-  }
-  best.k <- max(getmode(unlist(values)), min.k + 2)
-  if(plot && !is.null(exp.path)){
-    pam.res <- cluster::pam(x=d.matrix.P, diss=FALSE, k = best.k, do.swap = FALSE)
-    plot.pam <- factoextra::fviz_cluster(pam.res, geom = "point", main=paste0("Pareto similarity clustering (", metric, ")"))
-    dir.create(file.path(exp.path, "diversity"), recursive = TRUE, showWarnings = FALSE)
-    out.file <- file.path(exp.path, "diversity", paste0("p", i, "_", metric, ".png"))
-    png(out.file)
-    print(plot.pam)
-    dev.off()
-  }
-  return(list("diss"=d.matrix.P, "avg.dist"=avg.dist, "k.ratio"=best.k/nrow(P)))
 }
 
 
