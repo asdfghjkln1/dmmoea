@@ -34,9 +34,6 @@
 /Tests/tuning_XieBeni/dmnsga2/serum/
 /Tests/tuning_XieBeni/dmnsga2/sporulation/
 
-dmnsga_output.txt
-dnsga_output.txt
-nsga_output.txt
 irace.Rdata
 nohup.out
 
