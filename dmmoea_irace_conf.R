@@ -83,13 +83,6 @@ target.runner <- function(experiment, scenario){
   return(list()) #"time"=as.numeric(time)))
 }
 
-target.runner.parallel <- function(experiments, exec.target.runner, scenario, target.runner)
-{
-  return (lapply(experiments, exec.target.runner, scenario = scenario,
-                 target.runner = target.runner))
-}
-
-
 target.evaluator <- function(experiment, num.configurations, all.conf.id,scenario, target.runner.call){
   
   instance <- experiment$instance
