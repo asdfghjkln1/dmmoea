@@ -3,8 +3,6 @@
 #!/Tests
 #/Tests/*
 
-.gitignore
-
 /Tests/runs/*
 /Tests/runs/dmnsga2/
 /Tests/runs/nsga2/
@@ -78,3 +76,4 @@ vignettes/*.pdf
 
 # R Environment Variables
 .Renviron
+
