@@ -1572,6 +1572,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
     data <- rbind(data, ideal.pareto)
     data.norm <- rbind(data.norm, ideal.pareto)
     
+    write.table(data, file=file.path(folder.path, "data_pareto.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(data.norm, file=file.path(folder.path, "data_pareto_norm.csv"), sep=",", row.names = FALSE, col.names = TRUE)
     
     ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
