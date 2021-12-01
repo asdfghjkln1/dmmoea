@@ -1391,7 +1391,8 @@ plot_experiment_results <- function(exp.path){
   ggplot(plot.data, aes(x=Dataset, y=Hypervolume, fill=Dataset)) +
      labs(title="Hypervolume comparison") +
      geom_boxplot() +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   
   ggsave(file.path(folder.path, "hv_results.png"), width = 6, height = 4)
   
@@ -1412,21 +1413,24 @@ plot_experiment_results <- function(exp.path){
   ggplot(plot.data.metrics, aes(x=Dataset, y=avg_sil, fill=Dataset)) +
     labs(title="Average cluster silhouette comparison", y="Average sil.") +
     geom_boxplot() +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   
   ggsave(file.path(folder.path, "sil_results.png"), width = 6, height = 4)
   
   ggplot(plot.data.metrics, aes(x=Dataset, y=delta, fill=Dataset)) +
     labs(title="Delta metric comparison", y="Delta spread index") +
     geom_boxplot() +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   
   ggsave(file.path(folder.path, "delta_results.png"), width = 6, height = 4)
   
   ggplot(plot.data.metrics, aes(x=Dataset, y=time, fill=Dataset)) +
     labs(title="Execution time comparison", y="Time (seconds)") +
     geom_boxplot() +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   
   ggsave(file.path(folder.path, "time_results.png"), width = 6, height = 4)
 }
@@ -1438,21 +1442,24 @@ plot_algorithm_comparison <- function(exp.path, plot.data=NULL){
       labs(title="Hypervolume values by algorithm", y="Hypervolume") +
       geom_boxplot() +
       facet_wrap(~Dataset, scale="free") +
-      theme_minimal()
+      theme_minimal() +
+      theme(strip.text.x = element_blank())
     ggsave(file.path(exp.path, "figures", "hv_results.png"), height=7, width=7)
     
     ggplot(plot.data, aes(x=Dataset, y=Silhouette, fill=Algorithm)) +
       labs(title="Silhouette index values by algorithm", y="Average population silhouette") +
       geom_boxplot() +
       facet_wrap(~Dataset, scale="free") +
-      theme_minimal()
+      theme_minimal() +
+      theme(strip.text.x = element_blank())
     ggsave(file.path(exp.path, "figures", "sil_results.png"), height=7, width=7)
     
     ggplot(plot.data, aes(x=Dataset, y=Delta, fill=Algorithm)) +
       labs(title="Delta index values by algorithm", y="Delta index") +
       geom_boxplot() +
       facet_wrap(~Dataset, scale="free") +
-      theme_minimal()
+      theme_minimal() +
+      theme(strip.text.x = element_blank())
     ggsave(file.path(exp.path, "figures", "delta_results.png"), height=7, width=7)
   }else{
     folder.path <- file.path(exp.path)
@@ -1471,7 +1478,8 @@ plot_algorithm_comparison <- function(exp.path, plot.data=NULL){
       labs(title="Hypervolume values by algorithm", y="Hypervolume") +
       geom_boxplot() +
       facet_wrap(~Dataset, scale="free") +
-      theme_minimal()
+      theme_minimal() +
+      theme(strip.text.x = element_blank())
     
     dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
     ggsave(file.path(folder.path, "figures", "hv_results.png"), height=5, width=7)
@@ -1484,28 +1492,32 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
     labs(title="Diversity in pareto front per algorithm", subtitle="Jaccard dissimilarity", y="Average separation in pareto front") +
     geom_boxplot() +
     facet_wrap(~Dataset, scale="free") +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   ggsave(file.path(exp.path, "figures", "diversity_results_jaccard.png"), height=7, width=7)
   
   ggplot(plot.data[plot.data$Metric=="NMI", ], aes(x=Dataset, y=Diversity, fill=Algorithm)) +
     labs(title="Diversity in pareto front per algorithm", subtitle="NMI dissimilarity", y="Average separation in pareto front") +
     geom_boxplot() +
     facet_wrap(~Dataset, scale="free") +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   ggsave(file.path(exp.path, "figures", "diversity_results_NMI.png"), height=7, width=7)
   
   ggplot(plot.data, aes(x=Dataset, y=Cluster_Ratio, fill=Algorithm)) +
-    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions") +
+    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions", subtitle="Jaccard dissimilarity") +
     geom_boxplot() +
     facet_wrap(~Dataset, scale="free") +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   ggsave(file.path(exp.path, "figures", "clust_ratio_results.png"), height=7, width=7)
   
   ggplot(plot.data[plot.data$Metric=="NMI", ], aes(x=Dataset, y=Cluster_Ratio, fill=Algorithm)) +
-    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions") +
+    labs(title="Average cluster ratio in pareto front per algorithm", y="Ratio of clusters to number of solutions", subtitle="NMI dissimilarity") +
     geom_boxplot() +
     facet_wrap(~Dataset, scale="free") +
-    theme_minimal()
+    theme_minimal() +
+    theme(strip.text.x = element_blank())
   ggsave(file.path(exp.path, "figures", "clust_ratio_results_NMI.png"), height=7, width=7)
 }
 
@@ -1548,32 +1560,35 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
       plot.data <- rbind(plot.data, pareto.dataset)
     }
   }
+  # Generate ideal pareto for each dataset  
+  for(i in 1:length(datasets)){
+    dataset <- datasets[i]
+    data <- plot.data[plot.data$Dataset == dataset, ]
     
+    ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
+    rnkIndex <- integer(nrow(data))
+    while (i <= length(ranking)) {
+      rnkIndex[ranking[[i]]] <- i
+      i <- i + 1
+    } 
+    data[, "rnkIndex"] <- rnkIndex
+    ideal.pareto <- data[data$rnkIndex == 1, ]
+    ideal.pareto[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto))
+    plot.data <- rbind(plot.data, ideal.pareto)
+  }
+  plot.data.norm <- as.data.frame(matrix(ncol=6, nrow=0))
+  colnames(plot.data.norm) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")
+  #Plot each dataset pareto front
   dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
   for(i in 1:length(datasets)){
     dataset <- datasets[i]
     data <- plot.data[plot.data$Dataset == dataset, ]
+    
+    dataset.path <- file.path(folder.path, algorithm[1], dataset) # A little hardcoded, but it should work
+    limits <- read.table(file.path(dataset.path, "limits.csv"), sep=",", header = TRUE, row.names=NULL)
     data.norm <- data
-    #data.norm[, c("f1", "f2")] <- eaf::normalise(data.norm[, c("f1", "f2")], c(0,1))
-    data.norm[, c("f1", "f2")] <- normalise_pareto(data.norm[, c("f1", "f2")], limits)
-    
-    total.ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data.norm[, c("f1", "f2")]))
-    rnkIndex <- integer(nrow(data.norm))
-    while (i <= length(total.ranking)) {
-      rnkIndex[total.ranking[[i]]] <- i
-      i <- i + 1
-    } 
-    data[, "rnkIndex"] <- rnkIndex
-    data.norm[, "rnkIndex"] <- rnkIndex
-    ideal.pareto <- data[data$rnkIndex == 1, ]
-    ideal.pareto.norm <- data.norm[data.norm$rnkIndex == 1, ]
-    ideal.pareto[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto))
-    ideal.pareto.norm[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto.norm))
-    data <- rbind(data, ideal.pareto)
-    data.norm <- rbind(data.norm, ideal.pareto)
-    
-    write.table(data, file=file.path(folder.path, "data_pareto.csv"), sep=",", row.names = FALSE, col.names = TRUE)
-    write.table(data.norm, file=file.path(folder.path, "data_pareto_norm.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    data.norm[, c("f1", "f2")] <- normalise_pareto(as.matrix(data.norm[, c("f1", "f2")]), limits=limits)
+    plot.data.norm <- rbind(plot.data.norm, data.norm)
     
     ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
@@ -1589,13 +1604,15 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
       geom_point() +
       geom_line() +
       theme(legend.position="top") +
-      xlim(0, 1) +
-      ylim(0, 1) +
+      #xlim(0, 1) +
+      #ylim(0, 1) +
       theme_minimal()
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
   }
+  write.table(plot.data, file=file.path(folder.path, "data_pareto.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+  write.table(plot.data.norm, file=file.path(folder.path, "data_pareto_norm.csv"), sep=",", row.names = FALSE, col.names = TRUE)
 }
 
 ## Evaluation Metrics
@@ -1958,12 +1975,14 @@ normalise_pareto <- function(data, limits=NULL, dims=2){
     max <- apply(data, 2, max)
     min <- apply(data, 2, min)
     for(i in 1:dims){
-      scaler <- function(x){ (x-min[i])/(max[i]-min[i]) }
+      scaler <- function(x){ min(1, (x-min[i])/(max[i]-min[i])) }
       data[, i] <- scaler(data[, i])
     }
   }else{
+    data[,1] <- ifelse(data[, 1] < limits$max.f1, data[, 1], limits$max.f1)
+    data[,2] <- ifelse(data[, 2] < limits$max.f2, data[, 2], limits$max.f2)
     data[,1] <- (data[,1]-limits$min.f1)/(limits$max.f1-limits$min.f1)
-    data[,2] <- (data[,1]-limits$min.f2)/(limits$max.f2-limits$min.f2) 
+    data[,2] <- (data[,2]-limits$min.f2)/(limits$max.f2-limits$min.f2)
   }
   return(as.data.frame(data))
 }
@@ -1999,12 +2018,6 @@ normalise_results <- function(base.path, algorithm){
     }
     limits <- data.frame("min.f1"=min.f1, "max.f1"=max.f1, "min.f2"=min.f2, "max.f2"=max.f2)
     write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
-    #scaler.f1 <- function(x){ (x-min.f1)/(max.f1-min.f1) }
-    #scaler.f2 <- function(x){ (x-min.f2)/(max.f2-min.f2) }
-    #for(f in 1:length(files)){
-    #  norm <- data.frame("f1"=scaler.f1(pareto[[f]][, 1]), "f2"=scaler.f2(pareto[[f]][, 2]))
-    #  write.csv(norm, file = files[f], append=FALSE, quote=FALSE, col.names=FALSE, row.names=FALSE)
-    #}
   }
   return(limits)
 }
@@ -2014,7 +2027,7 @@ get_normalization_limits <- function(base.path){
   min.f1 <- 0
   #max.f2 <- 0
   min.f2 <- 0
-  data <- data.frame("max.f1"=NA, "max.f2"=NA)
+  data <- data.frame("max.f1"=NA, "max.f2"=NA, "dataset"=NA)
   row <- 1
   algorithms <- list.dirs(path=file.path(base.path), full.names=FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
@@ -2033,31 +2046,49 @@ get_normalization_limits <- function(base.path){
         #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
         pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
         max.values <- apply(pareto, 2, max)
-        data[row, ] <- round(max.values, 3)
+        data[row, c("max.f1", "max.f2")] <- round(max.values, 1)
+        data[row, "dataset"] <- dataset
         row <- row + 1
         #min.values <- apply(pareto, 2, min)
       }
     }
   }
+  datasets <- unique(data$dataset)
   cut <- 0.9
-  ggplot(data, aes(x=max.f1)) +
-    geom_histogram() +
-    labs(title="Distribution of expression objective function limits", x="Frecuency") +
-    geom_vline(xintercept = quantile(data$max.f1, cut, na.rm=TRUE)) +
-    theme_minimal()
+  dir.create(file.path(base.path, "figures", "limits"), recursive = TRUE, showWarnings = FALSE)
+  for(j in 1:length(datasets)){
+    dataset <- datasets[j]
+    data.dataset <- data[data$dataset == dataset, ]
+    ggplot(data.dataset, aes(x=max.f1)) +
+      geom_histogram(color="darkblue", fill="lightblue") +
+      labs(title="Distribution of expression objective function limits", x="Frecuency", subtitle=dataset) +
+      geom_vline(xintercept = quantile(data.dataset$max.f1, cut, na.rm=TRUE)) +
+      theme_minimal()
+    
+    ggsave(file.path(base.path, "figures", "limits", paste0("limit_f1_", dataset,".png")), width = 6, height = 4)
+    
+    ggplot(data.dataset, aes(x=max.f2)) +
+      geom_histogram(color="darkblue", fill="lightblue") +
+      labs(title="Distribution of biological objective function limits", x="Frecuency", subtitle=dataset) +
+      geom_vline(xintercept = quantile(data.dataset$max.f2, cut, na.rm=TRUE)) +
+      theme_minimal()
+    
+    ggsave(file.path(base.path, "figures", "limits", paste0("limit_f2_", dataset,".png")), width = 6, height = 4)
+  }
   
-  ggsave(file.path(base.path, "limit_f1.png"), width = 6, height = 4)
-  
-  ggplot(data, aes(x=max.f2)) +
-    geom_histogram() +
-    labs(title="Distribution of biological objective function limits", x="Frecuency") +
-    geom_vline(xintercept = quantile(data$max.f2, cut, na.rm=TRUE)) +
-    theme_minimal()
-  
-  ggsave(file.path(base.path, "limit_f2.png"), width = 6, height = 4)
-  
+  for(i in 1:length(algorithms)){
+    algorithm <- algorithms[i]
+    for(j in 1:length(datasets)){
+      dataset <- datasets[j]
+      if(dir.exists(file.path(base.path, algorithm, dataset))){
+        data.dataset <- data[data$dataset == dataset, ]
+        limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data.dataset$max.f1, cut, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data.dataset$max.f2, cut, na.rm=TRUE))
+        write.table(limits, file=file.path(base.path, algorithm, dataset, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, col.names = TRUE)
+      }
+    }
+  }
   limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut, na.rm=TRUE))
-  write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, quote = FALSE)
+  write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, col.names = TRUE)
   return(limits)
 }
 
