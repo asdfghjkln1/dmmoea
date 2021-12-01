@@ -18,32 +18,30 @@ evaluate_results <- function(){
   #source("dmmoea_irace_conf.R")
 
   results.path <- file.path(path, results.path)
-  if(!file.exists(file.path(results.path, "limits.csv"))){
+  #if(!file.exists(file.path(results.path, "limits.csv"))){
     #warning("Limits not found, please run \"dmmoea_normalize_limits.R\" first.")
     #return(-1)
-    print("Limits not found. Getting normalization limits...")
-    get_normalization_limits(results.path)
-    print("Finished.")
-  }
+  print("Getting normalization limits...")
+  get_normalization_limits(results.path)
+  #}
+  limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
+  print("Finished.")
   
-  evaluate_run_results(results.path)
   if(!file.exists(file.path(results.path, "plot_data.csv"))){
-    warning("Quality plot data not found!. Aborting...")
-    return(-1)
+    print("Quality plot data not found!. Initiating evaluation...")
+    evaluate_run_results(results.path, limits)
+  }else if(!file.exists(file.path(results.path, "plot_data_diversity.csv"))){
+    print("Diversity plot data not found!. Initiating evaluation...")
+    evaluate_run_results(results.path, limits)W
   }
-  if(!file.exists(file.path(results.path, "plot_data_diversity.csv"))){
-    warning("Diversity plot data not found!. Aborting...")
-    return(-1)
-  }
+  plot_algorithm_comparison_pareto(results.path, limits)
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
   plot_algorithm_comparison(results.path, plot.data)
   plot_algorithm_comparison_diversity(results.path, plot.data.diversity)
-  plot_algorithm_comparison_pareto(results.path)
 }
 
-evaluate_run_results <- function(path, maximize=FALSE, alpha=0.5){
-  limits <- read.csv(file.path(path, "limits.csv"), header = TRUE)
+evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5){
   scaler.f1 <- function(x){ (x-limits$min.f1)/(limits$max.f1-limits$min.f1) }
   scaler.f2 <- function(x){ (x-limits$min.f2)/(limits$max.f2-limits$min.f2) }
   algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)

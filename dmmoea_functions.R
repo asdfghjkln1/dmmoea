@@ -1548,7 +1548,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
       plot.data <- rbind(plot.data, pareto.dataset)
     }
   }
-  
+    
   dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
   for(i in 1:length(datasets)){
     dataset <- datasets[i]
@@ -1556,6 +1556,22 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
     data.norm <- data
     #data.norm[, c("f1", "f2")] <- eaf::normalise(data.norm[, c("f1", "f2")], c(0,1))
     data.norm[, c("f1", "f2")] <- normalise_pareto(data.norm[, c("f1", "f2")], limits)
+    
+    total.ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data.norm[, c("f1", "f2")]))
+    rnkIndex <- integer(nrow(data.norm))
+    while (i <= length(total.ranking)) {
+      rnkIndex[total.ranking[[i]]] <- i
+      i <- i + 1
+    } 
+    data[, "rnkIndex"] <- rnkIndex
+    data.norm[, "rnkIndex"] <- rnkIndex
+    ideal.pareto <- data[data$rnkIndex == 1, ]
+    ideal.pareto.norm <- data.norm[data.norm$rnkIndex == 1, ]
+    ideal.pareto[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto))
+    ideal.pareto.norm[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto.norm))
+    data <- rbind(data, ideal.pareto)
+    data.norm <- rbind(data.norm, ideal.pareto)
+    
     
     ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Pareto front for dataset: ",dataset), x="Genetic expression", y="Biological function") +
