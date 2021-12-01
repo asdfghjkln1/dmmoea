@@ -32,7 +32,7 @@ evaluate_results <- function(){
     evaluate_run_results(results.path, limits)
   }else if(!file.exists(file.path(results.path, "plot_data_diversity.csv"))){
     print("Diversity plot data not found!. Initiating evaluation...")
-    evaluate_run_results(results.path, limits)W
+    evaluate_run_results(results.path, limits)
   }
   plot_algorithm_comparison_pareto(results.path, limits)
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
