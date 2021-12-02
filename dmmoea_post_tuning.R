@@ -17,11 +17,11 @@ test_best_configurations <- function(){
   
   tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
   test.path <- file.path(path, "Tests", "runs", obj_fun)
-  print("Searching limits in:")
-  print(file.path(tune.path, "limits.csv"))
-  limits <- read.table(file.path(tune.path, "limits.csv"), sep=",", header = TRUE)
-  print("Limits are: ")
-  print(limits)
+  #print("Searching limits in:")
+  #print(file.path(tune.path, "limits.csv"))
+  #limits <- read.table(file.path(tune.path, "limits.csv"), sep=",", header = TRUE)
+  #print("Limits are: ")
+  #print(limits)
   algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
@@ -58,7 +58,6 @@ test_best_configurations <- function(){
       print(dataset)
       output.folder <- file.path(test.path, algorithm, dataset)
       execute_tests(params, path, output.folder, algorithm, dataset, limits, n.times=trials) 
-      
     }
   }
   
@@ -72,7 +71,7 @@ test_best_configurations <- function(){
   #plot_algorithm_comparison_pareto(test.path)
 }
 
-execute_tests <- function(params, path, output.folder, algorithm, dataset, limits, n.times=1){
+execute_tests <- function(params, path, output.folder, algorithm, dataset, n.times=1){
   #setwd(path)
   #source("dmmoea_functions.R")
   #source("dmmoea_parameters.R")
@@ -80,6 +79,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
   #source("dmmoea_distances.R")
   #source("dmmoea_irace_conf.R")
   distances <- load.gene.distance(dataset, params$alpha)
+  limits <- read.table(file.path(output.folder, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
   for(i in 1:n.times){
     output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
     if(dir.exists(output.exp)){
