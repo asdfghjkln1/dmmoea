@@ -1521,7 +1521,7 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
   ggsave(file.path(exp.path, "figures", "clust_ratio_results_NMI.png"), height=7, width=7)
 }
 
-plot_algorithm_comparison_pareto <- function(exp.path, limits){
+plot_algorithm_comparison_pareto <- function(exp.path){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
   plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
@@ -1560,21 +1560,24 @@ plot_algorithm_comparison_pareto <- function(exp.path, limits){
       plot.data <- rbind(plot.data, pareto.dataset)
     }
   }
-  # Generate ideal pareto for each dataset  
-  for(i in 1:length(datasets)){
-    dataset <- datasets[i]
+  # Generate ideal pareto for each dataset
+  datasets <- unique(plot.data$Dataset)
+  #print("Datasets found: ")
+  #print(datasets)
+  for(j in 1:length(datasets)){
+    dataset <- datasets[j]
     data <- plot.data[plot.data$Dataset == dataset, ]
-    
     ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
     rnkIndex <- integer(nrow(data))
+    i <- 1
     while (i <= length(ranking)) {
       rnkIndex[ranking[[i]]] <- i
       i <- i + 1
-    } 
+    }
     data[, "rnkIndex"] <- rnkIndex
     ideal.pareto <- data[data$rnkIndex == 1, ]
     ideal.pareto[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto))
-    plot.data <- rbind(plot.data, ideal.pareto)
+    plot.data <- rbind(ideal.pareto, plot.data)
   }
   plot.data.norm <- as.data.frame(matrix(ncol=6, nrow=0))
   colnames(plot.data.norm) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")

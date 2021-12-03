@@ -36,7 +36,8 @@ evaluate_results <- function(){
     evaluate_run_results(results.path, limits)
   }
   print("Experiment evaluation done. Plotting results...")
-  plot_algorithm_comparison_pareto(results.path, limits)
+  plot_algorithm_comparison_pareto(results.path)
+  print("Pareto comparison done. Plotting other comparison metrics...")
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
   plot_algorithm_comparison(results.path, plot.data)
