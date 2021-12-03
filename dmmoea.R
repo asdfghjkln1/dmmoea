@@ -21,17 +21,6 @@ run_experiments <- function(){
   
   test.path <<- file.path(path, "Tests", paste0("tuning_", obj_fun))
   
-  #if(file.exists(file.path(test.path, "limits.csv"))){
-  #  print("Limits exists")
-  #  limits <- read.table(file.path(test.path, "limits.csv"), sep=",", row.names = NULL, header = TRUE)
-  #  print(limits)
-  #  if(length(list.dirs(test.path) > 0)){
-  #    print("Updating normalizaton limits...")
-  #    #get_normalization_limits(test.path) 
-  #    #print("Ready.")  
-  #  }
-  #}
-  
   dir.create(file.path(test.path, algorithm), recursive=TRUE, showWarnings = FALSE)
   parameters <- readParameters(file = file.path(test.path, parameters.file))
   
@@ -49,18 +38,6 @@ run_experiments <- function(){
   tuned_confs <- irace(scenario = scenario, parameters = parameters)
   print(paste("irace finished!"))
 
-  #print("Updating normalizaton limits...")
-  #get_normalization_limits(test.path) 
-  #print("Ready.")
-  
-  #print("Starting plotting")
-  
-  
-  #plot_experiment_results(file.path(test.path, algorithm))
-  #plot_algorithm_comparison(test.path)
-  #plot_algorithm_comparison_pareto(test.path)
-  
-  #print("Plotting finished")
   print("Starting post analysis...")
   
   post_analysis(file.path(test.path, algorithm), scenario$logFile)
