@@ -4,7 +4,7 @@ maxExperiments = 1500
 seed=12315
 
 # Parallel options. Uncomment parallel if algorithm is "nsga2" or "dnsga2"
-parallel = 4
+parallel = 12
 #targetRunnerParallel = target.runner.parallel
 
 minNbSurvival = 1
