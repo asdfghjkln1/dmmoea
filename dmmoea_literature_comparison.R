@@ -20,35 +20,38 @@ literature_comparison_experiments() <- function(){
   tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
   test.path <- file.path(path, "Tests", "experiments", obj_fun)
   
+  #Load best params
+  best_params <- read.table(file.path(tune.path, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
+  # Initialize params
+  params <- init_parameters(objectives=best_params$objectives)
+  params$K <- best_params$K
+  #params$objectives <- best_params$objectives
+  params$evaluations <- best_params$evaluations
+  params$popSize <- best_params$popSize
+  params$mating_rate <- best_params$mating_rate
+  params$mutation_rate <- best_params$mutation_rate
+  params$alpha <- best_params$alpha
+  params$is_random_population <- best_params$is_random_population
+  params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
+  if(!is.na(params$auto_adjust_initial_params)){
+    params$min_density_radius <- best_params$min_density_radius
+    params$max_density_radius <- best_params$max_density_radius
+    params$density_tol <- best_params$density_tol
+  }
+  params$diversity_metric <- best_params$diversity_metric
+  params$diversity_level <- best_params$diversity_level
+  params$phases <- best_params$phases
+  params$agents <- best_params$agents
+  params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
+  params$convergence_tol <- best_params$convergence_tol
+  params$mutation_radius <- best_params$mutation_radius
+  params$seed <- runif(1, 0, 1)*1235
+  
+  
   algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     if(algorithm == "figures"){ next }
-    best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
-    # Initialize params
-    params <- init_parameters(objectives=best_params$objectives)
-    params$K <- best_params$K
-    #params$objectives <- best_params$objectives
-    params$evaluations <- best_params$evaluations
-    params$popSize <- best_params$popSize
-    params$mating_rate <- best_params$mating_rate
-    params$mutation_rate <- best_params$mutation_rate
-    params$alpha <- best_params$alpha
-    params$is_random_population <- best_params$is_random_population
-    params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
-    if(!is.na(params$auto_adjust_initial_params)){
-      params$min_density_radius <- best_params$min_density_radius
-      params$max_density_radius <- best_params$max_density_radius
-      params$density_tol <- best_params$density_tol
-    }
-    params$diversity_metric <- best_params$diversity_metric
-    params$diversity_metric <- best_params$diversity_level
-    params$phases <- best_params$phases
-    params$agents <- best_params$agents
-    params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
-    params$convergence_tol <- best_params$convergence_tol
-    params$mutation_radius <- best_params$mutation_radius
-    params$seed <- runif(1, 0, 1)*1235
     datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
     for(j in 1:length(datasets)){
       dataset <- datasets[j]

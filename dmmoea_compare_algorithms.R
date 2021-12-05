@@ -40,6 +40,7 @@ compare_algorithms <- function(){
   }
 }
 
+#https://www.r-statistics.com/2010/02/post-hoc-analysis-for-friedmans-test-r-code/
 friedman.test.with.post.hoc <- function(formu, data, to.print.friedman = T, to.post.hoc.if.signif = T,  to.plot.parallel = T, to.plot.boxplot = T, signif.P = .05, color.blocks.in.cor.plot = T, jitter.Y.in.cor.plot =F, dataset)
 {
   # formu is a formula of the shape:     Y ~ X | block
@@ -157,7 +158,7 @@ friedman.test.with.post.hoc <- function(formu, data, to.print.friedman = T, to.p
                 ylim = the.ylim,
                 sub=paste0("Dataset ", dataset)
         )
-        legend("topright", legend = paste(names.b.minus.a.combos, rep(" ; PostHoc P.value:", number.of.X.levels),round(The.post.hoc.P.values,5)) , fill =  is.signif.color )
+        legend("topright", legend = paste(names.b.minus.a.combos, rep("; PostHoc P.value:", number.of.X.levels),round(The.post.hoc.P.values,5)) , fill =  is.signif.color )
         abline(h = 0, col = "blue")
       }
       list.to.return <- list(Friedman.Test = the.sym.test, PostHoc.Test = The.post.hoc.P.values)
