@@ -1,13 +1,14 @@
 test_best_configurations <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 3){
-    print(paste0("Not enough parameters (", argnum, "/3)"))
+  if(argnum != 4){
+    print(paste0("Not enough parameters (", argnum, "/4)"))
     return(-1)
   }
   path <- args[1] 
   trials <- args[2]
   obj_fun <- args[3]
+  evaluations <- as.numeric(args[4])
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -25,13 +26,14 @@ test_best_configurations <- function(){
   algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
+    #algorithm <- strsplit(algorithms[i], "_")[[1]][1]
     if(algorithm == "figures"){ next }
     best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
     # Initialize params
     params <- init_parameters(objectives=best_params$objectives)
     params$K <- best_params$K
     #params$objectives <- best_params$objectives
-    params$evaluations <- best_params$evaluations
+    params$evaluations <- evaluations #best_params$evaluations
     params$popSize <- best_params$popSize
     params$mating_rate <- best_params$mating_rate
     params$mutation_rate <- best_params$mutation_rate
@@ -79,6 +81,8 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
   #source("dmmoea_libraries.R")
   #source("dmmoea_distances.R")
   #source("dmmoea_irace_conf.R")
+  algorithm.name <- strsplit(algorithm, "_")[[1]][1]
+
   distances <- load.gene.distance(dataset, params$alpha)
   for(i in 1:n.times){
     output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
@@ -89,13 +93,13 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
-    if(algorithm == "dmnsga2"){
+    if(algorithm.name == "dmnsga2"){
       #print("DMNSGA2")
       res <- diverse_memetic_nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
-    }else if(algorithm == "dnsga2"){
+    }else if(algorithm.name == "dnsga2"){
       #print("DNSGA2")
       res <- dnsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
-    }else if(algorithm == "nsga2"){
+    }else if(algorithm.name == "nsga2"){
       #print("NSGA2")
       res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
     }else{
