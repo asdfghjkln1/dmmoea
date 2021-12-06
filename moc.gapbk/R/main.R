@@ -990,6 +990,7 @@ generate.results<-function(num_k, dmatrix1, dmatrix2, pop_size, generation, rat_
 moc.gabk<-function(dmatrix1, dmatrix2, num_k,
                    generation=50, pop_size=10, rat_cross=0.80, rat_muta=0.01, tour_size=2,
                    neighborhood=0.10, local_search=FALSE, cores=2, evaluations=1000, output.path=NULL, debug=FALSE){
+  evaluation.count <<- 0
   if(debug){
     if(!is.null(output.path)){
       dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 

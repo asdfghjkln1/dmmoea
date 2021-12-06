@@ -1,24 +1,28 @@
-literature_comparison_experiments() <- function(){
+literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 3){
-    print(paste0("Not enough parameters (", argnum, "/3)"))
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
-  path <- args[1] 
-  trials <- args[2]
-  evaluations <- args[3]
-  obj_fun <- args[3]
+  path <- args[1]
+  params.path <- args[2]
+  algorithms.param <- args[3]
+  ref.algorithm <- args[4]
+  trials <- args[5]
+  evaluations <- args[6]
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
   source("dmmoea_libraries.R")
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
-  source("moc.gapk/main.R")
   
-  tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
-  test.path <- file.path(path, "Tests", "experiments", obj_fun)
+  source("moc.gapbk/R/libraries.R")
+  source("moc.gapbk/R/main.R")
+  
+  tune.path <- file.path(path, params.path)
+  test.path <- file.path(path, "Tests", "experiments")
   
   #Load best params
   best_params <- read.table(file.path(tune.path, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -26,7 +30,7 @@ literature_comparison_experiments() <- function(){
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- best_params$K
   #params$objectives <- best_params$objectives
-  params$evaluations <- best_params$evaluations
+  params$evaluations <- evaluations
   params$popSize <- best_params$popSize
   params$mating_rate <- best_params$mating_rate
   params$mutation_rate <- best_params$mutation_rate
@@ -47,10 +51,12 @@ literature_comparison_experiments() <- function(){
   params$mutation_radius <- best_params$mutation_radius
   params$seed <- runif(1, 0, 1)*1235
   
-  
-  algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
+  algorithms <- strsplit(algorithms.param, ",")[[1]]
+  #algorithms <- c(literature.algorithm) # list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
+    print("Starting algorithm:")
+    print(algorithm)
     if(algorithm == "figures"){ next }
     datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
     for(j in 1:length(datasets)){
@@ -58,7 +64,7 @@ literature_comparison_experiments() <- function(){
       print("Starting dataset:")
       print(dataset)
       output.folder <- file.path(test.path, algorithm, dataset)
-      limits <- read.table(file.path(tune.path, algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
+      limits <- read.table(file.path(tune.path, ref.algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
       execute_tests(params, path, output.folder, algorithm, dataset, limits, n.times=trials) 
     }
   }
@@ -114,11 +120,9 @@ run_moc_gapbk <- function(distances, params, output.exp, limits){
   # Set local_search=TRUE because its reccomended
   # Set generation as a very high number and set stop criteria by evaluations used.
   res <- moc.gabk(dmatrix1, dmatrix2, num_k, generation=999999, pop_size=10, rat_cross=0.80, 
-           rat_muta=0.01, tour_size=2, neighborhood=0.10, local_search=FALSE, 
+           rat_muta=0.01, tour_size=2, neighborhood=0.10, local_search=TRUE, 
            cores=params$cores, evaluations=params$evaluations, output.path=output.exp, debug=TRUE)
-  print("Returning:")
-  print(res$population)
-  print(res$clustering)
+  colnames(res$population) <- c(paste0("V", 1:params$K), "f1", "f2", "rnkIndex", "density")
   return(res)
 }
 
