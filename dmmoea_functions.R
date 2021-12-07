@@ -882,7 +882,6 @@ evaluate_ball_hall <- function(population, distances, groups){
       cluster.medoid <- population[p, k]
       group.medoid <- groups[[p]][cluster.medoid]
       in.cluster <- which(groups[[p]] == group.medoid)
-      
       dist.to.medoid <- distances[cluster.medoid, in.cluster]
       sum.dist[k] <- sum(dist.to.medoid^2)
     }
