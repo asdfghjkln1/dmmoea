@@ -1,10 +1,10 @@
 literature_comparison_experiments <- function(){
-  #args <- commandArgs(trailingOnly = TRUE)
-  #argnum <- length(args)
-  #if(argnum != 6){
-  #  print(paste0("Not enough parameters (", argnum, "/6)"))
-  #  return(-1)
-  #}
+  args <- commandArgs(trailingOnly = TRUE)
+  argnum <- length(args)
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
+    return(-1)
+  }
   path <- args[1] # "X:\\Universidad\\dmmoea"
   params.path <- args[2] # "Tests\\a"
   algorithms.param <- args[3] #"tmix"
