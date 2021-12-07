@@ -1108,7 +1108,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
 
             if(debug){
               print(population.P) 
-              print(paste0("Evaluations at the end of generation ",g,": ", evaluation.count)) 
+              print(paste0("Evaluations at the end of generation ",g,": ", evaluation.count))
             }
             g=g+1
 

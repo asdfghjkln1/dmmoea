@@ -1,23 +1,22 @@
 literature_comparison_experiments <- function(){
-  args <- commandArgs(trailingOnly = TRUE)
-  argnum <- length(args)
-  if(argnum != 6){
-    print(paste0("Not enough parameters (", argnum, "/6)"))
-    return(-1)
-  }
-  path <- args[1]
-  params.path <- args[2]
-  algorithms.param <- args[3]
-  ref.algorithm <- args[4]
-  trials <- args[5]
-  evaluations <- args[6]
+  #args <- commandArgs(trailingOnly = TRUE)
+  #argnum <- length(args)
+  #if(argnum != 6){
+  #  print(paste0("Not enough parameters (", argnum, "/6)"))
+  #  return(-1)
+  #}
+  path <- args[1] # "X:\\Universidad\\dmmoea"
+  params.path <- args[2] # "Tests\\a"
+  algorithms.param <- args[3] #"tmix"
+  ref.algorithm <- args[4] # "dnsga2"
+  trials <- args[5] # "1"
+  evaluations <- args[6] # 2000
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
   source("dmmoea_libraries.R")
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
-  
   source("moc.gapbk/R/libraries.R")
   source("moc.gapbk/R/main.R")
   
@@ -25,13 +24,13 @@ literature_comparison_experiments <- function(){
   test.path <- file.path(path, "Tests", "experiments")
   
   #Load best params
-  best_params <- read.table(file.path(tune.path, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
+  best_params <- read.table(file.path(tune.path, ref.algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- best_params$K
   #params$objectives <- best_params$objectives
   params$evaluations <- evaluations
-  params$popSize <- best_params$popSize
+  params$popSize <- 4 #best_params$popSize
   params$mating_rate <- best_params$mating_rate
   params$mutation_rate <- best_params$mutation_rate
   params$alpha <- best_params$alpha
@@ -52,13 +51,12 @@ literature_comparison_experiments <- function(){
   params$seed <- runif(1, 0, 1)*1235
   
   algorithms <- strsplit(algorithms.param, ",")[[1]]
-  #algorithms <- c(literature.algorithm) # list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     print("Starting algorithm:")
     print(algorithm)
     if(algorithm == "figures"){ next }
-    datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
+    datasets <- c("arabidopsis")#, "cell_cycle", "serum", "sporulation")
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       print("Starting dataset:")
@@ -68,15 +66,6 @@ literature_comparison_experiments <- function(){
       execute_tests(params, path, output.folder, algorithm, dataset, limits, n.times=trials) 
     }
   }
-  
-  #get_evaluation_limits(test.path)
-  #evaluate_run_results(test.path, params$obj_maximize)
-  
-  #plot.data <- read.table(file.path(test.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
-  #plot.data.diversity <- read.table(file.path(test.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
-  #plot_algorithm_comparison(test.path, plot.data)
-  #plot_algorithm_comparison_diversity(test.path, plot.data.diversity)
-  #plot_algorithm_comparison_pareto(test.path)
 }
 
 execute_tests <- function(params, path, output.folder, algorithm, dataset, limits, n.times=1){
@@ -101,13 +90,50 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
       res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
     }else if(algorithm == "moc.gapbk"){
       res <- run_moc_gapbk(distances, params, output.exp, limits)
-    }else{
+    }else if(algorithm == "tmix"){
+      res <- run_tmix_clust(distances, params, output.exp, limits)
+    }else {
       print("Algorithm not supported!!")
     }
     
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
                        params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
   }
+}
+
+run_tmix_clust <- function(distances, params, output.exp, limits){
+  D <- as.data.frame(distances$data.matrix)
+  D.exp <- distances$exp.dist
+  population <- as.data.frame(matrix(nrow=params$popSize, ncol=params$K))
+  clustering.groups <- list()
+  i <- 1
+  while(i <= params$popSize){
+    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max=10000)
+    groups <- tmix.res$em_cluster_assignment
+    medoids <- get.medoid.diss.matrix(groups, D.exp)
+    if(nrow(unique(t(medoids))) == params$K){
+      population[i, ] <- medoids
+      clustering.groups[[i]] <- groups
+      i <- i + 1
+    }
+  }
+  row.names(population) <- 1:nrow(population)
+  P.rows <- row.names(population)
+  population <- evaluate_population(population, distances, clustering.groups, params)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  return(list("population"=population, "clustering"=clustering.groups))
+}
+
+
+get.medoid.diss.matrix <- function(groups, dist){
+  k <- length(unique(groups))
+  medoids <- as.data.frame(matrix(ncol=k, nrow=1))
+  for(i in 1:k){
+    elem.group <- dist[groups == i, groups == i]
+    dist.sum <- apply(elem.group,2, sum)
+    medoids[1, i] <- which.min(dist.sum)
+  }
+  return(medoids)
 }
 
 run_moc_gapbk <- function(distances, params, output.exp, limits){
