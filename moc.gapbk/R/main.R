@@ -410,7 +410,7 @@ calculate.objectives.range<-function(population, par_var, par_obj, local_search)
 
 generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, num_objects, pop_size, dmatrix1, dmatrix2, number.objectives){
 
-
+  print(paste0("Evaluations before PLS:", evaluation.count))
   #Dejar solo medoides. Pero como maximo el tama?o de la poblaci?n.
   if(nrow(population_pareto)>pop_size){
     poblacion_A0<-population_pareto[1:pop_size,1:num_k]
@@ -627,7 +627,7 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
     poblacion_jorge=subset(poblacion_A, poblacion_A$paretoranking==1)
 
 
-
+    print(paste0("Evaluations after PLS:", evaluation.count))
     return(as.data.frame(poblacion_A[,]))
 
 
@@ -636,11 +636,10 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
 
     rownames(population_pareto)<-c(1:nrow(population_pareto))
     poblacion_A<-population_pareto[1,]
+    print(paste0("Evaluations after PLS:", evaluation.count))
     return(poblacion_A)
 
   }
-
-
 }
 
 
@@ -677,8 +676,8 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
                     "parallel",
                     "doParallel",
                     "utils",
-                    "doSNOW",
-                    "doMPI")
+                    "doSNOW")
+                    #"doMPI")
   #solo se generan combinaciones de a 2 si la poblacion a mejorar tiene mas de 2 soluciones
   if(nrow(population_mejorar)>1){
 
@@ -759,10 +758,11 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
           if(length(arreglar$groups)>0){
             dominanciasIntermedias<-calculate.ranking.crowding(nrow(soluciones_intermedias), as.matrix(soluciones_intermedias[,1:(num_k)]), tablagroupsIntermedias, number.objectives, FALSE, dmatrix1, dmatrix2, num_k)
-            evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR
+            #evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR
             dominanciasIntermedias<-as.data.frame(dominanciasIntermedias)
-
-            soluciones_path<-rbind(soluciones_path, dominanciasIntermedias[1, 1:num_k])
+            dominanciasIntermedias <- dominanciasIntermedias[, 1:num_k]
+            dominanciasIntermedias[, "eval"] <- nrow(dominanciasIntermedias)
+            soluciones_path<-rbind(soluciones_path, dominanciasIntermedias[1, ])
             s_initial=dominanciasIntermedias[1,1:num_k]
 
           }else{
@@ -784,9 +784,12 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
           if(length(arreglar$groups)>0){
             s_initial=soluciones_intermedias[1,1:num_k]
+            #s_initial[1, "eval"] <- 0
           }else{
             s_initial=s_guide
+            #s_initial[1, "eval"] <- 0
           }
+
 
         }
 
@@ -817,6 +820,12 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
     #poblacion a mejorar
 
     #cat("soluciones en path", nrow(iteraciones_path), "\n")
+    #print(iteraciones_path)
+
+    print(paste0("new evaluations: ", sum(iteraciones_path$eval)))
+    evaluation.count <<- evaluation.count + sum(iteraciones_path$eval) # Added VR
+    #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
+    print("Path relinking finished:")
     #print(iteraciones_path)
 
     if (nrow(iteraciones_path)>0) {
@@ -989,7 +998,7 @@ generate.results<-function(num_k, dmatrix1, dmatrix2, pop_size, generation, rat_
 
 moc.gabk<-function(dmatrix1, dmatrix2, num_k,
                    generation=50, pop_size=10, rat_cross=0.80, rat_muta=0.01, tour_size=2,
-                   neighborhood=0.10, local_search=FALSE, cores=2, evaluations=1000, output.path=NULL, debug=FALSE){
+                   neighborhood=0.10, local_search=FALSE, cores=2, evaluations, output.path=NULL, debug=FALSE){
   evaluation.count <<- 0
   if(debug){
     if(!is.null(output.path)){
@@ -1099,6 +1108,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
 
             if(debug){
               print(population.P) 
+              print(paste0("Evaluations at the end of generation ",g,": ", evaluation.count)) 
             }
             g=g+1
 

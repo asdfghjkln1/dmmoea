@@ -17,6 +17,7 @@
 /Tests/runs/BallHall_old/nsga2/
 /Tests/runs/BallHall_old/dnsga2/
 
+/Tests/experiments/
 
 /Tests/tuning_BallHall/nsga2/arabidopsis/
 /Tests/tuning_BallHall/nsga2/cell_cycle/

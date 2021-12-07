@@ -12,24 +12,18 @@ if(!require(doSNOW)){
   install.packages("doSNOW", lib=lib)
   library(doSNOW, lib.loc=lib)
 }
-
-if(!require(doMPI)){
-  install.packages("doMPI", lib=lib)
-  library(doMPI, lib.loc=lib)
-}
-
-if(!require(doMPI)){
-  install.packages("doMPI", lib=lib)
-  library(doMPI, lib.loc=lib)
-}
+#if(!require(doMPI)){
+#  install.packages("doMPI", lib=lib)
+#  library(doMPI, lib.loc=lib)
+#}
 if(!require(amap)){
   install.packages("amap", lib=lib)
   library(amap, lib.loc=lib)
 }
-if(!require(doMPI)){
-  install.packages("doMPI", lib=lib)
-  library(doMPI, lib.loc=lib)
-}
+#if(!require(doMPI)){
+#  install.packages("doMPI", lib=lib)
+#  library(doMPI, lib.loc=lib)
+#}
 if(!require(miscTools)){
   install.packages("miscTools", lib=lib)
   library(miscTools, lib.loc=lib)
