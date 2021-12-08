@@ -50,6 +50,6 @@ if(!require(TMixClust)){
   library(TMixClust)
 }
 if(!require(Mfuzzy)){
-  BiocManager::install("Mfuzzy", ask=FALSE, update=FALSE)
+  BiocManager::install("Mfuzz", ask=FALSE, update=FALSE)
   library(Mfuzzy)
 }
