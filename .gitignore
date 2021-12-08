@@ -15,9 +15,16 @@
 /Tests/runs/BallHall_old/nsga2/
 /Tests/runs/BallHall_old/dnsga2/
 
+/Tests/runs/XieBeni_old/dmnsga2/
+/Tests/runs/XieBeni_old/nsga2/
+/Tests/runs/XieBeni_old/dnsga2/
 
-/Tests/runs/Diversity_BallHall/
-/Tests/runs/Diversity_XieBeni/
+#/Tests/runs/Diversity_BallHall/
+/Tests/runs/Diversity_XieBeni/dnsga2_lv1
+/Tests/runs/Diversity_XieBeni/dnsga2_lv2
+/Tests/runs/Diversity_XieBeni/dnsga2_lv3
+/Tests/runs/Diversity_XieBeni/nsga2
+
 /Tests/experiments/
 /Tests/tuning_Diversity_BallHall/
 /Tests/tuning_Diversity_XieBeni/

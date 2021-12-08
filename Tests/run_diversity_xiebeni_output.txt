@@ -1,0 +1,431 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: tictoc
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 1"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 2"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 3"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 4"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 5"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 6"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 7"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 8"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 9"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 10"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 11"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 12"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dnsga2_lv1 in arabidopsis run: 13"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 14"
+[1] "Starting dnsga2_lv1 in arabidopsis run: 15"
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 1"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 2"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 3"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 4"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 5"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 6"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 7"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 8"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 9"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 10"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 11"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dnsga2_lv1 in cell_cycle run: 12"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 13"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 14"
+[1] "Starting dnsga2_lv1 in cell_cycle run: 15"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting dnsga2_lv1 in serum run: 1"
+[1] "Starting dnsga2_lv1 in serum run: 2"
+[1] "Starting dnsga2_lv1 in serum run: 3"
+[1] "Starting dnsga2_lv1 in serum run: 4"
+[1] "Starting dnsga2_lv1 in serum run: 5"
+[1] "Starting dnsga2_lv1 in serum run: 6"
+[1] "Starting dnsga2_lv1 in serum run: 7"
+[1] "Starting dnsga2_lv1 in serum run: 8"
+[1] "Starting dnsga2_lv1 in serum run: 9"
+[1] "Starting dnsga2_lv1 in serum run: 10"
+[1] "Starting dnsga2_lv1 in serum run: 11"
+[1] "Starting dnsga2_lv1 in serum run: 12"
+[1] "Starting dnsga2_lv1 in serum run: 13"
+[1] "Starting dnsga2_lv1 in serum run: 14"
+[1] "Starting dnsga2_lv1 in serum run: 15"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting dnsga2_lv1 in sporulation run: 1"
+[1] "Starting dnsga2_lv1 in sporulation run: 2"
+[1] "Starting dnsga2_lv1 in sporulation run: 3"
+[1] "Starting dnsga2_lv1 in sporulation run: 4"
+[1] "Starting dnsga2_lv1 in sporulation run: 5"
+[1] "Starting dnsga2_lv1 in sporulation run: 6"
+[1] "Starting dnsga2_lv1 in sporulation run: 7"
+[1] "Starting dnsga2_lv1 in sporulation run: 8"
+[1] "Starting dnsga2_lv1 in sporulation run: 9"
+[1] "Starting dnsga2_lv1 in sporulation run: 10"
+[1] "Starting dnsga2_lv1 in sporulation run: 11"
+[1] "Starting dnsga2_lv1 in sporulation run: 12"
+[1] "Starting dnsga2_lv1 in sporulation run: 13"
+[1] "Starting dnsga2_lv1 in sporulation run: 14"
+[1] "Starting dnsga2_lv1 in sporulation run: 15"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 1"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 2"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 3"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 4"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 5"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 6"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 7"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 8"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 9"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 10"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 11"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 12"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 13"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 14"
+[1] "Starting dnsga2_lv2 in arabidopsis run: 15"
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 1"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 2"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 3"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 4"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 5"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 6"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 7"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 8"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 9"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 10"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dnsga2_lv2 in cell_cycle run: 11"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 12"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 13"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 14"
+[1] "Starting dnsga2_lv2 in cell_cycle run: 15"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting dnsga2_lv2 in serum run: 1"
+[1] "Starting dnsga2_lv2 in serum run: 2"
+[1] "Starting dnsga2_lv2 in serum run: 3"
+[1] "Starting dnsga2_lv2 in serum run: 4"
+[1] "Starting dnsga2_lv2 in serum run: 5"
+[1] "Starting dnsga2_lv2 in serum run: 6"
+[1] "Starting dnsga2_lv2 in serum run: 7"
+[1] "Starting dnsga2_lv2 in serum run: 8"
+[1] "Starting dnsga2_lv2 in serum run: 9"
+[1] "Starting dnsga2_lv2 in serum run: 10"
+[1] "Starting dnsga2_lv2 in serum run: 11"
+[1] "Starting dnsga2_lv2 in serum run: 12"
+[1] "Starting dnsga2_lv2 in serum run: 13"
+[1] "Starting dnsga2_lv2 in serum run: 14"
+[1] "Starting dnsga2_lv2 in serum run: 15"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting dnsga2_lv2 in sporulation run: 1"
+[1] "Starting dnsga2_lv2 in sporulation run: 2"
+[1] "Starting dnsga2_lv2 in sporulation run: 3"
+[1] "Starting dnsga2_lv2 in sporulation run: 4"
+[1] "Starting dnsga2_lv2 in sporulation run: 5"
+[1] "Starting dnsga2_lv2 in sporulation run: 6"
+[1] "Starting dnsga2_lv2 in sporulation run: 7"
+[1] "Starting dnsga2_lv2 in sporulation run: 8"
+[1] "Starting dnsga2_lv2 in sporulation run: 9"
+[1] "Starting dnsga2_lv2 in sporulation run: 10"
+[1] "Starting dnsga2_lv2 in sporulation run: 11"
+[1] "Starting dnsga2_lv2 in sporulation run: 12"
+[1] "Starting dnsga2_lv2 in sporulation run: 13"
+[1] "Starting dnsga2_lv2 in sporulation run: 14"
+[1] "Starting dnsga2_lv2 in sporulation run: 15"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 1"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 2"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 3"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 4"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 5"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 6"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 7"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 8"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 9"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 10"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 11"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 12"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 13"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 14"
+[1] "Starting dnsga2_lv3 in arabidopsis run: 15"
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 1"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 2"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 3"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 4"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dnsga2_lv3 in cell_cycle run: 5"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 6"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 7"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 8"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 9"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 10"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 11"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 12"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 13"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 14"
+[1] "Starting dnsga2_lv3 in cell_cycle run: 15"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting dnsga2_lv3 in serum run: 1"
+[1] "Starting dnsga2_lv3 in serum run: 2"
+[1] "Starting dnsga2_lv3 in serum run: 3"
+[1] "Starting dnsga2_lv3 in serum run: 4"
+[1] "Starting dnsga2_lv3 in serum run: 5"
+[1] "Starting dnsga2_lv3 in serum run: 6"
+[1] "Starting dnsga2_lv3 in serum run: 7"
+[1] "Starting dnsga2_lv3 in serum run: 8"
+[1] "Starting dnsga2_lv3 in serum run: 9"
+[1] "Starting dnsga2_lv3 in serum run: 10"
+[1] "Starting dnsga2_lv3 in serum run: 11"
+[1] "Starting dnsga2_lv3 in serum run: 12"
+[1] "Starting dnsga2_lv3 in serum run: 13"
+[1] "Starting dnsga2_lv3 in serum run: 14"
+[1] "Starting dnsga2_lv3 in serum run: 15"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting dnsga2_lv3 in sporulation run: 1"
+[1] "Starting dnsga2_lv3 in sporulation run: 2"
+[1] "Starting dnsga2_lv3 in sporulation run: 3"
+[1] "Starting dnsga2_lv3 in sporulation run: 4"
+[1] "Starting dnsga2_lv3 in sporulation run: 5"
+[1] "Starting dnsga2_lv3 in sporulation run: 6"
+[1] "Starting dnsga2_lv3 in sporulation run: 7"
+[1] "Starting dnsga2_lv3 in sporulation run: 8"
+[1] "Starting dnsga2_lv3 in sporulation run: 9"
+[1] "Starting dnsga2_lv3 in sporulation run: 10"
+[1] "Starting dnsga2_lv3 in sporulation run: 11"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dnsga2_lv3 in sporulation run: 12"
+[1] "Starting dnsga2_lv3 in sporulation run: 13"
+[1] "Starting dnsga2_lv3 in sporulation run: 14"
+[1] "Starting dnsga2_lv3 in sporulation run: 15"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting nsga2 in arabidopsis run: 1"
+[1] "Starting nsga2 in arabidopsis run: 2"
+[1] "Starting nsga2 in arabidopsis run: 3"
+[1] "Starting nsga2 in arabidopsis run: 4"
+[1] "Starting nsga2 in arabidopsis run: 5"
+[1] "Starting nsga2 in arabidopsis run: 6"
+[1] "Starting nsga2 in arabidopsis run: 7"
+[1] "Starting nsga2 in arabidopsis run: 8"
+[1] "Starting nsga2 in arabidopsis run: 9"
+[1] "Starting nsga2 in arabidopsis run: 10"
+[1] "Starting nsga2 in arabidopsis run: 11"
+[1] "Starting nsga2 in arabidopsis run: 12"
+[1] "Starting nsga2 in arabidopsis run: 13"
+[1] "Starting nsga2 in arabidopsis run: 14"
+[1] "Starting nsga2 in arabidopsis run: 15"
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting nsga2 in cell_cycle run: 1"
+[1] "Starting nsga2 in cell_cycle run: 2"
+[1] "Starting nsga2 in cell_cycle run: 3"
+[1] "Starting nsga2 in cell_cycle run: 4"
+[1] "Starting nsga2 in cell_cycle run: 5"
+[1] "Starting nsga2 in cell_cycle run: 6"
+[1] "Starting nsga2 in cell_cycle run: 7"
+[1] "Starting nsga2 in cell_cycle run: 8"
+[1] "Starting nsga2 in cell_cycle run: 9"
+[1] "Starting nsga2 in cell_cycle run: 10"
+[1] "Starting nsga2 in cell_cycle run: 11"
+[1] "Starting nsga2 in cell_cycle run: 12"
+[1] "Starting nsga2 in cell_cycle run: 13"
+[1] "Starting nsga2 in cell_cycle run: 14"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in cell_cycle run: 15"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting nsga2 in serum run: 1"
+[1] "Starting nsga2 in serum run: 2"
+[1] "Starting nsga2 in serum run: 3"
+[1] "Starting nsga2 in serum run: 4"
+[1] "Starting nsga2 in serum run: 5"
+[1] "Starting nsga2 in serum run: 6"
+[1] "Starting nsga2 in serum run: 7"
+[1] "Starting nsga2 in serum run: 8"
+[1] "Starting nsga2 in serum run: 9"
+[1] "Starting nsga2 in serum run: 10"
+[1] "Starting nsga2 in serum run: 11"
+[1] "Starting nsga2 in serum run: 12"
+[1] "Starting nsga2 in serum run: 13"
+[1] "Starting nsga2 in serum run: 14"
+[1] "Starting nsga2 in serum run: 15"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting nsga2 in sporulation run: 1"
+[1] "Starting nsga2 in sporulation run: 2"
+[1] "Starting nsga2 in sporulation run: 3"
+[1] "Starting nsga2 in sporulation run: 4"
+[1] "Starting nsga2 in sporulation run: 5"
+[1] "Starting nsga2 in sporulation run: 6"
+[1] "Starting nsga2 in sporulation run: 7"
+[1] "Starting nsga2 in sporulation run: 8"
+[1] "Starting nsga2 in sporulation run: 9"
+[1] "Starting nsga2 in sporulation run: 10"
+[1] "Starting nsga2 in sporulation run: 11"
+[1] "Starting nsga2 in sporulation run: 12"
+[1] "Starting nsga2 in sporulation run: 13"
+[1] "Starting nsga2 in sporulation run: 14"
+[1] "Starting nsga2 in sporulation run: 15"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+There were 50 or more warnings (use warnings() to see the first 50)
