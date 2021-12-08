@@ -29,7 +29,7 @@ literature_comparison_experiments <- function(){
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- best_params$K
-  #params$objectives <- best_params$objectives
+  params$objectives <- best_params$objectives
   params$evaluations <- evaluations
   params$popSize <- best_params$popSize
   params$mating_rate <- best_params$mating_rate
@@ -57,7 +57,7 @@ literature_comparison_experiments <- function(){
     print("Starting algorithm:")
     print(algorithm)
     if(algorithm == "figures"){ next }
-    datasets <- c("arabidopsis")#, "cell_cycle", "serum", "sporulation")
+    datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
       print("Starting dataset:")
@@ -159,8 +159,6 @@ run_mfuzz_clust <- function(distances, params, output.exp, limits){
     mfuzz.res <-mfuzz(eset, c=params$K, m=mest)
     groups <- mfuzz.res$cluster
     medoids <- get.medoid.diss.matrix(groups, D.exp)
-    #print("medoids are:")
-    #print(medoids)
     if(nrow(unique(t(medoids))) == params$K){
       population[i, ] <- medoids
       clustering.groups[[i]] <- groups
