@@ -11,6 +11,7 @@ literature_comparison_experiments <- function(){
   ref.algorithm <- args[4] # "dnsga2"
   trials <- args[5] # "1"
   evaluations <- args[6] # 2000
+  
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -19,7 +20,7 @@ literature_comparison_experiments <- function(){
   source("dmmoea_irace_conf.R")
   source("moc.gapbk/R/libraries.R")
   source("moc.gapbk/R/main.R")
-  
+
   tune.path <- file.path(path, params.path)
   test.path <- file.path(path, "Tests", "experiments")
   
@@ -30,7 +31,7 @@ literature_comparison_experiments <- function(){
   params$K <- best_params$K
   #params$objectives <- best_params$objectives
   params$evaluations <- evaluations
-  params$popSize <- 4 #best_params$popSize
+  params$popSize <- best_params$popSize
   params$mating_rate <- best_params$mating_rate
   params$mutation_rate <- best_params$mutation_rate
   params$alpha <- best_params$alpha
@@ -80,25 +81,41 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
     if(algorithm == "dmnsga2"){
-      #print("DMNSGA2")
       res <- diverse_memetic_nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
     }else if(algorithm == "dnsga2"){
-      #print("DNSGA2")
       res <- dnsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
     }else if(algorithm == "nsga2"){
-      #print("NSGA2")
       res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
     }else if(algorithm == "moc.gapbk"){
       res <- run_moc_gapbk(distances, params, output.exp, limits)
     }else if(algorithm == "tmix"){
       res <- run_tmix_clust(distances, params, output.exp, limits)
-    }else {
-      print("Algorithm not supported!!")
+    }else if(algorithm == "mfuzz"){
+      res <- run_mfuzz_clust(distances, params, output.exp, limits)
+    }else{
+      warning("Algorithm not supported!!")
+      return(NULL)
     }
     
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
                        params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
   }
+}
+
+run_moc_gapbk <- function(distances, params, output.exp, limits){
+  
+  dmatrix1 <- distances$exp.dist
+  dmatrix2 <- distances$bio.dist
+  num_k <- params$K
+  
+  # Call MOC_GaPBK with default values.
+  # Set local_search=TRUE because its reccomended
+  # Set generation as a very high number and set stop criteria by evaluations used.
+  res <- moc.gabk(dmatrix1, dmatrix2, num_k, generation=999999, pop_size=10, rat_cross=0.80, 
+                  rat_muta=0.01, tour_size=2, neighborhood=0.10, local_search=TRUE, 
+                  cores=params$cores, evaluations=params$evaluations, output.path=output.exp, debug=TRUE)
+  colnames(res$population) <- c(paste0("V", 1:params$K), "f1", "f2", "rnkIndex", "density")
+  return(res)
 }
 
 run_tmix_clust <- function(distances, params, output.exp, limits){
@@ -119,6 +136,42 @@ run_tmix_clust <- function(distances, params, output.exp, limits){
   }
   row.names(population) <- 1:nrow(population)
   P.rows <- row.names(population)
+  population <- remove_duplicated(population, params$K)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  P.rows <- row.names(population)
+  population <- evaluate_population(population, distances, clustering.groups, params)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  return(list("population"=population, "clustering"=clustering.groups))
+}
+
+run_mfuzz_clust <- function(distances, params, output.exp, limits){
+  D <- as.matrix(distances$data.matrix)
+  D.exp <- distances$exp.dist
+  eset <- new("ExpressionSet",exprs=D)
+  eset <- standardise(eset)
+  mest <- mestimate(eset)
+  
+  population <- as.data.frame(matrix(nrow=params$popSize, ncol=params$K))
+  clustering.groups <- list()
+  i <- 1
+  set.seed(Sys.time())
+  while(i <= params$popSize){
+    mfuzz.res <-mfuzz(eset, c=params$K, m=mest)
+    groups <- mfuzz.res$cluster
+    medoids <- get.medoid.diss.matrix(groups, D.exp)
+    #print("medoids are:")
+    #print(medoids)
+    if(nrow(unique(t(medoids))) == params$K){
+      population[i, ] <- medoids
+      clustering.groups[[i]] <- groups
+      i <- i + 1
+    }
+  }
+  row.names(population) <- 1:nrow(population)
+  P.rows <- row.names(population)
+  population <- remove_duplicated(population, params$K)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  P.rows <- row.names(population)
   population <- evaluate_population(population, distances, clustering.groups, params)
   clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
   return(list("population"=population, "clustering"=clustering.groups))
@@ -134,22 +187,6 @@ get.medoid.diss.matrix <- function(groups, dist){
     medoids[1, i] <- which.min(dist.sum)
   }
   return(medoids)
-}
-
-run_moc_gapbk <- function(distances, params, output.exp, limits){
-  
-  dmatrix1 <- distances$exp.dist
-  dmatrix2 <- distances$bio.dist
-  num_k <- params$K
-  
-  # Call MOC_GaPBK with default values.
-  # Set local_search=TRUE because its reccomended
-  # Set generation as a very high number and set stop criteria by evaluations used.
-  res <- moc.gabk(dmatrix1, dmatrix2, num_k, generation=999999, pop_size=10, rat_cross=0.80, 
-           rat_muta=0.01, tour_size=2, neighborhood=0.10, local_search=TRUE, 
-           cores=params$cores, evaluations=params$evaluations, output.path=output.exp, debug=TRUE)
-  colnames(res$population) <- c(paste0("V", 1:params$K), "f1", "f2", "rnkIndex", "density")
-  return(res)
 }
 
 literature_comparison_experiments()

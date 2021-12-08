@@ -42,7 +42,7 @@ if(!require(clValid)){
   install.packages("clValid", lib=lib)
   library(clValid, lib.loc=lib)
 }
-if (!require("BiocManager", quietly = TRUE)){
+if(!require("BiocManager", quietly = TRUE)){
   install.packages("BiocManager", lib=lib)
 }
 if(!require(TMixClust)){
