@@ -1,7 +1,7 @@
 load.gene.distance <- function(path, alpha){
     
     # Load data matrix
-    data.matrix<-as.matrix(read.table(paste(path,"/BD.csv",sep=""), header=T, sep=","))
+    data.matrix<-as.matrix(read.table(file.path(path,"BD.csv"), header=T, sep=",", row.names=1, as.is = TRUE))
     n.genes <-nrow(data.matrix)
     
     # Load biology-based distance matrix
