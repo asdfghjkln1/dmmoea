@@ -49,7 +49,7 @@ if(!require(TMixClust)){
   BiocManager::install("TMixClust", ask=FALSE, update=FALSE)
   library(TMixClust)
 }
-if(!require(Mfuzzy)){
+if(!require(Mfuzz)){
   BiocManager::install("Mfuzz", ask=FALSE, update=FALSE)
-  library(Mfuzzy)
+  library(Mfuzz)
 }
