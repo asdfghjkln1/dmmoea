@@ -46,6 +46,10 @@ if (!require("BiocManager", quietly = TRUE)){
   install.packages("BiocManager", lib=lib)
 }
 if(!require(TMixClust)){
-  install.packages("TMixClust", lib=lib)
-  library(TMixClust, lib.loc=lib)
+  BiocManager::install("TMixClust", ask=FALSE, update=FALSE)
+  library(TMixClust)
+}
+if(!require(Mfuzzy)){
+  BiocManager::install("Mfuzzy", ask=FALSE, update=FALSE)
+  library(Mfuzzy)
 }

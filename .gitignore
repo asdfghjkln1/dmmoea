@@ -3,21 +3,25 @@
 #!/Tests
 #/Tests/*
 
-/Tests/runs/XieBeni/
 /Tests/runs/XieBeni/dmnsga2/
 /Tests/runs/XieBeni/nsga2/
 /Tests/runs/XieBeni/dnsga2/
 
-/Tests/runs/BallHall/
 /Tests/runs/BallHall/dmnsga2/
 /Tests/runs/BallHall/nsga2/
 /Tests/runs/BallHall/dnsga2/
-/Tests/runs/BallHall_old/
+
 /Tests/runs/BallHall_old/dmnsga2/
 /Tests/runs/BallHall_old/nsga2/
 /Tests/runs/BallHall_old/dnsga2/
 
+
+/Tests/runs/Diversity_BallHall/
+/Tests/runs/Diversity_XieBeni/
 /Tests/experiments/
+/Tests/tuning_Diversity_BallHall/
+/Tests/tuning_Diversity_XieBeni/
+
 
 /Tests/tuning_BallHall/nsga2/arabidopsis/
 /Tests/tuning_BallHall/nsga2/cell_cycle/
