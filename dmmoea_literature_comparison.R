@@ -1,23 +1,16 @@
 literature_comparison_experiments <- function(){
-  #args <- commandArgs(trailingOnly = TRUE)
-  #argnum <- length(args)
-  #if(argnum != 6){
-  #  print(paste0("Not enough parameters (", argnum, "/6)"))
-  #  return(-1)
-  #}
-  #path <- args[1] # "X:\\Universidad\\dmmoea"
-  #params.path <- args[2] # "Tests\\a"
-  #algorithms.param <- args[3] #"tmix"
-  #ref.algorithm <- args[4] # "dnsga2"
-  #trials <- args[5] # "1"
-  #evaluations <- args[6] # 2000
-  
-  path <- "X:\\Universidad\\dmmoea"
-  params.path <- "Tests\\a"
-  algorithms.param <- "mfuzz"
-  ref.algorithm <- "dnsga2"
-  trials <- "3"
-  evaluations <- 2000
+  args <- commandArgs(trailingOnly = TRUE)
+  argnum <- length(args)
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
+    return(-1)
+  }
+  path <- args[1] # "X:\\Universidad\\dmmoea"
+  params.path <- args[2] # "Tests\\a"
+  algorithms.param <- args[3] #"tmix"
+  ref.algorithm <- args[4] # "dnsga2"
+  trials <- args[5] # "1"
+  evaluations <- args[6] # 2000
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -25,13 +18,8 @@ literature_comparison_experiments <- function(){
   source("dmmoea_libraries.R")
   source("dmmoea_distances.R")
   source("dmmoea_irace_conf.R")
-  #source("moc.gapbk/R/libraries.R")
-  #source("moc.gapbk/R/main.R")
-  require(BiocManager)
-  if(!require(Mfuzz)){
-    BiocManager::install("Mfuzz")
-    library(Mfuzz)
-  }
+  source("moc.gapbk/R/libraries.R")
+  source("moc.gapbk/R/main.R")
 
   tune.path <- file.path(path, params.path)
   test.path <- file.path(path, "Tests", "experiments")
