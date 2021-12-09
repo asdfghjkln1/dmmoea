@@ -18,9 +18,21 @@
 
 /Tests/runs/Diversity_BallHall/
 /Tests/runs/Diversity_XieBeni/
-/Tests/experiments/
 /Tests/tuning_Diversity_BallHall/
 /Tests/tuning_Diversity_XieBeni/
+
+/Tests/experiments/tmix/
+/Tests/experiments/moc.gapbk/
+/Tests/experiments/mfuzz/
+/Tests/experiments/dmnsga2/
+/Tests/experiments/dnsga2/
+
+/Tests/experiments/XieBeni/tmix/
+/Tests/experiments/XieBeni/moc.gapbk/
+/Tests/experiments/XieBeni/mfuzz/
+/Tests/experiments/XieBeni/dmnsga2/
+/Tests/experiments/XieBeni/dnsga2/
+
 
 
 /Tests/tuning_BallHall/nsga2/arabidopsis/
