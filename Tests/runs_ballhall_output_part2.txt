@@ -132,3 +132,129 @@ The following object is masked from ‘package:BiocGenerics’:
 [1] "Starting dnsga2 in serum run: 20"
 [1] "Starting dnsga2 in serum run: 21"
 [1] "Starting dnsga2 in serum run: 22"
+[1] "Starting dnsga2 in serum run: 23"
+[1] "Starting dnsga2 in serum run: 24"
+[1] "Starting dnsga2 in serum run: 25"
+[1] "Starting dnsga2 in serum run: 26"
+[1] "Starting dnsga2 in serum run: 27"
+[1] "Starting dnsga2 in serum run: 28"
+[1] "Starting dnsga2 in serum run: 29"
+[1] "Starting dnsga2 in serum run: 30"
+[1] "Starting dnsga2 in serum run: 31"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting dnsga2 in sporulation run: 16"
+[1] "Starting dnsga2 in sporulation run: 17"
+[1] "Starting dnsga2 in sporulation run: 18"
+[1] "Starting dnsga2 in sporulation run: 19"
+[1] "Starting dnsga2 in sporulation run: 20"
+[1] "Starting dnsga2 in sporulation run: 21"
+[1] "Starting dnsga2 in sporulation run: 22"
+[1] "Starting dnsga2 in sporulation run: 23"
+[1] "Starting dnsga2 in sporulation run: 24"
+[1] "Starting dnsga2 in sporulation run: 25"
+[1] "Starting dnsga2 in sporulation run: 26"
+[1] "Starting dnsga2 in sporulation run: 27"
+[1] "Starting dnsga2 in sporulation run: 28"
+[1] "Starting dnsga2 in sporulation run: 29"
+[1] "Starting dnsga2 in sporulation run: 30"
+[1] "Starting dnsga2 in sporulation run: 31"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting nsga2 in arabidopsis run: 16"
+[1] "Starting nsga2 in arabidopsis run: 17"
+[1] "Starting nsga2 in arabidopsis run: 18"
+[1] "Starting nsga2 in arabidopsis run: 19"
+[1] "Starting nsga2 in arabidopsis run: 20"
+[1] "Starting nsga2 in arabidopsis run: 21"
+[1] "Starting nsga2 in arabidopsis run: 22"
+[1] "Starting nsga2 in arabidopsis run: 23"
+[1] "Starting nsga2 in arabidopsis run: 24"
+[1] "Starting nsga2 in arabidopsis run: 25"
+[1] "Starting nsga2 in arabidopsis run: 26"
+[1] "Starting nsga2 in arabidopsis run: 27"
+[1] "Starting nsga2 in arabidopsis run: 28"
+[1] "Starting nsga2 in arabidopsis run: 29"
+[1] "Starting nsga2 in arabidopsis run: 30"
+[1] "Starting nsga2 in arabidopsis run: 31"
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting nsga2 in cell_cycle run: 16"
+[1] "Starting nsga2 in cell_cycle run: 17"
+[1] "Starting nsga2 in cell_cycle run: 18"
+[1] "Starting nsga2 in cell_cycle run: 19"
+[1] "Starting nsga2 in cell_cycle run: 20"
+[1] "Starting nsga2 in cell_cycle run: 21"
+[1] "Starting nsga2 in cell_cycle run: 22"
+[1] "Starting nsga2 in cell_cycle run: 23"
+[1] "Starting nsga2 in cell_cycle run: 24"
+[1] "Starting nsga2 in cell_cycle run: 25"
+[1] "Starting nsga2 in cell_cycle run: 26"
+[1] "Starting nsga2 in cell_cycle run: 27"
+[1] "Starting nsga2 in cell_cycle run: 28"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in cell_cycle run: 29"
+[1] "Starting nsga2 in cell_cycle run: 30"
+[1] "Starting nsga2 in cell_cycle run: 31"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting nsga2 in serum run: 16"
+[1] "Starting nsga2 in serum run: 17"
+[1] "Starting nsga2 in serum run: 18"
+[1] "Starting nsga2 in serum run: 19"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in serum run: 20"
+[1] "Starting nsga2 in serum run: 21"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in serum run: 22"
+[1] "Starting nsga2 in serum run: 23"
+[1] "Starting nsga2 in serum run: 24"
+[1] "Starting nsga2 in serum run: 25"
+[1] "Starting nsga2 in serum run: 26"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in serum run: 27"
+[1] "Starting nsga2 in serum run: 28"
+[1] "Starting nsga2 in serum run: 29"
+[1] "Starting nsga2 in serum run: 30"
+[1] "Starting nsga2 in serum run: 31"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting nsga2 in sporulation run: 16"
+[1] "Starting nsga2 in sporulation run: 17"
+[1] "Starting nsga2 in sporulation run: 18"
+[1] "Starting nsga2 in sporulation run: 19"
+[1] "Starting nsga2 in sporulation run: 20"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in sporulation run: 21"
+[1] "Starting nsga2 in sporulation run: 22"
+[1] "Starting nsga2 in sporulation run: 23"
+[1] "Starting nsga2 in sporulation run: 24"
+[1] "Starting nsga2 in sporulation run: 25"
+[1] "Starting nsga2 in sporulation run: 26"
+[1] "Starting nsga2 in sporulation run: 27"
+[1] "Starting nsga2 in sporulation run: 28"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in sporulation run: 29"
+[1] "Starting nsga2 in sporulation run: 30"
+[1] "Starting nsga2 in sporulation run: 31"
+There were 50 or more warnings (use warnings() to see the first 50)

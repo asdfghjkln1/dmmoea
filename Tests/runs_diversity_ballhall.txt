@@ -269,3 +269,54 @@ the group aesthetic?
 [1] "Starting nsga2 in cell_cycle run: 10"
 [1] "Starting nsga2 in cell_cycle run: 11"
 [1] "Starting nsga2 in cell_cycle run: 12"
+[1] "Starting nsga2 in cell_cycle run: 13"
+[1] "Starting nsga2 in cell_cycle run: 14"
+[1] "Starting nsga2 in cell_cycle run: 15"
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting nsga2 in serum run: 1"
+[1] "Starting nsga2 in serum run: 2"
+[1] "Starting nsga2 in serum run: 3"
+[1] "Starting nsga2 in serum run: 4"
+[1] "Starting nsga2 in serum run: 5"
+[1] "Starting nsga2 in serum run: 6"
+[1] "Starting nsga2 in serum run: 7"
+[1] "Starting nsga2 in serum run: 8"
+[1] "Starting nsga2 in serum run: 9"
+[1] "Starting nsga2 in serum run: 10"
+[1] "Starting nsga2 in serum run: 11"
+[1] "Starting nsga2 in serum run: 12"
+[1] "Starting nsga2 in serum run: 13"
+[1] "Starting nsga2 in serum run: 14"
+[1] "Starting nsga2 in serum run: 15"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting nsga2 in sporulation run: 1"
+[1] "Starting nsga2 in sporulation run: 2"
+[1] "Starting nsga2 in sporulation run: 3"
+[1] "Starting nsga2 in sporulation run: 4"
+[1] "Starting nsga2 in sporulation run: 5"
+[1] "Starting nsga2 in sporulation run: 6"
+[1] "Starting nsga2 in sporulation run: 7"
+[1] "Starting nsga2 in sporulation run: 8"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in sporulation run: 9"
+[1] "Starting nsga2 in sporulation run: 10"
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+geom_path: Each group consists of only one observation. Do you need to adjust
+the group aesthetic?
+[1] "Starting nsga2 in sporulation run: 11"
+[1] "Starting nsga2 in sporulation run: 12"
+[1] "Starting nsga2 in sporulation run: 13"
+[1] "Starting nsga2 in sporulation run: 14"
+[1] "Starting nsga2 in sporulation run: 15"
