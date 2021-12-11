@@ -1625,8 +1625,11 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
     #dir.create(file.path(output, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
   #}
-
-  pareto <- population[population$rnkIndex == 1, ]
+  if(nrow(population) < 2){
+    pareto <- as.data.frame(t(as.matrix(population[population[, "rnkIndex"] == 1, ])))
+  }else{
+    pareto <- population[population$rnkIndex == 1, ]
+  }
   obj.index <- (K+1):(K+objDim)
   N <- nrow(pareto)
   #dist.compounded <- distances$comp.dist #params$alpha*distances$exp.dist + (1-params$alpha)*distances$bio.dist
@@ -1649,7 +1652,6 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
     pam.res <- cluster::pam(gene.dist, metric = "euclidean", k = K, medoids = pareto[i, 1:K], do.swap = FALSE)
     plot.pam <- factoextra::fviz_cluster(pam.res, geom = "point")
     plot.sil <- factoextra::fviz_silhouette(sil, print.summary=FALSE)
-    
     if(plot){
       out.file <- file.path(output, "clustering", paste0("p", i, "_pam.png"))
       png(out.file)
@@ -1668,7 +1670,7 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   row.names(silhouette.res) <- 1:N
   
   # Calculate Delta spread
-  delta <- delta_spread(pareto, obj.index)
+  delta <- ifelse(N > 1, delta_spread(pareto, obj.index), 0)
   
   results <- data.frame("silhouette"=silhouette.res, "delta"=delta)#, "hypervolume"=hv.res)
   # Save silhouette results

@@ -1,17 +1,16 @@
 literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 7){
-    print(paste0("Not enough parameters (", argnum, "/7)"))
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
   path <- args[1] # "X:\\Universidad\\dmmoea"
-  params.path <- args[2] # "Tests\\a"
-  output.dir <- args[3]
-  algorithms.param <- args[4] #"tmix"
-  ref.algorithm <- args[5] # "dnsga2"
-  trials <- args[6] # "1"
-  evaluations <- args[7] # 2000
+  params.path <- args[2] #"Tests\\a"
+  algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
+  ref.algorithm <- args[4] # "dnsga2"
+  trials <- args[5] # "1"
+  evaluations <- args[6] # 2000
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -23,7 +22,7 @@ literature_comparison_experiments <- function(){
   source("moc.gapbk/R/main.R")
 
   tune.path <- file.path(path, params.path)
-  test.path <- file.path(path, "Tests", "experiments", output.dir)
+  test.path <- file.path(path, "Tests", "experiments")
   
   #Load best params
   best_params <- read.table(file.path(tune.path, ref.algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -97,7 +96,6 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
       warning("Algorithm not supported!!")
       return(NULL)
     }
-    
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
                        params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
   }
@@ -126,7 +124,7 @@ run_tmix_clust <- function(distances, params, output.exp, limits){
   clustering.groups <- list()
   i <- 1
   while(i <= params$popSize){
-    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max=10000)
+    tmix.res <- TMixClust(D, nb_clusters = params$K)
     groups <- tmix.res$em_cluster_assignment
     medoids <- get.medoid.diss.matrix(groups, D.exp)
     if(nrow(unique(t(medoids))) == params$K){

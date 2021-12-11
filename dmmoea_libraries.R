@@ -18,10 +18,6 @@ if(!require(NbClust)){
   install.packages("NbClust", lib=lib)
   library(NbClust, lib.loc=lib)
 }
-if(!require(tictoc)){
-  install.packages("tictoc", lib=lib)
-  library(tictoc, lib.loc=lib)
-}
 if(!require(infotheo)){
   install.packages("infotheo", lib=lib)
   library(infotheo, lib.loc=lib)
@@ -41,6 +37,14 @@ if(!require(doParallel)){
 if(!require(clValid)){
   install.packages("clValid", lib=lib)
   library(clValid, lib.loc=lib)
+}
+if(!require(ggpubr)){
+  install.packages("ggpubr", lib=lib)
+  library(ggpubr, lib.loc=lib)
+}
+if(!require(rstatix)){
+  install.packages("rstatix", lib=lib)
+  library(rstatix, lib.loc=lib)
 }
 if(!require("BiocManager", quietly = TRUE)){
   install.packages("BiocManager", lib=lib)
