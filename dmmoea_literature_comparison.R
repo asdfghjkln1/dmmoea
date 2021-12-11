@@ -1,16 +1,17 @@
 literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 6){
-    print(paste0("Not enough parameters (", argnum, "/6)"))
+  if(argnum != 7){
+    print(paste0("Not enough parameters (", argnum, "/7)"))
     return(-1)
   }
   path <- args[1] # "X:\\Universidad\\dmmoea"
   params.path <- args[2] #"Tests\\a"
   algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
   ref.algorithm <- args[4] # "dnsga2"
-  trials <- args[5] # "1"
-  evaluations <- args[6] # 2000
+  objective <- args[5]
+  trials <- args[6] # "1"
+  evaluations <- args[7] # 2000
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -22,10 +23,11 @@ literature_comparison_experiments <- function(){
   source("moc.gapbk/R/main.R")
 
   tune.path <- file.path(path, params.path)
-  test.path <- file.path(path, "Tests", "experiments")
   
   #Load best params
   best_params <- read.table(file.path(tune.path, ref.algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
+  
+  test.path <- file.path(path, "Tests", "experiments", best_params$objectives)
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- best_params$K
