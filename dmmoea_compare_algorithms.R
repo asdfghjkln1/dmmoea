@@ -9,7 +9,6 @@ compare_algorithms <- function(){
   }
   path <- args[1] # "X:\\Universidad\\dmmoea" #args[1] #
   results.path <- args[2] #"Tests\\runs\\XieBeni" # args[2]
-  figure.path <- args[3] # file.path(results.path, "figures", "comparison")
   
   setwd(path)
   library(ggpubr)
@@ -17,6 +16,7 @@ compare_algorithms <- function(){
   library(ggplot2)
 
   results.path <- file.path(path, results.path)
+  figure.path <- file.path(results.path, "figures", "comparison")
   print("Path in:")
   print(results.path)
   if(!file.exists(file.path(results.path, "plot_data.csv"))){
@@ -55,8 +55,13 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset.name, 
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
-  #pwc <- add_xy_position(data=pwc, formula=form)
   pwc <- pwc %>% add_xy_position(x = exp.group)
+  w <- 4 + 0.5*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
+  Y <- pwc$y.position
+  gap.data <- max(data[, metric]) - min(data[, metric])
+  gap <- max(Y[2] - Y[1], gap.data*0.07)
+  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
+  
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = TRUE), 
@@ -65,7 +70,8 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset.name, 
     theme_minimal() +
     theme(strip.text.x = element_blank()) +
     stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
-  ggsave(file.path(output.path, paste0(metric, "_results_", dataset.name, ".png")), width = 5, height = 6)
+  ggsave(file.path(output.path, paste0(metric, "_results_", dataset.name, ".png")), width = w, height = 6)
+  print(paste(metric, dataset.name, "... Done."))
 }
 
 compare_algorithms()

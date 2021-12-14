@@ -1,17 +1,16 @@
 literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 7){
-    print(paste0("Not enough parameters (", argnum, "/7)"))
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
   path <- args[1] # "X:\\Universidad\\dmmoea"
   params.path <- args[2] #"Tests\\a"
   algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
   ref.algorithm <- args[4] # "dnsga2"
-  objective <- args[5]
-  trials <- args[6] # "1"
-  evaluations <- args[7] # 2000
+  trials <- args[5] # "1"
+  evaluations <- args[6] # 2000
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -126,7 +125,7 @@ run_tmix_clust <- function(distances, params, output.exp, limits){
   clustering.groups <- list()
   i <- 1
   while(i <= params$popSize){
-    tmix.res <- TMixClust(D, nb_clusters = params$K)
+    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max = 200)
     groups <- tmix.res$em_cluster_assignment
     medoids <- get.medoid.diss.matrix(groups, D.exp)
     if(nrow(unique(t(medoids))) == params$K){
