@@ -9,8 +9,8 @@ literature_comparison_experiments <- function(){
   params.path <- args[2] #"Tests\\a"
   algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
   ref.algorithm <- args[4] # "dnsga2"
-  trials <- args[5] # "1"
-  evaluations <- args[6] # 2000
+  trials <- as.numeric(args[5]) # "1"
+  evaluations <- as.numeric(args[6]) # 2000
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -29,14 +29,14 @@ literature_comparison_experiments <- function(){
   test.path <- file.path(path, "Tests", "experiments", best_params$objectives)
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
-  params$K <- best_params$K
+  params$K <- as.numeric(best_params$K)
   params$objectives <- best_params$objectives
   params$evaluations <- evaluations
-  params$popSize <- best_params$popSize
+  params$popSize <- as.numeric(best_params$popSize)
   params$mating_rate <- best_params$mating_rate
   params$mutation_rate <- best_params$mutation_rate
   params$alpha <- best_params$alpha
-  params$is_random_population <- best_params$is_random_population
+  params$is_random_population <- as.numeric(best_params$is_random_population)
   params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
   if(!is.na(params$auto_adjust_initial_params)){
     params$min_density_radius <- best_params$min_density_radius
@@ -82,11 +82,11 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
     if(algorithm == "dmnsga2"){
-      res <- diverse_memetic_nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
+      res <- diverse_memetic_nsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "dnsga2"){
-      res <- dnsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
+      res <- dnsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "nsga2"){
-      res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=TRUE)
+      res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "moc.gapbk"){
       res <- run_moc_gapbk(distances, params, output.exp, limits)
     }else if(algorithm == "tmix"){
