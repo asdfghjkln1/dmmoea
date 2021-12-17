@@ -344,12 +344,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
       evaluation.count <- evaluation.count + nrow(P.fill)
       P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
-      Log("Row binding: ")
-      print(P)
-      Log("And")
-      print(P.fill)
       P <- rbind(P, P.fill)
-      Log("Row bind finished!")
       row.names(P) <- 1:nrow(P)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
@@ -1136,7 +1131,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
         density.radius <- params$mutation_radius
         # Grow radius is no gene is found nearby.
         while(!selected){
-          in.radius <- which(distances$comp.dist[gene.chr.1, ] <= density.radius)
+          in.radius <- which(distances$comp.dist[gene.chr.1, ] > density.radius)
           in.radius <- which(!(in.radius %in% in.density.radius))
           if(length(in.radius) > 0){
             gene <- sample(in.radius, 1) 
@@ -2130,7 +2125,7 @@ inverse_generational_distance_plus <- function(S, R){
   # r: objective values pair (f1, f2) for solution of R
   # m: objective dimensions
   d.plus <- function(s,r) { 
-    d <- sum(apply( s - r, 2, function(x) ifelse(x < 0, 0, x) ))^2 
+    d <- sum(as.data.frame(lapply( r - s, function(x) ifelse(x < 0, 0, x)))^2) 
     return(d)
   }
   IGD.plus <- 0
@@ -2139,7 +2134,7 @@ inverse_generational_distance_plus <- function(S, R){
     res <- apply(S, 1, function(x) d.plus(x, r))
     IGD.plus <- IGD.plus + min(res)
   }
-  return(IGD.plus)
+  return(IGD.plus/nrow(R))
 }
 
 epsilon_multiplicative <- function(S, R){
