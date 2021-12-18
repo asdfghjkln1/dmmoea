@@ -119,7 +119,7 @@ run_moc_gapbk <- function(distances, params, output.exp, limits){
 }
 
 run_tmix_clust <- function(distances, params, output.exp, limits){
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
+  dir.create(file.path(output.exp), recursive = TRUE, showWarnings = FALSE) 
   if(debug){ 
     output.log.file <- file.path(output.exp, "log.txt")
     sink(output.log.file, append=FALSE)
