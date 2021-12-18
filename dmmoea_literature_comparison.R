@@ -90,7 +90,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
     }else if(algorithm == "moc.gapbk"){
       res <- run_moc_gapbk(distances, params, output.exp, limits)
     }else if(algorithm == "tmix"){
-      res <- run_tmix_clust(distances, params, output.exp, limits)
+      res <- run_tmix_clust(distances, params, output.exp, limits, debug=TRUE)
     }else if(algorithm == "mfuzz"){
       res <- run_mfuzz_clust(distances, params, output.exp, limits)
     }else{
@@ -118,7 +118,7 @@ run_moc_gapbk <- function(distances, params, output.exp, limits){
   return(res)
 }
 
-run_tmix_clust <- function(distances, params, output.exp, limits){
+run_tmix_clust <- function(distances, params, output.exp, limits, debug=TRUE){
   dir.create(file.path(output.exp), recursive = TRUE, showWarnings = FALSE) 
   if(debug){ 
     output.log.file <- file.path(output.exp, "log.txt")
