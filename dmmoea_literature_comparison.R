@@ -119,6 +119,13 @@ run_moc_gapbk <- function(distances, params, output.exp, limits){
 }
 
 run_tmix_clust <- function(distances, params, output.exp, limits){
+  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
+  if(debug){ 
+    output.log.file <- file.path(output.path, "log.txt")
+    sink(output.log.file, append=FALSE)
+    writeLines(c(""), output.log.file)
+    print("Initiating TMixClust...")
+  }
   D <- as.data.frame(distances$data.matrix)
   D.exp <- distances$exp.dist
   params$popSize <- 3
@@ -131,10 +138,14 @@ run_tmix_clust <- function(distances, params, output.exp, limits){
     groups <- tmix.res$em_cluster_assignment
     medoids <- get.medoid.diss.matrix(groups, D.exp)
     if(nrow(unique(t(medoids))) == params$K){
+      print("New solution:")
+      print(medoids)
       population[i, ] <- medoids
       clustering.groups[[i]] <- groups
       i <- i + 1
     }
+    print("Population status:")
+    print(population)
   }
   row.names(population) <- 1:nrow(population)
   P.rows <- row.names(population)
@@ -143,6 +154,7 @@ run_tmix_clust <- function(distances, params, output.exp, limits){
   P.rows <- row.names(population)
   population <- evaluate_population(population, distances, clustering.groups, params)
   clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  sink(type="output")
   return(list("population"=population, "clustering"=clustering.groups))
 }
 
