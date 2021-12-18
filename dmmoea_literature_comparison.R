@@ -134,7 +134,7 @@ run_tmix_clust <- function(distances, params, output.exp, limits, debug=TRUE){
   i <- 1
   while(i <= params$popSize){
     print(paste0("Solution ", i, "/", params$popSize))
-    invisible(capture.output(capture.output(tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max = 100, mc_em_iter_max=50), type = "message"), type="output"))
+    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max = 100, mc_em_iter_max=50)
     groups <- tmix.res$em_cluster_assignment
     medoids <- get.medoid.diss.matrix(groups, D.exp)
     if(nrow(unique(t(medoids))) == params$K){
