@@ -73,9 +73,9 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5){
         sil <- evaluation.file[k, "avg_sil"]
         delta <- evaluation.file[k, "delta"]
         diversity.jaccard <- diversity_analysis(data.pareto, distances, metric="jaccard", 
-                                                exp.path=file.path(exp.path, experiment), alpha=alpha, plot=TRUE)
+                                                exp.path=file.path(exp.path, experiment), alpha=alpha, plot=FALSE)
         diversity.NMI <- diversity_analysis(data.pareto, distances, metric="NMI", 
-                                            exp.path=file.path(exp.path, experiment), alpha=alpha, plot=TRUE)
+                                            exp.path=file.path(exp.path, experiment), alpha=alpha, plot=FALSE)
         values <- data.frame("id"=experiment, "Algorithm"=algorithm, "Dataset"=dataset,
                              "Hypervolume"=hv, "Silhouette"=sil, "Delta"=delta)
         plot.data <- rbind(plot.data, values)

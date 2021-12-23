@@ -1021,25 +1021,49 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
     mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
     last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
+    print("THIS IS NOT WORKING!")
     return (last.ranking.solutions)
-  }else{ # Else, search for last pareto frontier and only compare those.
+  }else if(FALSE){ # Else, search for last pareto frontier and only compare those.
     i <- P.size
     while(rank == last.rank){
       rank <- R[i, "rnkIndex"]
       i <- i - 1
     }
-    preselected <- R[1:(i+1), ]
+    preselected.index <- 1:(i+1)
+    preselected <- R[preselected.index, ]
     remaining <- P.size - nrow(preselected)
     last.ranking.solutions.index <- which(R$rnkIndex == last.rank)
     last.ranking.solutions <- R[last.ranking.solutions.index, ]
-    groups <- groups[last.ranking.solutions.index]
-    diversity.matrix <- calculate_diversity_matrix(groups, metric)
-    
+    #groups2 <- groups[last.ranking.solutions.index]
+    mean.distance <- c()
+    all.index <- c(preselected.index, last.ranking.solutions.index)
+    diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
+    for(j in 1:length(last.ranking.solutions.index)){
+      index <- last.ranking.solutions.index[j]
+      mean.distance[j] <- mean(diversity.matrix[c(preselected.index, index), index])
+    }
     # Calculate mean distance from a solution to every other, and order it by decreasing
-    mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
-    last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
+    #mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
+    priority <- order(mean.distance, decreasing=TRUE)
+    last.ranking.solutions <- last.ranking.solutions[priority, ]
     last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
-    return(rbind(preselected, last.ranking.solutions)) 
+    return(rbind(preselected, last.ranking.solutions))
+  }else{
+    i <- P.size
+    while(rank == last.rank){
+      rank <- R[i, "rnkIndex"]
+      i <- i - 1
+    }
+    all.index <- which(R$rnkIndex <= last.rank)
+    print("All index size:")
+    print(length(all.index))
+    diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
+    mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
+    priority <- order(mean.solution.distance, decreasing=TRUE)
+    #rows <- row.names(R)[all.index]
+    R.reordered <-R[priority[1:P.size], ]
+    #groups.reorder <- groups[match(row.names(R.reordered), A.rows)]
+    return(R.reordered)
   }
 }
 
@@ -1084,7 +1108,7 @@ population_mating_and_mutation <- function(mating_pool, num.genes, params, P.siz
   return(Q)
 }
 
-diverse_population_mating_and_mutation <- function(mating_pool, distances, groups, params, P.size=NULL){
+diverse_population_mating_and_mutation <- function(mating_pool, distances, groups, params, P.size=NULL, type="all"){
   K <- params$K
   if(missing(P.size)){
     P.size <- params$popSize
@@ -1109,7 +1133,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
       mutation.prob <- runif(1,0,1)
       gene.chr.1 <- chr1[1,k] # Cluster of chr1 k-th gene
       clust.dist <- D[gene.chr.1, unlist(chr2)] # Distances of chr1 to chr2's genes 
-      target <- which.min(clust.dist)
+      target <- ifelse(type=="mut.only", which.max(clust.dist), k)
       
       if(genome.prob < mat.rate){
         gene <- chr2[1, target]
@@ -1125,25 +1149,29 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
         }
       }
       if(mutation.prob < mut.rate){
-        #*** More diversity criteria can be added here ***
-        selected <- FALSE
-        # Define a radius and randomly select a gene to mutate.
-        density.radius <- params$mutation_radius
-        # Grow radius is no gene is found nearby.
-        while(!selected){
-          in.radius <- which(distances$comp.dist[gene.chr.1, ] > density.radius)
-          in.radius <- which(!(in.radius %in% in.density.radius))
-          if(length(in.radius) > 0){
-            gene <- sample(in.radius, 1) 
-            selected <- TRUE
-          }else{
-            density.radius <- density.radius*1.1
+        if(type=="selective"){
+          gene <- sample(genes, 1)
+        }else{
+          #*** More diversity criteria can be added here ***
+          selected <- FALSE
+          # Define a radius and randomly select a gene to mutate.
+          density.radius <- params$mutation_radius
+          # Grow radius is no gene is found nearby.
+          while(!selected){
+            in.radius <- which(distances$comp.dist[gene.chr.1, ] > density.radius)
+            in.radius <- which(!(in.radius %in% in.density.radius))
+            if(length(in.radius) > 0){
+              gene <- sample(in.radius, 1) 
+              selected <- TRUE
+            }else{
+              density.radius <- density.radius*1.1
+            }
           }
+          #group.chr1 <- groups[[p]][gene.chr.1]
+          #elems.group <- which(groups[[p]] == group.chr1)
+          #gene <- sample(elems.group, 1)
+          #print(paste("Gene ", k, "mutated")) 
         }
-        #group.chr1 <- groups[[p]][gene.chr.1]
-        #elems.group <- which(groups[[p]] == group.chr1)
-        #gene <- sample(elems.group, 1)
-        #print(paste("Gene ", k, "mutated"))
       }
       # This only occurs in rare cases when random value was already in offspring chromosome
       # Adding a while makes sure no error can occur
@@ -1614,16 +1642,20 @@ plot_algorithm_comparison_pareto <- function(exp.path){
 
 ## Evaluation Metrics
 
-evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, plot=FALSE){
+evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, pareto.only=TRUE, plot=FALSE){
   output <- file.path(output.base, exp.id) # Path of overall results from instance (like normalization limits)
   #if(plot){
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
     #dir.create(file.path(output, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
   #}
-  if(nrow(population) < 2){
-    pareto <- as.data.frame(t(as.matrix(population[population[, "rnkIndex"] == 1, ])))
+  if(pareto.only){
+    if(nrow(population) < 2){
+      pareto <- as.data.frame(t(as.matrix(population[population[, "rnkIndex"] == 1, ])))
+    }else{
+      pareto <- population[population$rnkIndex == 1, ]
+    }
   }else{
-    pareto <- population[population$rnkIndex == 1, ]
+    pareto <- population
   }
   obj.index <- (K+1):(K+objDim)
   N <- nrow(pareto)
@@ -2124,19 +2156,23 @@ inverse_generational_distance_plus <- function(S, R){
   # s: objective values pair (f1, f2) for solution of S
   # r: objective values pair (f1, f2) for solution of R
   # m: objective dimensions
-  d.plus <- function(s,r) { 
+  d.plus <- function(r,s) { 
     d <- sum(as.data.frame(lapply( r - s, function(x) ifelse(x < 0, 0, x)))^2) 
-    return(d)
+    return(sqrt(d))
   }
   IGD.plus <- 0
   for(i in 1:nrow(R)){
     r <- R[i, ]
-    res <- apply(S, 1, function(x) d.plus(x, r))
+    res <- apply(S, 1, function(x) d.plus(r, x))
     IGD.plus <- IGD.plus + min(res)
   }
   return(IGD.plus/nrow(R))
 }
 
+#Multiplicative epsilon as implemented in: https://mlopez-ibanez.github.io/eaf/reference/epsilon.html
+#ep < 0, S epsilon-dominates R
+#ep = 0, S weakly dominates R 
+#ep > 1, S is epsilon-dominated by R
 epsilon_multiplicative <- function(S, R){
   
   #for(i in 1:nrow(R)){

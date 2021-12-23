@@ -34,7 +34,7 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   min_density_radius <- 0.01 # Minimum radius to calculate cluster density
   max_density_radius <- 0.2 # Maximum radius to calculate cluster density
   density_tol <- 0.01 # Percentage of dataset points as minimum acceptable density
-  auto_adjust_initial_params <- TRUE # If true ignore all 3 previous parameters and auto adjust
+  auto_adjust_initial_params <- FALSE # If true ignore all 3 previous parameters and auto adjust
   
   ##Memetic parameters
   agents <- 4
@@ -49,9 +49,9 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   #generation<- 20
   evaluations <- 400 # Number of maximum solutions an algorithm can evaluate until stopped
   convergencia <- 15 # Maximum number of generations without change (not used, set to 3/4 of generations)
-  popSize <- 20 #total number of population
-  ratCruz<-0.90
-  ratMuta<-0.2
+  popSize <- 40 #total number of population
+  ratCruz<-0.5
+  ratMuta<-0.05
   tourSize <- 2 #ceiling(popSize*0.20)
   tolerancia <- 0.05 # Minimum convergence index to consider "no changes"
   seed <- 123

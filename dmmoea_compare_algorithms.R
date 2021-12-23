@@ -1,14 +1,14 @@
 #!bin/usr/env Rstudio
 compare_algorithms <- function(){
   
-  #args <- commandArgs(trailingOnly = TRUE)
-  #argnum <- length(args)
-  #if(argnum != 2){
-  #  print(paste0("Not enough parameters (", argnum, "/2)"))
-  #  return(-1)
-  #}
-  path <- "X:\\Universidad\\dmmoea" #args[1] # "X:\\Universidad\\dmmoea" #args[1] #
-  results.path <- "Tests\\runs\\Diversity_BallHall" # args[2] #"Tests\\runs\\XieBeni" # args[2]
+  args <- commandArgs(trailingOnly = TRUE)
+  argnum <- length(args)
+  if(argnum != 2){
+    print(paste0("Not enough parameters (", argnum, "/2)"))
+    return(-1)
+  }
+  path <- args[1] # "X:\\Universidad\\dmmoea" #args[1] #
+  results.path <- args[2] #"Tests\\runs\\XieBeni" # args[2]
   
   setwd(path)
   library(ggpubr)
@@ -62,7 +62,7 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset.name, 
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
   pwc <- pwc %>% add_xy_position(x = exp.group)
-  w <- 4 + 0.5*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
+  w <- 4 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
   Y <- pwc$y.position
   gap.data <- max(data[, metric]) - min(data[, metric])
   gap <- max(Y[2] - Y[1], gap.data*0.07)
@@ -74,7 +74,7 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset.name, 
          caption = get_pwc_label(pwc),
          title=paste0(metric, " comparison: ", dataset.name, " dataset")) +
     theme_minimal() +
-    theme(strip.text.x = element_blank()) +
+    theme(strip.text.x = element_blank(), axis.text.x = element_text(angle=25)) +
     stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
   ggsave(file.path(output.path, paste0(metric, "_results_", dataset.name, ".png")), width = w, height = 6)
   print(paste(metric, dataset.name, "... Done."))
