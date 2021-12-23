@@ -562,7 +562,9 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, limits=NULL, d
     for(i in 1:(agents-1)){
       for(j in (i+1):agents){
         if(diversity.level >= 4){
+          Log("Initating diverse synchronization...")
           res <- diverse_fitness_sync(Agents[[i]], Agents[[j]], diversity.metric, obj_indexes, pop.per.agent)
+          Log("Diverse synchronization finished!.")
         }else{
           res <- fitness_sync(Agents[[i]], Agents[[j]], params$obj_maximize, obj_indexes, pop.per.agent)
         }
