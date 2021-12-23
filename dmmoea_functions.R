@@ -336,15 +336,23 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       to.fill <- P.size-nrow(P)
       Log(paste("Not enough solutions in population. Filling", to.fill, "solutions", agent=agent))
       P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
+      print("After clustering")
+      print(P.fill.solutions)
       row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
+      Log("After evaluation:")
+      print(P.fill.solutions)
       evaluation.count <- evaluation.count + nrow(P.fill)
       P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
+      print(paste0("Nrow P:", ncol(P), " ncol Pfill:", ncol(P.fill)))
       P <- rbind(P, P.fill)
+      print("After binding")
+      print(P)
       row.names(P) <- 1:nrow(P)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
