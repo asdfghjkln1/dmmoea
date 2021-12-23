@@ -3,13 +3,17 @@
 #!/Tests
 #/Tests/*
 
+/Tests/operators/
+
 /Tests/runs/XieBeni/dmnsga2/
 /Tests/runs/XieBeni/nsga2/
 /Tests/runs/XieBeni/dnsga2/
+/Tests/runs/XieBeni/figures/comparison
 
 /Tests/runs/BallHall/dmnsga2/
 /Tests/runs/BallHall/nsga2/
 /Tests/runs/BallHall/dnsga2/
+/Tests/runs/BallHall/figures/comparison
 
 /Tests/runs/BallHall_old/dmnsga2/
 /Tests/runs/BallHall_old/nsga2/
@@ -24,12 +28,14 @@
 /Tests/runs/Diversity_XieBeni/dnsga2_lv2
 /Tests/runs/Diversity_XieBeni/dnsga2_lv3
 /Tests/runs/Diversity_XieBeni/nsga2
+/Tests/runs/Diversity_XieBeni/figures/comparison
 
 /Tests/runs/Diversity_BallHall/dnsga2_lv1
 /Tests/runs/Diversity_BallHall/dnsga2_lv2
 /Tests/runs/Diversity_BallHall/dnsga2_lv3
 /Tests/runs/Diversity_BallHall/dmnsga2
 /Tests/runs/Diversity_BallHall/nsga2
+/Tests/runs/Diversity_BallHall/figures/comparison
 
 /Tests/tuning_Diversity_BallHall/
 /Tests/tuning_Diversity_XieBeni/

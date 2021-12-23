@@ -2,13 +2,13 @@ algorithm "--algorithm " c (dnsga2)
 objectives "--objectives " c (BallHall)
 K "--k " o (3, 4, 5)
 evaluations "--evaluations " o (1000)
-popSize "--p_size " o (12, 20, 60, 100)
+popSize "--p_size " o (12, 20, 40, 60, 80, 100)
 mating_rate "--mat_rate " r (0.5, 0.9)
 mutation_rate "--mut_rate " r (0.01, 0.5)
 alpha "--alpha " o (0.5)
 is_random_population "--rand_pop" o (0, 1)
 diversity_metric "--diversity_metric " c (jaccard, NMI) | algorithm != "nsga2"
-diversity_level "--diversity_level " o (1,2,3,4) | algorithm != "nsga2"
+diversity_level "--diversity_level " o (1,2,3) | algorithm != "nsga2"
 auto_adjust_initial_params "--auto_adjust" o (0, 1) | algorithm != "nsga2"
 min_density_radius "--min_density_radius " o (0.01) | auto_adjust_initial_params == 0
 max_density_radius "--max_density_radius " o (0.2) | auto_adjust_initial_params == 0

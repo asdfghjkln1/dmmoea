@@ -1,6 +1,6 @@
 targetRunner = target.runner
 targetEvaluator = target.evaluator
-maxExperiments = 1500
+maxExperiments = 1200
 seed=12315
 
 # Parallel options. Uncomment parallel if algorithm is "nsga2" or "dnsga2"
@@ -18,5 +18,5 @@ testNbElites = 10
 
 postselection = 0.2 # Configuration budget used to perform a post-selection race
 #recoveryFile = "./Tests/dnsga2/irace-log_backup.Rdata"
-debugLevel = 1
+debugLevel = 3
 softRestart = TRUE

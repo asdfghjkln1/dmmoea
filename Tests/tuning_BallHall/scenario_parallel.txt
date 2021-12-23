@@ -1,6 +1,6 @@
 targetRunner = target.runner
 targetEvaluator = target.evaluator
-maxExperiments = 1500
+maxExperiments = 1200
 seed=12315
 
 # Parallel options. Uncomment parallel if algorithm is "nsga2" or "dnsga2"
