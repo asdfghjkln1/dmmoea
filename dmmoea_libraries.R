@@ -38,6 +38,10 @@ if(!require(clValid)){
   install.packages("clValid", lib=lib)
   library(clValid, lib.loc=lib)
 }
+if(!require(tictoc)){
+  install.packages("tictoc", lib=lib)
+  library(tictoc, lib.loc=lib)
+}
 if(!require(ggpubr)){
   install.packages("ggpubr", lib=lib)
   library(ggpubr, lib.loc=lib)
