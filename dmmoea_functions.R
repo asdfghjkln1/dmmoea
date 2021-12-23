@@ -288,7 +288,7 @@ dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FAL
 }
 
 #### Diverse NSGA-2 ####
-dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, evaluations, initial_population, limits, debug=FALSE, plot=FALSE){
+dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, evaluations, initial_population, limits=NULL, debug=FALSE, plot=FALSE){
   evaluation.count <- 0
   diversity.metric <- params$diversity_metric
   diversity.level <- params$diversity_level
@@ -432,7 +432,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
 
-diverse_memetic_nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALSE){
+diverse_memetic_nsga2 <- function(distances, params, output.path, limits=NULL, debug=FALSE, plot=FALSE){
   evaluations <- params$evaluations
   evaluation.count <- 0
   diversity.metric <- params$diversity_metric
@@ -515,7 +515,7 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, limits, debug=
       # For every agent, call an NSGA-II procedure
       pareto_agent <- dnsga2_agent(distances, params, output.path, P.size=pop.per.agent, agent=i, phase=phase, 
                                    evaluations=evaluations.per.agent, 
-                                   initial_population=Agents[[i]], limits, debug=debug, plot=plot)
+                                   initial_population=Agents[[i]], limits=limits, debug=debug, plot=plot)
       print(pareto_agent$population)
       #parameters: distances, diversity.metric, diversity.level, params, output.path, generations, P.size, agent, phase, initial_population
       return( list( pareto_agent ) )

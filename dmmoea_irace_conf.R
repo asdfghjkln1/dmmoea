@@ -57,13 +57,14 @@ target.runner <- function(experiment, scenario){
   output.exp <- get_new_dirname(output.exp)
   dir.create(output.exp, recursive = TRUE, showWarnings = FALSE)
   exp.id <- basename(output.exp)
+  limits <- ifelse(plot == TRUE, read.csv(test.path, "limits.csv"), NULL)
   tic(quiet = TRUE)
   if(algorithm == "dmnsga2"){
-    res <- diverse_memetic_nsga2(distances, params, output.exp, debug=debug, plot=plot)
+    res <- diverse_memetic_nsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
   }else if(algorithm == "dnsga2"){
-    res <- dnsga2(distances, params, output.exp, debug=debug, plot=plot)
+    res <- dnsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
   }else if(algorithm == "nsga2"){
-    res <- nsga2(distances, params, output.exp, debug=debug, plot=plot)
+    res <- nsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
   }else{
     print("Algorithm not supported!!")
     return(list(cost=Inf))
