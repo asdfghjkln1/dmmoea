@@ -57,7 +57,11 @@ target.runner <- function(experiment, scenario){
   output.exp <- get_new_dirname(output.exp)
   dir.create(output.exp, recursive = TRUE, showWarnings = FALSE)
   exp.id <- basename(output.exp)
-  limits <- ifelse(plot == TRUE, read.csv(test.path, "limits.csv"), NULL)
+  if (plot){ 
+    limits <- read.csv(test.path, "limits.csv")
+  }else {
+    limits <- NULL
+  }
   tic(quiet = TRUE)
   if(algorithm == "dmnsga2"){
     res <- diverse_memetic_nsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
