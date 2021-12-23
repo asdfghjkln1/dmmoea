@@ -28,7 +28,7 @@ run_experiments <- function(){
   scenario$trainInstancesFile <- file.path(test.path, "instances.txt")
   scenario$testInstancesFile <- file.path(test.path, "test_instances.txt")
   scenario$logFile <- file.path(test.path, algorithm,"irace-log.Rdata")
-  scenario$configurationsFile <- file.path(test.path, paste0("initial_", algorithm))
+  scenario$configurationsFile <- file.path(test.path, paste0("initial_", algorithm, ".txt"))
   if(file.exists(file.path(test.path, algorithm, "irace-log-backup.Rdata"))){
     scenario$recoveryFile <- file.path(test.path, algorithm, "irace-log-backup.Rdata")
   }
