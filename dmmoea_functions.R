@@ -45,7 +45,7 @@ nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALS
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
       print(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
-      P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      P.fill.solutions <- fill_population(P[, 1:K], K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
       row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
@@ -191,7 +191,7 @@ dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FAL
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
       Log(paste("Not enough solutions in population. Filling", to.fill, "solutions"))
-      P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      P.fill.solutions <- fill_population(P[, 1:K], K, num.genes, fill=to.fill)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
       row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
@@ -335,7 +335,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
       Log(paste("Not enough solutions in population. Filling", to.fill, "solutions", agent=agent))
-      P.fill.solutions <- fill_population(P, K, num.genes, fill=to.fill)
+      P.fill.solutions <- fill_population(P[, 1:K], K, num.genes, fill=to.fill)
       print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
