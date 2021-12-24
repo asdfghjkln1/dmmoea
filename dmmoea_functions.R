@@ -1057,8 +1057,6 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
       i <- i - 1
     }
     all.index <- which(R$rnkIndex <= last.rank)
-    print("All index size:")
-    print(length(all.index))
     diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
     mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
     priority <- order(mean.solution.distance, decreasing=TRUE)
