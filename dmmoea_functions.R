@@ -98,7 +98,7 @@ nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALS
     P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
-    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
+    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
     
     ## Output pareto front plot
@@ -252,7 +252,7 @@ dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FAL
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
-    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
+    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
     
     if(plot){
@@ -311,7 +311,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   if(!is.null(initial_population)){
     P <- as.data.frame(initial_population$population)
     P.clustering.groups <- initial_population$clustering
-    current.pareto.front <- P[P$rnkIndex == max(P$rnkIndex), ] # Current pareto front
+    current.pareto.front <- P[P$rnkIndex == min(P$rnkIndex), ] # Current pareto front
     #*** TODO: Check initial population validity as input **** #
   }else{
     warning("Error: No initial population provided.")
@@ -339,20 +339,13 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      print("After clustering")
-      print(P.fill.solutions)
       row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
-      Log("After evaluation:")
-      print(P.fill.solutions)
       evaluation.count <- evaluation.count + nrow(P.fill)
       P.fill.clustering <- P.fill.clustering[match((row.names(P.fill)), P.fill.rows)]
-      print(paste0("Nrow P:", ncol(P), " ncol Pfill:", ncol(P.fill)))
       P <- rbind(P, P.fill)
-      print("After binding")
-      print(P)
       row.names(P) <- 1:nrow(P)
       P.clustering.groups <- c(P.clustering.groups, P.fill.clustering)
       obj.values <- P[, (K+1):(K+params$objDim)] # Select objective values
@@ -405,7 +398,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
-    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == 1, ]
+    new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
     if(plot){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path, limits, agent=agent, phase=phase) # Output pareto front
@@ -1031,7 +1024,6 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
     mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
     last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
-    print("THIS IS NOT WORKING!")
     return (last.ranking.solutions)
   }else if(FALSE){ # Else, search for last pareto frontier and only compare those.
     i <- P.size
@@ -1072,6 +1064,7 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
     priority <- order(mean.solution.distance, decreasing=TRUE)
     #rows <- row.names(R)[all.index]
     R.reordered <-R[priority[1:P.size], ]
+    R.reordered <- R.reordered[order(R.reordered$rnkIndex, decreasing = FALSE), ]
     #groups.reorder <- groups[match(row.names(R.reordered), A.rows)]
     return(R.reordered)
   }
