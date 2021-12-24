@@ -524,12 +524,12 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, limits=NULL, d
     evaluation.count <- evaluation.count + evaluations.per.phase
     if(phase != phases){
       # Aggregate solutions across agents
-      print("Before aggregate")
+      #print("Before aggregate")
       res <- aggregate_agents(Agents, agents, K, params$objDim)
       
       #evaluation.count <- evaluation.count + nrow(res$population)
       res$population <- remove_duplicated(res$population, K)
-      print("After aggregate")
+      #print("After aggregate")
       
       # Plot current solutions for this phase
       if(plot){
