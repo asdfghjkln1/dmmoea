@@ -20,7 +20,7 @@ compare_operators <- function(){
   source("dmmoea_parameters.R")
   source("dmmoea_functions.R")
 
-  runs <- 11
+  runs <- 31
   results.path <- file.path(path, results.path, operator)
   dir.create(results.path, recursive = TRUE, showWarnings = FALSE)
   print("Path in:")
@@ -68,7 +68,7 @@ compare_operators <- function(){
     data.diversity <- plot.data.diversity[plot.data.diversity$Dataset == dataset, ]
     data.diversity.NMI <- data.diversity[data.diversity$Metric == "NMI", ]
     data.diversity.jaccard <- data.diversity[data.diversity$Metric == "jaccard", ]
-    if(operator == "lv2" || operator == "lv3"){
+    if(operator == "lv2" || operator == "lv3" || operator == "lv4"){
       lapply(metrics, function(x) multi.variable.tests(data, x, "Algorithm", dataset, figure.path, paired=TRUE))
       lapply(metrics.div, function(x) multi.variable.tests(data.diversity.NMI, x, "Algorithm", dataset, figure.path, paired=TRUE))
       lapply(metrics.div, function(x) multi.variable.tests(data.diversity.jaccard, x, "Algorithm", dataset, figure.path, paired=TRUE))
@@ -77,8 +77,6 @@ compare_operators <- function(){
       lapply(metrics.div, function(x) multi.variable.tests(data.diversity.NMI, x, "Algorithm", dataset, figure.path))
       lapply(metrics.div, function(x) multi.variable.tests(data.diversity.jaccard, x, "Algorithm", dataset, figure.path))
     }
-    #res <- friedman.test.with.post.hoc(Hypervolume ~ Algorithm | id, data=data, to.plot.parallel = F, dataset=dataset)
-    #print(res)
   }
 }
 
@@ -140,15 +138,14 @@ test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31
       
       ## Population fitness selection
       if(op=="Crowding_Distance"){
-        P_next_generation <- fitness_selection_crowding_distance(R, params$popSize, params$K) 
+        P_next_generation <- fitness_selection_crowding_distance(R, params$popSize, params$K, front.only=TRUE) 
       }else if(op=="Jaccard"){
-        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "jaccard")
+        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "jaccard", front.only=TRUE)
       }else if(op=="NMI"){
-        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "NMI")
+        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "NMI", front.only=TRUE)
       }
       P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
       row.names(P_next_generation) <- 1:nrow(P_next_generation)
-      
       evaluate_solutions(P_next_generation, P.clustering.groups, distances, params$K, 
                          params$objDim, params$obj_maximize, dirname(output.exp), 
                          basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
@@ -157,7 +154,7 @@ test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31
 }
 
 test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31){
-  operators <- c("Original", "Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
+  operators <- c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
   for(i in 1:runs){
     seed <- as.numeric(Sys.time())
     P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
@@ -165,6 +162,7 @@ test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31
     P <- P.data$population
     P.clustering.groups <- P.data$clustering.results
     P <- evaluate_population(P, distances, P.clustering.groups, params)
+    mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
     for(j in 1:length(operators)){
       op <- operators[j]
       output.path <- file.path(output.folder, op, dataset)
@@ -175,13 +173,14 @@ test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31
       }
       dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
       
-      mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
-      if(op == "Original"){
-        evaluate_solutions(P, P.clustering.groups, distances, params$K, 
-                           params$objDim, params$obj_maximize, dirname(output.exp), 
-                           basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
-        next
-      }else if(op == "Direct_Crossover"){
+      
+      #if(op == "Original"){
+      #  evaluate_solutions(P, P.clustering.groups, distances, params$K, 
+      #                     params$objDim, params$obj_maximize, dirname(output.exp), 
+      #                     basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
+      #  next
+      #}
+      if(op == "Direct_Crossover"){
         Q <- population_mating_and_mutation(mating_pool, distances$n.genes, params)
       }else if(op == "Selective_Crossover"){
         Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, params, P.size=params$popSize, type="selective")
@@ -209,7 +208,7 @@ test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31
 
 test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31){
   #operators <- c("Original", "Sync_Agent_1", "Sync_Agent_2", "Diverse_Agent_1", "Diverse_Agent_2")
-  operators <- c("Original", "Sync_Agent", "Diverse_Agent")
+  operators <- c("Sync_Agent", "Diverse_Agent")
   obj_indexes <- (params$K+1):(params$K+params$objDim)
   for(i in 1:runs){
     seed <- as.numeric(Sys.time())
@@ -232,12 +231,13 @@ test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31
       dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
       
       mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
-      if(op == "Original"){
-        evaluate_solutions(P, P.clustering.groups, distances, params$K, 
-                           params$objDim, params$obj_maximize, dirname(output.exp), 
-                           basename(output.exp), op, dataset, pareto.only=FALSE,  plot=FALSE)
-        next
-      }else if(op == "Sync_Agent"){
+      #if(op == "Original"){
+      # evaluate_solutions(P, P.clustering.groups, distances, params$K, 
+      #                     params$objDim, params$obj_maximize, dirname(output.exp), 
+      #                     basename(output.exp), op, dataset, pareto.only=FALSE,  plot=FALSE)
+      #  next
+      #}
+      if(op == "Sync_Agent"){
         res <- fitness_sync(Agent.A, Agent.B, params$obj_maximize, obj_indexes, cut)
         Agent.A <- res$Agent.A
         Agent.B <- res$Agent.B

@@ -972,7 +972,7 @@ dominance_ranking_sorting <- function(population, obj.values){
   return(as.data.frame(population))
 }
 
-fitness_selection_crowding_distance <- function(R, P.size, K){
+fitness_selection_crowding_distance <- function(R, P.size, K, front.only=FALSE){
   if(nrow(R) <= P.size){
     #print("Population size is lower than original population, returning...")
     return(R)
@@ -999,12 +999,15 @@ fitness_selection_crowding_distance <- function(R, P.size, K){
     last.ranking.solutions <- R[R$rnkIndex == last.rank, ]
     last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
+    if(front.only){
+      return(last.ranking.solutions)
+    }
     return(rbind(preselected, last.ranking.solutions))
     
   }
 }
 
-fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
+fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, front.only=FALSE){
   if(nrow(R) <= P.size){
     #print("Population size is lower than original population, returning...")
     return(R)
@@ -1056,15 +1059,23 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric){
       rank <- R[i, "rnkIndex"]
       i <- i - 1
     }
-    all.index <- which(R$rnkIndex <= last.rank)
+    preselected.index <- 1:(i+1)
+    preselected <- R[preselected.index, ]
+    remaining <- P.size - nrow(preselected)
+    last.front.index <- which(R$rnkIndex == last.rank)
+    last.front <- R[last.front.index, ]
+    all.index <- c(preselected.index, last.front.index)
     diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
-    mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
+    diversity.matrix <- diversity.matrix[preselected.index, last.front.index]
+    mean.solution.distance <- apply(diversity.matrix, 2, mean)
     priority <- order(mean.solution.distance, decreasing=TRUE)
     #rows <- row.names(R)[all.index]
-    R.reordered <-R[priority[1:P.size], ]
-    R.reordered <- R.reordered[order(R.reordered$rnkIndex, decreasing = FALSE), ]
+    last.front <- last.front[priority[1:remaining], ]
     #groups.reorder <- groups[match(row.names(R.reordered), A.rows)]
-    return(R.reordered)
+    if(front.only){
+      return(last.front)
+    }
+    return(rbind(preselected, last.front))
   }
 }
 
@@ -1645,6 +1656,7 @@ plot_algorithm_comparison_pareto <- function(exp.path){
 
 evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, pareto.only=TRUE, plot=FALSE){
   output <- file.path(output.base, exp.id) # Path of overall results from instance (like normalization limits)
+  dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #if(plot){
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
     #dir.create(file.path(output, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
@@ -1724,7 +1736,11 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #  dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #}
   write.table(pareto[, obj.index], file = file.path(output, id), sep=",", append=FALSE, quote=FALSE, col.names=FALSE, row.names=FALSE)
-  write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
+  if(file.exists(file.path(output, "population.csv"))){
+    write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=TRUE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
+  }else{
+    write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
+  }
   #write.csv(delta, file.path(output.path, "delta.csv"), row.names=FALSE)
   #write(hv.res, file.path(output.path, "hypervolume.txt"))
   return(list("results"=res, "pareto"=pareto[, obj.index]))
