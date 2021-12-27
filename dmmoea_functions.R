@@ -124,7 +124,7 @@ nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALS
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
     if(debug){
-      print(P) 
+      print(paste("Output: Population of", nrow(P), "solutions"))
     }
   }
   if(debug){
@@ -278,7 +278,7 @@ dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FAL
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
     if(debug){
-      print(P) 
+      print(paste("Output: Population of", nrow(P), "solutions"))
     }
   }
   if(debug){
@@ -422,7 +422,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     g <- g + 1
     P <- P_next_generation
     if(debug){
-      print(P) 
+      print(paste("Output: Population of", nrow(P), "solutions"))
     }
     current.pareto.front <- new.pareto.front
   }
