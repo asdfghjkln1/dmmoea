@@ -1,5 +1,5 @@
 #### NSGA-2 ####
-nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALSE){
+nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
   evaluation.count <- 0
   evaluations <- params$evaluations
   K <- params$K
@@ -15,7 +15,11 @@ nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALS
   }
   
   # Initialize Random population
-  P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) 
+  if(missing(initial_population)){
+    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) 
+  }else{
+    P <- initial_population
+  }
   P.size <- nrow(P) # Population size
   num.genes <- distances$n.genes
   g <- 1 # Current generation
@@ -136,7 +140,7 @@ nsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALS
 
 
 #### Diverse NSGA-2 ####
-dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FALSE){
+dnsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
   evaluation.count <- 0
   evaluations <- params$evaluations
   diversity.metric <- params$diversity_metric
@@ -153,15 +157,18 @@ dnsga2 <- function(distances, params, output.path, limits, debug=FALSE, plot=FAL
   }
   
   # Initialize population
-  if(params$is_random_population){
-    # Random population
-    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) 
-  }else if(diversity.level >= 1){
-    P <- generate_diverse_initial_pop(distances, params, diverse_population = TRUE)
+  if(missing(initial_population)){
+    if(params$is_random_population){
+      # Random population
+      P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) 
+    }else if(diversity.level >= 1){
+      P <- generate_diverse_initial_pop(distances, params, diverse_population = TRUE)
+    }else{
+      P <- generate_diverse_initial_pop(distances, params, diverse_population = FALSE)
+    }
   }else{
-    P <- generate_diverse_initial_pop(distances, params, diverse_population = FALSE)
+    P <- initial_population
   }
-  
   P.size <- params$popSize # Population size
   #Set condition for early convergence if pareto front does not change
   estimated.generations <- params$evaluations/P.size
@@ -433,7 +440,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
 
-diverse_memetic_nsga2 <- function(distances, params, output.path, limits=NULL, debug=FALSE, plot=FALSE){
+diverse_memetic_nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
   evaluations <- params$evaluations
   evaluation.count <- 0
   diversity.metric <- params$diversity_metric
@@ -456,15 +463,18 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, limits=NULL, d
     Log(paste("Initiating DNSGA-2 with diversity level",diversity.level, "and metric", diversity.metric,"...")) 
   }
   # Initialize population
-  if(params$is_random_population){
-    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) # Random population
-  }else if(diversity.level >= 1){
-    P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = TRUE)
+  if(missing(initial_population)){
+    if(params$is_random_population){
+      P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) # Random population
+    }else if(diversity.level >= 1){
+      P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = TRUE)
+    }else{
+      P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) # Random population
+      #P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = FALSE)
+    }
   }else{
-    P <- generate_initial_pop(params$popSize, K, distances$n.genes, params$seed) # Random population
-    #P <- generate_diverse_initial_pop(distances, params, p.size=P.size, diverse_population = FALSE)
+    P <- initial_population
   }
-  
   g <- 1 # Current generation
   ## Initialize and evaluate population P
   P.data <- cluster_data(distances, P, params$alpha)
@@ -1028,31 +1038,6 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, fro
     last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
     return (last.ranking.solutions)
-  }else if(FALSE){ # Else, search for last pareto frontier and only compare those.
-    i <- P.size
-    while(rank == last.rank){
-      rank <- R[i, "rnkIndex"]
-      i <- i - 1
-    }
-    preselected.index <- 1:(i+1)
-    preselected <- R[preselected.index, ]
-    remaining <- P.size - nrow(preselected)
-    last.ranking.solutions.index <- which(R$rnkIndex == last.rank)
-    last.ranking.solutions <- R[last.ranking.solutions.index, ]
-    #groups2 <- groups[last.ranking.solutions.index]
-    mean.distance <- c()
-    all.index <- c(preselected.index, last.ranking.solutions.index)
-    diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
-    for(j in 1:length(last.ranking.solutions.index)){
-      index <- last.ranking.solutions.index[j]
-      mean.distance[j] <- mean(diversity.matrix[c(preselected.index, index), index])
-    }
-    # Calculate mean distance from a solution to every other, and order it by decreasing
-    #mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
-    priority <- order(mean.distance, decreasing=TRUE)
-    last.ranking.solutions <- last.ranking.solutions[priority, ]
-    last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
-    return(rbind(preselected, last.ranking.solutions))
   }else{
     i <- P.size
     while(rank == last.rank){
@@ -1065,8 +1050,9 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, fro
     last.front.index <- which(R$rnkIndex == last.rank)
     last.front <- R[last.front.index, ]
     all.index <- c(preselected.index, last.front.index)
-    diversity.matrix <- calculate_diversity_matrix(groups[all.index], metric)
-    diversity.matrix <- diversity.matrix[preselected.index, last.front.index]
+    diversity.matrix <- calculate_diversity_matrix_compact(target.groups=groups[last.front.index], 
+                                                          groups=groups[preselected.index], metric)
+    #diversity.matrix <- diversity.matrix[preselected.index, last.front.index]
     mean.solution.distance <- apply(diversity.matrix, 2, mean)
     priority <- order(mean.solution.distance, decreasing=TRUE)
     #rows <- row.names(R)[all.index]
@@ -1218,6 +1204,19 @@ calculate_diversity_matrix <- function(groups, metric){
     for(j in (i+1):size){
       diversity.matrix[i, j] = diversity_metric(unname(groups[[i]]), unname(groups[[j]]), metric)
       diversity.matrix[j, i] = diversity.matrix[i, j]
+    }
+  }
+  return(diversity.matrix)
+}
+
+calculate_diversity_matrix_compact <- function(target.groups, groups, metric){
+  
+  size.target <- length(target.groups)
+  size <- length(groups)
+  diversity.matrix <- matrix(0, ncol=size.target, nrow=size)
+  for(i in 1:size.target){
+    for(j in 1:size){
+      diversity.matrix[j, i] = diversity_metric(unname(target.groups[[i]]), unname(groups[[j]]), metric)
     }
   }
   return(diversity.matrix)

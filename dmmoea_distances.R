@@ -1,4 +1,4 @@
-load.gene.distance <- function(path, alpha){
+load.gene.distance <- function(path, alpha=0.5){
     
     # Load data matrix
     data.matrix<-as.matrix(read.table(file.path(path,"BD.csv"), header=T, sep=",", row.names=1, as.is = TRUE))
