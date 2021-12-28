@@ -341,7 +341,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
-      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions", agent=agent))
+      Log(paste("Not enough solutions in population. Filling", to.fill, "solutions"), agent=agent)
       P.fill.solutions <- fill_population(P[, 1:K], K, num.genes, fill=to.fill)
       print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
@@ -1823,6 +1823,10 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   row.names(Agent.A$population) <- 1:p
   row.names(Agent.B$population) <- (p+1):(p+q)
   Pop <- rbind(Agent.A$population, Agent.B$population)
+  # Remove duplicates if any
+  Pop <- remove_duplicated(Pop, ncol(Pop))
+  clust <- clust[match((row.names(Pop)), 1:(p+q))]
+  # Calculate diversity matrix
   distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
   distance.matrix <- as.dist(distance.matrix)
   hc <- hclust(distance.matrix, method="average")
