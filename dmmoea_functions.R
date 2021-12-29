@@ -350,7 +350,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      row.names(P.fill) <- seq( from = 101, to = 101+to.fill)
+      row.names(P.fill) <- seq( from = 101, to = 100+to.fill)
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
