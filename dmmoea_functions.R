@@ -2007,6 +2007,10 @@ fill_population <- function(P, K, n.genes, fill){
   filled <- 1
   filled.pop <- matrix(nrow = fill, ncol = K)
   temp <- P
+  if(any(duplicates(P))){
+    print("Duplicated found in population prior to filling!! removing...")
+    temp <- P[!duplicated(P), ]
+  }
   while(filled <= fill){
     sample.chr <- sample(1:nrow(P), 1)
     chr <- P[sample.chr, 1:K]
