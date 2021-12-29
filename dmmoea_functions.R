@@ -65,6 +65,8 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
       P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
       row.names(P)<-1:nrow(P)
+      Log("Filling finished!. Population is now: ")
+      print(P)
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -214,6 +216,8 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
       P <- dominance_ranking_sorting(P[, 1:K], obj.values) # Recalculate ranking
       P.clustering.groups <- P.clustering.groups[match((row.names(P)), P.rows)]  # Update clustering
       row.names(P)<-1:nrow(P)
+      Log("Filling finished!. Population is now: ")
+      print(P)
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -1811,7 +1815,7 @@ delta_spread <- function(pareto, obj.index){
 
 #### Memetic algorithm functions #####
 
-diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit, method="anticlust"){
+diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit, method="hc"){
   Pop.A <- Agent.A$population[FALSE, ]
   Pop.B <- Agent.B$population[FALSE, ]
   Clust.A <- Agent.A$clustering
