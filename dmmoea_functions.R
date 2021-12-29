@@ -346,7 +346,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       print(P.fill.solutions)
       P.fill.data <- cluster_data(distances, P.fill.solutions, params$alpha)
       P.fill <- as.data.frame(P.fill.data$population)
-      row.names(P.fill) <- letters[seq( from = 1, to = to.fill )]
+      row.names(P.fill) <- seq( from = 101, to = 101+to.fill)
       P.fill.clustering <- P.fill.data$clustering.results
       P.fill.rows <- row.names(P.fill)
       P.fill <- evaluate_population(P.fill, distances, P.fill.clustering, params)
@@ -639,7 +639,7 @@ generate_diverse_initial_pop <- function(distances, params, p.size=NULL, diverse
       T <- n.genes/K
       radius <- T/n.genes
       min.r <- max(0.1, radius*0.5)
-      max.r <- min(0.5, radius*1.5)
+      max.r <- min(0.3, radius*1.5)
       r.series <- seq(min.r, max.r, by=(max.r - min.r)/p.size) 
     }else{
       T <- n.genes * params$density_tol # *** Might need to be adjusted ***
@@ -1811,7 +1811,7 @@ delta_spread <- function(pareto, obj.index){
 
 #### Memetic algorithm functions #####
 
-diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit){
+diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit, method="anticlust"){
   Pop.A <- Agent.A$population[FALSE, ]
   Pop.B <- Agent.B$population[FALSE, ]
   Clust.A <- Agent.A$clustering
@@ -1829,8 +1829,13 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   # Calculate diversity matrix
   distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
   distance.matrix <- as.dist(distance.matrix)
-  hc <- hclust(distance.matrix, method="average")
-  pop.membership <- cutree(hc, k=2)
+  
+  if(method=="hc"){
+    hc <- hclust(distance.matrix, method="average")
+    pop.membership <- cutree(hc, k=2) 
+  }else if(method=="anticlust"){
+    pop.membership <- balanced_clustering(distance.matrix, K=2)
+  }
 
   Pop.A <- Pop[pop.membership == 1, ]
   Pop.B <- Pop[pop.membership == 2, ]
