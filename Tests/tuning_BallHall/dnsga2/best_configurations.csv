@@ -1,2 +1,2 @@
 .ID.,algorithm,objectives,K,evaluations,popSize,mating_rate,mutation_rate,alpha,is_random_population,convergence_tol,diversity_metric,diversity_level,auto_adjust_initial_params,phases,agents,mutation_radius,min_density_radius,max_density_radius,density_tol,sync_off,.PARENT.
-46,dnsga2,BallHall,5,1000,100,0.8356,0.1696,0.5,0,0.05,NMI,3,1,NA,NA,0.2747,NA,NA,NA,NA,39
+43,dnsga2,BallHall,3,1000,100,0.7631,0.3626,0.5,1,0.05,NMI,1,0,NA,NA,0.1027,0.01,0.2,0.01,NA,40

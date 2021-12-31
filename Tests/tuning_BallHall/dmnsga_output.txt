@@ -1,0 +1,204 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Warning: Assuming 'mu = firstTest' because 'mu' cannot be lower than 'firstTest'
+# 2021-12-30 12:03:07 -03: Resuming from file: '/home/DIINF/vrivera/dmmoea/Tests/tuning_BallHall/dmnsga2/irace-log-backup.Rdata'
+# 2021-12-30 12:03:08 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 5
+# minNbSurvival: 1
+# nbParameters: 12
+# seed: 12345
+# confidence level: 0.95
+# budget: 825
+# mu: 20
+# deterministic: FALSE
+
+# 2021-12-30 12:03:08 -03: Iteration 3 of 5
+# experimentsUsedSoFar: 375
+# remainingBudget: 825
+# currentBudget: 275
+# nbConfigurations: 7
+# 2021-12-30 12:03:08 -03: Update model
+# Model:
+$K
+$K$`17`
+[1] 0.7242634
+
+
+$popSize
+$popSize$`17`
+[1] 1.810659
+
+
+$mating_rate
+$mating_rate$`17`
+[1] 0.1448527 0.7280000
+
+
+$mutation_rate
+$mutation_rate$`17`
+[1] 0.1774445 0.4395000
+
+
+$is_random_population
+$is_random_population$`17`
+[1] 0.3621317
+
+
+$diversity_metric
+$diversity_metric$`17`
+[1] 0.76 0.24
+
+
+$diversity_level
+$diversity_level$`17`
+[1] 1.086395
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`17`
+[1] 0.3621317
+
+
+$phases
+$phases$`17`
+[1] 0.7242634
+
+
+$agents
+$agents$`17`
+[1] 0.7242634
+
+
+$sync_off
+$sync_off$`17`
+[1] 0.24 0.76
+
+
+$mutation_radius
+$mutation_radius$`17`
+[1] 0.07242634 0.11840000
+
+
+# 2021-12-30 12:03:08 -03: Sample 6 configurations from model
+# 2021-12-30 12:03:08 -03: Computing similarity of configurations . DONE
+# 2021-12-30 12:03:08 -03: Configurations for the race n 3 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+17   17   dmnsga2   BallHall 3        1000      80      0.7280        0.4395
+23   23   dmnsga2   BallHall 3        1000      60      0.7803        0.3427
+24   24   dmnsga2   BallHall 3        1000      60      0.6268        0.2589
+25   25   dmnsga2   BallHall 3        1000     100      0.5444        0.2251
+26   26   dmnsga2   BallHall 4        1000     100      0.5023        0.4551
+27   27   dmnsga2   BallHall 4        1000     100      0.7928        0.4624
+28   28   dmnsga2   BallHall 3        1000      12      0.8321        0.2683
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+17   0.5                    1            0.05          jaccard               3
+23   0.5                    1            0.05          jaccard               4
+24   0.5                    1            0.05              NMI               4
+25   0.5                    1            0.05          jaccard               3
+26   0.5                    1            0.05          jaccard               3
+27   0.5                    1            0.05          jaccard               4
+28   0.5                    1            0.05          jaccard               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+17                          0      3      4          0.1184               0.01
+23                          0      2      2          0.1715               0.01
+24                          0      3      4          0.1955               0.01
+25                          0      2      2          0.1661               0.01
+26                          0      3      2          0.2136               0.01
+27                          0      2      6          0.1853               0.01
+28                          0      3      6          0.1318               0.01
+   max_density_radius density_tol sync_off .PARENT.
+17                0.2        0.01        1        7
+23                0.2        0.01     <NA>       17
+24                0.2        0.01     <NA>       17
+25                0.2        0.01        1       17
+26                0.2        0.01        1       17
+27                0.2        0.01     <NA>       17
+28                0.2        0.01        1       17
+# 2021-12-30 12:03:08 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         36|          7|         17|    0.000000000|          7|00:25:50|   NA|  NA|    NA|
+|x|          7|          7|         17|    0.000000000|         13|00:23:14|+1.00|1.00|0.0000|
+|x|         18|          7|         23|-0.009577855623|         19|02:07:25|+0.00|0.33|0.2857|
+|x|         26|          7|         23|-0.007183391717|         25|02:59:37|+0.00|0.25|0.2143|
+|x|          1|          7|         23|-0.005746713374|         31|03:02:07|+0.00|0.20|0.1714|
+|x|         24|          7|         23|  -0.2472361507|         37|03:26:13|-0.03|0.14|0.2954|
+|x|         10|          7|         23|  -0.2119167006|         43|02:50:00|-0.02|0.12|0.2519|
+|x|          8|          7|         23|  -0.1890188089|         49|02:08:54|+0.05|0.17|0.3012|
+|x|          9|          7|         23|  -0.3296482010|         55|03:25:33|+0.09|0.19|0.3496|

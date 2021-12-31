@@ -1,0 +1,7 @@
+
+Command 'Rsript' not found, did you mean:
+
+  command 'Rscript' from deb r-base-core (3.6.3-2)
+
+Try: apt install <deb name>
+
