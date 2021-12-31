@@ -88,6 +88,96 @@ target.runner <- function(experiment, scenario){
   return(list()) #"time"=as.numeric(time)))
 }
 
+target.runner.diversity <- function(experiment, scenario){
+  instance <- experiment$instance
+  if(!is.na(scenario$parallel)){
+    source("dmmoea_libraries.R")
+  }
+  configuration <- experiment$configuration
+  actions <- strsplit(instance, " ")[[1]]
+  dataset.name <- strsplit(instance, " ")[[1]][1]
+  debug <- FALSE
+  plot <- FALSE
+  if(length(actions) > 1){
+    for(i in 2:length(actions)){
+      tag <- strsplit(actions[i], "=")[[1]][1]
+      if(tag == "--plot"){
+        plot <- as.logical(strsplit(actions[i], "=")[[1]][2])
+      }else if(tag == "--print"){
+        debug <- as.logical(strsplit(actions[i], "=")[[1]][2])
+      }
+    } 
+  }
+  
+  #dataset <- configuration[['dataset']]
+  experiment$configuration[['dataset']] <- dataset.name
+  
+  params <- init_parameters(dataset.name = dataset.name, objectives=configuration[['objectives']])
+  
+  algorithm <- configuration[['algorithm']]
+  params$K <- as.numeric(configuration[['K']])
+  #params$objectives <- configuration[['objectives']]
+  params$evaluations <- as.numeric(configuration[['evaluations']])
+  params$popSize <- as.numeric(configuration[['popSize']])
+  params$mating_rate <- as.numeric(configuration[['mating_rate']])
+  params$mutation_rate <- as.numeric(configuration[['mutation_rate']])
+  params$alpha <- as.numeric(configuration[['alpha']])
+  params$is_random_population <- as.numeric(configuration[['is_random_population']])
+  params$auto_adjust_initial_params <- as.numeric(configuration[['auto_adjust_initial_params']])
+  if(!is.na(params$auto_adjust_initial_params)){
+    params$min_density_radius <- as.numeric(configuration[['min_density_radius']])
+    params$max_density_radius <- as.numeric(configuration[['max_density_radius']])
+    params$density_tol <- as.numeric(configuration[['density_tol']]) 
+  }
+  params$diversity_metric <- configuration[['diversity_metric']]
+  params$diversity_level <- configuration[['diversity_level']]
+  params$phases <- as.numeric(configuration[['phases']])
+  params$agents <- as.numeric(configuration[['agents']])
+  params$sync_off <- as.numeric(configuration[['sync_off']])
+  if(is.na(params$sync_off)){ params$sync_off <- 0}
+  params$convergence_tol <- as.numeric(configuration[['convergence_tol']])
+  params$mutation_radius <- as.numeric(configuration[['mutation_radius']])
+  params$seed <- as.numeric(experiment$seed)
+  #Load distances
+  distances <- load.gene.distance(dataset.name, params$alpha)
+  
+  output <- file.path(test.path, algorithm, params$dataset)
+  exp.id <- paste0(dataset.name, "_", experiment$id.configuration)
+  output.exp <- file.path(output, exp.id)
+  output.exp <- get_new_dirname(output.exp)
+  dir.create(output.exp, recursive = TRUE, showWarnings = FALSE)
+  exp.id <- basename(output.exp)
+  if (plot){ 
+    limits <- read.csv(test.path, "limits.csv")
+  }else {
+    limits <- NULL
+  }
+  tic(quiet = TRUE)
+  if(algorithm == "dmnsga2"){
+    res <- diverse_memetic_nsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
+  }else if(algorithm == "dnsga2"){
+    res <- dnsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
+  }else if(algorithm == "nsga2"){
+    res <- nsga2(distances, params, output.exp, limits=limits, debug=debug, plot=plot)
+  }else{
+    print("Algorithm not supported!!")
+    return(list(cost=Inf))
+  }
+  t <- toc(quiet=TRUE)
+  t <- unname(t[["toc"]] - t[["tic"]])
+  
+  pareto.clustering <- res$clustering[res$population[, "rnkIndex"] == 1]
+  rows <- nrow(res$population)
+  if(rows < 2){
+    pareto.clustering <- res$clustering[res$population[, "rnkIndex"] <= 2]
+  }
+  diversity <- calculate_diversity_matrix(pareto.clustering, "jaccard")
+  avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+  res <- data.frame("id"=exp.id, "Algorithm"=algorithm, "Dataset"=dataset.name, "Diversity"=avg.dist, "time"=t)
+  write.table(res, file=file.path(test.path, algorithm, "diversity.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+  return(list("cost"=avg.dist)) #"time"=as.numeric(time)))
+}
+
 target.evaluator <- function(experiment, num.configurations, all.conf.id,scenario, target.runner.call){
   
   instance <- experiment$instance
@@ -139,6 +229,5 @@ target.evaluator <- function(experiment, num.configurations, all.conf.id,scenari
   hv <- ifelse(maximize, hv, -hv)
   return(list("cost"=hv))
 }
-
 
 #target.evaluator <- function(experiment, num.configurations, all.conf.id, scenario, target.runner.call){}

@@ -3,13 +3,15 @@ compare_operators <- function(){
   
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 3){
-    print(paste0("Not enough parameters (", argnum, "/3)"))
+  if(argnum != 5){
+    print(paste0("Not enough parameters (", argnum, "/5)"))
     return(-1)
   }
   path <- args[1] #"X:\\Universidad\\dmmoea" #args[1] # "X:\\Universidad\\dmmoea" #args[1] #
   results.path <- args[2] #"Tests\\operators" # args[2] #"Tests\\runs\\XieBeni" # args[2]
   operator <- args[3] #"lv3"
+  runs <- as.numeric(args[4])
+  generations <- as.numeric(args[5])
   
   setwd(path)
   library(ggpubr)
@@ -20,28 +22,38 @@ compare_operators <- function(){
   source("dmmoea_parameters.R")
   source("dmmoea_functions.R")
 
-  runs <- 31
   results.path <- file.path(path, results.path, operator)
   dir.create(results.path, recursive = TRUE, showWarnings = FALSE)
   print("Path in:")
   print(results.path)
   params <- init_parameters()
-  #params$popSize <- 20
+  params$evaluations <- params$popSize*(generations+1)
   
   datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
+  
+  #if(!file.exists(file.path(results.path, "diversity_evolution.csv"))){
   for(j in 1:length(datasets)){
     dataset <- datasets[j]
+    params$dataset <- dataset
     distances <- load.gene.distance(dataset, params$alpha)
-    if(operator == "lv1"){
-      test_operator_lv1(params, distances, dataset, results.path, runs) 
-    }else if(operator == "lv2"){
-      test_operator_lv2(params, distances, dataset, results.path, runs)
-    }else if(operator == "lv3"){
-      test_operator_lv3(params, distances, dataset, results.path, runs)
-    }else if(operator == "lv4"){
-      test_operator_lv4(params, distances, dataset, results.path, runs)
+    if(operator == "lv1_v2"){
+      test_operator_lv1_v2(params, distances, dataset, results.path, runs) 
+    }else if(operator == "lv2_v2"){
+      test_operator_lv1_v2(params, distances, dataset, results.path, runs)
+    }else if(operator == "lv3_v2"){
+      test_operator_lv3_v2(params, distances, dataset, results.path, runs)
+    }else if(operator == "lv4_v2"){
+      test_operator_lv4_v2(params, distances, dataset, results.path, runs)
     }
   }
+  #}
+  print("Tests finished! Plotting results...")
+  data.diversity <- read.table(file.path(results.path, "diversity_evolution.csv"), sep=",", header=TRUE, row.names=NULL)
+  data.diversity$Algorithm <- as.factor(data.diversity$Algorithm)
+  data.diversity$id <- as.factor(data.diversity$id)
+  
+  plot_diversity_evolution(data.diversity, operator, results.path,paired=FALSE)
+  return(0)
   datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
   print("Finished running tests...")
   print(file.path(results.path, "plot_data.csv"))
@@ -78,6 +90,210 @@ compare_operators <- function(){
       lapply(metrics.div, function(x) multi.variable.tests(data.diversity.jaccard, x, "Algorithm", dataset, figure.path))
     }
   }
+}
+
+plot_diversity_evolution <- function(data, exp.name, output.folder, paired=TRUE){
+  form <- as.formula("diversity ~ Algorithm")
+  data$generation <- as.factor(data$generation)
+  if(!paired){
+    res <- kruskal_test(data, formula=form) 
+  }else{
+    data$id <- as.factor(data$id)
+    data$Algorithm <- as.factor(data$Algorithm)
+    form.friedman <- as.formula("diversity ~ Algorithm | id")
+    res <- friedman_test(data=data, formula=form.friedman)
+    print("A")
+  }
+  pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
+  print("B")
+  pwc <- pwc %>% add_xy_position(x = "Algorithm")
+  w <- 4 + 0.6*(length(unique(data$Algorithm)) - 3)#ifelse(exp.group>3, 6,5)
+  Y <- pwc$y.position
+  gap.data <- max(data$diversity) - min(data$diversity)
+  gap <- max(Y[2] - Y[1], gap.data*0.07)
+  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data$Algorithm)))
+  print("C")
+  
+  xlab <- "Generación"
+  if(exp.name == "lv4_v2"){
+    xlab <- "Fase de comunicación"
+    title <- "Diversidad en DMNSGA-II según operador de comunicación"
+  }else if(exp.name == "lv1_v2"){
+    title <- "Diversidad en NSGA-II según operador de población inicial"
+  }else if(exp.name == "lv2_v2"){
+    title <- "Diversidad en DNSGA-II según operador de selección"
+  }else if(exp.name == "lv3_v2"){
+    title <- "Diversidad en NSGA-II según operador de cruzamiento y mutación"
+  }
+  
+  ggplot(data, aes(x=generation, y=diversity)) +
+    geom_boxplot(aes(fill=Algorithm)) +
+    labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
+         title=title) +
+         #subtitle = get_test_label(res, detailed = TRUE), 
+         #caption = get_pwc_label(pwc)) +
+    theme_minimal()
+  ggsave(file.path(output.folder, "diversity_evolution.png"))
+}
+
+test_operator_lv1_v2 <- function(params, distances, dataset, output.folder, runs=31){
+  operators <- c("Random", "Selective", "Selective_Diverse")
+  
+  if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
+    res <- as.data.frame(matrix(nrow=1, ncol=5))
+    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
+    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  
+  for(j in 1:length(operators)){
+    op <- operators[j]
+    output.path <- file.path(output.folder, op, dataset)
+    for(i in 1:runs){
+      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
+      output.exp <- file.path(output.path, i)
+      if(dir.exists(output.exp)){
+        next
+      }
+      if(op == "Random"){
+        seed <- as.numeric(Sys.time())
+        P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
+      }else if(op == "Selective"){
+        P  <- generate_diverse_initial_pop(distances, params, diverse_population=FALSE)
+      }else if(op == "Selective_Diverse"){
+        P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE)
+      }
+      
+      nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
+      
+      #evaluate_solutions(P, P.clustering.groups, distances, params$K, 
+      #                   params$objDim, params$obj_maximize, dirname(output.exp), 
+      #                   basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
+    } 
+  }
+}
+
+test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs=31){
+  operators <- c("Crowding_Distance", "Jaccard", "NMI")
+  
+  if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
+    res <- as.data.frame(matrix(nrow=1, ncol=5))
+    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
+    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  
+  for(i in 1:runs){
+    seed <- as.numeric(Sys.time())
+    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
+    for(j in 1:length(operators)){
+      op <- operators[j]
+      output.path <- file.path(output.folder, op, dataset)
+      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
+      output.exp <- file.path(output.path, i)
+      if(dir.exists(output.exp)){
+        next
+      }
+      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
+      
+      
+      ## Population fitness selection
+      if(op=="Crowding_Distance"){
+        params$diversity_level <- 1
+        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }else if(op=="Jaccard"){
+        params$diversity_level <- 2
+        params$diversity_metric <- "jaccard"
+        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }else if(op=="NMI"){
+        params$diversity_level <- 2
+        params$diversity_metric <- "NMI"
+        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }
+
+      
+      #evaluate_solutions(P_next_generation, P.clustering.groups, distances, params$K, 
+      #                   params$objDim, params$obj_maximize, dirname(output.exp), 
+      #                   basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
+    }
+  } 
+}
+
+test_operator_lv3_v2 <- function(params, distances, dataset, output.folder, runs=31){
+  operators <- c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
+  
+  if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
+    res <- as.data.frame(matrix(nrow=1, ncol=5))
+    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
+    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  
+  for(i in 1:runs){
+    seed <- as.numeric(Sys.time())
+    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
+    for(j in 1:length(operators)){
+      op <- operators[j]
+      output.path <- file.path(output.folder, op, dataset)
+      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
+      output.exp <- file.path(output.path, i)
+      if(dir.exists(output.exp)){
+        next
+      }
+      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
+      
+      
+      ## Population fitness selection
+      if(op=="Direct_Crossover"){
+        nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
+      }else if(op=="Selective_Crossover"){
+        params$diversity_level <- 3
+        params$diversity_metric <- "selective"
+        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }else if(op=="Diverse_Mutation"){
+        params$diversity_level <- 3
+        params$mutation_type <- "mut.only"
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }else if(op=="Combined"){
+        params$diversity_level <- 3
+        params$mutation_type <- "all"
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }
+    }
+  } 
+}
+
+test_operator_lv4_v2 <- function(params, distances, dataset, output.folder, runs=31){
+  operators <- c("Elitist_sync", "Diverse_sync")
+  
+  if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
+    res <- as.data.frame(matrix(nrow=1, ncol=5))
+    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
+    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  
+  for(i in 1:runs){
+    seed <- as.numeric(Sys.time())
+    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
+    for(j in 1:length(operators)){
+      op <- operators[j]
+      output.path <- file.path(output.folder, op, dataset)
+      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
+      output.exp <- file.path(output.path, i)
+      if(dir.exists(output.exp)){
+        next
+      }
+      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
+      
+      
+      ## Population fitness selection
+      if(op=="Elitist_sync"){
+        params$diversity_level <- 0
+        diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
+      }else if(op=="Diverse_sync"){
+        params$diversity_level <- 0
+        params$sync_method <- "anticlust"
+        diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+      }
+    }
+  } 
 }
 
 test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31){
@@ -231,12 +447,6 @@ test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31
       dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
       
       mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
-      #if(op == "Original"){
-      # evaluate_solutions(P, P.clustering.groups, distances, params$K, 
-      #                     params$objDim, params$obj_maximize, dirname(output.exp), 
-      #                     basename(output.exp), op, dataset, pareto.only=FALSE,  plot=FALSE)
-      #  next
-      #}
       if(op == "Sync_Agent"){
         res <- fitness_sync(Agent.A, Agent.B, params$obj_maximize, obj_indexes, cut)
         Agent.A <- res$Agent.A

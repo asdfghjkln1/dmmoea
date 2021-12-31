@@ -34,12 +34,13 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   min_density_radius <- 0.01 # Minimum radius to calculate cluster density
   max_density_radius <- 0.2 # Maximum radius to calculate cluster density
   density_tol <- 0.01 # Percentage of dataset points as minimum acceptable density
-  auto_adjust_initial_params <- FALSE # If true ignore all 3 previous parameters and auto adjust
+  auto_adjust_initial_params <- TRUE # If true ignore all 3 previous parameters and auto adjust
   
   ##Memetic parameters
   agents <- 4
-  phases <- 3
+  phases <- 4
   sync_off <- FALSE
+  sync_method <- "hc"
   diversity_level <- 4
   diversity_metric <- diversity_metric
   
@@ -51,7 +52,8 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   convergencia <- 15 # Maximum number of generations without change (not used, set to 3/4 of generations)
   popSize <- 40 #total number of population
   ratCruz<-0.5
-  ratMuta<-0.05
+  ratMuta<-0.1
+  mutType<-"all" # "mut.only", "selective", "all"
   tourSize <- 2 #ceiling(popSize*0.20)
   tolerancia <- 0.05 # Minimum convergence index to consider "no changes"
   seed <- 123
@@ -59,8 +61,8 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   return(list( dataset=dataset, cores=cores, objectives=obj_names, objDim=objDim, obj_maximize=maximize,
                alpha=alpha, K=K, min_density_radius=min_density_radius, max_density_radius=max_density_radius, density_tol=density_tol, 
                auto_adjust_initial_params=auto_adjust_initial_params, is_random_population=poblacion_inicial_aleatorio,
-               popSize=popSize, mating_rate=ratCruz, mutation_rate=ratMuta, mutation_radius=mutation_radius,
+               popSize=popSize, mating_rate=ratCruz, mutation_rate=ratMuta, mutation_type=mutType, mutation_radius=mutation_radius,
                tourSize=tourSize, convergence_tol=tolerancia, evaluations=evaluations, agents=agents, phases=phases, 
-               diversity_level=diversity_level, diversity_metric=diversity_metric, sync_off=sync_off, seed=seed))
+               diversity_level=diversity_level, diversity_metric=diversity_metric, sync_off=sync_off, sync_method=sync_method, seed=seed))
               #obj1_criteria=obj1_criteria, obj2_criteria=obj2_criteria, 
 }

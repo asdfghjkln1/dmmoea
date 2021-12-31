@@ -1,5 +1,5 @@
 #### NSGA-2 ####
-nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
+nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=FALSE, experiment.name="nsga2", base.path=NULL){
   evaluation.count <- 0
   evaluations <- params$evaluations
   K <- params$K
@@ -105,11 +105,17 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
-    pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
     
     ## Output pareto front plot
     if(plot){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path, limits) # Output pareto front 
+    }
+    if(calculate.diversity && !is.null(base.path)){
+      #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
+      diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
+      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
     }
     
     ## Measure convergence of pareto front
@@ -142,7 +148,7 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
 
 
 #### Diverse NSGA-2 ####
-dnsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
+dnsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=FALSE, experiment.name="dnsga2", base.path=NULL){
   evaluation.count <- 0
   evaluations <- params$evaluations
   diversity.metric <- params$diversity_metric
@@ -268,6 +274,14 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     
     if(plot){
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path, limits) # Output pareto front 
+    }
+    
+    if(calculate.diversity && !is.null(base.path)){
+      #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
+      diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
+      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
     }
     
     ## Measure convergence of pareto front
@@ -444,7 +458,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
 }
 
-diverse_memetic_nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE){
+diverse_memetic_nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=FALSE, experiment.name="dmnsga2", base.path=NULL){
   evaluations <- params$evaluations
   evaluation.count <- 0
   diversity.metric <- params$diversity_metric
@@ -503,6 +517,7 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
   solutions <- rep(1:agents, each=pop.per.agent)
   solutions <- sample(solutions)
   solutions <- split(1:P.size, solutions)
+  
   for(i in 1:agents){
     Agents[[i]] <- list("population"=P[unlist(solutions[i]), ], "clustering"=P.clustering.groups[unlist(solutions[i])])
   }
@@ -536,31 +551,18 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
       return( list( pareto_agent ) )
     }
     evaluation.count <- evaluation.count + evaluations.per.phase
+    
     if(phase != phases){
-      # Aggregate solutions across agents
-      #print("Before aggregate")
-      res <- aggregate_agents(Agents, agents, K, params$objDim)
-      
-      #evaluation.count <- evaluation.count + nrow(res$population)
-      res$population <- remove_duplicated(res$population, K)
-      #print("After aggregate")
-      
       # Plot current solutions for this phase
       if(plot){
         plot_phase_population(res$population, phase, output.path, limits, show.all=TRUE)
       }
-      # If syncronization is disable, keep agents as is and go to next phase
+      
+      # If syncronization is disabled, keep agents as is and go to next phase
       if(params$sync_off){
         phase <- phase + 1
         next
       }
-      # Remove all duplicates
-      #Log("Testing population size:")
-      #for(i in 1:agents){
-      #  print(nrow(Agents[[i]]$population))
-      #  #Agents[[i]]$population <- remove_duplicated(Agents[[i]]$population, K)
-      #}
-      
     }else{
       # If all phases ended, algorithm finished!
       if(debug){
@@ -572,14 +574,21 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
     if(debug){
       Log(paste("Phase", phase, "agents finished!. Starting sync stage...")) 
     }
+    if(debug){
+      for(i in 1:agents){
+        print(paste0("Agent ", i, " recieves ", nrow(Agents[[i]]$population), " solutions"))
+        print(paste0("Cluster number: ", length(Agents[[i]]$clustering)))
+      }
+      #Log(paste("Phase", phase, "synchronization ended!"))
+    }
     # Synchronize every pair of agents
     obj_indexes <- (K+1):(K+params$objDim)
     for(i in 1:(agents-1)){
       for(j in (i+1):agents){
-        if(diversity.level >= 4){
-          Log("Initating diverse synchronization...")
-          res <- diverse_fitness_sync(Agents[[i]], Agents[[j]], diversity.metric, obj_indexes, pop.per.agent)
-          Log("Diverse synchronization finished!.")
+        if(diversity.level >= 4 || experiment.name == "Diverse_sync"){
+          #Log("Initating diverse synchronization...")
+          res <- diverse_fitness_sync(Agents[[i]], Agents[[j]], diversity.metric, obj_indexes, pop.per.agent, method=params$sync_method)
+          #Log("Diverse synchronization finished!.")
         }else{
           res <- fitness_sync(Agents[[i]], Agents[[j]], params$obj_maximize, obj_indexes, pop.per.agent)
         }
@@ -587,13 +596,23 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
         Agents[[j]] <- res$Agent.B # Population agent B
       }
     }
-    if(debug){
+    
+    if(calculate.diversity && !is.null(base.path)){
+      avg.dist <- list()
       for(i in 1:agents){
-        print(paste0("Agent ", i, " recieves:"))
-        print(Agents[[i]]$population)
+        #print(paste0("Phase ", phase, " agent ", i))
+        diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+        avg.dist[[i]] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+        #print(avg.dist[[i]])
       }
-      Log(paste("Phase", phase, "synchronization ended!"))
+      solutions <- aggregate_agents(Agents, agents, K, params$objDim)
+      diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
+      between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+      res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=mean(unlist(avg.dist)), "generation"=phase)
+      res <- rbind(res, res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phase))
+      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
     }
+    
     phase <- phase + 1
   }
   
@@ -601,11 +620,26 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
   closeAllConnections() # Close output log files
   
   # Aggregate solutions across agents and return
-  solutions<- aggregate_agents(Agents, agents, K, params$objDim)
-  solutions$population <- remove_duplicated(solutions$population, K)
+  solutions <- aggregate_agents(Agents, agents, K, params$objDim)
   if(plot){
     plot_phase_population(solutions$population, phases, output.path, limits, is_final=TRUE, show.all=TRUE) 
   }
+  
+  if(calculate.diversity && !is.null(base.path)){
+    avg.dist <- list()
+    for(i in 1:agents){
+      #print(paste0("Phase ", phase, " agent ", i))
+      diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+      avg.dist[i] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+      #print(avg.dist[i])
+    }
+    diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
+    between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+    res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=mean(unlist(avg.dist)), "generation"=phase)
+    res <- rbind(res, res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phases))
+    write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+  }
+  
   #print("Resulting population:")
   #print(solutions$population)
   return(solutions)
@@ -1110,7 +1144,8 @@ population_mating_and_mutation <- function(mating_pool, num.genes, params, P.siz
   return(Q)
 }
 
-diverse_population_mating_and_mutation <- function(mating_pool, distances, groups, params, P.size=NULL, type="all"){
+diverse_population_mating_and_mutation <- function(mating_pool, distances, groups, params, P.size=NULL){
+  type <- params$mutation_type
   K <- params$K
   if(missing(P.size)){
     P.size <- params$popSize
@@ -2000,6 +2035,10 @@ aggregate_agents <- function(Agents, n.agents, K, obj.dim){
   obj.values <- population[ , (K+1):(K+obj.dim)]
   population <- dominance_ranking_sorting(population[, 1:K], obj.values)
   clustering <- clustering[as.numeric(row.names(population))]
+  row.names(population) <- 1:nrow(population)
+  population <- remove_duplicated(population, K)
+  clustering <- clustering[as.numeric(row.names(population))]
+  row.names(population) <- 1:nrow(population)
   return(list("population"=population, "clustering"=clustering))
 }
 
