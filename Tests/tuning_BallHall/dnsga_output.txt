@@ -1,0 +1,1066 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Warning: Assuming 'mu = firstTest' because 'mu' cannot be lower than 'firstTest'
+# Read 13 configuration(s) from file '/home/DIINF/vrivera/dmmoea/Tests/tuning_BallHall/initial_dnsga2.txt'
+# 2021-12-28 01:05:47 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 5
+# minNbSurvival: 1
+# nbParameters: 12
+# seed: 12315
+# confidence level: 0.95
+# budget: 1200
+# mu: 20
+# deterministic: FALSE
+
+# 2021-12-28 01:05:47 -03: Iteration 1 of 5
+# experimentsUsedSoFar: 0
+# remainingBudget: 1200
+# currentBudget: 240
+# nbConfigurations: 9
+# 2021-12-28 01:05:47 -03: Only 9 from the initial configurations will be used
+# 2021-12-28 01:05:47 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|          1|          9|          4|-0.0008852401385|          9|02:03:01|   NA|  NA|    NA|
+|x|          2|          9|          4|-0.0004426200692|         18|02:10:30|+0.00|0.50|0.4444|
+|x|          3|          9|          4|-0.0002950800462|         27|00:14:13|+0.00|0.33|0.2963|
+|x|          4|          9|          1|  -0.3332314614|         36|02:57:58|+0.13|0.34|0.4526|
+|x|          5|          9|          1|  -0.2665851691|         45|02:43:19|+0.09|0.28|0.3604|
+|x|          6|          9|          1|  -0.4442573926|         54|02:10:48|+0.25|0.37|0.3917|
+|x|          7|          9|          1|  -0.3807920508|         63|00:13:01|+0.21|0.32|0.3433|
+|x|          8|          9|          1|  -0.3332314614|         72|01:43:17|+0.25|0.34|0.3879|
+|x|          9|          9|          1|  -0.4442744668|         81|02:21:34|+0.32|0.40|0.4032|
+|x|         10|          9|          1|  -0.3998777537|         90|01:29:55|+0.35|0.41|0.4246|
+|x|         11|          9|          1|  -0.3635252306|         99|00:12:53|+0.31|0.38|0.3959|
+|x|         12|          9|          1|  -0.3332314614|        108|01:54:36|+0.28|0.34|0.3703|
+|x|         13|          9|          1|  -0.4101073883|        117|02:17:41|+0.33|0.38|0.3836|
+|x|         14|          9|          1|  -0.3808140034|        126|00:12:30|+0.30|0.35|0.3630|
+|x|         15|          9|          1|  -0.3554468922|        135|01:29:10|+0.32|0.37|0.3799|
+|x|         16|          9|          1|  -0.3332314614|        144|02:18:50|+0.30|0.34|0.3621|
+|x|         17|          9|          1|  -0.3136296108|        153|00:12:23|+0.28|0.32|0.3456|
+|x|         18|          9|          1|  -0.2962228177|        162|01:21:08|+0.30|0.34|0.3579|
+|x|         19|          9|          1|  -0.2806321431|        171|01:59:55|+0.29|0.32|0.3436|
+|-|         20|          3|          1|  -0.3332314614|        180|02:41:02|-0.05|0.00|0.3354|
+|x|         21|          3|          1|  -0.3173632966|        183|00:04:30|-0.05|0.00|0.3193|
+|x|         22|          3|          7|   -1.825029760|        186|00:13:36|-0.04|0.00|0.3325|
+|x|         23|          3|          7|   -1.745680640|        189|00:02:16|-0.04|0.00|0.3181|
+|x|         24|          3|          1|  -0.3332314614|        192|00:07:30|-0.04|0.00|0.3325|
+|=|         25|          3|          1|  -0.3199022030|        195|00:02:17|-0.04|0.00|0.3192|
+|x|         26|          3|          4|  -0.1641541207|        198|00:07:19|-0.04|0.00|0.3304|
+|x|         27|          3|          4|  -0.1580743385|        201|00:04:29|-0.04|0.00|0.3183|
+|x|         28|          3|          1|  -0.3332314614|        204|00:14:07|-0.04|0.00|0.3304|
+|x|         29|          3|          7|   -1.846007113|        207|00:13:38|-0.03|0.00|0.3401|
+|=|         30|          3|          7|   -1.784473543|        210|00:04:37|-0.03|0.00|0.3289|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because tests without elimination (2) >= elitistLimit (2)
+Best-so-far configuration:           7    mean value:    -1.784473543
+Description of the best-so-far configuration:
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+7    7    dnsga2   BallHall 3        1000      40         0.8           0.3
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+7   0.5                    1            0.05          jaccard               1
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+7                          0   <NA>   <NA>             0.1               0.01
+  max_density_radius density_tol sync_off .PARENT.
+7                0.2        0.01     <NA>       NA
+
+# 2021-12-29 11:08:05 -03: Extracting elites
+# 2021-12-29 11:08:05 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+7    7    dnsga2   BallHall 3        1000      40         0.8           0.3
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+7   0.5                    1            0.05          jaccard               1
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+7                          0   <NA>   <NA>             0.1               0.01
+  max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+7                0.2        0.01     <NA>       NA    TRUE     59        1
+# 2021-12-29 11:08:05 -03: Initialise model
+# 2021-12-29 11:08:05 -03: End of iteration 1
+# 2021-12-29 11:08:05 -03: Iteration 2 of 5
+# experimentsUsedSoFar: 210
+# remainingBudget: 990
+# currentBudget: 247
+# nbConfigurations: 7
+# 2021-12-29 11:08:05 -03: Update model
+# 2021-12-29 11:08:05 -03: Sample 6 configurations from model
+# 2021-12-29 11:08:05 -03: Computing similarity of configurations . DONE
+# 2021-12-29 11:08:05 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         31|          7|         17|  -0.1093005529|          7|00:05:28|   NA|  NA|    NA|
+|x|          9|          7|         16|  -0.9648800440|         13|00:06:49|-0.18|0.41|1.1960|
+|x|         22|          7|         14|   -2.638973758|         19|00:06:57|+0.22|0.48|0.7973|
+|x|         19|          7|         14|   -1.979230318|         25|00:05:00|+0.14|0.36|0.6130|
+|x|         17|          7|         14|   -1.583384255|         31|00:01:59|+0.11|0.29|0.4963|
+|x|         16|          7|         14|   -1.319486879|         37|00:04:55|+0.09|0.24|0.4166|
+|x|         29|          7|          7|   -2.867903908|         43|00:06:49|+0.21|0.32|0.4158|
+|x|         27|          7|          7|   -2.509415920|         49|00:05:01|+0.18|0.28|0.3730|
+|x|         20|          7|          7|   -2.974122572|         55|00:06:49|+0.27|0.35|0.3710|
+|x|         30|          7|          7|   -2.676710314|         61|00:05:14|+0.24|0.31|0.3444|
+|x|         13|          7|          7|   -3.041716266|         67|00:06:47|+0.30|0.37|0.3425|
+|x|          2|          7|          7|   -2.788239911|         73|00:05:00|+0.28|0.34|0.3244|
+|x|         24|          7|          7|   -2.573759918|         79|00:05:21|+0.22|0.28|0.3841|
+|x|         15|          7|         16|  -0.6787520099|         85|00:05:22|+0.20|0.26|0.4232|
+|x|         11|          7|         16|  -0.6335018759|         91|00:02:02|+0.18|0.24|0.3994|
+|x|         14|          7|         16|  -0.5939080086|         97|00:02:02|+0.17|0.22|0.3781|
+|x|          1|          7|         16|  -0.5632743699|        103|00:05:29|+0.17|0.22|0.4028|
+|x|          3|          7|         16|  -0.5319813494|        109|00:02:00|+0.16|0.21|0.3832|
+|x|         23|          7|         16|  -0.5039823310|        115|00:02:04|+0.15|0.20|0.3654|
+|-|          6|          5|         16|  -0.5716144113|        121|00:06:48|-0.01|0.04|0.3826|
+|x|         10|          5|         16|  -0.5478773513|        125|00:05:21|-0.02|0.03|0.4041|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          8|          5|         16|  -0.5262982058|        129|00:05:18|-0.02|0.03|0.4201|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         21|          5|         16|  -0.5034156751|        133|00:04:50|-0.02|0.03|0.4025|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         26|          5|         16|  -0.4854873616|        137|00:05:13|-0.01|0.03|0.4146|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|=|         25|          5|         16|  -0.4660678672|        141|00:01:52|-0.01|0.03|0.3987|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          4|          5|         16|  -0.5195507929|        145|00:06:15|-0.01|0.03|0.4122|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         28|          5|         16|  -0.5690720205|        149|00:06:21|-0.01|0.03|0.4225|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         18|          5|         16|  -0.5513600251|        153|00:05:09|-0.01|0.03|0.4338|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          7|          5|         16|  -0.5323476105|        157|00:02:04|-0.01|0.03|0.4197|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|=|         12|          5|         16|  -0.5146026901|        161|00:05:10|-0.01|0.03|0.4064|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          5|          5|         16|  -0.4980026034|        165|00:05:00|-0.01|0.03|0.3940|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         32|          5|         16|  -0.4824400220|        170|00:02:06|-0.01|0.03|0.3822|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         33|          5|         16|  -0.4678206274|        175|00:04:57|-0.01|0.02|0.3712|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         34|          5|         16|  -0.4540611972|        180|00:01:59|-0.01|0.02|0.3608|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|=|         35|          5|         16|  -0.4941344183|        185|00:06:54|-0.00|0.03|0.3706|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         36|          5|         16|  -0.4824400220|        190|00:05:27|-0.00|0.03|0.3809|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         37|          5|         16|  -0.4694011025|        195|00:04:52|-0.00|0.02|0.3711|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         38|          5|         16|  -0.4589730774|        200|00:05:32|+0.00|0.03|0.3798|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         39|          5|         16|  -0.4948102790|        205|00:07:00|+0.00|0.03|0.3890|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|=|         40|          5|         16|  -0.4824400220|        210|00:02:06|+0.00|0.03|0.3798|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because tests without elimination (2) >= elitistLimit (2)
+Best-so-far configuration:          16    mean value:   -0.4824400220
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+16   16    dnsga2   BallHall 3        1000      60      0.7544        0.2459
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+16   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+16                          0   <NA>   <NA>          0.1241               0.01
+   max_density_radius density_tol sync_off .PARENT.
+16                0.2        0.01     <NA>        7
+
+# 2021-12-29 14:19:51 -03: Extracting elites
+# 2021-12-29 14:19:51 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+16   16    dnsga2   BallHall 3        1000      60      0.7544        0.2459
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+16   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+16                          0   <NA>   <NA>          0.1241               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+16                0.2        0.01     <NA>        7    TRUE    110        1
+# 2021-12-29 14:19:51 -03: End of iteration 2
+# 2021-12-29 14:19:51 -03: Iteration 3 of 5
+# experimentsUsedSoFar: 420
+# remainingBudget: 780
+# currentBudget: 260
+# nbConfigurations: 6
+# 2021-12-29 14:19:51 -03: Update model
+# 2021-12-29 14:19:51 -03: Sample 5 configurations from model
+# 2021-12-29 14:19:51 -03: Computing similarity of configurations .. DONE
+# 2021-12-29 14:19:51 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         41|          6|         16| -0.07313615091|          6|00:33:42|   NA|  NA|    NA|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         39|          6|         16|  -0.9648800440|         11|00:55:58|+0.64|0.82|0.6760|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         30|          6|         16|  -0.6432533627|         16|00:42:58|+0.32|0.55|0.5031|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         20|          6|         21|   -3.254404586|         21|00:47:25|+0.51|0.63|0.4337|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         33|          6|         21|   -2.603523669|         26|00:41:54|+0.38|0.50|0.3852|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          3|          6|         21|   -2.169603058|         31|00:03:24|+0.30|0.42|0.3401|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         16|          6|         21|   -1.859659764|         36|00:39:18|+0.25|0.36|0.3025|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         17|          6|         21|   -1.627202293|         41|00:04:39|+0.22|0.32|0.2715|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         25|          6|         21|   -1.446402038|         46|00:03:57|+0.19|0.28|0.2459|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          7|          6|         21|   -1.301761835|         51|00:04:25|+0.17|0.25|0.2245|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          1|          6|         16|  -0.3508654705|         56|00:27:01|+0.23|0.30|0.2613|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          4|          6|         21|   -1.627913018|         61|00:50:50|+0.29|0.34|0.2824|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         38|          6|         16|  -0.4453292511|         66|00:29:23|+0.33|0.38|0.3024|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         27|          6|         16|  -0.4135200189|         71|00:45:19|+0.30|0.35|0.2866|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         29|          6|         21|   -1.736819605|         76|00:47:19|+0.34|0.38|0.2995|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|          2|          6|         21|   -1.628268380|         81|00:43:32|+0.32|0.36|0.2864|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         36|          6|         16|  -0.4540611972|         86|00:31:26|+0.35|0.39|0.3001|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         32|          6|         16|  -0.4288355751|         91|00:03:53|+0.33|0.36|0.2886|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|x|         28|          6|         21|   -1.714191155|         96|00:46:38|+0.36|0.39|0.2984|
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+Loading required package: anticlust
+|-|         23|          2|         21|   -1.628481597|        101|00:04:06|-0.05|0.01|0.2355|
+Loading required package: anticlust
+|x|         12|          2|         21|   -1.550934854|        102|00:04:12|-0.04|0.01|0.2238|
+|x|         34|          2|         21|   -1.480437816|        103|00:01:20|-0.04|0.01|0.2132|
+|x|         21|          2|         21|   -1.416070954|        104|00:04:01|-0.04|0.00|0.2036|
+|x|         11|          2|         21|   -1.357067998|        105|00:01:23|-0.04|0.00|0.1947|
+|=|         24|          2|         16|  -0.3859520176|        106|00:03:21|-0.04|0.00|0.2083|
+|x|         19|          2|         16|  -0.3711077092|        107|00:04:03|-0.04|0.00|0.2000|
+|x|         40|          2|         16|  -0.3573629793|        108|00:01:21|-0.04|0.00|0.1923|
+|x|         14|          2|         16|  -0.3446000157|        109|00:01:21|-0.04|0.00|0.1852|
+|x|          9|          2|         21|   -1.347826545|        110|00:04:19|-0.03|0.00|0.1958|
+|=|         35|          2|         21|   -1.519575010|        111|00:04:16|-0.02|0.01|0.2046|
+|x|          6|          2|         21|   -1.680242928|        112|00:04:18|-0.01|0.02|0.2118|
+|x|         26|          2|         21|   -1.628268380|        113|00:03:22|-0.02|0.01|0.2238|
+|x|         10|          2|         21|   -1.579443804|        114|00:03:23|-0.03|0.00|0.2339|
+|x|         13|          2|         21|   -1.724174295|        115|00:04:19|-0.02|0.01|0.2406|
+|=|         18|          2|         21|   -1.675399526|        116|00:03:23|-0.03|0.00|0.2496|
+|x|         15|          2|         16|  -0.4824400220|        117|00:03:24|-0.03|0.00|0.2571|
+|x|         22|          2|         21|   -1.760981656|        118|00:04:17|-0.03|0.00|0.2635|
+|x|          8|          2|         16|  -0.5078316021|        119|00:03:23|-0.03|0.00|0.2703|
+|x|         31|          2|         16|  -0.4966855649|        120|00:03:17|-0.03|0.00|0.2760|
+|=|          5|          2|         16|  -0.4842684258|        121|00:03:58|-0.02|0.00|0.2689|
+|x|         37|          2|         16|  -0.4724570008|        122|00:04:03|-0.02|0.00|0.2622|
+|x|         42|          2|         16|  -0.4612080245|        124|00:03:31|-0.02|0.00|0.2558|
+|x|         43|          2|         16|  -0.4504822565|        126|00:01:17|-0.02|0.00|0.2497|
+|x|         44|          2|         16|  -0.4824400220|        128|00:03:33|-0.02|0.00|0.2558|
+|-|         45|          1|         21|   -1.737577711|        130|00:03:44|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          21    mean value:    -1.737577711
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+21   21    dnsga2   BallHall 3        1000      12      0.8914        0.1559
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+21   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+21                          0   <NA>   <NA>          0.0937               0.01
+   max_density_radius density_tol sync_off .PARENT.
+21                0.2        0.01     <NA>       16
+
+# 2021-12-30 01:50:08 -03: Extracting elites
+# 2021-12-30 01:50:08 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+21   21    dnsga2   BallHall 3        1000      12      0.8914        0.1559
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+21   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+21                          0   <NA>   <NA>          0.0937               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+21                0.2        0.01     <NA>       16    TRUE      1        1
+# 2021-12-30 01:50:08 -03: End of iteration 3
+# 2021-12-30 01:50:08 -03: Iteration 4 of 5
+# experimentsUsedSoFar: 550
+# remainingBudget: 650
+# currentBudget: 325
+# nbConfigurations: 7
+# 2021-12-30 01:50:08 -03: Update model
+# 2021-12-30 01:50:08 -03: Sample 6 configurations from model
+# 2021-12-30 01:50:08 -03: Computing similarity of configurations . DONE
+# 2021-12-30 01:50:08 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         46|          7|         21|    0.000000000|          7|00:03:32|   NA|  NA|    NA|
+|x|         34|          7|         21|    0.000000000|         13|00:01:17|+1.00|1.00|0.0000|
+|x|         29|          7|         21|   -2.166760160|         19|00:05:26|+0.00|0.33|0.2857|
+|x|         28|          7|         21|   -3.250140240|         25|00:05:45|+0.33|0.50|0.2857|
+|x|         36|          7|         21|   -2.603523669|         31|00:04:17|+0.43|0.55|0.2713|
+|x|         16|          7|         21|   -2.169603058|         37|00:03:44|+0.35|0.45|0.2666|
+|x|         19|          7|         21|   -1.859659764|         43|00:03:41|+0.29|0.39|0.2517|
+|x|         31|          7|         21|   -1.629334466|         49|00:04:22|+0.37|0.45|0.2550|
+|x|          9|          7|         21|   -2.170550690|         55|00:05:28|+0.44|0.50|0.2499|
+|x|          2|          7|         21|   -1.953495621|         61|00:03:25|+0.39|0.45|0.2476|
+|x|         11|          7|         21|   -1.775905110|         67|00:01:17|+0.35|0.41|0.2415|
+|x|         44|          7|         21|   -2.169603058|         73|00:06:42|+0.41|0.45|0.2424|
+|x|         37|          7|         21|   -2.002710515|         79|00:04:38|+0.37|0.42|0.2381|
+|x|         40|          7|         21|   -1.859659764|         85|00:01:43|+0.34|0.39|0.2323|
+|x|         43|          7|         21|   -1.735682446|         91|00:01:43|+0.32|0.36|0.2258|
+|x|         13|          7|         21|   -2.033469823|         97|00:07:11|+0.36|0.40|0.2309|
+|x|          4|          7|         21|   -2.296223391|        103|00:07:01|+0.40|0.44|0.2332|
+|x|         23|          7|         21|   -2.168655425|        109|00:01:49|+0.38|0.41|0.2297|
+|x|          1|          7|         21|   -2.055413423|        115|00:05:31|+0.40|0.43|0.2330|
+|-|         42|          2|         21|   -1.952642752|        121|00:04:42|+0.42|0.45|0.1303|
+|x|         27|          2|         21|   -1.859659764|        122|00:04:48|+0.40|0.43|0.1286|
+|x|         21|          2|         21|   -1.775129774|        123|00:04:47|+0.38|0.41|0.1266|
+|x|         17|          2|         21|   -1.697950219|        124|00:01:36|+0.36|0.39|0.1245|
+|x|         45|          2|         21|   -1.898047313|        125|00:05:52|+0.39|0.42|0.1268|
+|!|         38|          2|         21|   -1.822807716|        126|00:04:22|+0.42|0.44|0.1283|
+|x|          3|          2|         21|   -1.752699727|        127|00:01:43|+0.40|0.42|0.1269|
+|x|         14|          2|         21|   -1.687784922|        128|00:01:43|+0.38|0.41|0.1254|
+|x|          5|          2|         21|   -1.627506889|        129|00:04:51|+0.37|0.39|0.1237|
+|x|         18|          2|         21|   -1.571974148|        130|00:04:29|+0.39|0.41|0.1256|
+|!|          7|          2|         21|   -1.519575010|        131|00:01:45|+0.38|0.40|0.1241|
+|x|          8|          2|         21|   -1.471106699|        132|00:04:32|+0.40|0.42|0.1258|
+|x|         32|          2|         21|   -1.425134615|        133|00:01:41|+0.39|0.41|0.1245|
+|x|         25|          2|         21|   -1.381948717|        134|00:01:38|+0.38|0.39|0.1231|
+|x|         33|          2|         21|   -1.341303167|        135|00:04:52|+0.36|0.38|0.1217|
+|!|         26|          2|         21|   -1.303467573|        136|00:04:23|+0.38|0.40|0.1235|
+|x|         41|          2|         21|   -1.267733957|        137|00:04:16|+0.40|0.42|0.1250|
+|x|         10|          2|         21|   -1.233931887|        138|00:04:27|+0.42|0.43|0.1261|
+|x|          6|          2|         21|   -1.372520008|        139|00:05:40|+0.43|0.45|0.1270|
+|x|         15|          2|         21|   -1.337764556|        140|00:04:24|+0.45|0.46|0.1275|
+|!|         30|          2|         21|   -1.304320442|        141|00:04:54|+0.44|0.45|0.1269|
+|x|         20|          2|         21|   -1.431051175|        142|00:05:56|+0.45|0.46|0.1274|
+|x|         35|          2|         21|   -1.551747111|        143|00:05:42|+0.46|0.48|0.1278|
+|x|         39|          2|         21|   -1.666829282|        144|00:05:53|+0.48|0.49|0.1279|
+|x|         22|          2|         21|   -1.776680446|        145|00:05:55|+0.49|0.50|0.1279|
+|!|         12|          2|         21|   -1.737198658|        146|00:04:51|+0.48|0.49|0.1278|
+|x|         24|          2|         21|   -1.699804283|        147|00:04:22|+0.49|0.50|0.1278|
+|x|         47|          2|         21|   -1.664001157|        149|00:03:35|+0.50|0.51|0.1277|
+|x|         48|          2|         21|   -1.629334466|        151|00:01:19|+0.49|0.50|0.1277|
+|x|         49|          2|         21|   -1.596430852|        153|00:03:23|+0.50|0.51|0.1276|
+|-|         50|          1|         21|   -1.564502235|        155|00:01:16|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          21    mean value:    -1.564502235
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+21   21    dnsga2   BallHall 3        1000      12      0.8914        0.1559
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+21   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+21                          0   <NA>   <NA>          0.0937               0.01
+   max_density_radius density_tol sync_off .PARENT.
+21                0.2        0.01     <NA>       16
+
+# 2021-12-30 05:12:44 -03: Extracting elites
+# 2021-12-30 05:12:44 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+21   21    dnsga2   BallHall 3        1000      12      0.8914        0.1559
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+21   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+21                          0   <NA>   <NA>          0.0937               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+21                0.2        0.01     <NA>       16    TRUE      1        1
+# 2021-12-30 05:12:44 -03: End of iteration 4
+# 2021-12-30 05:12:44 -03: Iteration 5 of 5
+# experimentsUsedSoFar: 705
+# remainingBudget: 495
+# currentBudget: 495
+# nbConfigurations: 9
+# 2021-12-30 05:12:44 -03: Update model
+# 2021-12-30 05:12:44 -03: Sample 8 configurations from model
+# 2021-12-30 05:12:44 -03: Computing similarity of configurations .... DONE
+# 2021-12-30 05:12:44 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         51|          9|         21|   -6.500280480|          9|00:06:07|   NA|  NA|    NA|
+|x|         34|          9|         21|   -3.250140240|         17|00:01:46|+0.00|0.50|0.4444|
+|x|         33|          9|         21|   -2.166760160|         25|00:05:39|+0.00|0.33|0.2963|
+|x|          3|          9|         21|   -1.625070120|         33|00:01:56|+0.00|0.25|0.2222|
+|x|         23|          9|         21|   -1.300056096|         41|00:01:52|+0.00|0.20|0.1778|
+|x|         15|          9|         21|   -1.086222978|         49|00:04:29|+0.07|0.22|0.2790|
+|x|          2|          9|         21|  -0.9310482665|         57|00:05:44|+0.06|0.19|0.2416|
+|x|         12|          9|         21|  -0.8146672332|         65|00:05:29|+0.05|0.17|0.2129|
+|x|         18|          9|         21|  -0.7260439167|         73|00:04:28|+0.14|0.23|0.2572|
+|x|         39|          9|         21|   -1.303467573|         81|00:05:56|+0.19|0.27|0.2929|
+|x|         11|          9|         21|   -1.184970521|         89|00:01:55|+0.17|0.24|0.2720|
+|x|         19|          9|         21|   -1.086222978|         97|00:05:39|+0.15|0.22|0.2536|
+|x|         48|          9|         21|   -1.002667364|        105|00:01:50|+0.14|0.21|0.2374|
+|x|         13|          9|         21|   -1.395354015|        113|00:06:02|+0.19|0.24|0.2613|
+|x|         25|          9|         21|   -1.302330414|        121|00:01:54|+0.17|0.23|0.2476|
+|x|         28|          9|         21|   -1.627202293|        129|00:06:01|+0.22|0.27|0.2642|
+|x|         27|          9|         21|   -1.531484511|        137|00:05:29|+0.20|0.25|0.2527|
+|x|         43|          9|         21|   -1.446402038|        145|00:01:51|+0.19|0.24|0.2420|
+|x|         49|          9|         21|   -1.371173372|        153|00:04:32|+0.21|0.25|0.2625|
+|-|         24|          2|         21|   -1.303467573|        161|00:04:30|-0.05|0.00|0.2105|
+|x|         10|          2|         31|  -0.2528840314|        162|00:04:30|-0.04|0.01|0.2238|
+|x|         45|          2|         21|   -1.481213151|        163|00:05:54|-0.05|0.00|0.2381|
+|x|          9|          2|         21|   -1.699433470|        164|00:06:03|-0.04|0.00|0.2490|
+|x|         32|          2|         21|   -1.628623742|        165|00:02:05|-0.04|0.00|0.2382|
+|=|          8|          2|         21|   -1.564161088|        166|00:04:46|-0.04|0.00|0.2500|
+|x|         38|          2|         31|  -0.3057299268|        167|00:04:45|-0.04|0.00|0.2592|
+|x|         35|          2|         21|   -1.689680187|        168|00:06:00|-0.04|0.00|0.2692|
+|x|         47|          2|         31|  -0.3310066005|        169|00:04:48|-0.03|0.00|0.2771|
+|x|          4|          2|         21|   -1.797886308|        170|00:05:48|-0.04|0.00|0.2857|
+|=|          5|          2|         21|   -1.737956764|        171|00:05:42|-0.03|0.00|0.2759|
+|x|         40|          2|         21|   -1.681893643|        172|00:02:00|-0.03|0.00|0.2667|
+|x|         42|          2|         21|   -1.629334466|        173|00:05:36|-0.03|0.00|0.2581|
+|x|         41|          2|         31|  -0.3208300465|        174|00:04:41|-0.03|0.00|0.2652|
+|x|         44|          2|         21|   -1.725177670|        175|00:05:49|-0.03|0.00|0.2727|
+|=|         37|          2|         21|   -1.675886880|        176|00:05:35|-0.03|0.00|0.2647|
+|x|         21|          2|         21|   -1.629334466|        177|00:05:35|-0.03|0.00|0.2571|
+|x|          1|          2|         31|  -0.3217999528|        178|00:04:41|-0.03|0.00|0.2635|
+|x|         46|          2|         31|  -0.3133315330|        179|00:05:38|-0.03|0.00|0.2564|
+|x|          7|          2|         31|  -0.3052973911|        180|00:02:09|-0.02|0.00|0.2497|
+|=|         36|          2|         31|  -0.2985084009|        181|00:04:36|-0.02|0.01|0.2551|
+|x|         14|          2|         31|  -0.2912277082|        182|00:02:03|-0.02|0.00|0.2488|
+|x|         31|          2|         31|  -0.2850969958|        183|00:04:34|-0.01|0.01|0.2535|
+|x|         20|          2|         31|  -0.3083614594|        184|00:05:47|-0.02|0.00|0.2608|
+|x|         22|          2|         31|  -0.3305684475|        185|00:06:07|-0.02|0.00|0.2672|
+|=|         50|          2|         31|  -0.3232224820|        186|00:02:05|-0.02|0.00|0.2611|
+|x|         17|          2|         31|  -0.3161959063|        187|00:02:04|-0.02|0.00|0.2553|
+|x|          6|          2|         21|   -1.664001157|        188|00:06:01|-0.02|0.00|0.2609|
+|x|         29|          2|         21|   -1.764756976|        189|00:05:42|-0.02|0.00|0.2657|
+|x|         16|          2|         21|   -1.728741528|        190|00:05:39|-0.02|0.00|0.2602|
+|!|         26|          2|         21|   -1.694507845|        191|00:04:39|-0.02|0.00|0.2653|
+|x|         30|          2|         21|   -1.661282201|        192|00:05:44|-0.02|0.00|0.2600|
+|x|         52|          2|         21|   -1.629334466|        194|00:04:21|-0.02|0.00|0.2549|
+|x|         53|          2|         21|   -1.598592307|        196|00:01:40|-0.02|0.00|0.2500|
+|x|         54|          2|         31|  -0.3182115764|        198|00:03:26|-0.02|0.00|0.2545|
+|-|         55|          1|         21|   -1.658958729|        200|00:04:30|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          31    mean value:   -0.3357980738
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31    dnsga2   BallHall 3        1000      40      0.8587        0.0263
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                          0   <NA>   <NA>          0.1526               0.01
+   max_density_radius density_tol sync_off .PARENT.
+31                0.2        0.01     <NA>       21
+
+# 2021-12-30 09:17:24 -03: Extracting elites
+# 2021-12-30 09:17:24 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31    dnsga2   BallHall 3        1000      40      0.8587        0.0263
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    1            0.05              NMI               2
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                          0   <NA>   <NA>          0.1526               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+31                0.2        0.01     <NA>       21    TRUE      1        1
+# 2021-12-30 09:17:24 -03: End of iteration 5
+# 2021-12-30 09:17:24 -03: Iteration 6 of 6
+# experimentsUsedSoFar: 905
+# remainingBudget: 295
+# currentBudget: 295
+# nbConfigurations: 5
+# 2021-12-30 09:17:24 -03: Update model
+# 2021-12-30 09:17:24 -03: Sample 4 configurations from model
+# 2021-12-30 09:17:24 -03: Computing similarity of configurations .. DONE
+# 2021-12-30 09:17:24 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         56|          5|         31|    0.000000000|          5|00:05:47|   NA|  NA|    NA|
+|x|         42|          5|         31|    0.000000000|          9|00:05:09|+1.00|1.00|0.0000|
+|x|         31|          5|         31| -0.01124592826|         13|00:04:38|+0.00|0.33|0.2667|
+|x|         11|          5|         31|-0.008434446193|         17|00:02:08|+0.00|0.25|0.2000|
+|x|          1|          5|         31| -0.01349511391|         21|00:04:21|+0.25|0.40|0.2400|
+|x|          8|          5|         31| -0.01686889239|         25|00:04:37|+0.40|0.50|0.2400|
+|x|         41|          5|         31| -0.01927873416|         29|00:04:30|+0.50|0.57|0.2286|
+|x|         28|          5|         31|  -0.1775525091|         33|00:05:41|+0.27|0.36|0.3744|
+|x|         30|          5|         31|  -0.1578244526|         37|00:05:26|+0.24|0.32|0.3467|
+|x|         54|          5|         31|  -0.1454157858|         41|00:04:40|+0.31|0.38|0.3379|
+|x|         46|          5|         31|  -0.1321961689|         45|00:05:24|+0.28|0.35|0.3201|
+|x|         15|          5|         31|  -0.1239913035|         49|00:04:30|+0.34|0.40|0.3140|
+|x|         20|          5|         31|  -0.2133357366|         53|00:05:51|+0.26|0.32|0.3775|
+|x|         27|          5|         31|  -0.1980974697|         57|00:05:14|+0.24|0.29|0.3588|
+|x|         22|          5|         31|  -0.2705889007|         61|00:05:37|+0.20|0.25|0.3978|
+|x|         52|          5|         31|  -0.2536770944|         65|00:05:25|+0.19|0.24|0.3781|
+|x|         43|          5|         31|  -0.2387549124|         69|00:02:16|+0.18|0.22|0.3601|
+|x|          5|          5|         31|  -0.2254907506|         73|00:05:24|+0.16|0.21|0.3436|
+|x|         55|          5|         40|  -0.3857617934|         77|00:05:36|+0.15|0.20|0.3678|
+|-|         34|          3|         40|  -0.3664737037|         81|00:02:14|+0.09|0.14|0.3354|
+|x|         37|          3|         40|  -0.3490225750|         83|00:05:11|+0.09|0.13|0.3193|
+|x|         18|          3|         40|  -0.3337796639|         85|00:04:42|+0.11|0.15|0.3281|
+|x|         35|          3|         40|  -0.3980436230|         87|00:05:57|+0.10|0.14|0.3491|
+|x|         51|          3|         40|  -0.4569522521|         89|00:05:47|+0.10|0.14|0.3654|
+|-|         13|          2|         40|  -0.5111481909|         91|00:05:44|-0.04|0.00|0.2917|
+|x|         19|          2|         31|  -0.3551710396|         92|00:07:20|-0.04|0.00|0.2800|
+|x|         33|          2|         31|  -0.3420165567|         93|00:07:19|-0.04|0.00|0.2692|
+|x|          7|          2|         31|  -0.3298016797|         94|00:03:15|-0.04|0.00|0.2593|
+|x|         14|          2|         31|  -0.3184292080|         95|00:03:15|-0.04|0.00|0.2500|
+|=|         45|          2|         40|  -0.4863518499|         96|00:07:34|-0.03|0.00|0.2580|
+|x|         48|          2|         40|  -0.4706630805|         97|00:03:13|-0.03|0.00|0.2495|
+|x|         12|          2|         40|  -0.4559548593|         98|00:07:20|-0.03|0.00|0.2414|
+|x|         23|          2|         40|  -0.4421380453|         99|00:03:13|-0.03|0.00|0.2339|
+|x|         38|          2|         31|  -0.3104015809|        100|00:06:23|-0.03|0.00|0.2424|
+|=|          3|          2|         31|  -0.3015329643|        101|00:03:22|-0.03|0.00|0.2353|
+|x|         53|          2|         31|  -0.2931570486|        102|00:03:25|-0.03|0.00|0.2286|
+|x|         26|          2|         31|  -0.2861457171|        103|00:06:26|-0.03|0.00|0.2357|
+|x|         36|          2|         31|  -0.2795034031|        104|00:06:28|-0.02|0.01|0.2418|
+|x|          4|          2|         31|  -0.3052973911|        105|00:08:06|-0.02|0.00|0.2497|
+|=|         39|          2|         31|  -0.3298016797|        106|00:07:47|-0.03|0.00|0.2564|
+|x|         49|          2|         31|  -0.3225806091|        107|00:06:27|-0.02|0.00|0.2622|
+|x|         24|          2|         31|  -0.3157033990|        108|00:06:26|-0.02|0.00|0.2671|
+|x|         17|          2|         31|  -0.3083614594|        109|00:03:23|-0.02|0.00|0.2608|
+|x|         29|          2|         31|  -0.3305684475|        110|00:07:58|-0.02|0.00|0.2672|
+|=|          2|          2|         31|  -0.3232224820|        111|00:07:34|-0.02|0.00|0.2611|
+|x|         25|          2|         31|  -0.3161959063|        112|00:03:22|-0.02|0.00|0.2553|
+|x|          9|          2|         31|  -0.3368187367|        113|00:07:53|-0.02|0.00|0.2609|
+|x|         47|          2|         31|  -0.3305045502|        114|00:06:33|-0.02|0.00|0.2657|
+|x|         21|          2|         31|  -0.3237595594|        115|00:07:29|-0.02|0.00|0.2602|
+|!|         16|          2|         31|  -0.3172843682|        116|00:07:34|-0.02|0.00|0.2549|
+|x|          6|          2|         31|  -0.3362683793|        117|00:08:05|-0.02|0.00|0.2600|
+|x|         32|          2|         31|  -0.3298016797|        118|00:03:23|-0.02|0.00|0.2549|
+|x|         40|          2|         31|  -0.3235790065|        119|00:03:25|-0.02|0.00|0.2500|
+|x|         10|          2|         31|  -0.3182115764|        120|00:06:26|-0.02|0.00|0.2545|
+|!|         44|          2|         31|  -0.3357980738|        121|00:08:05|-0.02|0.00|0.2593|
+|x|         50|          2|         31|  -0.3298016797|        122|00:03:27|-0.02|0.00|0.2545|
+|x|         57|          2|         40|  -0.4801624609|        124|00:05:49|-0.02|0.00|0.2588|
+|x|         58|          2|         40|  -0.4718837978|        126|00:02:17|-0.02|0.00|0.2542|
+|x|         59|          2|         40|  -0.4638857673|        128|00:05:43|-0.02|0.00|0.2499|
+|-|         60|          1|         31|  -0.3298016797|        130|00:04:37|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          40    mean value:   -0.4563823133
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+40   40    dnsga2   BallHall 3        1000     100      0.8567        0.2552
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+40   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+40                          0   <NA>   <NA>          0.1324               0.01
+   max_density_radius density_tol sync_off .PARENT.
+40                0.2        0.01     <NA>       31
+
+# 2021-12-30 14:40:07 -03: Extracting elites
+# 2021-12-30 14:40:07 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+40   40    dnsga2   BallHall 3        1000     100      0.8567        0.2552
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+40   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+40                          0   <NA>   <NA>          0.1324               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+40                0.2        0.01     <NA>       31    TRUE      1        1
+# 2021-12-30 14:40:07 -03: End of iteration 6
+# 2021-12-30 14:40:07 -03: Iteration 7 of 7
+# experimentsUsedSoFar: 1035
+# remainingBudget: 165
+# currentBudget: 165
+# nbConfigurations: 3
+# 2021-12-30 14:40:07 -03: Update model
+# 2021-12-30 14:40:07 -03: Sample 2 configurations from model
+# 2021-12-30 14:40:08 -03: Computing similarity of configurations .. DONE
+# 2021-12-30 14:40:08 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         61|          3|         43| -0.03332280141|          3|00:05:08|   NA|  NA|    NA|
+|x|         19|          3|         43| -0.01666140071|          5|00:05:52|+0.00|0.50|0.3333|
+|x|         14|          3|         43| -0.01110760047|          7|00:02:34|+0.00|0.33|0.2222|
+|x|         13|          3|         43|  -0.5641702315|          9|00:06:20|+0.33|0.50|0.2293|
+|x|         23|          3|         43|  -0.4513361852|         11|00:02:29|+0.25|0.40|0.2043|
+|x|         34|          3|         43|  -0.3761134877|         13|00:02:26|+0.20|0.33|0.1806|
+|x|         41|          3|         43|  -0.3271433896|         15|00:05:01|+0.33|0.43|0.1945|
+|x|         56|          3|         43|  -0.2862504659|         17|00:05:51|+0.29|0.38|0.1816|
+|x|         11|          3|         43|  -0.2544448586|         19|00:02:30|+0.25|0.33|0.1690|
+|x|         49|          3|         43|  -0.2323326529|         21|00:05:04|+0.33|0.40|0.1806|
+|x|         25|          3|         43|  -0.2112115026|         23|00:02:32|+0.30|0.36|0.1720|
+|x|          4|          3|         43|  -0.3788903878|         25|00:05:58|+0.36|0.42|0.1806|
+|x|         50|          3|         43|  -0.3497449733|         27|00:02:34|+0.33|0.38|0.1742|
+|x|          5|          3|         43|  -0.3247631895|         29|00:05:37|+0.31|0.36|0.1676|
+|x|         28|          3|         43|  -0.4513361852|         31|00:06:24|+0.36|0.40|0.1751|
+|x|         33|          3|         43|  -0.4231276736|         33|00:05:38|+0.33|0.38|0.1699|
+|x|          3|          3|         43|  -0.3982378105|         35|00:02:33|+0.31|0.35|0.1646|
+|x|         57|          3|         43|  -0.4996333835|         37|00:06:01|+0.35|0.39|0.1711|
+|x|         12|          3|         43|  -0.4733368896|         39|00:05:51|+0.33|0.37|0.1667|
+|-|         51|          2|         43|  -0.5608379513|         41|00:05:47|+0.37|0.40|0.1263|
+|x|         32|          2|         43|  -0.5341313822|         42|00:03:33|+0.35|0.38|0.1238|
+|x|          6|          2|         43|  -0.6109144160|         43|00:08:04|+0.38|0.41|0.1266|
+|x|         59|          2|         43|  -0.5843529196|         44|00:07:38|+0.36|0.39|0.1245|
+|x|         40|          2|         43|  -0.5600048813|         45|00:03:28|+0.35|0.38|0.1223|
+|!|          9|          2|         43|  -0.6265390110|         46|00:08:12|+0.38|0.40|0.1250|
+|x|         48|          2|         43|  -0.6024413568|         47|00:03:41|+0.36|0.38|0.1231|
+|x|         37|          2|         43|  -0.5801287139|         48|00:07:50|+0.35|0.37|0.1211|
+|x|         39|          2|         43|  -0.6388154786|         49|00:08:07|+0.37|0.39|0.1237|
+|x|         16|          2|         43|  -0.6167873586|         50|00:07:46|+0.36|0.38|0.1219|
+|!|         27|          2|         43|  -0.5962277800|         51|00:07:46|+0.34|0.37|0.1201|
+|x|         17|          2|         43|  -0.5769946258|         52|00:03:35|+0.33|0.35|0.1183|
+|x|         21|          2|         43|  -0.5589635438|         53|00:07:46|+0.32|0.34|0.1164|
+|x|          2|          2|         43|  -0.5420252546|         54|00:07:44|+0.31|0.33|0.1146|
+|x|          7|          2|         43|  -0.5260833353|         55|00:03:36|+0.30|0.32|0.1127|
+|!|         58|          2|         43|  -0.5110523829|         56|00:03:38|+0.29|0.31|0.1109|
+|x|         20|          2|         43|  -0.5586164312|         57|00:08:13|+0.31|0.33|0.1143|
+|x|         60|          2|         43|  -0.5444193061|         58|00:06:47|+0.33|0.35|0.1171|
+|x|         38|          2|         43|  -0.5309693981|         59|00:06:38|+0.35|0.37|0.1195|
+|x|         26|          2|         43|  -0.5182092290|         60|00:06:38|+0.37|0.38|0.1215|
+|!|         29|          2|         43|  -0.5608379513|         61|00:08:12|+0.38|0.40|0.1231|
+|x|         31|          2|         43|  -0.5479717282|         62|00:06:35|+0.40|0.41|0.1244|
+|x|         10|          2|         43|  -0.5357181823|         63|00:06:40|+0.41|0.43|0.1254|
+|x|          1|          2|         43|  -0.5240345688|         64|00:06:33|+0.43|0.44|0.1262|
+|x|         22|          2|         43|  -0.5626555587|         65|00:08:00|+0.44|0.45|0.1268|
+|!|         47|          2|         43|  -0.5508926085|         66|00:06:40|+0.45|0.47|0.1273|
+|x|         30|          2|         43|  -0.5389166823|         67|00:07:51|+0.44|0.46|0.1268|
+|x|         54|          2|         43|  -0.5281593656|         68|00:06:42|+0.46|0.47|0.1272|
+|x|         36|          2|         43|  -0.5178502706|         69|00:06:37|+0.47|0.48|0.1274|
+|x|         52|          2|         43|  -0.5072818977|         70|00:07:44|+0.46|0.47|0.1271|
+|!|         55|          2|         43|  -0.5416034222|         71|00:08:04|+0.47|0.48|0.1273|
+|x|         44|          2|         43|  -0.5745790046|         72|00:08:16|+0.48|0.49|0.1275|
+|x|         46|          2|         43|  -0.5635294084|         73|00:07:49|+0.47|0.48|0.1273|
+|x|          8|          2|         43|  -0.5535255101|         74|00:06:40|+0.48|0.49|0.1274|
+|x|         43|          2|         43|  -0.5432750377|         75|00:03:31|+0.47|0.48|0.1272|
+|!|         24|          2|         43|  -0.5340031789|         76|00:06:36|+0.48|0.49|0.1273|
+|x|         45|          2|         43|  -0.5641702315|         77|00:08:15|+0.49|0.50|0.1273|
+|x|         35|          2|         43|  -0.5932787910|         78|00:07:58|+0.50|0.51|0.1272|
+|x|         15|          2|         43|  -0.5836243774|         79|00:06:50|+0.51|0.52|0.1270|
+|x|         18|          2|         43|  -0.5742972320|         80|00:06:34|+0.52|0.53|0.1268|
+|!|         42|          2|         43|  -0.5647256115|         81|00:08:00|+0.51|0.52|0.1270|
+|x|         53|          2|         43|  -0.5554678146|         82|00:03:39|+0.50|0.51|0.1270|
+|x|         62|          2|         43|  -0.5465086563|         84|00:02:28|+0.49|0.50|0.1270|
+|x|         63|          2|         43|  -0.5378339157|         86|00:05:49|+0.48|0.49|0.1270|
+|x|         64|          2|         43|  -0.5641702315|         88|00:06:26|+0.49|0.50|0.1270|
+|-|         65|          1|         43|  -0.5560033479|         90|00:05:02|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          43    mean value:   -0.5560033479
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+43   43    dnsga2   BallHall 3        1000     100      0.7631        0.3626
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+43   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+43                          0   <NA>   <NA>          0.1027               0.01
+   max_density_radius density_tol sync_off .PARENT.
+43                0.2        0.01     <NA>       40
+
+# 2021-12-30 21:07:02 -03: Extracting elites
+# 2021-12-30 21:07:02 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+43   43    dnsga2   BallHall 3        1000     100      0.7631        0.3626
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+43   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+43                          0   <NA>   <NA>          0.1027               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+43                0.2        0.01     <NA>       40    TRUE      1        1
+# 2021-12-30 21:07:02 -03: End of iteration 7
+# 2021-12-30 21:07:02 -03: Iteration 8 of 8
+# experimentsUsedSoFar: 1125
+# remainingBudget: 75
+# currentBudget: 75
+# nbConfigurations: 2
+# 2021-12-30 21:07:02 -03: Update model
+# 2021-12-30 21:07:02 -03: Sample 1 configurations from model
+# 2021-12-30 21:07:02 -03: Computing similarity of configurations .. DONE
+# 2021-12-30 21:07:02 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         66|          2|         43|    0.000000000|          2|00:06:02|   NA|  NA|    NA|
+|x|         32|          2|         43|    0.000000000|          3|00:03:33|+1.00|1.00|0.0000|
+|x|         54|          2|         43| -0.01110760047|          4|00:06:37|+0.00|0.33|0.1667|
+|x|         25|          2|         43|-0.008330700353|          5|00:03:35|+0.00|0.25|0.1250|
+|x|         39|          2|         43|  -0.4513361852|          6|00:08:06|+0.25|0.40|0.1500|
+|x|         45|          2|         43|  -0.7466731751|          7|00:08:05|+0.40|0.50|0.1500|
+|x|         55|          2|         43|  -0.9576281678|          8|00:08:08|+0.50|0.57|0.1429|
+|x|         50|          2|         43|  -0.8379246469|          9|00:03:38|+0.43|0.50|0.1429|
+|x|         29|          2|         43|  -0.9918616999|         10|00:08:15|+0.50|0.56|0.1389|
+|x|         57|          2|         43|   -1.115011342|         11|00:08:07|+0.56|0.60|0.1333|
+|x|         10|          2|         43|   -1.016676020|         12|00:06:33|+0.60|0.64|0.1273|
+|x|         44|          2|         43|   -1.117232862|         13|00:08:06|+0.64|0.67|0.1212|
+|x|         59|          2|         43|   -1.031291873|         14|00:07:46|+0.58|0.62|0.1282|
+|x|         40|          2|         43|  -0.9576281678|         15|00:03:36|+0.54|0.57|0.1319|
+|x|         60|          2|         43|  -0.8960078101|         16|00:06:41|+0.57|0.60|0.1286|
+|x|         56|          2|         43|  -0.8400073220|         17|00:07:40|+0.53|0.56|0.1312|
+|x|         35|          2|         43|  -0.9213808986|         18|00:08:12|+0.56|0.59|0.1287|
+|x|         26|          2|         43|  -0.8720443376|         19|00:06:40|+0.59|0.61|0.1258|
+|x|         52|          2|         43|  -0.8261472672|         20|00:07:52|+0.56|0.58|0.1287|
+|-|          9|          1|         43|  -0.8960078101|         21|00:08:11|   NA|  NA|    NA|
+|.|         58|          1|         43|  -0.8533407715|         21|00:00:00|   NA|  NA|    NA|
+|.|         20|          1|         43|  -0.9156142876|         21|00:00:00|   NA|  NA|    NA|
+|.|         61|          1|         43|  -0.8772537882|         21|00:00:00|   NA|  NA|    NA|
+|.|         15|          1|         43|  -0.8420899970|         21|00:00:00|   NA|  NA|    NA|
+|.|         37|          1|         43|  -0.8084063972|         21|00:00:00|   NA|  NA|    NA|
+|.|         11|          1|         43|  -0.7773138434|         21|00:00:00|   NA|  NA|    NA|
+|.|         34|          1|         43|  -0.7485244418|         21|00:00:00|   NA|  NA|    NA|
+|.|         64|          1|         43|  -0.8011970733|         21|00:00:00|   NA|  NA|    NA|
+|.|         17|          1|         43|  -0.7735695881|         21|00:00:00|   NA|  NA|    NA|
+|.|         65|          1|         43|  -0.7488946952|         21|00:00:00|   NA|  NA|    NA|
+|.|         23|          1|         43|  -0.7247368018|         21|00:00:00|   NA|  NA|    NA|
+|.|         21|          1|         43|  -0.7020887767|         21|00:00:00|   NA|  NA|    NA|
+|.|         62|          1|         43|  -0.6808133592|         21|00:00:00|   NA|  NA|    NA|
+|.|         22|          1|         43|  -0.7261823229|         21|00:00:00|   NA|  NA|    NA|
+|.|         31|          1|         43|  -0.7063863366|         21|00:00:00|   NA|  NA|    NA|
+|.|         63|          1|         43|  -0.6867644939|         21|00:00:00|   NA|  NA|    NA|
+|.|          2|          1|         43|  -0.6682032914|         21|00:00:00|   NA|  NA|    NA|
+|.|          1|          1|         43|  -0.6514959101|         21|00:00:00|   NA|  NA|    NA|
+|.|         13|          1|         43|  -0.6918000694|         21|00:00:00|   NA|  NA|    NA|
+|.|         24|          1|         43|  -0.6753381377|         21|00:00:00|   NA|  NA|    NA|
+|.|          3|          1|         43|  -0.6588664758|         21|00:00:00|   NA|  NA|    NA|
+|.|         47|          1|         43|  -0.6439725788|         21|00:00:00|   NA|  NA|    NA|
+|.|         43|          1|         43|  -0.6289964723|         21|00:00:00|   NA|  NA|    NA|
+|.|         19|          1|         43|  -0.6147010979|         21|00:00:00|   NA|  NA|    NA|
+|.|         48|          1|         43|  -0.6010410735|         21|00:00:00|   NA|  NA|    NA|
+|.|         16|          1|         43|  -0.5879749633|         21|00:00:00|   NA|  NA|    NA|
+|.|         46|          1|         43|  -0.5754648577|         21|00:00:00|   NA|  NA|    NA|
+|.|         30|          1|         43|  -0.5634760065|         21|00:00:00|   NA|  NA|    NA|
+|.|         33|          1|         43|  -0.5519764961|         21|00:00:00|   NA|  NA|    NA|
+|.|          5|          1|         43|  -0.5409369662|         21|00:00:00|   NA|  NA|    NA|
+|.|         36|          1|         43|  -0.5309837473|         21|00:00:00|   NA|  NA|    NA|
+|.|         38|          1|         43|  -0.5214133445|         21|00:00:00|   NA|  NA|    NA|
+|.|         28|          1|         43|  -0.5535255101|         21|00:00:00|   NA|  NA|    NA|
+|.|         51|          1|         43|  -0.5844483363|         21|00:00:00|   NA|  NA|    NA|
+|.|         14|          1|         43|  -0.5738220029|         21|00:00:00|   NA|  NA|    NA|
+|.|         27|          1|         43|  -0.5635751815|         21|00:00:00|   NA|  NA|    NA|
+|.|          6|          1|         43|  -0.5926941805|         21|00:00:00|   NA|  NA|    NA|
+|.|         53|          1|         43|  -0.5824753153|         21|00:00:00|   NA|  NA|    NA|
+|.|         42|          1|         43|  -0.5726028523|         21|00:00:00|   NA|  NA|    NA|
+|.|          7|          1|         43|  -0.5630594714|         21|00:00:00|   NA|  NA|    NA|
+|.|         12|          1|         43|  -0.5538289883|         21|00:00:00|   NA|  NA|    NA|
+|.|          4|          1|         43|  -0.5807568776|         21|00:00:00|   NA|  NA|    NA|
+|.|         41|          1|         43|  -0.5720674478|         21|00:00:00|   NA|  NA|    NA|
+|.|          8|          1|         43|  -0.5636495627|         21|00:00:00|   NA|  NA|    NA|
+|.|         18|          1|         43|  -0.5554906895|         21|00:00:00|   NA|  NA|    NA|
+|.|         49|          1|         43|  -0.5475790548|         21|00:00:00|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          43    mean value:   -0.5475790548
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+43   43    dnsga2   BallHall 3        1000     100      0.7631        0.3626
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+43   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+43                          0   <NA>   <NA>          0.1027               0.01
+   max_density_radius density_tol sync_off .PARENT.
+43                0.2        0.01     <NA>       40
+
+# 2021-12-30 23:22:36 -03: Extracting elites
+# 2021-12-30 23:22:36 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+43   43    dnsga2   BallHall 3        1000     100      0.7631        0.3626
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+43   0.5                    1            0.05              NMI               1
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+43                          0   <NA>   <NA>          0.1027               0.01
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+43                0.2        0.01     <NA>       40    TRUE      1        1
+# 2021-12-30 23:22:36 -03: End of iteration 8
+# 2021-12-30 23:22:36 -03: Stopped because there is not enough budget left to race more than the minimum (1)
+# You may either increase the budget or set 'minNbSurvival' to a lower value
+# Iteration: 9
+# nbIterations: 9
+# experimentsUsedSoFar: 1146
+# timeUsed: 0
+# remainingBudget: 54
+# currentBudget: 54
+# number of elites: 1
+# nbConfigurations: 1
+[1] "irace finished!"
+[1] "Starting post analysis..."
+Only 1 configurations available, reducing n,
+Skipping fixed parameter: algorithm 
+Skipping fixed parameter: objectives 
+Plotting: K 
+Skipping fixed parameter: evaluations 
+Plotting: popSize 
+Plotting: mating_rate 
+Plotting: mutation_rate 
+Skipping fixed parameter: alpha 
+Plotting: is_random_population 
+Plotting: diversity_metric 
+Plotting: diversity_level 
+Plotting: auto_adjust_initial_params 
+Skipping fixed parameter: min_density_radius 
+Skipping fixed parameter: max_density_radius 
+Skipping fixed parameter: density_tol 
+Plotting: phases 
+Plotting: agents 
+Plotting: sync_off 
+Skipping fixed parameter: convergence_tol 
+Plotting: mutation_radius 
+[1] "Post analysis finished"
+[1] TRUE
+Warning message:
+no DISPLAY variable so Tk is not available 
