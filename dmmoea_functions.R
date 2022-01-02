@@ -112,10 +112,13 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     }
     if(calculate.diversity && !is.null(base.path)){
       #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
-      diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
-      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
-      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+      len.groups <- length(P.clustering.groups)
+      if(len.groups > 1){
+        diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+        avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
+        write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
+      }
     }
     
     ## Measure convergence of pareto front
@@ -175,6 +178,7 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
       P <- generate_diverse_initial_pop(distances, params, diverse_population = FALSE)
     }
   }else{
+    log("Got initial population")
     P <- initial_population
   }
   P.size <- params$popSize # Population size
@@ -278,10 +282,13 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     
     if(calculate.diversity && !is.null(base.path)){
       #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
-      diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
-      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
-      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+      len.groups <- length(P.clustering.groups)
+      if(len.groups > 1){
+        diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+        avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
+        write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+      }
     }
     
     ## Measure convergence of pareto front
@@ -380,6 +387,8 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       row.names(P)<-1:nrow(P)
       Log("Filling finished!. Population is now: ")
       print(P)
+      Log("Clustering length is:")
+      print(length(P.clustering.groups))
     }
     
     ###### Selection, Crossover, Mutation  ######
@@ -572,14 +581,11 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
     }
     
     if(debug){
-      Log(paste("Phase", phase, "agents finished!. Starting sync stage...")) 
-    }
-    if(debug){
       for(i in 1:agents){
-        print(paste0("Agent ", i, " recieves ", nrow(Agents[[i]]$population), " solutions"))
-        print(paste0("Cluster number: ", length(Agents[[i]]$clustering)))
+        print(paste0("Agent ", i, " has now ", nrow(Agents[[i]]$population), " solutions"))
+        print(paste0("Cluster numbers: ", length(Agents[[i]]$clustering)))
       }
-      #Log(paste("Phase", phase, "synchronization ended!"))
+      Log(paste("Phase", phase, "agents finished!. Starting sync stage...")) 
     }
     # Synchronize every pair of agents
     obj_indexes <- (K+1):(K+params$objDim)
@@ -601,9 +607,12 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
       avg.dist <- list()
       for(i in 1:agents){
         #print(paste0("Phase ", phase, " agent ", i))
-        diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
-        avg.dist[[i]] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
-        #print(avg.dist[[i]])
+        len.groups <- length(Agents[[i]]$clustering)
+        if(len.groups > 1){
+          diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+          avg.dist[[i]] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+          #print(avg.dist[[i]])
+        }
       }
       solutions <- aggregate_agents(Agents, agents, K, params$objDim)
       diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
@@ -629,9 +638,12 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
     avg.dist <- list()
     for(i in 1:agents){
       #print(paste0("Phase ", phase, " agent ", i))
-      diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
-      avg.dist[i] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
-      #print(avg.dist[i])
+      len.groups <- length(Agents[[i]]$clustering)
+      if(len.groups > 1){
+        diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+        avg.dist[i] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+        #print(avg.dist[i])
+      }
     }
     diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
     between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
@@ -1850,7 +1862,7 @@ delta_spread <- function(pareto, obj.index){
 
 #### Memetic algorithm functions #####
 
-diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit, method="hc"){
+diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, pop_limit, method="pam"){
   Pop.A <- Agent.A$population[FALSE, ]
   Pop.B <- Agent.B$population[FALSE, ]
   Clust.A <- Agent.A$clustering
@@ -1869,9 +1881,11 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   distance.matrix <- calculate_diversity_matrix(clust, diverse.metric)
   distance.matrix <- as.dist(distance.matrix)
   
-  if(method=="hc"){
-    hc <- hclust(distance.matrix, method="average")
-    pop.membership <- cutree(hc, k=2) 
+  if(method=="pam"){
+    #hc <- hclust(distance.matrix, method="average")
+    #pop.membership <- cutree(hc, k=2) 
+    res <- cluster::pam(distance.matrix, metric = "euclidean", k = 2)
+    pop.membership <- res$clustering
   }else if(method=="anticlust"){
     pop.membership <- balanced_clustering(distance.matrix, K=2)
   }

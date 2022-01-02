@@ -1,6 +1,6 @@
 #!bin/usr/env Rstudio
 compare_operators <- function(){
-  
+  Sys.setlocale("LC_CTYPE","spanish")
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
   if(argnum != 5){
@@ -29,7 +29,7 @@ compare_operators <- function(){
   params <- init_parameters()
   params$evaluations <- params$popSize*(generations+1)
   
-  datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
+  datasets <- c("arabidopsis")#, "cell_cycle", "serum", "sporulation")
   
   #if(!file.exists(file.path(results.path, "diversity_evolution.csv"))){
   for(j in 1:length(datasets)){
@@ -102,37 +102,47 @@ plot_diversity_evolution <- function(data, exp.name, output.folder, paired=TRUE)
     data$Algorithm <- as.factor(data$Algorithm)
     form.friedman <- as.formula("diversity ~ Algorithm | id")
     res <- friedman_test(data=data, formula=form.friedman)
-    print("A")
   }
   pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
-  print("B")
   pwc <- pwc %>% add_xy_position(x = "Algorithm")
   w <- 4 + 0.6*(length(unique(data$Algorithm)) - 3)#ifelse(exp.group>3, 6,5)
   Y <- pwc$y.position
   gap.data <- max(data$diversity) - min(data$diversity)
   gap <- max(Y[2] - Y[1], gap.data*0.07)
   pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data$Algorithm)))
-  print("C")
   
-  xlab <- "Generación"
+  xlab <- "Generaci\U00F3n"
   if(exp.name == "lv4_v2"){
-    xlab <- "Fase de comunicación"
-    title <- "Diversidad en DMNSGA-II según operador de comunicación"
+    xlab <- "Fase de comunicaci\U00F3n"
+    title <- "Diversidad en DMNSGA-II seg\U00FAn operador de comunicaci\U00F3n"
   }else if(exp.name == "lv1_v2"){
-    title <- "Diversidad en NSGA-II según operador de población inicial"
+    title <- "Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial"
   }else if(exp.name == "lv2_v2"){
-    title <- "Diversidad en DNSGA-II según operador de selección"
+    title <- "Diversidad en DNSGA-II seg\U00FAn operador de selecci\U00F3n"
   }else if(exp.name == "lv3_v2"){
-    title <- "Diversidad en NSGA-II según operador de cruzamiento y mutación"
+    title <- "Diversidad en NSGA-II seg\U00FAn operador de cruzamiento y mutaci\U00F3n"
   }
+  #U+00E9
+  data.se <- summarySE(data, measurevar="diversity", groupvars=c("Algorithm","generation"))
+  print(head(data.se))
   
-  ggplot(data, aes(x=generation, y=diversity)) +
-    geom_boxplot(aes(fill=Algorithm)) +
-    labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
-         title=title) +
+  pd <- position_dodge(0.1)
+  ggplot(data.se, aes(x=generation, y=diversity, colour=Algorithm, group=Algorithm)) +
+    geom_line(position=pd) +
+    geom_point(position=pd) +
+    geom_errorbar(aes(ymin=diversity-ci, ymax=diversity+ci), width=.1, position=pd) +
+    labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", title=title) +
          #subtitle = get_test_label(res, detailed = TRUE), 
          #caption = get_pwc_label(pwc)) +
     theme_minimal()
+
+  #ggplot(data, aes(x=generation, y=diversity)) +
+  #  geom_boxplot(aes(fill=Algorithm)) +
+  #  labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
+  #       title=title) +
+  #       #subtitle = get_test_label(res, detailed = TRUE), 
+  #       #caption = get_pwc_label(pwc)) +
+  #  theme_minimal()
   ggsave(file.path(output.folder, "diversity_evolution.png"))
 }
 
@@ -141,8 +151,8 @@ test_operator_lv1_v2 <- function(params, distances, dataset, output.folder, runs
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
     res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
-    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
   for(j in 1:length(operators)){
@@ -177,8 +187,8 @@ test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
     res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
-    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
   for(i in 1:runs){
@@ -197,7 +207,7 @@ test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs
       
       ## Population fitness selection
       if(op=="Crowding_Distance"){
-        params$diversity_level <- 1
+        params$diversity_level <- 0
         P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }else if(op=="Jaccard"){
         params$diversity_level <- 2
@@ -222,8 +232,8 @@ test_operator_lv3_v2 <- function(params, distances, dataset, output.folder, runs
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
     res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
-    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
   for(i in 1:runs){
@@ -265,8 +275,8 @@ test_operator_lv4_v2 <- function(params, distances, dataset, output.folder, runs
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
     res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "algorithm", "dataset", "diversity", "generation")
-    write.table(res, file=file.path("diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
   for(i in 1:runs){
@@ -289,7 +299,7 @@ test_operator_lv4_v2 <- function(params, distances, dataset, output.folder, runs
         diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
       }else if(op=="Diverse_sync"){
         params$diversity_level <- 0
-        params$sync_method <- "anticlust"
+        params$sync_method <- "pam"
         diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }
     }
@@ -600,17 +610,56 @@ compare_pareto_front <- function(data, dataset.name, output.path){
   #    axis.text.x = element_text(size=6),
   #    axis.text.y = element_text(size=6)
   #  )
-  #grid.arrange(p1, p2, ncol=2, top="Comparación entre fronteras de pareto")
+  #grid.arrange(p1, p2, ncol=2, top="Comparaci\U00F3n entre fronteras de pareto")
   #tg <- textGrob('Title', gp = gpar(fontsize = 13, fontface = 'bold'))
   sg <- grid::textGrob(paste0("Dataset ", dataset.name), gp = grid::gpar(fontsize = 9))
   dir.create(output.path, showWarnings = FALSE, recursive = TRUE)
   ggsave(file.path(output.path, paste0("pareto_comparison_", dataset.name, ".png")), 
          arrangeGrob(p1, p2, widths = c(5, 4), nrow=1, 
-                     top="Comparación entre fronteras de pareto", 
+                     top="Comparaci\U00F3n entre fronteras de pareto", 
                      bottom=sg), 
          height=2.5, width=6)
   #par(mfrow = c(1, 1))
   #grid.arrange(p1, p2, nrow = 1)
+}
+
+
+
+## Gives count, mean, standard deviation, standard error of the mean, and confidence interval (default 95%).
+##   data: a data frame.
+##   measurevar: the name of a column that contains the variable to be summariezed
+##   groupvars: a vector containing names of columns that contain grouping variables
+##   na.rm: a boolean that indicates whether to ignore NA's
+##   conf.interval: the percent range of the confidence interval (default is 95%)
+summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
+                   conf.interval=.95, .drop=TRUE) {
+  library(plyr)
+  
+  # New version of length which can handle NA's: if na.rm==T, don't count them
+  length2 <- function (x, na.rm=FALSE) {
+    if (na.rm) sum(!is.na(x))
+    else       length(x)
+  }
+  # This does the summary. For each group's data frame, return a vector with
+  # N, mean, and sd
+  datac <- ddply(data, groupvars, .drop=.drop,
+                 .fun = function(xx, col) {
+                   c(N    = length2(xx[[col]], na.rm=na.rm),
+                     mean = mean   (xx[[col]], na.rm=na.rm),
+                     sd   = sd     (xx[[col]], na.rm=na.rm)
+                   )
+                 },
+                 measurevar
+  )
+  # Rename the "mean" column    
+  datac <- rename(datac, c("mean" = measurevar))
+  datac$se <- datac$sd / sqrt(datac$N)  # Calculate standard error of the mean
+  # Confidence interval multiplier for standard error
+  # Calculate t-statistic for confidence interval: 
+  # e.g., if conf.interval is .95, use .975 (above/below), and use df=N-1
+  ciMult <- qt(conf.interval/2 + .5, datac$N-1)
+  datac$ci <- datac$se * ciMult
+  return(datac)
 }
 
 

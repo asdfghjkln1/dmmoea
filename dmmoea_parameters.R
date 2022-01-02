@@ -40,7 +40,7 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   agents <- 4
   phases <- 4
   sync_off <- FALSE
-  sync_method <- "hc"
+  sync_method <- "pam"
   diversity_level <- 4
   diversity_metric <- diversity_metric
   
