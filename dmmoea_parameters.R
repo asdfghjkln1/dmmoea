@@ -34,7 +34,7 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   min_density_radius <- 0.01 # Minimum radius to calculate cluster density
   max_density_radius <- 0.2 # Maximum radius to calculate cluster density
   density_tol <- 0.01 # Percentage of dataset points as minimum acceptable density
-  auto_adjust_initial_params <- TRUE # If true ignore all 3 previous parameters and auto adjust
+  auto_adjust_initial_params <- FALSE # If true ignore all 3 previous parameters and auto adjust
   
   ##Memetic parameters
   agents <- 4

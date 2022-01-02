@@ -39,7 +39,7 @@ compare_operators <- function(){
     if(operator == "lv1_v2"){
       test_operator_lv1_v2(params, distances, dataset, results.path, runs) 
     }else if(operator == "lv2_v2"){
-      test_operator_lv1_v2(params, distances, dataset, results.path, runs)
+      test_operator_lv2_v2(params, distances, dataset, results.path, runs)
     }else if(operator == "lv3_v2"){
       test_operator_lv3_v2(params, distances, dataset, results.path, runs)
     }else if(operator == "lv4_v2"){
@@ -252,11 +252,12 @@ test_operator_lv3_v2 <- function(params, distances, dataset, output.folder, runs
       
       ## Population fitness selection
       if(op=="Direct_Crossover"){
-        nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
+        params$diversity_level <- 0
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
       }else if(op=="Selective_Crossover"){
         params$diversity_level <- 3
-        params$diversity_metric <- "selective"
-        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+        params$mutation_type <- "selective"
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }else if(op=="Diverse_Mutation"){
         params$diversity_level <- 3
         params$mutation_type <- "mut.only"
