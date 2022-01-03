@@ -166,11 +166,13 @@ target.runner.diversity <- function(experiment, scenario){
   t <- toc(quiet=TRUE)
   t <- unname(t[["toc"]] - t[["tic"]])
   
-  pareto.clustering <- res$clustering[res$population[, "rnkIndex"] == 1]
   rows <- nrow(res$population)
-  if(rows < 2){
-    pareto.clustering <- res$clustering[res$population[, "rnkIndex"] <= 2]
-  }
+  print(paste0("Evaluating ", rows, "solution; Clustering number", length(res$clustering)))
+  pareto.clustering <- res$clustering
+  #pareto.clustering <- res$clustering[res$population[, "rnkIndex"] == min(res$population[, "rnkIndex"])]
+  #if(rows < 2){
+  #  pareto.clustering <- res$clustering[res$population[, "rnkIndex"] <= 2]
+  #}
   diversity <- calculate_diversity_matrix(pareto.clustering, "jaccard")
   avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
   res <- data.frame("id"=exp.id, "Algorithm"=algorithm, "Dataset"=dataset.name, "Diversity"=avg.dist, "time"=t)

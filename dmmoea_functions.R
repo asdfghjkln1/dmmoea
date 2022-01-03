@@ -271,6 +271,7 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
+    print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -308,14 +309,11 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     g <- g + 1
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
-    if(debug){
-      print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
-    }
   }
+  print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
   if(debug){
-    #print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
-    #print(P)
-    #print(P.clustering.groups[1:10])
+    print(P)
+    print(P.clustering.groups[1:10])
     sink(type="output") 
   }
   
@@ -434,6 +432,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
+    print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -459,11 +458,13 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     g <- g + 1
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
-    if(debug){
-      print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
-    }
   }
+  print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
   if(debug){
+    print(P)
+    print(P.clustering.groups[1:10])
+    #Log(P)
+    #Log(P.clustering.groups[1:10])
     sink(type="output") 
   }
   
@@ -1893,6 +1894,9 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
     #hc <- hclust(distance.matrix, method="average")
     #pop.membership <- cutree(hc, k=2) 
     res <- cluster::pam(distance.matrix, metric = "euclidean", k = 2)
+    #count.1 <- length(which(res$clustering == 1))
+    #count.1 <- length(which(res$clustering == 2))
+    #print(paste("A1 recieves", count.1, "; A2 recieves", count.2))
     pop.membership <- res$clustering
   }else if(method=="anticlust"){
     pop.membership <- balanced_clustering(distance.matrix, K=2)

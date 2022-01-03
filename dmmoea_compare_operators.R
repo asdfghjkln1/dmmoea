@@ -95,21 +95,21 @@ compare_operators <- function(){
 plot_diversity_evolution <- function(data, exp.name, output.folder, paired=TRUE){
   form <- as.formula("diversity ~ Algorithm")
   data$generation <- as.factor(data$generation)
-  if(!paired){
-    res <- kruskal_test(data, formula=form) 
-  }else{
-    data$id <- as.factor(data$id)
-    data$Algorithm <- as.factor(data$Algorithm)
-    form.friedman <- as.formula("diversity ~ Algorithm | id")
-    res <- friedman_test(data=data, formula=form.friedman)
-  }
-  pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
-  pwc <- pwc %>% add_xy_position(x = "Algorithm")
-  w <- 4 + 0.6*(length(unique(data$Algorithm)) - 3)#ifelse(exp.group>3, 6,5)
-  Y <- pwc$y.position
-  gap.data <- max(data$diversity) - min(data$diversity)
-  gap <- max(Y[2] - Y[1], gap.data*0.07)
-  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data$Algorithm)))
+  #if(!paired){
+  #  res <- kruskal_test(data, formula=form) 
+  #}else{
+  #  data$id <- as.factor(data$id)
+  #  data$Algorithm <- as.factor(data$Algorithm)
+  #  form.friedman <- as.formula("diversity ~ Algorithm | id")
+  #  res <- friedman_test(data=data, formula=form.friedman)
+  #}
+  #pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
+  #pwc <- pwc %>% add_xy_position(x = "Algorithm")
+  #w <- 4 + 0.6*(length(unique(data$Algorithm)) - 3)#ifelse(exp.group>3, 6,5)
+  #Y <- pwc$y.position
+  #gap.data <- max(data$diversity) - min(data$diversity)
+  #gap <- max(Y[2] - Y[1], gap.data*0.07)
+  #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data$Algorithm)))
   
   xlab <- "Generaci\U00F3n"
   if(exp.name == "lv4_v2"){
@@ -130,7 +130,7 @@ plot_diversity_evolution <- function(data, exp.name, output.folder, paired=TRUE)
   ggplot(data.se, aes(x=generation, y=diversity, colour=Algorithm, group=Algorithm)) +
     geom_line(position=pd) +
     geom_point(position=pd) +
-    geom_errorbar(aes(ymin=diversity-ci, ymax=diversity+ci), width=.1, position=pd) +
+    geom_errorbar(aes(ymin=diversity-se, ymax=diversity+se), width=.1, position=pd) +
     labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", title=title) +
          #subtitle = get_test_label(res, detailed = TRUE), 
          #caption = get_pwc_label(pwc)) +
