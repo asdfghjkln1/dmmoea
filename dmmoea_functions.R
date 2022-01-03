@@ -1185,7 +1185,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
       mutation.prob <- runif(1,0,1)
       gene.chr.1 <- chr1[1,k] # Cluster of chr1 k-th gene
       clust.dist <- D[gene.chr.1, unlist(chr2)] # Distances of chr1 to chr2's genes 
-      target <- ifelse(type=="mut.only", which.max(clust.dist), k)
+      target <- ifelse(type=="mut.only", k, which.max(clust.dist))
       
       if(genome.prob < mat.rate){
         gene <- chr2[1, target]
@@ -1209,6 +1209,7 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
           # Define a radius and randomly select a gene to mutate.
           density.radius <- params$mutation_radius
           # Grow radius is no gene is found nearby.
+          count <- 0 
           while(!selected){
             in.radius <- which(distances$comp.dist[gene.chr.1, ] > density.radius)
             in.radius <- which(!(in.radius %in% in.density.radius))
@@ -1216,7 +1217,11 @@ diverse_population_mating_and_mutation <- function(mating_pool, distances, group
               gene <- sample(in.radius, 1) 
               selected <- TRUE
             }else{
-              density.radius <- density.radius*1.1
+              density.radius <- density.radius/1.1
+              count <- count + 1
+              if(count > 10){
+                break
+              }
             }
           }
           #group.chr1 <- groups[[p]][gene.chr.1]
