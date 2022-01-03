@@ -146,7 +146,7 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     sink(type="output") 
   }
   
-  return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
+  return(list("population"=P, "clustering"=P.clustering.groups))
 }
 
 
@@ -313,10 +313,13 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     }
   }
   if(debug){
+    #print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    #print(P)
+    #print(P.clustering.groups[1:10])
     sink(type="output") 
   }
   
-  return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
+  return(list("population"=P, "clustering"=P.clustering.groups))
 }
 
 #### Diverse NSGA-2 ####
@@ -464,7 +467,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     sink(type="output") 
   }
   
-  return(list("population"=P_next_generation, "clustering"=P.clustering.groups))
+  return(list("population"=P, "clustering"=P.clustering.groups))
 }
 
 diverse_memetic_nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=FALSE, experiment.name="dmnsga2", base.path=NULL){
