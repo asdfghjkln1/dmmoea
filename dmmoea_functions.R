@@ -1,3 +1,31 @@
+
+#plot_generation_metrics <- function(P, clustering, distances, output.path, algorithm.name, generation, dataset.name, plot.silhouette=FALSE, plot.diversity=TRUE){
+#  len.groups <- length(clustering)
+#  if(len.groups > 1){
+#    avg.sil <- NA
+#    # Calculate silhouette (Quality)
+#    if(plot.silhouette){
+#      sil <- evaluate_silhouette(distances$comp.dist, clustering, nrow(P))
+#      avg.sil <- round(mean(sil), 4)
+#      print(paste0("Silhouette: ", avg.sil))
+#    }
+#    if(plot.diversity){
+#      diversity <- calculate_diversity_matrix(clustering, "jaccard")
+#      diversity.2 <- calculate_diversity_matrix(clustering, "NMI")
+#      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+#      avg.dist.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+#      # Calculate avg solution dist (Diversity)
+#      print(paste0("Diversity 1: ", avg.dist))
+#      print(paste0("Diversity 2: ", avg.dist.2))
+#    }
+#    # Store results
+#    res <- data.frame("id"=basename(output.path), "Algorithm"=algorithm.name, "Dataset"=dataset.name, "diversity"=round(avg.dist,4), "diversity.2"=avg.dist.2, "generation"=g, "silhouette"=round(avg.sil,4))
+#    write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
+#  }
+#}
+
+
+
 #### NSGA-2 ####
 nsga2 <- function(distances, params, output.path, initial_population=NULL, limits=NULL, debug=FALSE, plot=FALSE, calculate.diversity=FALSE, experiment.name="nsga2", base.path=NULL){
   evaluation.count <- 0
@@ -37,6 +65,24 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
   estimated.generations <- params$evaluations/P.size
   generations.no.change.limit <- round(estimated.generations*3/4) 
   
+  
+  if(calculate.diversity && !is.null(base.path)){
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(current.pareto.front))]
+    len.groups <- length(P.clustering.groups)
+    if(length(pareto.clustering) > 1){
+      # Calculate silhouette (Quality)
+      sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, nrow(current.pareto.front))
+      avg.sil <- round(mean(sil), 4)
+      # Calculate avg solution dist (Diversity)
+      diversity <- calculate_diversity_matrix(pareto.clustering, "jaccard")
+      #diversity.2 <- calculate_diversity_matrix(pareto.clustering, "NMI")
+      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+      #avg.dist.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+      # Store results
+      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=round(avg.dist,4), "generation"=0, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0)
+      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
+    }
+  }
   has.converged <- FALSE
   ## Main generation loop
   while(!has.converged){
@@ -111,12 +157,19 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
       plot_pareto(current.pareto.front, new.pareto.front, g, output.path, limits) # Output pareto front 
     }
     if(calculate.diversity && !is.null(base.path)){
-      #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
+      pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
       len.groups <- length(P.clustering.groups)
       if(len.groups > 1){
+        # Calculate silhouette (Quality)
+        sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, nrow(new.pareto.front))
+        avg.sil <- round(mean(sil), 4)
+        # Calculate avg solution dist (Diversity)
         diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+        #diversity.2 <- calculate_diversity_matrix(P.clustering.groups, "NMI")
         avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
+        #avg.dist.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+        # Store results
+        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=round(avg.dist,4), "generation"=g, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0)
         write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
       }
     }
@@ -200,6 +253,25 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
   generations.no.changes <- 0
   has.converged <- FALSE
   
+  if(calculate.diversity && !is.null(base.path)){
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(current.pareto.front))]
+    len.groups <- length(P.clustering.groups)
+    if(length(pareto.clustering) > 1){
+      # Calculate silhouette (Quality)
+      sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, nrow(current.pareto.front))
+      avg.sil <- round(mean(sil), 4)
+      # Calculate avg solution dist (Diversity)
+      diversity <- calculate_diversity_matrix(pareto.clustering, "jaccard")
+      #diversity.2 <- calculate_diversity_matrix(pareto.clustering, "NMI")
+      avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+      #avg.dist.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+      # Store results
+      res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=round(avg.dist,4), "generation"=0, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0)
+      write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
+    }
+  }
+  
+  
   ## Main generation loop
   while(!has.converged){
     if(debug){
@@ -266,12 +338,22 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     
     ## Population fitness selection
     if(diversity.level >= 2){
-      P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, P.size, K, diversity.metric)
+      P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, P.size, K, diversity.metric, return.survival=calculate.diversity)
     }else{
-      P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
+      P_next_generation <- fitness_selection_crowding_distance(R, P.size, K, return.survival=calculate.diversity) 
     }
+    if(calculate.diversity){
+      survived <- P_next_generation$survived
+      discarded <- P_next_generation$discarded
+      P_next_generation <- P_next_generation$P
+      #print(P_next_generation)
+      #print(paste0("Survived: ", survived, "; discarded: ", discarded, "; nrow(P): ", nrow(P_next_generation)))
+    }
+    
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
-    print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    if(debug){
+      print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    }
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -281,16 +363,22 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     }
     
     if(calculate.diversity && !is.null(base.path)){
-      #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
+      pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front))]
       len.groups <- length(P.clustering.groups)
       if(len.groups > 1){
+        # Calculate silhouette (Quality)
+        sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, nrow(new.pareto.front))
+        avg.sil <- round(mean(sil), 4)
+        # Calculate avg solution dist (Diversity)
         diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+        #diversity.2 <- calculate_diversity_matrix(P.clustering.groups, "NMI")
         avg.dist <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=avg.dist, "generation"=g)
-        write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
+        #avg.dist.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+        # Store results
+        res <- data.frame("id"=basename(output.path), "Algorithm"=experiment.name, "Dataset"=params$dataset, "diversity"=round(avg.dist,4), "generation"=g, "silhouette"=round(avg.sil,4),"survived"=survived, "discarded"=discarded)
+        write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE) 
       }
     }
-    
     ## Measure convergence of pareto front
     convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
@@ -310,10 +398,10 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
   }
-  print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
   if(debug){
+    print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
     print(P)
-    print(P.clustering.groups[1:10])
+    #print(P.clustering.groups[1:10])
     sink(type="output") 
   }
   
@@ -432,7 +520,9 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
-    print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    if(debug){
+      print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups))) 
+    }
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -459,8 +549,8 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
   }
-  print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
   if(debug){
+    print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
     print(P)
     print(P.clustering.groups[1:10])
     #Log(P)
@@ -533,6 +623,28 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
   
   for(i in 1:agents){
     Agents[[i]] <- list("population"=P[unlist(solutions[i]), ], "clustering"=P.clustering.groups[unlist(solutions[i])])
+  }
+  
+  if(calculate.diversity && !is.null(base.path)){
+    avg.dist <- list()
+    for(i in 1:agents){
+      len.groups <- length(Agents[[i]]$clustering)
+      if(len.groups > 1){
+        diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+        avg.dist[[i]] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+      }
+    }
+    #solutions <- aggregate_agents(Agents, agents, K, params$objDim)
+    diversity <- calculate_diversity_matrix(P.clustering.groups, "jaccard")
+    between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
+    pareto.clustering <- P.clustering.groups[as.numeric(row.names(current.pareto.front))]
+    
+    sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, length(pareto.clustering))
+    avg.sil <- round(mean(sil), 4)
+    
+    res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=mean(unlist(avg.dist)), "generation"=0, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0)
+    res <- rbind(res, data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=0, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0))
+    write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
   }
   
   cores <- parallel::detectCores()
@@ -609,20 +721,32 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
     
     if(calculate.diversity && !is.null(base.path)){
       avg.dist <- list()
+      #avg.dist.2 <- list()
       for(i in 1:agents){
         #print(paste0("Phase ", phase, " agent ", i))
         len.groups <- length(Agents[[i]]$clustering)
         if(len.groups > 1){
           diversity <- calculate_diversity_matrix(Agents[[i]]$clustering, "jaccard")
+          #diversity.2 <- calculate_diversity_matrix(Agents[[i]]$clustering, "NMI")
           avg.dist[[i]] <- mean(diversity[lower.tri(diversity, diag = FALSE)])  
+          #avg.dist.2[[i]] <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])  
           #print(avg.dist[[i]])
         }
       }
+      within.agent.diversity <- round(mean(unlist(avg.dist)), 4)
+           
       solutions <- aggregate_agents(Agents, agents, K, params$objDim)
       diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
-      between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-      res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=mean(unlist(avg.dist)), "generation"=phase)
-      res <- rbind(res, res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phase))
+      between.agent.diversity <- round(mean(diversity[lower.tri(diversity, diag = FALSE)]), 4)
+      #between.agent.diversity.2 <- mean(diversity.2[lower.tri(diversity.2, diag = FALSE)])
+      pareto.front <- solutions$population[solutions$population[, "rnkIndex"] == 1, ]
+      pareto.clustering <- solutions$clustering[as.numeric(row.names(pareto.front))]
+      
+      sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, length(pareto.clustering))
+      avg.sil <- round(mean(sil), 4)
+      
+      res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=within.agent.diversity, "generation"=phase, "silhouette"=round(avg.sil, 4), "survived"=0, "discarded"=0)
+      res <- rbind(res, data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phase, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0))
       write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
     }
     
@@ -651,8 +775,15 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
     }
     diversity <- calculate_diversity_matrix(solutions$clustering, "jaccard")
     between.agent.diversity <- mean(diversity[lower.tri(diversity, diag = FALSE)])
-    res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=mean(unlist(avg.dist)), "generation"=phase)
-    res <- rbind(res, res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phases))
+    within.agent.diversity <- round(mean(unlist(avg.dist)), 4)
+    
+    pareto.front <- solutions$population[solutions$population[, "rnkIndex"] == 1, ]
+    pareto.clustering <- solutions$clustering[as.numeric(row.names(pareto.front))]
+    sil <- evaluate_silhouette(distances$comp.dist, pareto.clustering, length(pareto.clustering))
+    avg.sil <- round(mean(sil), 4)
+    
+    res <- data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_within"), "Dataset"=params$dataset, "diversity"=within.agent.diversity, "generation"=phase, "silhouette"=round(avg.sil, 4), "survived"=0, "discarded"=0)
+    res <- rbind(res, data.frame("id"=basename(output.path), "Algorithm"=paste0(experiment.name, "_between"), "Dataset"=params$dataset, "diversity"=between.agent.diversity, "generation"=phase, "silhouette"=round(avg.sil,4), "survived"=0, "discarded"=0))
     write.table(res, file=file.path(base.path, "diversity_evolution.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = FALSE)
   }
   
@@ -670,7 +801,7 @@ generate_initial_pop <- function(P.size, K, num.genes, seed){
   
 }
 
-generate_diverse_initial_pop <- function(distances, params, p.size=NULL, diverse_population=FALSE){
+generate_diverse_initial_pop <- function(distances, params, p.size=NULL, diverse_population=FALSE, seed=NULL){
   K <- params$K
   n.genes <- distances$n.genes
   if(missing(p.size)){
@@ -687,7 +818,7 @@ generate_diverse_initial_pop <- function(distances, params, p.size=NULL, diverse
   # Create a chromosome (single element of population) for every radius of density
   # Set density tolerance T (number of elem. within density radius)
   auto.adjust <- params$auto_adjust_initial_params
-  
+  set.seed(seed)
   if(!is.na(auto.adjust)){
     if(auto.adjust){
       T <- n.genes/K
@@ -1036,7 +1167,7 @@ dominance_ranking_sorting <- function(population, obj.values){
   return(as.data.frame(population))
 }
 
-fitness_selection_crowding_distance <- function(R, P.size, K, front.only=FALSE){
+fitness_selection_crowding_distance <- function(R, P.size, K, front.only=FALSE, return.survival=FALSE){
   if(nrow(R) <= P.size){
     #print("Population size is lower than original population, returning...")
     return(R)
@@ -1044,13 +1175,20 @@ fitness_selection_crowding_distance <- function(R, P.size, K, front.only=FALSE){
   R <- as.data.frame(R)
   last.rank <- R[P.size, "rnkIndex"]
   if(R[P.size + 1, "rnkIndex"] > last.rank){ # No need to check if there's dominance
+    if(return.survival){
+      return(list("P"=R[1:P.size, ], "survived"=0, "discarded"=0))
+    }
     return(R[1:P.size, ])
   }
   rank <- last.rank
   if(last.rank == 1){
     last.ranking.solutions <- R[R$rnkIndex == 1, ]
     last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
+    discarded <- nrow(last.ranking.solutions) - P.size
     last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
+    if(return.survival){
+      return(list("P"=last.ranking.solutions, "survived"=P.size, "discarded"=discarded))
+    }
     return(last.ranking.solutions)
   }else{
     i <- P.size
@@ -1061,17 +1199,22 @@ fitness_selection_crowding_distance <- function(R, P.size, K, front.only=FALSE){
     preselected <- R[1:(i+1), ]
     remaining <- P.size - nrow(preselected)
     last.ranking.solutions <- R[R$rnkIndex == last.rank, ]
-    last.ranking.solutions <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
-    last.ranking.solutions <- last.ranking.solutions[1:remaining, ]
+    survival.pop <- last.ranking.solutions[order(last.ranking.solutions$cd.density, decreasing=TRUE), ]
+    survival.pop <- survival.pop[1:remaining, ]
+    discarded <- nrow(last.ranking.solutions) - remaining #round(remaining/nrow(last.ranking.solutions), 3)
     if(front.only){
-      return(last.ranking.solutions)
+      if(return.survival){
+        return(list("P"=survival.pop, "survived"=remaining, "discarded"=discarded))
+      }
+      return(survival.pop)
+    }else if(return.survival){
+      return(list("P"=rbind(preselected, survival.pop), "survived"=remaining, "discarded"=discarded))
     }
-    return(rbind(preselected, last.ranking.solutions))
-    
+    return(rbind(preselected, survival.pop))
   }
 }
 
-fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, front.only=FALSE){
+fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, front.only=FALSE, return.survival=FALSE){
   if(nrow(R) <= P.size){
     #print("Population size is lower than original population, returning...")
     return(R)
@@ -1079,6 +1222,9 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, fro
   R <- as.data.frame(R)
   last.rank <- R[P.size, "rnkIndex"]
   if(R[P.size + 1, "rnkIndex"] > last.rank){ # No need to check if there's dominance
+    if(return.survival){
+      return(list("P"=R[1:P.size, ], "survived"=0, "discarded"=0))
+    }
     return(R[1:P.size, ])
   }
   rank <- last.rank
@@ -1091,6 +1237,10 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, fro
     mean.solution.distance <- apply(diversity.matrix, 1, function(x) mean(x))
     last.ranking.solutions <- last.ranking.solutions[order(mean.solution.distance, decreasing=TRUE), ]
     last.ranking.solutions <- last.ranking.solutions[1:P.size, ]
+    discarded <- length(last.ranking.solutions.index) - P.size
+    if(return.survival){
+      return(list("P"=last.ranking.solutions, "survived"=P.size, "discarded"=discarded))
+    }
     return (last.ranking.solutions)
   }else{
     i <- P.size
@@ -1110,10 +1260,16 @@ fitness_selection_diversity_metric <- function(R, groups, P.size, K, metric, fro
     mean.solution.distance <- apply(diversity.matrix, 2, mean)
     priority <- order(mean.solution.distance, decreasing=TRUE)
     #rows <- row.names(R)[all.index]
+    discarded <- nrow(last.front) - remaining
     last.front <- last.front[priority[1:remaining], ]
     #groups.reorder <- groups[match(row.names(R.reordered), A.rows)]
     if(front.only){
-      return(last.front)
+      if(return.survival){
+        return(list("P"=last.front, "survived"=remaining, "discarded"=discarded))
+      }
+      return(survival.pop)
+    }else if(return.survival){
+      return(list("P"=rbind(preselected, last.front), "survived"=remaining, "discarded"=discarded))
     }
     return(rbind(preselected, last.front))
   }
@@ -1943,6 +2099,8 @@ diverse_fitness_sync <- function(Agent.A, Agent.B, diverse.metric, obj_indexes, 
   return(list("Agent.A"=Agent.A, "Agent.B"=Agent.B))
   
 }
+
+a <- as.dist(matrix(c(0, 0.1, 0.4, 0.1, 0, 0.5, 0.4, 0.5, 0),ncol=3))
 
 #Checks if a chromosome is already in a population
 check_in_population <- function(P, chr){

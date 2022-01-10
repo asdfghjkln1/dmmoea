@@ -36,14 +36,14 @@ compare_operators <- function(){
     dataset <- datasets[j]
     params$dataset <- dataset
     distances <- load.gene.distance(dataset, params$alpha)
-    if(operator == "lv1_v2"){
-      test_operator_lv1_v2(params, distances, dataset, results.path, runs) 
-    }else if(operator == "lv2_v2"){
-      test_operator_lv2_v2(params, distances, dataset, results.path, runs)
-    }else if(operator == "lv3_v2"){
-      test_operator_lv3_v2(params, distances, dataset, results.path, runs)
-    }else if(operator == "lv4_v2"){
-      test_operator_lv4_v2(params, distances, dataset, results.path, runs)
+    if(operator == "lv1"){
+      test_operator_lv1(params, distances, dataset, results.path, runs) 
+    }else if(operator == "lv2"){
+      test_operator_lv2(params, distances, dataset, results.path, runs)
+    }else if(operator == "lv3"){
+      test_operator_lv3(params, distances, dataset, results.path, runs)
+    }else if(operator == "lv4"){
+      test_operator_lv4(params, distances, dataset, results.path, runs)
     }
   }
   #}
@@ -52,142 +52,317 @@ compare_operators <- function(){
   data.diversity$Algorithm <- as.factor(data.diversity$Algorithm)
   data.diversity$id <- as.factor(data.diversity$id)
   
-  plot_diversity_evolution(data.diversity, operator, results.path,paired=FALSE)
-  return(0)
-  datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
-  print("Finished running tests...")
-  print(file.path(results.path, "plot_data.csv"))
-  if(!file.exists(file.path(results.path, "plot_data.csv"))){
-    warning("Limits not found, please run \"dmmoea_evaluate_results.R\" first.")
-    return(-1)
-  }
-  if(!file.exists(file.path(results.path, "plot_data_diversity.csv"))){
-    warning("Limits not found, please run \"dmmoea_evaluate_results.R\" first.")
-    return(-1)
-  }
-  plot.pareto.norm <- read.table(file.path(results.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
-  plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
-  plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
-  plot.data$Algorithm <- as.factor(plot.data$Algorithm)
-  plot.data$id <- as.factor(plot.data$id)
-  figure.path <- file.path(results.path, "figures", "comparison")
-  
-  metrics <- c("Hypervolume", "Silhouette", "Delta")
-  metrics.div <- c("Diversity", "Cluster_Ratio")
-  for(j in 1:length(datasets)){
-    dataset <- datasets[j]
-    data <- plot.data[plot.data$Dataset == dataset, ]
-    data.diversity <- plot.data.diversity[plot.data.diversity$Dataset == dataset, ]
-    data.diversity.NMI <- data.diversity[data.diversity$Metric == "NMI", ]
-    data.diversity.jaccard <- data.diversity[data.diversity$Metric == "jaccard", ]
-    if(operator == "lv2" || operator == "lv3" || operator == "lv4"){
-      lapply(metrics, function(x) multi.variable.tests(data, x, "Algorithm", dataset, figure.path, paired=TRUE))
-      lapply(metrics.div, function(x) multi.variable.tests(data.diversity.NMI, x, "Algorithm", dataset, figure.path, paired=TRUE))
-      lapply(metrics.div, function(x) multi.variable.tests(data.diversity.jaccard, x, "Algorithm", dataset, figure.path, paired=TRUE))
-    }else{
-      lapply(metrics, function(x) multi.variable.tests(data, x, "Algorithm", dataset, figure.path))
-      lapply(metrics.div, function(x) multi.variable.tests(data.diversity.NMI, x, "Algorithm", dataset, figure.path))
-      lapply(metrics.div, function(x) multi.variable.tests(data.diversity.jaccard, x, "Algorithm", dataset, figure.path))
-    }
-  }
+  plot_diversity_evolution(data.diversity, operator, results.path)
+  #plot_diversity_evolution(data.diversity, operator, metric="NMI", results.path)
 }
 
-plot_diversity_evolution <- function(data, exp.name, output.folder, paired=TRUE){
-  form <- as.formula("diversity ~ Algorithm")
+#https://www.datanovia.com/en/blog/how-to-add-p-values-onto-a-grouped-ggplot-using-the-ggpubr-r-package/
+plot_diversity_evolution_2 <- function(data, exp.name, output.folder){
+  data <- data[as.numeric(data$generation) <= 20, ]
   data$generation <- as.factor(data$generation)
-  #if(!paired){
-  #  res <- kruskal_test(data, formula=form) 
-  #}else{
-  #  data$id <- as.factor(data$id)
-  #  data$Algorithm <- as.factor(data$Algorithm)
-  #  form.friedman <- as.formula("diversity ~ Algorithm | id")
-  #  res <- friedman_test(data=data, formula=form.friedman)
+  #form <- as.formula("diversity ~ Algorithm")
+  #if(metric=="NMI"){
+  #  data$diversity <- data$diversity.2
   #}
-  #pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
-  #pwc <- pwc %>% add_xy_position(x = "Algorithm")
-  #w <- 4 + 0.6*(length(unique(data$Algorithm)) - 3)#ifelse(exp.group>3, 6,5)
-  #Y <- pwc$y.position
-  #gap.data <- max(data$diversity) - min(data$diversity)
-  #gap <- max(Y[2] - Y[1], gap.data*0.07)
-  #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data$Algorithm)))
-  
+  #data$diversity.2 <- NULL
   xlab <- "Generaci\U00F3n"
-  if(exp.name == "lv4_v2"){
+  if(exp.name == "lv4"){
     xlab <- "Fase de comunicaci\U00F3n"
     title <- "Diversidad en DMNSGA-II seg\U00FAn operador de comunicaci\U00F3n"
-  }else if(exp.name == "lv1_v2"){
+  }else if(exp.name == "lv1"){
     title <- "Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial"
-  }else if(exp.name == "lv2_v2"){
+  }else if(exp.name == "lv2"){
     title <- "Diversidad en DNSGA-II seg\U00FAn operador de selecci\U00F3n"
-  }else if(exp.name == "lv3_v2"){
+  }else if(exp.name == "lv3"){
     title <- "Diversidad en NSGA-II seg\U00FAn operador de cruzamiento y mutaci\U00F3n"
   }
-  #U+00E9
-  data.se <- summarySE(data, measurevar="diversity", groupvars=c("Algorithm","generation"))
-  print(head(data.se))
   
-  pd <- position_dodge(0.1)
-  ggplot(data.se, aes(x=generation, y=diversity, colour=Algorithm, group=Algorithm)) +
-    geom_line(position=pd) +
-    geom_point(position=pd) +
-    geom_errorbar(aes(ymin=diversity-se, ymax=diversity+se), width=.1, position=pd) +
-    labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", title=title) +
-         #subtitle = get_test_label(res, detailed = TRUE), 
-         #caption = get_pwc_label(pwc)) +
-    theme_minimal()
+  stat.test <- compare_means(
+    diversity ~ Algorithm, data = data, group.by = "generation",
+    method = "t.test", ref.group = "Crowding_Distance"
+  )
+  print(stat.test)
+  
+  bp <- ggline(data, x = "generation", y = "diversity",
+                  fill = "Algorithm", palette = "jco",
+                  add = "mean_sd", add.params = list(group = "Algorithm"),
+                  position = position_dodge(0.2)) + 
+        labs(title=title)
+  bp + stat_pvalue_manual(
+    stat.test, x = "generation", y.position = 33, step.increase=-0.2,
+    label = "p.signif",
+    position = position_dodge(0.3)
+  )
+  print(bp)
+  ggsave(file.path(output.folder, paste0("diversity_evolution.png")))
+  print("plot finished!")
+  return()
+  
+  if(exp.name != "lv4"){
+    pd <- position_dodge(0.3)
+    ggplot(data.se, aes(x=generation, y=diversity, colour=Algorithm, group=Algorithm)) +
+      geom_line(position=pd) +
+      geom_point(position=pd) +
+      geom_errorbar(aes(ymin=diversity-se, ymax=diversity+se), width=.1, position=pd) +
+      labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", title=title) +
+      #subtitle = get_test_label(stat.test, detailed = TRUE),
+      #caption = get_pwc_label(stat.test)) +
+      stat_pvalue_manual(pvalues, label = "{p.adj.signif}", hide.ns = TRUE, xmin=NULL, xmax=NULL, x=1:20, y.position = 0.15, step.increase = -0.2) +
+      theme_minimal()
+  }else{
+    ggplot(data, aes(x=generation, y=diversity)) +
+      geom_boxplot(aes(fill=Algorithm)) +
+      labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
+           title=title,
+           #subtitle = get_test_label(stat.test, detailed = TRUE), 
+           caption = get_pwc_label(stat.test)) +
+      theme_minimal()
+  }
+  print(output.folder)
+  ggsave(file.path(output.folder, paste0("diversity_evolution.png")))
+  print("plot finished!")
+}
 
-  #ggplot(data, aes(x=generation, y=diversity)) +
-  #  geom_boxplot(aes(fill=Algorithm)) +
-  #  labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
-  #       title=title) +
-  #       #subtitle = get_test_label(res, detailed = TRUE), 
-  #       #caption = get_pwc_label(pwc)) +
-  #  theme_minimal()
-  ggsave(file.path(output.folder, "diversity_evolution.png"))
+plot_diversity_evolution <- function(data, exp.name, output.folder){
+  library(ggplot2)
+  #install.packages("ggtext")
+  library(ggtext)
+  data <- data[as.numeric(data$generation) <= 20, ]
+  #data$generation <- as.factor(data$generation)
+  #form <- as.formula("diversity ~ Algorithm")
+  #if(metric=="NMI"){
+  #  data$diversity <- data$diversity.2
+  #}
+  #data$diversity.2 <- NULL
+  xlab <- "Generaci\U00F3n"
+  if(exp.name == "lv1"){
+    title <- "Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial"
+    labels <- c("Random", "Densidad", "Densidad diverso", "Densidad diverso modif.")
+    data$Algorithm <- factor(data$Algorithm, levels = c("Random", "Selective", "Selective_Diverse", "Selective_Diverse+"))
+    print(levels(data$Algorithm))
+  }else if(exp.name == "lv2"){
+    #print(head(data))
+    title <- "Diversidad en DNSGA-II seg\U00FAn operador de selecci\U00F3n"
+    labels <- c("Crowding distance", "Jaccard", "NMI")
+    data$Algorithm <- factor(data$Algorithm, levels = c("Crowding_Distance", "Jaccard", "NMI"))
+    print(levels(data$Algorithm))
+  }else if(exp.name == "lv3"){
+    title <- "Diversidad en NSGA-II seg\U00FAn operador de cruzamiento y mutaci\U00F3n"
+    labels <- c("Uniforme", "Crossover diverso", "Mutaci\U00F3n diversa", "Combinado")
+    data$Algorithm <- factor(data$Algorithm, levels = c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined"))
+    print(levels(data$Algorithm))
+  }else if(exp.name == "lv4"){
+    xlab <- "Fase de comunicaci\U00F3n"
+    title <- "Diversidad en DMNSGA-II seg\U00FAn operador de comunicaci\U00F3n"
+    labels <- c("Sincr. elitista (intra-agente)", "Sincr. elitista (inter-agente)", "Sincr. diversa (intra-agente)", "Sincr. diversa (inter-agente)")
+    data$Algorithm <- factor(data$Algorithm, levels = c("Elitist_sync_within","Elitist_sync_between", "Diverse_sync_within", "Diverse_sync_between"))
+    print(levels(data$Algorithm))
+  }
+  if(exp.name == "lv2"){
+    data.2 <-  data[data$generation <= 10, ]
+    data.2$generation <- as.factor(data.2$generation)
+    print(head(data.2))
+    data.2 <- gather(data.2, Resultado, Soluciones, survived:discarded, factor_key=TRUE)
+    print(head(data.2))
+    data.2$Algorithm <- factor(data.2$Resultado, levels=c("survived", "discarded"))
+    ggplot(data.2, aes(x=generation, y=Soluciones, fill=Resultado, group=Resultado)) +
+      geom_bar(stat="summary", fun="median", position="stack") +
+      #geom_errorbar(aes(ymin=Soluciones-se, ymax=Soluciones+se), width=.1, position=pd) +
+      labs(x=xlab, y="N\U00FAmero de soluciones en selecci\U00E9n de supervivencia", title=title) +
+      scale_fill_discrete(labels=c("Sobreviviente", "Descartado")) +
+      facet_wrap(~Algorithm)
+    theme_minimal()
+    ggsave(file.path(output.folder, "survival_selection.png"))
+  }
+  if(exp.name == "lv1"){
+    data.sil <- summarySE(data, measurevar="silhouette", groupvars=c("Algorithm","generation"))
+    print(head(data.sil))
+    pd <- position_dodge(0.3)
+    ggplot(data.sil, aes(x=generation, y=silhouette, colour=Algorithm, group=Algorithm)) +
+      geom_line(position=pd) +
+      geom_point(position=pd) +
+      geom_errorbar(aes(ymin=silhouette-ci, ymax=silhouette+ci), width=.1, position=pd) +
+      labs(x=xlab, y="Promedio coeficiente silueta", 
+           title="Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial", 
+           colour="Operador") +
+      scale_colour_discrete(labels=labels) +
+      #subtitle = get_test_label(res, detailed = TRUE), 
+      #caption = get_pwc_label(pwc)) +
+      theme_minimal()
+    print(output.folder)
+    ggsave(file.path(output.folder, paste0("quality_evolution.png")))
+  }
+  
+  data.se <- summarySE(data, measurevar="diversity", groupvars=c("Algorithm","generation"))
+  #data.se$generation <- as.integer(data.se$generation)
+  #data.se$Algorithm <- as.factor(data.se$Algorithm)
+  #stat.test <- data %>%
+  #  group_by(generation) %>%
+  #  #do(tidy(pairwise_t_test(diversity ~ Algorithm, data = ., paired = TRUE, p.adjust.method = "bonferroni"))) %>%
+  #  #print()
+  #  pairwise_t_test(
+  #    diversity ~ Algorithm, paired = TRUE, 
+  #    p.adjust.method = "bonferroni"
+  #  ) %>%
+  #  select(-df, -statistic, -p) # Remove details
+  #stat.test <- stat.test %>% add_xy_position(x = "Algorithm")
+  #print("C")
+  #stat.test <- c()
+  #n.alg <- length(unique(data$Algorithm))
+  #pwc <- data.frame("generation"=1:20, "p.adj.signif"=rep(NA,20))
+  #pvalues <- pairwise_t_test(data[data$generation == 1, ], diversity ~ Algorithm, paired = TRUE, p.adjust.method = "bonferroni")
+  #pvalues <- pvalues[ which.min(pvalues$p.adj), ]
+  #pvalues$generation  <- rep(20, 3)
+  #print(pvalues, n=40)
+  #for(i in 2:max(data$generation)){
+  #  data.gen <- data[data$generation == i, ]
+  #  #print(data.gen)
+  #  pvalue <- pairwise_t_test(data.gen, diversity ~ Algorithm, paired = TRUE, p.adjust.method = "bonferroni")
+  #  max.signif <- pvalue[ which.min(pvalue$p.adj), ]
+  #  #pvalue <- pvalue %>% select(p.adj, p.adj.signif)
+  #  pvalues <- rbind(pvalues, max.signif)
+  #}
+  #pvalues <- pvalues %>% add_xy_position(x = Algorithm)
+  #pvalues <- as.data.frame(pvalues)
+  #pvalues$y.position <- rep(50, 20)
+  print(head(data))
+  last.gen <- max(as.numeric(data$generation))
+  pvalues <- pairwise_t_test(data[data$generation == last.gen, ], diversity ~ Algorithm, paired = TRUE, p.adjust.method = "bonferroni")
+  print(pvalues)
+  labels_test <- paste0(pvalues$group1, " - ", pvalues$group2, " (P-value: ", pvalues$p.adj, ")\n")#, fill=is.signif.color)
+  print("P-VALUES:")
+  print(labels_test)
+  #box.df <- data.frame( label = labels_test, x = 20, y = 1, hjust = 0,
+  #  vjust = 1, orientation = "upright", color = "black", fill = "cornsilk")
+  if(exp.name != "lv4"){
+    pd <- position_dodge(0.3)
+    #print(data.se)
+    ggplot(data.se, aes(x=generation, y=diversity, colour=Algorithm, group=Algorithm)) +
+      geom_line(position=pd) +
+      geom_point(position=pd) +
+      geom_errorbar(aes(ymin=diversity-ci, ymax=diversity+ci), width=.1, position=pd) +
+      labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", colour="Operador", 
+           title=title
+           #get_pwc_label(pvalues),
+           #caption = labels_test#paste("Generaci\U00E9n 20: ", get_test_label(pvalues, detailed = TRUE,  type = "text"))
+           ) +
+      scale_colour_discrete(labels=labels) +
+      #geom_textbox(data=box.df, aes(
+      #  x=x, y=y, label = label, color = color, fill = fill,
+      #  hjust = hjust, vjust = vjust, orientation = orientation))+#, width = unit(0.4, "npc")) +
+      #get_pwc_label(stat.test)) +
+      #stat_pvalue_manual(pvalues, label = "{p.adj.signif}", hide.ns = TRUE, y.position = 0.15, step.increase = -0.2) +
+      theme_minimal()
+  }else{
+    data$generation <- as.factor(data$generation)
+    ggplot(data, aes(x=generation, y=diversity)) +
+      geom_boxplot( aes(fill=Algorithm)) +
+      labs(x=xlab, y="Distancia promedio entre soluciones (Jaccard)", 
+           title=title, fill="Operador") +
+           #subtitle = get_test_label(stat.test, detailed = TRUE), 
+           #caption = get_pwc_label(stat.test)) +
+      scale_fill_discrete(labels=labels) +
+      theme_minimal()
+  }
+  ggsave(file.path(output.folder, paste0("diversity_evolution.png")))
+  print("plot finished!")
 }
 
 test_operator_lv1_v2 <- function(params, distances, dataset, output.folder, runs=31){
-  operators <- c("Random", "Selective", "Selective_Diverse")
-  
+  operators <- c("Random", "Selective", "Selective_Diverse", "Selective_Diverse+")
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
-    res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    res <- as.data.frame(matrix(nrow=1, ncol=8))
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
-  
+  seeds <- c()
+  count <- 1
   for(j in 1:length(operators)){
     op <- operators[j]
     output.path <- file.path(output.folder, op, dataset)
     for(i in 1:runs){
+      params$auto_adjust_initial_params <- FALSE
       print(paste0("operator ", op, " dataset ", dataset, " run ", i))
       output.exp <- file.path(output.path, i)
+      seed <- as.numeric(Sys.time())
+      seeds[count] <- seed
       if(dir.exists(output.exp)){
         next
       }
       if(op == "Random"){
-        seed <- as.numeric(Sys.time())
         P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
       }else if(op == "Selective"){
-        P  <- generate_diverse_initial_pop(distances, params, diverse_population=FALSE)
+        P  <- generate_diverse_initial_pop(distances, params, diverse_population=FALSE, seed=seed)
       }else if(op == "Selective_Diverse"){
-        P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE)
+        params$auto_adjust_initial_params <- FALSE
+        P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
+      }else if(op == "Selective_Diverse+"){
+        params$auto_adjust_initial_params <- TRUE
+        P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
       }
       
-      nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
       
+      nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder)
+      count <- count + 1
       #evaluate_solutions(P, P.clustering.groups, distances, params$K, 
       #                   params$objDim, params$obj_maximize, dirname(output.exp), 
       #                   basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
     } 
   }
+  write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
 }
 
-test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31){
+  operators <- c("Random", "Selective", "Selective_Diverse", "Selective_Diverse+")
+  if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
+    res <- as.data.frame(matrix(nrow=1, ncol=8))
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
+    write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  seeds <- c()
+  count <- 1
+  for(i in 1:runs){
+    params$auto_adjust_initial_params <- FALSE
+    print(paste0("dataset ", dataset, " run ", i))
+    seed <- as.numeric(Sys.time())
+    seeds[count:(count+4)] <- seed
+  
+    output.exp <- file.path(output.folder, "Random", dataset, i)
+    if(dir.exists(output.exp)){ next }
+    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
+    nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name="Random", base.path=output.folder)
+    
+    output.exp <- file.path(output.folder, "Selective", dataset, i)
+    if(dir.exists(output.exp)){ next }
+    params$auto_adjust_initial_params <- FALSE
+    P  <- generate_diverse_initial_pop(distances, params, diverse_population=FALSE, seed=seed)
+    nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name="Selective", base.path=output.folder)
+    
+    output.exp <- file.path(output.folder, "Selective_Diverse", dataset, i)
+    if(dir.exists(output.exp)){ next }
+    #params$auto_adjust_initial_params <- FALSE
+    P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
+    nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name="Selective_Diverse", base.path=output.folder)
+    
+    output.exp <- file.path(output.folder, "Selective_Diverse+", dataset, i)
+    if(dir.exists(output.exp)){ next }
+    params$auto_adjust_initial_params <- TRUE
+    P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
+    nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name="Selective_Diverse+", base.path=output.folder)
+    
+    count <- count + 4
+  } 
+  write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+}
+
+
+
+test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31){
   operators <- c("Crowding_Distance", "Jaccard", "NMI")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
-    res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    res <- as.data.frame(matrix(nrow=1, ncol=8))
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
@@ -208,17 +383,16 @@ test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs
       ## Population fitness selection
       if(op=="Crowding_Distance"){
         params$diversity_level <- 0
-        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }else if(op=="Jaccard"){
         params$diversity_level <- 2
         params$diversity_metric <- "jaccard"
-        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }else if(op=="NMI"){
         params$diversity_level <- 2
         params$diversity_metric <- "NMI"
-        P_next_generation <- dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
+        dnsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name=op, base.path=output.folder) 
       }
-
       
       #evaluate_solutions(P_next_generation, P.clustering.groups, distances, params$K, 
       #                   params$objDim, params$obj_maximize, dirname(output.exp), 
@@ -227,12 +401,12 @@ test_operator_lv2_v2 <- function(params, distances, dataset, output.folder, runs
   } 
 }
 
-test_operator_lv3_v2 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31){
   operators <- c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
-    res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    res <- as.data.frame(matrix(nrow=1, ncol=8))
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
@@ -271,12 +445,12 @@ test_operator_lv3_v2 <- function(params, distances, dataset, output.folder, runs
   } 
 }
 
-test_operator_lv4_v2 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31){
   operators <- c("Elitist_sync", "Diverse_sync")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
-    res <- as.data.frame(matrix(nrow=1, ncol=5))
-    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation")
+    res <- as.data.frame(matrix(nrow=1, ncol=8))
+    colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
@@ -306,325 +480,6 @@ test_operator_lv4_v2 <- function(params, distances, dataset, output.folder, runs
     }
   } 
 }
-
-test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31){
-  operators <- c("Random", "Selective", "Selective_Diverse")
-  for(j in 1:length(operators)){
-    op <- operators[j]
-    output.path <- file.path(output.folder, op, dataset)
-    for(i in 1:runs){
-      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
-      output.exp <- file.path(output.path, i)
-      if(dir.exists(output.exp)){
-        next
-      }
-      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
-      if(op == "Random"){
-        seed <- as.numeric(Sys.time())
-        P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
-      }else if(op == "Selective"){
-        P  <- generate_diverse_initial_pop(distances, params, diverse_population=FALSE)
-      }else if(op == "Selective_Diverse"){
-        P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE)
-      }
-      P.data <- cluster_data(distances, P, params$alpha)
-      P <- P.data$population
-      P.clustering.groups <- P.data$clustering.results
-      P <- evaluate_population(P, distances, P.clustering.groups, params)
-      
-      evaluate_solutions(P, P.clustering.groups, distances, params$K, 
-                         params$objDim, params$obj_maximize, dirname(output.exp), 
-                         basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
-    } 
-  }
-}
-
-test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31){
-  operators <- c("Crowding_Distance", "Jaccard", "NMI")
-  for(i in 1:runs){
-    seed <- as.numeric(Sys.time())
-    R <- generate_initial_pop(2*params$popSize, params$K, distances$n.genes, seed) 
-    R.data <- cluster_data(distances, R, params$alpha)
-    R <- R.data$population
-    R.clustering.groups <- R.data$clustering.results
-    R <- evaluate_population(R, distances, R.clustering.groups, params)
-    obj.values <- R[, (params$K+1):(params$K+params$objDim)] # Select objective values
-    R.rows <- row.names(R)
-    R <- dominance_ranking_sorting(R[, 1:params$K], obj.values) # Recalculate ranking
-    R.clustering.groups <- R.clustering.groups[match((row.names(R)), R.rows)] # Update clustering
-    row.names(R)<-1:nrow(R)
-    for(j in 1:length(operators)){
-      op <- operators[j]
-      output.path <- file.path(output.folder, op, dataset)
-      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
-      output.exp <- file.path(output.path, i)
-      if(dir.exists(output.exp)){
-        next
-      }
-      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
-      
-      ## Population fitness selection
-      if(op=="Crowding_Distance"){
-        P_next_generation <- fitness_selection_crowding_distance(R, params$popSize, params$K, front.only=TRUE) 
-      }else if(op=="Jaccard"){
-        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "jaccard", front.only=TRUE)
-      }else if(op=="NMI"){
-        P_next_generation <- fitness_selection_diversity_metric(R, R.clustering.groups, params$popSize, params$K, "NMI", front.only=TRUE)
-      }
-      P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
-      row.names(P_next_generation) <- 1:nrow(P_next_generation)
-      evaluate_solutions(P_next_generation, P.clustering.groups, distances, params$K, 
-                         params$objDim, params$obj_maximize, dirname(output.exp), 
-                         basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
-    }
-  } 
-}
-
-test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31){
-  operators <- c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
-  for(i in 1:runs){
-    seed <- as.numeric(Sys.time())
-    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
-    P.data <- cluster_data(distances, P, params$alpha)
-    P <- P.data$population
-    P.clustering.groups <- P.data$clustering.results
-    P <- evaluate_population(P, distances, P.clustering.groups, params)
-    mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
-    for(j in 1:length(operators)){
-      op <- operators[j]
-      output.path <- file.path(output.folder, op, dataset)
-      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
-      output.exp <- file.path(output.path, i)
-      if(dir.exists(output.exp)){
-        next
-      }
-      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
-      
-      
-      #if(op == "Original"){
-      #  evaluate_solutions(P, P.clustering.groups, distances, params$K, 
-      #                     params$objDim, params$obj_maximize, dirname(output.exp), 
-      #                     basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
-      #  next
-      #}
-      if(op == "Direct_Crossover"){
-        Q <- population_mating_and_mutation(mating_pool, distances$n.genes, params)
-      }else if(op == "Selective_Crossover"){
-        Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, params, P.size=params$popSize, type="selective")
-      }else if(op == "Diverse_Mutation"){
-        Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, params, P.size=params$popSize, type="mut.only")
-      }else if(op == "Combined"){
-        Q <- diverse_population_mating_and_mutation(mating_pool, distances, P.clustering.groups, params, P.size=params$popSize, type="all")
-      }else{
-        print("Operator name not found!")
-        print(op)
-        return()
-      }
-      
-      Q.data <- cluster_data(distances, Q, params$alpha)
-      Q <- Q.data$population
-      Q.clustering.groups <- Q.data$clustering.results
-      Q <- evaluate_population(Q, distances, Q.clustering.groups, params)
-      
-      evaluate_solutions(Q, Q.clustering.groups, distances, params$K, 
-                         params$objDim, params$obj_maximize, dirname(output.exp), 
-                         basename(output.exp), op, dataset, pareto.only=FALSE, plot=FALSE)
-    }
-  } 
-}
-
-test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31){
-  #operators <- c("Original", "Sync_Agent_1", "Sync_Agent_2", "Diverse_Agent_1", "Diverse_Agent_2")
-  operators <- c("Sync_Agent", "Diverse_Agent")
-  obj_indexes <- (params$K+1):(params$K+params$objDim)
-  for(i in 1:runs){
-    seed <- as.numeric(Sys.time())
-    P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed) 
-    P.data <- cluster_data(distances, P, params$alpha)
-    P <- P.data$population
-    P.clustering.groups <- P.data$clustering.results
-    P <- evaluate_population(P, distances, P.clustering.groups, params)
-    cut <- round(params$popSize/2)
-    Agent.A <- list("population"=P[1:cut, ], "clustering"=P.clustering.groups[1:cut])
-    Agent.B <- list("population"=P[(cut+1):nrow(P), ], "clustering"=P.clustering.groups[(cut+1):nrow(P)])
-    for(j in 1:length(operators)){
-      op <- operators[j]
-      output.path <- file.path(output.folder, op, dataset)
-      print(paste0("operator ", op, " dataset ", dataset, " run ", i))
-      output.exp <- file.path(output.path, i)
-      if(dir.exists(output.exp)){
-        next
-      }
-      dir.create(output.exp, showWarnings = FALSE, recursive=TRUE)
-      
-      mating_pool <- nsga2R::tournamentSelection(P, params$popSize, params$tourSize)
-      if(op == "Sync_Agent"){
-        res <- fitness_sync(Agent.A, Agent.B, params$obj_maximize, obj_indexes, cut)
-        Agent.A <- res$Agent.A
-        Agent.B <- res$Agent.B
-        op <- paste0("Sync_Agent_", 1:2)
-      }else if(op == "Diverse_Agent"){
-        res <- diverse_fitness_sync(Agent.A, Agent.B, "jaccard", obj_indexes, cut)
-        Agent.A <- res$Agent.A
-        Agent.B <- res$Agent.B
-        op <- paste0("Diverse_Agent_", 1:2)
-      }else{
-        print("Operator name not found!")
-        print(op)
-        return()
-      }
-      
-      output.path.1 <- file.path(output.folder, op[1], dataset)
-      output.path.2 <- file.path(output.folder, op[2], dataset)
-      output.exp.1 <- file.path(output.path.1, i)
-      output.exp.2 <- file.path(output.path.2, i)
-      dir.create(output.exp.1, recursive=TRUE, showWarnings = FALSE)
-      dir.create(output.exp.2, recursive=TRUE, showWarnings = FALSE)
-      evaluate_solutions(Agent.A$population, Agent.A$clustering, distances, params$K, 
-                         params$objDim, params$obj_maximize, dirname(output.exp.1), 
-                         basename(output.exp.1), op, dataset, pareto.only=FALSE, plot=FALSE)
-      evaluate_solutions(Agent.B$population, Agent.B$clustering, distances, params$K, 
-                         params$objDim, params$obj_maximize, dirname(output.exp.2), 
-                         basename(output.exp.2), op, dataset, pareto.only=FALSE, plot=FALSE)
-    }
-  }
-}
-
-
-multi.variable.tests <- function(data, metric, exp.group, dataset.name, output.path, paired=FALSE){
-  dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
-  form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
-  if(paired == FALSE){
-    res <- kruskal_test(data, formula=form) 
-  }else{
-    data$id <- as.factor(data$id)
-    data$Algorithm <- as.factor(data$Algorithm)
-    #print(data[1:20, ])
-    form.friedman <- as.formula(paste0(metric, " ~ ", exp.group, " | id"))
-    print(form.friedman)
-    res <- friedman_test(data=data, formula=form.friedman)
-    print("A")
-  }
-  pwc <- wilcox_test(data, formula=form, paired=paired, p.adjust.method="bonferroni")
-  print("B")
-  pwc <- pwc %>% add_xy_position(x = exp.group)
-  w <- 4 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
-  Y <- pwc$y.position
-  gap.data <- max(data[, metric]) - min(data[, metric])
-  gap <- max(Y[2] - Y[1], gap.data*0.07)
-  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
-  
-  ggplot(data, aes_string(x=exp.group, y=metric)) +
-    geom_boxplot(aes_string(fill=exp.group)) +
-    labs(subtitle = get_test_label(res, detailed = TRUE), 
-         caption = get_pwc_label(pwc),
-         title=paste0(metric, " comparison: ", dataset.name, " dataset")) +
-    theme_minimal() +
-    theme(strip.text.x = element_blank(),
-          axis.text.x = element_text(angle=25)) +
-    stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
-  ggsave(file.path(output.path, paste0(metric, "_results_", dataset.name, ".png")), width = w, height = 6)
-  print(paste(metric, dataset.name, "... Done."))
-}
-
-compare_pareto_front <- function(data, dataset.name, output.path){
-  library(eaf)
-  algorithms <- unique(data$Algorithm)
-  algorithms <- algorithms[!(algorithms %in% "Ideal pareto")]
-  epsilon.matrix <- matrix(0, ncol=length(algorithms),nrow = length(algorithms))
-  epsilon.matrix[lower.tri(epsilon.matrix, diag=TRUE)] <- NA
-  #IGD.matrix <- matrix(0, ncol=length(algorithms),nrow = length(algorithms))
-  for(i in 1:(length(algorithms)-1)){
-    for(j in (i+1):length(algorithms)){
-      #print(paste(i,j))
-      alg.1 <- algorithms[i]
-      alg.2 <- algorithms[j]
-      pareto.1 <- data[data$Algorithm == alg.1, 1:2]
-      pareto.2 <- data[data$Algorithm == alg.2, 1:2]
-      epsilon.matrix[i,j] <- eaf::epsilon_mult(pareto.1, pareto.2, maximise=FALSE)#epsilon_multiplicative(pareto.1, pareto.2)
-      epsilon.matrix[j,i] <- eaf::epsilon_mult(pareto.2, pareto.1, maximise=FALSE)#epsilon_multiplicative(pareto.2, pareto.1)
-      #IGD.matrix[i,j] <- inverse_generational_distance_plus(pareto.2, ideal.pareto)
-    }
-  }
-  #print("Epsilon matrix:")
-  #print(epsilon.matrix)
-  epsilon.matrix <- reshape::melt(epsilon.matrix)
-  ep.value <- round(epsilon.matrix$value,3)
-  for(i in 1:length(algorithms)){
-    epsilon.matrix[epsilon.matrix == i] <- algorithms[i]
-  #  IGD.matrix[IGD.matrix == i] <- algorithms[i]
-  }
-  # in case that a value got accidentally replaced
-  epsilon.matrix$value <- ep.value
-  
-  
-  
-  # --------- # 
-  # Calculate IGD+ distance as implemented in: https://mlopez-ibanez.github.io/eaf/reference/igd.html
-  IGD.table <- data.frame("Algoritmo"=algorithms, "IGD"=rep(0, length(algorithms)))
-  colnames(IGD.table) <- c("Algoritmo", "IGD+")
-  IGD.table$Algoritmo <- algorithms
-  ideal.pareto <- data[data$Algorithm == "Ideal pareto", 1:2]
-  for(i in 1:length(algorithms)){
-    pareto <- data[data$Algorithm == algorithms[i], 1:2]
-    IGD.table[i, "IGD+"] <- as.numeric(eaf::igd_plus(pareto, ideal.pareto, maximise=FALSE))
-    #IGD.table[i, "IGD+"] <- inverse_generational_distance_plus(pareto, ideal.pareto)
-  }
-  IGD.table[, "IGD+"] <- as.numeric(formatC(IGD.table[,"IGD+"], format = "e", digits = 2))
-  #IGD.table <- IGD.table[order(IGD.table[, "IGD+"]), ]
-  order <- order(IGD.table[, "IGD+"], decreasing=FALSE)
-  rnk <- integer(length(order))
-  i <- 1
-  while (i <= length(order)) {
-    rnk[order[[i]]] <- i
-    i <- i + 1
-  } 
-  IGD.table$Algoritmo <- paste0(algorithms, " (", rnk, ")")
-  print("IGD table:")
-  print(IGD.table)
-  
-  #par(mfrow = c(1, 2))
-  p1 <- ggplot(epsilon.matrix, aes(x=X1, y=X2, fill=value)) + 
-    geom_tile()+
-    geom_text(aes(label = round(value, 2))) +
-    scale_fill_gradient(low = "white", high = "red") +
-    labs(title="Multiplicative Epsilon") +
-    theme_minimal() +
-    theme(axis.title.x = element_blank()) +
-    theme(axis.title.y = element_blank()) +
-    theme(
-      plot.title = element_text(size=8),
-      axis.text.x = element_text(size=6, angle=25),
-      axis.text.y = element_text(size=6)
-    )
-  p2 <- tableGrob(IGD.table, rows = NULL)
-  #p2 <- ggplot(IGD.matrix, aes(x=X1, y=X2, fill=value)) + 
-  #  geom_tile()+
-  #  geom_text(aes(label = round(value, 3))) +
-  #  scale_fill_gradient(low = "white", high = "red") +
-  #  labs(title="Modified Inverted Generational Distance (IGD+)") +
-  #  theme_minimal() +
-  #  theme(axis.title.x = element_blank()) +
-  #  theme(axis.title.y = element_blank()) +
-  #  theme(
-  #    plot.title = element_text(size=8),
-  #    axis.text.x = element_text(size=6),
-  #    axis.text.y = element_text(size=6)
-  #  )
-  #grid.arrange(p1, p2, ncol=2, top="Comparaci\U00F3n entre fronteras de pareto")
-  #tg <- textGrob('Title', gp = gpar(fontsize = 13, fontface = 'bold'))
-  sg <- grid::textGrob(paste0("Dataset ", dataset.name), gp = grid::gpar(fontsize = 9))
-  dir.create(output.path, showWarnings = FALSE, recursive = TRUE)
-  ggsave(file.path(output.path, paste0("pareto_comparison_", dataset.name, ".png")), 
-         arrangeGrob(p1, p2, widths = c(5, 4), nrow=1, 
-                     top="Comparaci\U00F3n entre fronteras de pareto", 
-                     bottom=sg), 
-         height=2.5, width=6)
-  #par(mfrow = c(1, 1))
-  #grid.arrange(p1, p2, nrow = 1)
-}
-
-
 
 ## Gives count, mean, standard deviation, standard error of the mean, and confidence interval (default 95%).
 ##   data: a data frame.
@@ -663,5 +518,52 @@ summarySE <- function(data=NULL, measurevar, groupvars=NULL, na.rm=FALSE,
   return(datac)
 }
 
+summarySEwithin <- function(data=NULL, measurevar, betweenvars=NULL, withinvars=NULL,
+                            idvar=NULL, na.rm=FALSE, conf.interval=.95, .drop=TRUE) {
+  
+  # Ensure that the betweenvars and withinvars are factors
+  factorvars <- vapply(data[, c(betweenvars, withinvars), drop=FALSE],
+                       FUN=is.factor, FUN.VALUE=logical(1))
+  
+  if (!all(factorvars)) {
+    nonfactorvars <- names(factorvars)[!factorvars]
+    message("Automatically converting the following non-factors to factors: ",
+            paste(nonfactorvars, collapse = ", "))
+    data[nonfactorvars] <- lapply(data[nonfactorvars], factor)
+  }
+  
+  # Get the means from the un-normed data
+  datac <- summarySE(data, measurevar, groupvars=c(betweenvars, withinvars),
+                     na.rm=na.rm, conf.interval=conf.interval, .drop=.drop)
+  
+  # Drop all the unused columns (these will be calculated with normed data)
+  datac$sd <- NULL
+  datac$se <- NULL
+  datac$ci <- NULL
+  
+  # Norm each subject's data
+  ndata <- normDataWithin(data, idvar, measurevar, betweenvars, na.rm, .drop=.drop)
+  
+  # This is the name of the new column
+  measurevar_n <- paste(measurevar, "_norm", sep="")
+  
+  # Collapse the normed data - now we can treat between and within vars the same
+  ndatac <- summarySE(ndata, measurevar_n, groupvars=c(betweenvars, withinvars),
+                      na.rm=na.rm, conf.interval=conf.interval, .drop=.drop)
+  
+  # Apply correction from Morey (2008) to the standard error and confidence interval
+  #  Get the product of the number of conditions of within-S variables
+  nWithinGroups    <- prod(vapply(ndatac[,withinvars, drop=FALSE], FUN=nlevels,
+                                  FUN.VALUE=numeric(1)))
+  correctionFactor <- sqrt( nWithinGroups / (nWithinGroups-1) )
+  
+  # Apply the correction factor
+  ndatac$sd <- ndatac$sd * correctionFactor
+  ndatac$se <- ndatac$se * correctionFactor
+  ndatac$ci <- ndatac$ci * correctionFactor
+  
+  # Combine the un-normed means with the normed results
+  merge(datac, ndatac)
+}
 
 compare_operators()

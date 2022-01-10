@@ -116,7 +116,7 @@ test_best_configurations_paired <- function(){
   for(i in 1:trials){
     seed <- as.numeric(Sys.time())
     if(dataset=="arabidopsis" || dataset=="sporulation"){
-      P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE)
+      P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
     }else{
       P <- generate_initial_pop(pop.size, K, distances$n.genes, seed) 
     }
@@ -150,11 +150,11 @@ test_best_configurations_paired <- function(){
       dir.create(output.exp, showWarnings = FALSE, recursive = TRUE)
       print(paste("Algorithm", algorithm, "dataset", dataset, "run", i, "..."))
       if(algorithm == "dmnsga2"){
-        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else if(algorithm == "dnsga2"){
-        res <- dnsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- dnsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else if(algorithm == "nsga2"){
-        res <- nsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else{
         print("Algorithm not supported!!")
       }
