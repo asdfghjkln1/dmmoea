@@ -552,7 +552,6 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   if(debug){
     print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
     print(P)
-    print(P.clustering.groups[1:10])
     #Log(P)
     #Log(P.clustering.groups[1:10])
     sink(type="output") 
@@ -2330,7 +2329,6 @@ get_normalization_limits <- function(base.path){
       for(k in 1:length(experiments)){
         exp.name <- experiments[k] #strsplit(basename(experiments[f]), "\\(")[[1]][1]
         if(!file.exists(exp.name, paste0(basename(exp.name), ".csv"))){ next }
-        print(paste0("Aaaaaaa experiment ", basename(exp.name), ".csv"))
         #pareto[[f]] <- read.csv(file.path(experiments[f], paste0(exp.name, ".csv")), header = FALSE)
         pareto <- read.table(file.path(exp.name, paste0(basename(exp.name), ".csv")), sep=",", header = FALSE, row.names=NULL)
         max.values <- apply(pareto, 2, max)
