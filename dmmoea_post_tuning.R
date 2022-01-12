@@ -113,7 +113,7 @@ test_best_configurations_paired <- function(){
     params$density_tol <- best_params$density_tol
   }
   ##
-  seeds <- data.frame("id"=rep(1:trial), "dataset"=rep(dataset, trials), "seed"=rep(NA, trials))
+  seeds <- data.frame("id"=rep(1:trials), "dataset"=rep(dataset, trials), "seed"=rep(NA, trials))
   for(i in 1:trials){
     seed <- as.numeric(Sys.time())
     seeds[i, "seed"] <- seed

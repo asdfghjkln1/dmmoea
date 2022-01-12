@@ -128,6 +128,7 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
   #install.packages("ggtext")
   library(ggtext)
   data <- data[as.numeric(data$generation) <= 20, ]
+  last.gen <- max(as.numeric(data$generation))
   #data$generation <- as.factor(data$generation)
   #form <- as.formula("diversity ~ Algorithm")
   #if(metric=="NMI"){
@@ -137,33 +138,32 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
   xlab <- "Generaci\U00F3n"
   if(exp.name == "lv1"){
     title <- "Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial"
+    title_2 <- "Calidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial"
     labels <- c("Random", "Densidad", "Densidad diverso", "Densidad diverso modif.")
     data$Algorithm <- factor(data$Algorithm, levels = c("Random", "Selective", "Selective_Diverse", "Selective_Diverse+"))
-    print(levels(data$Algorithm))
   }else if(exp.name == "lv2"){
     #print(head(data))
-    title <- "Diversidad en DNSGA-II seg\U00FAn operador de selecci\U00F3n"
+    title <- "Diversidad en NSGA-II seg\U00FAn operador de selecci\U00F3n"
     labels <- c("Crowding distance", "Jaccard", "NMI")
+    title_2 <- "Calidad en NSGA-II seg\U00FAn operador de selecci\U00F3n"
     data$Algorithm <- factor(data$Algorithm, levels = c("Crowding_Distance", "Jaccard", "NMI"))
-    print(levels(data$Algorithm))
   }else if(exp.name == "lv3"){
     title <- "Diversidad en NSGA-II seg\U00FAn operador de cruzamiento y mutaci\U00F3n"
+    title_2 <- "Calidad en NSGA-II seg\U00FAn operador de cruzamiento y mutaci\U00F3n"
     labels <- c("Uniforme", "Crossover diverso", "Mutaci\U00F3n diversa", "Combinado")
     data$Algorithm <- factor(data$Algorithm, levels = c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined"))
-    print(levels(data$Algorithm))
   }else if(exp.name == "lv4"){
     xlab <- "Fase de comunicaci\U00F3n"
     title <- "Diversidad en DMNSGA-II seg\U00FAn operador de comunicaci\U00F3n"
+    title_2 <- "Calidad en DMNSGA-II seg\U00FAn operador de comunicaci\U00F3n"
     labels <- c("Sincr. elitista (intra-agente)", "Sincr. elitista (inter-agente)", "Sincr. diversa (intra-agente)", "Sincr. diversa (inter-agente)")
     data$Algorithm <- factor(data$Algorithm, levels = c("Elitist_sync_within","Elitist_sync_between", "Diverse_sync_within", "Diverse_sync_between"))
-    print(levels(data$Algorithm))
+    data.sil <- data[!(data$Algorithm %in% c("Elitist_sync_between", "Diverse_sync_between")), ]
   }
   if(exp.name == "lv2"){
     data.2 <-  data[data$generation <= 10, ]
     data.2$generation <- as.factor(data.2$generation)
-    print(head(data.2))
     data.2 <- gather(data.2, Resultado, Soluciones, survived:discarded, factor_key=TRUE)
-    print(head(data.2))
     data.2$Algorithm <- factor(data.2$Resultado, levels=c("survived", "discarded"))
     ggplot(data.2, aes(x=generation, y=Soluciones, fill=Resultado, group=Resultado)) +
       geom_bar(stat="summary", fun="median", position="stack") +
@@ -174,26 +174,36 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
     theme_minimal()
     ggsave(file.path(output.folder, "survival_selection.png"))
   }
-  if(exp.name == "lv1"){
-    data.sil <- summarySE(data, measurevar="silhouette", groupvars=c("Algorithm","generation"))
-    print(head(data.sil))
-    pd <- position_dodge(0.3)
-    ggplot(data.sil, aes(x=generation, y=silhouette, colour=Algorithm, group=Algorithm)) +
-      geom_line(position=pd) +
-      geom_point(position=pd) +
-      geom_errorbar(aes(ymin=silhouette-ci, ymax=silhouette+ci), width=.1, position=pd) +
-      labs(x=xlab, y="Promedio coeficiente silueta", 
-           title="Diversidad en NSGA-II seg\U00FAn operador de poblaci\U00F3n inicial", 
-           colour="Operador") +
-      scale_colour_discrete(labels=labels) +
-      #subtitle = get_test_label(res, detailed = TRUE), 
-      #caption = get_pwc_label(pwc)) +
-      theme_minimal()
-    print(output.folder)
-    ggsave(file.path(output.folder, paste0("quality_evolution.png")))
-  }
   
-  data.se <- summarySE(data, measurevar="diversity", groupvars=c("Algorithm","generation"))
+  if(exp.name == "lv4"){
+    data.sil$Algorithm <- factor(data.sil$Algorithm, levels = c("Elitist_sync_within","Diverse_sync_within"))
+    data.se.sil <- summarySE(data.sil, measurevar="silhouette", groupvars=c("Algorithm","generation"))
+    labels.sil <- c("Sincronizaci\U00F3n elitista", "Sincronizaci\U00F3n diversa")
+  }else{
+    data.sil <- data
+    data.se.sil <- summarySE(data, measurevar="silhouette", groupvars=c("Algorithm","generation"))
+    labels.sil <- labels
+  }
+  pvalues <- pairwise_t_test(data.sil[data.sil$generation == last.gen, ], silhouette ~ Algorithm, paired = TRUE, p.adjust.method = "bonferroni")
+  print("P-VALUES QUALITY:")
+  print(pvalues)
+  labels_test <- paste0(pvalues$group1, " - ", pvalues$group2, " (P-value: ", pvalues$p.adj, ")\n")#, fill=is.signif.color)
+  print(labels_test)
+  
+  pd <- position_dodge(0.3)
+  ggplot(data.se.sil, aes(x=generation, y=silhouette, colour=Algorithm, group=Algorithm)) +
+    geom_line(position=pd) +
+    geom_point(position=pd) +
+    geom_errorbar(aes(ymin=silhouette-ci, ymax=silhouette+ci), width=.1, position=pd) +
+    labs(x=xlab, y="Promedio coeficiente silueta", 
+         title=title_2, 
+         colour="Operador") +
+    scale_colour_discrete(labels=labels.sil) +
+    #subtitle = get_test_label(res, detailed = TRUE), 
+    #caption = get_pwc_label(pwc)) +
+    theme_minimal()
+  ggsave(file.path(output.folder, paste0("quality_evolution.png")))
+  
   #data.se$generation <- as.integer(data.se$generation)
   #data.se$Algorithm <- as.factor(data.se$Algorithm)
   #stat.test <- data %>%
@@ -225,12 +235,12 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
   #pvalues <- pvalues %>% add_xy_position(x = Algorithm)
   #pvalues <- as.data.frame(pvalues)
   #pvalues$y.position <- rep(50, 20)
-  print(head(data))
+  data.se <- summarySE(data, measurevar="diversity", groupvars=c("Algorithm","generation"))
   last.gen <- max(as.numeric(data$generation))
   pvalues <- pairwise_t_test(data[data$generation == last.gen, ], diversity ~ Algorithm, paired = TRUE, p.adjust.method = "bonferroni")
+  print("P-VALUES DIVERSITY:")
   print(pvalues)
   labels_test <- paste0(pvalues$group1, " - ", pvalues$group2, " (P-value: ", pvalues$p.adj, ")\n")#, fill=is.signif.color)
-  print("P-VALUES:")
   print(labels_test)
   #box.df <- data.frame( label = labels_test, x = 20, y = 1, hjust = 0,
   #  vjust = 1, orientation = "upright", color = "black", fill = "cornsilk")

@@ -128,7 +128,7 @@ run_tmix_clust <- function(distances, params, output.exp, limits, debug=TRUE){
   }
   D <- as.data.frame(distances$data.matrix)
   D.exp <- distances$exp.dist
-  params$popSize <- 3
+  params$popSize <- round(params$popSize/10)
   population <- as.data.frame(matrix(nrow=params$popSize, ncol=params$K))
   clustering.groups <- list()
   i <- 1

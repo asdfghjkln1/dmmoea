@@ -56,28 +56,63 @@ compare_algorithms <- function(){
   }
 }
 
-kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset.name, output.path){
+kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, output.path){
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
   pwc <- pwc %>% add_xy_position(x = exp.group)
-  w <- 4 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
+  w <- 3.5 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
   Y <- pwc$y.position
   gap.data <- max(data[, metric]) - min(data[, metric])
   gap <- max(Y[2] - Y[1], gap.data*0.07)
   pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
-  
+  if(dataset == "arabidopsis"){
+    dataset.name = "Arabidopsis"
+  }else if(dataset == "cell_cycle"){
+    dataset.name = "Cell Cycle"
+  }else if(dataset == "serum"){
+    dataset.name = "Serum"
+  }else if(dataset == "sporulation"){
+    dataset.name = "Sporulation"
+  }
+
+  if(metric == "Diversity"){
+    text.title <- paste0("Diversidad: ", dataset.name)
+  }else if(metric == "Hypervolume"){
+    text.title <- paste0("Hipervolumen: ", dataset.name)
+  }else if(metric == "Cluster_Ratio"){
+    text.title <- paste0("Cociente de cluster: ", dataset.name)
+  }else if(metric == "Silhouette"){
+    text.title <- paste0("Silueta: ", dataset.name)
+  }else if(metric == "Delta"){
+    text.title <- paste0("Delta: ", dataset.name)
+  }
+  data$Algorithm <- factor(data$Algorithm, levels=c("dsga2", "dnsga2", "dmnsga2"))
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
-    labs(subtitle = get_test_label(kruskal.res, detailed = TRUE), 
+    labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
          caption = get_pwc_label(pwc),
-         title=paste0(metric, " comparison: ", dataset.name, " dataset")) +
+         fill="Algoritmo",
+         title=text.title) +
     theme_minimal() +
-    theme(strip.text.x = element_blank(), axis.text.x = element_text(angle=25)) +
+    scale_fill_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II")) +
+    theme(strip.text.x = element_blank(), 
+          axis.text.x = element_blank(),#element_text(angle=25),
+          legend.position="bottom", 
+          plot.subtitle=element_text(size=11),
+          #legend.spacing.x = unit(0, 'cm'),
+          axis.title.x=element_blank()) +
+    guides(fill = guide_legend(label.position = "bottom")) +
     stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
-  ggsave(file.path(output.path, paste0(metric, "_results_", dataset.name, ".png")), width = w, height = 6)
-  print(paste(metric, dataset.name, "... Done."))
+  if(data[1,4] == "NMI"){
+    ggsave(file.path(output.path, paste0(metric, "_results_", dataset, "_NMI.png")), width = w, height = 7)
+  }else if(data[1,4] == "jaccard"){
+    ggsave(file.path(output.path, paste0(metric, "_results_", dataset, "_jaccard.png")), width = w, height = 7)
+  }else{
+    ggsave(file.path(output.path, paste0(metric, "_results_", dataset, ".png")), width = w, height = 7) 
+  }
+  print(paste(metric, dataset, "... Done."))
 }
 
 compare_pareto_front <- function(data, dataset.name, output.path){
@@ -86,7 +121,6 @@ compare_pareto_front <- function(data, dataset.name, output.path){
   algorithms <- algorithms[!(algorithms %in% "Ideal pareto")]
   epsilon.matrix <- matrix(0, ncol=length(algorithms),nrow = length(algorithms))
   epsilon.matrix[lower.tri(epsilon.matrix, diag=TRUE)] <- NA
-  #IGD.matrix <- matrix(0, ncol=length(algorithms),nrow = length(algorithms))
   for(i in 1:(length(algorithms)-1)){
     for(j in (i+1):length(algorithms)){
       #print(paste(i,j))
@@ -99,17 +133,12 @@ compare_pareto_front <- function(data, dataset.name, output.path){
       #IGD.matrix[i,j] <- inverse_generational_distance_plus(pareto.2, ideal.pareto)
     }
   }
-  #print("Epsilon matrix:")
-  #print(epsilon.matrix)
   epsilon.matrix <- reshape::melt(epsilon.matrix)
   ep.value <- round(epsilon.matrix$value,3)
   for(i in 1:length(algorithms)){
     epsilon.matrix[epsilon.matrix == i] <- algorithms[i]
-  #  IGD.matrix[IGD.matrix == i] <- algorithms[i]
   }
-  # in case that a value got accidentally replaced
   epsilon.matrix$value <- ep.value
-  
   
   
   # --------- # 
@@ -124,7 +153,6 @@ compare_pareto_front <- function(data, dataset.name, output.path){
     #IGD.table[i, "IGD+"] <- inverse_generational_distance_plus(pareto, ideal.pareto)
   }
   IGD.table[, "IGD+"] <- as.numeric(formatC(IGD.table[,"IGD+"], format = "e", digits = 2))
-  #IGD.table <- IGD.table[order(IGD.table[, "IGD+"]), ]
   order <- order(IGD.table[, "IGD+"], decreasing=FALSE)
   rnk <- integer(length(order))
   i <- 1
@@ -132,16 +160,22 @@ compare_pareto_front <- function(data, dataset.name, output.path){
     rnk[order[[i]]] <- i
     i <- i + 1
   } 
-  IGD.table$Algoritmo <- paste0(algorithms, " (", rnk, ")")
-  print("IGD table:")
-  print(IGD.table)
   
+  algorithms[algorithms == "nsga2"] <- "NSGA-II"
+  algorithms[algorithms == "dnsga2"] <- "DNSGA-II"
+  algorithms[algorithms == "dmnsga2"] <- "DMNSGA-II"
+  epsilon.matrix[epsilon.matrix == "nsga2"] <- "NSGA-II"
+  epsilon.matrix[epsilon.matrix == "dnsga2"] <- "DNSGA-II"
+  epsilon.matrix[epsilon.matrix == "dmnsga2"] <- "DMNSGA-II"
+  
+  IGD.table$Algoritmo <- paste0(algorithms, " (", rnk, ")")
+
   #par(mfrow = c(1, 2))
   p1 <- ggplot(epsilon.matrix, aes(x=X1, y=X2, fill=value)) + 
     geom_tile()+
     geom_text(aes(label = round(value, 2))) +
     scale_fill_gradient(low = "white", high = "red") +
-    labs(title="Multiplicative Epsilon") +
+    labs(title="Epsilon Multiplicativo") +
     theme_minimal() +
     theme(axis.title.x = element_blank()) +
     theme(axis.title.y = element_blank()) +
@@ -151,30 +185,13 @@ compare_pareto_front <- function(data, dataset.name, output.path){
       axis.text.y = element_text(size=6)
     )
   p2 <- tableGrob(IGD.table, rows = NULL)
-  #p2 <- ggplot(IGD.matrix, aes(x=X1, y=X2, fill=value)) + 
-  #  geom_tile()+
-  #  geom_text(aes(label = round(value, 3))) +
-  #  scale_fill_gradient(low = "white", high = "red") +
-  #  labs(title="Modified Inverted Generational Distance (IGD+)") +
-  #  theme_minimal() +
-  #  theme(axis.title.x = element_blank()) +
-  #  theme(axis.title.y = element_blank()) +
-  #  theme(
-  #    plot.title = element_text(size=8),
-  #    axis.text.x = element_text(size=6),
-  #    axis.text.y = element_text(size=6)
-  #  )
-  #grid.arrange(p1, p2, ncol=2, top="Comparación entre fronteras de pareto")
-  #tg <- textGrob('Title', gp = gpar(fontsize = 13, fontface = 'bold'))
   sg <- grid::textGrob(paste0("Dataset ", dataset.name), gp = grid::gpar(fontsize = 9))
   dir.create(output.path, showWarnings = FALSE, recursive = TRUE)
   ggsave(file.path(output.path, paste0("pareto_comparison_", dataset.name, ".png")), 
          arrangeGrob(p1, p2, widths = c(5, 4), nrow=1, 
-                     top="Comparación entre fronteras de pareto", 
+                     top="Comparaci\U00F3n entre fronteras de pareto", 
                      bottom=sg), 
          height=2.5, width=6)
-  #par(mfrow = c(1, 1))
-  #grid.arrange(p1, p2, nrow = 1)
 }
 
 
