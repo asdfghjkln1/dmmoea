@@ -46,6 +46,10 @@ if(!require(anticlust)){
   install.packages("anticlust", lib=lib)
   library(anticlust, lib.loc=lib)
 }
+if(!require(scclust)){
+  install.packages("scclust", lib=lib)
+  library(scclust, lib.loc=lib)
+}
 if(!require(ggpubr)){
   install.packages("ggpubr", lib=lib)
   library(ggpubr, lib.loc=lib)

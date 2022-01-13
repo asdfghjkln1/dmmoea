@@ -1,0 +1,2480 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Warning: Assuming 'mu = firstTest' because 'mu' cannot be lower than 'firstTest'
+# 2021-12-24 13:27:20 -03: RNGkind: Mersenne-Twister Inversion Rejection
+# 2021-12-24 13:27:20 -03: .Random.seed: 10403, 624, -2104114841, -299558276, -1333100211, -389581910, -62832349, -1850544120, -1300062615, 856502038, -1140272481, -664683436, -114814139, -1588138174, -1945767461, 1608895328, 1102560225, -1332944850, 1751112407, 1303783724, -1541262275, 1615326682, -1366849133, 773366200, -878192551, 1941816390, 372488719, 569229572, -13319115, -814952590, 1880942667, 658297616, 1434244049, -1618461858, -428257209, 142599132, 819438381, -1289489398, 993586691, 1051705192, -555970999, 941663606, 1073839487, -770707020, -138497755, -1009271902, -2081785157, 96126656, -647436351, 1418158734, -218553929, 1508723340, 1515834909, -1216444870, -480481677, 823347480, -1874870215, -2146905434, -865526545, 596856420, 1179965973, 2065347538, -1554667221, -832919952, 2138765233, 1270699454, -1716105433, -1473684164, 538424589, -1673878422, -1179055389, 698236616, -1682936279, 269044694, -1675519905, 1409472276, 1111899909, -495405054, 872772507, 1658286624, -1989016671, -568519442, 1816647831, 874453996, 1832933373, 419122842, 315999059, -1284792200, -993159143, -1586163450, 1302458319, 1403620292, 648142837, 133482546, -1788814837, 1672227280, -1194521711, 1901699102, -234570233, -914782564, 146978541, -1641839414, -184969277, 1884712488, -956940791, 308224566, -1390337217, 1972530292, 37141733, 1246880866, -1869685637, -535573120, 1053495169, -1478101170, 402915191, 1856216396, -2058497571, -2066331910, -2010413005, -923162664, 1162436601, -1785036954, 613823151, 529037604, -1483483691, -1995240302, -931759381, 101276976, -1402269839, -1862985090, -1591960345, 348676092, 827369677, 1056347434, -2043505501, -1666167416, -1163526679, -491116394, 733486623, 2048307668, -1660409147, 1417363650, 700364123, -767043360, -496235679, -663090770, -1780115881, 1204997804, 117062589, -2027458726, -1433027309, -241869000, 1772820441, 1712397766, -1208097393, 545789572, 211991477, 495812850, 1523485643, -1068875632, 21824337, -148388642, -1263146041, -563222180, -1673950547, -1865689718, 580649347, -1534862104, 1287105993, 1890737910, -1398896385, -790124748, -1271756635, 1712114978, 734854715, 2051773504, 1498216257, 1651592206, -509305545, -1442533364, 314414493, 939968442, -45325837, 420923032, 99270585, 1752230950, 1251018863, 469787620, -716795499, -260299438, 111217835, -1991846928, 1516955441, -1131831490, -1769428313, 650257084, 133520525, 834356714, -1687298461, -374793144, -819769943, -136329898, -1601412129, 358435988, 623761029, -266434174, 1592899355, 83296160, -2073701599, 73645678, 1392055319, 730939756, -2062557315, 999051290, 528971475, -1755980296, 1778407321, 1045555846, -83387569, 55140676, -1124640907, 955709874, 572915083, 1138169680, 1455209233, -978146914, 206363015, -1709372388, -285467027, 1272768074, -572511421, 972557224, 266395017, -2466890, 1413066431, 248488436, 158471269, 1875408354, 660922363, -1960699136, 1085185793, 1223254222, -1650787593, 248545996, -160884387, -1043330950, -864093261, 808101208, 1642323833, -716433178, -1004954065, -205844828, -1154675371, 974519826, -1617600917, -1093465424, -1858437391, -1019550722, 934967399, -1864981124, -2017079219, -1790396758, -215291869, -817321208, 1491623273, 1547313686, -262248033, -1332304044, -1233698235, 1847759426, -2057406245, 296019552, 1730108129, -2036714706, -784182825, 1109029932, -1153350851, -2031488806, -613748589, 325917880, 898455385, 1727493958, 2088702223, 917335044, 56603445, 1123103346, 220671819, -1257066992, -1596181807, 834293342, -1769371833, 256306908, -993365459, 1343665930, 8787203, 1332935272, 1882312009, 748099702, 2041746559, 436886708, -1112186843, -2142970206, 353796539, -1990762048, -860879167, -535939698, 1504123063, 1606882700, -468689635, -755889862, 1065571699, -587906024, -1460355271, 2028733862, -688917521, 1098414436, 84363541, -1365207342, -1793888213, -848428688, 412735153, 1506339006, 41027111, -976885700, 1417806861, 1247733610, 1193914851, -867239480, -1749734103, -594985258, -789696673, -1769815532, -324768251, 1195858690, 247790235, -820933344, 1113105057, 1138583534, -25079913, -1372690708, 1028548349, 2046841242, 134228563, -1801774216, -65923303, -591281146, 1646544591, -1250675004, 1805373173, -465818830, -40754933, -1698888496, -2023003503, 1342092062, -1322519289, 279679388, -1587247635, -566671414, 609074883, -1011570392, -1922401015, 598250806, -1295435201, -1655187596, 1287416805, 1883375458, 1185014651, -1414829952, -1794036095, 1822411342, -477563273, 531130444, 1332961501, -601044486, 1612279603, -1372151080, -354590983, -1341083034, -1999369809, 1610130468, 513098965, 1457254290, -1462025749, -1680361424, 2018045553, -185356930, 879711207, -128980228, -773195827, -239216598, 287980451, 528222344, -1958101783, 93133718, -1208240865, -773743404, 594893253, -1270029374, 753220699, -738397216, -1915639199, -521315154, -2005529257, 1384978860, 1593264829, -443583910, -1895357421, 161471032, -1387358503, 1550897350, -1850262385, 979222916, 1097575093, -2053643278, -1792617781, 999693200, 1915380305, -180365346, 2046042823, 822801500, -930457171, -150693750, -1560860541, 897390568, 1196092617, -774974986, 1430102015, 58200628, -230213723, -662704094, -842595013, -388092096, -242084287, -211935474, -922708937, -1858831604, 1817322653, 239094458, -134133517, -223428200, -144851271, -1753604314, -1618616465, 1778093796, 865534101, -74971054, 1554830251, -791662864, -133708239, -914673090, -881696345, 456437180, 599632781, -333084438, -1964210845, -946874552, -211415895, 604354646, -616105249, 762525588, 1990854021, -1376572286, -780190181, 1999051424, -2125827551, -1031138962, -589264105, -772371348, 872148605, 1515672346, 440393171, 557537528, -117254503, 1657052550, -1325927857, 1076497476, -1869658507, 1338268850, 900023435, -1638010288, -1999037935, -1237468002, -828239737, -1020979428, 1039920493, 1530440010, -1774038461, 59524776, 1033051273, -473313610, 1993328063, 1999310068, -1441414299, 297703650, 2084955899, -139479552, -101532159, 956904398, 1473114615, -1221898804, 778872925, 1508674426, -1862606157, -1189240744, 1580588665, 199773158, -1597672145, 977353124, 801930325, 627368210, -230152853, -753441360, -1617535503, -870353154, -2059718809, -516673412, 767369037, 1515583914, -1372549341, -2092276216, 1338645609, 1152587030, 814743711, 871862868, -1040027323, -319146686, -1370292261, -816840352, 344127969, 225674798, 696305879, -1893023956, -1877192131, 689435610, 325736339, 1244501944, 1324275289, 746400326, 631662607, 26810116, 616997429, 729912690, 13465163, -1982559984, -1288203823, -407346850, 1291173447, -642123300, -981909203, -1953138166, -672187389, 1285698920, -805106615, -967210122, -314594433, -483342412, 803737381, 884867490, -471955269, 1323302080, -2047662655, -1033828210, -1649340489, 1414324364, 1233316893, 1878101050, 1959148659, -800899304, 1864744505, -1441056602, -766326033, 1804182628, -1091192811, 489847250, 1802319659, -915579792, 917812657, -1314882626, -544621273, -1123126468, -1817685235, 487533162, 884365539, -781470520, -533337047, 877998550, 1838597727, 808365332, -1589732091, -366871038, 891322779, -1288198112, -12893791, -1503020306, 1544996503, -1393970708, 119043581, 1653691546, -1538879149, -1288268168, -556624359, -1235585274, 360881615, 2037047748, -1982743051, -1047556558, -664836085, -2068193328, -1727673967, -1636841954, 1387211783, 1200200860, -490580755, -925168950, 29222339, -276896728, 509262857, -1505884106, 1313689919, -230079884, -8512795, 440281698, 1448143483, 623838080, 760434049, -735732402
+# 2021-12-24 13:27:20 -03: Initialization
+# Elitist race
+# Elitist new instances: 1
+# Elitist limit: 2
+# nbIterations: 5
+# minNbSurvival: 1
+# nbParameters: 12
+# seed: 12315
+# confidence level: 0.95
+# budget: 1200
+# mu: 20
+# deterministic: FALSE
+
+# 2021-12-24 13:27:21 -03: Iteration 1 of 5
+# experimentsUsedSoFar: 0
+# remainingBudget: 1200
+# currentBudget: 240
+# nbConfigurations: 9
+# 2021-12-24 13:27:21 -03: Sample 9 configurations from uniform distribution
+# 2021-12-24 13:27:21 -03: Configurations for the race n 1 (elite configurations listed first, then new configurations):
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1    1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2    2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3    3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4    4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5    5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6    6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7    7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8    8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9    9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+1   0.5                    0            0.05               NA              NA
+2   0.5                    1            0.05               NA              NA
+3   0.5                    0            0.05               NA              NA
+4   0.5                    0            0.05               NA              NA
+5   0.5                    0            0.05               NA              NA
+6   0.5                    1            0.05               NA              NA
+7   0.5                    1            0.05               NA              NA
+8   0.5                    1            0.05               NA              NA
+9   0.5                    1            0.05               NA              NA
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                         NA     NA     NA              NA                 NA
+2                         NA     NA     NA              NA                 NA
+3                         NA     NA     NA              NA                 NA
+4                         NA     NA     NA              NA                 NA
+5                         NA     NA     NA              NA                 NA
+6                         NA     NA     NA              NA                 NA
+7                         NA     NA     NA              NA                 NA
+8                         NA     NA     NA              NA                 NA
+9                         NA     NA     NA              NA                 NA
+  max_density_radius density_tol sync_off .PARENT.
+1                 NA          NA       NA       NA
+2                 NA          NA       NA       NA
+3                 NA          NA       NA       NA
+4                 NA          NA       NA       NA
+5                 NA          NA       NA       NA
+6                 NA          NA       NA       NA
+7                 NA          NA       NA       NA
+8                 NA          NA       NA       NA
+9                 NA          NA       NA       NA
+# 2021-12-24 13:27:21 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|          1|          9|          1|    0.000000000|          9|00:09:20|   NA|  NA|    NA|
+|x|          2|          9|          1|-0.0004820439195|         18|00:12:29|+0.00|0.50|0.4444|
+|x|          3|          9|          1|-0.0003213626130|         27|00:04:24|-0.06|0.29|0.6296|
+|x|          4|          9|          1|-0.0002410219598|         36|00:13:19|-0.04|0.22|0.4630|
+|x|          5|          9|          1|-0.0003856351356|         45|00:12:59|+0.12|0.30|0.4667|
+|x|          6|          9|          1|-0.0003213626130|         54|00:12:47|+0.10|0.25|0.4000|
+|x|          7|          9|          1|-0.0002754536683|         63|00:04:25|+0.12|0.25|0.4444|
+|x|          8|          9|          1|-0.0002410219598|         72|00:10:10|+0.11|0.22|0.3968|
+|x|          9|          9|          1|-0.0002142417420|         81|00:12:45|+0.09|0.19|0.3580|
+|x|         10|          9|          1|-0.0001928175678|         90|00:10:00|+0.08|0.17|0.3259|
+|x|         11|          9|          2|  -0.5742649040|         99|00:04:23|+0.13|0.21|0.3515|
+|x|         12|          9|          1|-0.0002410219598|        108|00:12:13|+0.15|0.22|0.3788|
+|x|         13|          9|          1|-0.0002224818090|        117|00:13:05|+0.14|0.20|0.3547|
+|x|         14|          9|          2|  -0.6016108518|        126|00:04:32|+0.16|0.22|0.3712|
+|x|         15|          9|          2|  -0.5615034617|        135|00:10:17|+0.15|0.21|0.3513|
+|x|         16|          9|          1|-0.0002410219598|        144|00:12:16|+0.17|0.22|0.3704|
+|x|         17|          9|          2|  -0.6193052886|        153|00:04:16|+0.19|0.24|0.3824|
+|x|         18|          9|          2|  -0.5848994392|        162|00:09:58|+0.18|0.22|0.3660|
+|x|         19|          9|          1|-0.0002537073261|        171|00:12:22|+0.19|0.23|0.3801|
+|-|         20|          2|          1|-0.0002410219598|        180|00:12:43|-0.05|0.00|0.2632|
+|x|         21|          2|          1|-0.0002754536683|        182|00:05:06|-0.05|0.00|0.2738|
+|x|         22|          2|          1|-0.0002629330470|        184|00:05:34|-0.04|0.00|0.2608|
+|x|         23|          2|          1|-0.0002515011754|        186|00:01:58|-0.05|0.00|0.2727|
+|x|         24|          2|          1|-0.0002410219598|        188|00:04:20|-0.04|0.00|0.2609|
+|=|         25|          2|          2|  -0.5895786348|        190|00:02:01|-0.04|0.00|0.2700|
+|x|         26|          2|          2|  -0.5669025334|        192|00:04:20|-0.04|0.00|0.2592|
+|x|         27|          2|          1|-0.0002499486990|        194|00:05:13|-0.04|0.00|0.2692|
+|x|         28|          2|          1|-0.0002410219598|        196|00:05:25|-0.04|0.00|0.2593|
+|x|         29|          2|          1|-0.0002327108577|        198|00:05:30|-0.04|0.00|0.2500|
+|=|         30|          2|          1|-0.0002570900904|        200|00:05:04|-0.03|0.00|0.2580|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because tests without elimination (2) >= elitistLimit (2)
+Best-so-far configuration:           1    mean value: -0.0002570900904
+Description of the best-so-far configuration:
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1    1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+1   0.5                    0            0.05               NA              NA
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                         NA     NA     NA              NA                 NA
+  max_density_radius density_tol sync_off .PARENT.
+1                 NA          NA       NA       NA
+
+# 2021-12-24 17:30:49 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :              95.9 Mb
+# 2021-12-24 17:30:50 -03: Results for the race of iteration 1 (from best to worst, according to the sum of ranks):
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1    1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2    2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3    3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4    4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5    5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6    6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7    7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8    8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9    9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+1   0.5                    0            0.05               NA              NA
+2   0.5                    1            0.05               NA              NA
+3   0.5                    0            0.05               NA              NA
+4   0.5                    0            0.05               NA              NA
+5   0.5                    0            0.05               NA              NA
+6   0.5                    1            0.05               NA              NA
+7   0.5                    1            0.05               NA              NA
+8   0.5                    1            0.05               NA              NA
+9   0.5                    1            0.05               NA              NA
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                         NA     NA     NA              NA                 NA
+2                         NA     NA     NA              NA                 NA
+3                         NA     NA     NA              NA                 NA
+4                         NA     NA     NA              NA                 NA
+5                         NA     NA     NA              NA                 NA
+6                         NA     NA     NA              NA                 NA
+7                         NA     NA     NA              NA                 NA
+8                         NA     NA     NA              NA                 NA
+9                         NA     NA     NA              NA                 NA
+  max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+1                 NA          NA       NA       NA    TRUE   44.5
+2                 NA          NA       NA       NA    TRUE   45.5
+3                 NA          NA       NA       NA   FALSE    Inf
+4                 NA          NA       NA       NA   FALSE    Inf
+5                 NA          NA       NA       NA   FALSE    Inf
+6                 NA          NA       NA       NA   FALSE    Inf
+7                 NA          NA       NA       NA   FALSE    Inf
+8                 NA          NA       NA       NA   FALSE    Inf
+9                 NA          NA       NA       NA   FALSE    Inf
+# 2021-12-24 17:30:50 -03: Extracting elites
+# 2021-12-24 17:30:50 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1    1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+1   0.5                    0            0.05               NA              NA
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                         NA     NA     NA              NA                 NA
+  max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+1                 NA          NA       NA       NA    TRUE   44.5        1
+# 2021-12-24 17:30:50 -03: Initialise model
+# 2021-12-24 17:30:50 -03: End of iteration 1
+# 2021-12-24 17:30:50 -03: All configurations (sampling order):
+  .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1    1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2    2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3    3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4    4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5    5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6    6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7    7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8    8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9    9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+  alpha is_random_population convergence_tol diversity_metric diversity_level
+1   0.5                    0            0.05               NA              NA
+2   0.5                    1            0.05               NA              NA
+3   0.5                    0            0.05               NA              NA
+4   0.5                    0            0.05               NA              NA
+5   0.5                    0            0.05               NA              NA
+6   0.5                    1            0.05               NA              NA
+7   0.5                    1            0.05               NA              NA
+8   0.5                    1            0.05               NA              NA
+9   0.5                    1            0.05               NA              NA
+  auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                         NA     NA     NA              NA                 NA
+2                         NA     NA     NA              NA                 NA
+3                         NA     NA     NA              NA                 NA
+4                         NA     NA     NA              NA                 NA
+5                         NA     NA     NA              NA                 NA
+6                         NA     NA     NA              NA                 NA
+7                         NA     NA     NA              NA                 NA
+8                         NA     NA     NA              NA                 NA
+9                         NA     NA     NA              NA                 NA
+  max_density_radius density_tol sync_off .PARENT.
+1                 NA          NA       NA       NA
+2                 NA          NA       NA       NA
+3                 NA          NA       NA       NA
+4                 NA          NA       NA       NA
+5                 NA          NA       NA       NA
+6                 NA          NA       NA       NA
+7                 NA          NA       NA       NA
+8                 NA          NA       NA       NA
+9                 NA          NA       NA       NA
+# 2021-12-24 17:30:50 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             167.2 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.9 Mb
+                            gc :              95.9 Mb
+# 2021-12-24 17:30:50 -03: Iteration 2 of 5
+# experimentsUsedSoFar: 200
+# remainingBudget: 1000
+# currentBudget: 250
+# nbConfigurations: 8
+# 2021-12-24 17:30:50 -03: Update model
+# Model:
+$K
+$K$`1`
+[1] 0.8503058
+
+
+$popSize
+$popSize$`1`
+[1] 2.125765
+
+
+$mating_rate
+$mating_rate$`1`
+[1] 0.1700612 0.7652000
+
+
+$mutation_rate
+$mutation_rate$`1`
+[1] 0.2083249 0.4562000
+
+
+$is_random_population
+$is_random_population$`1`
+[1] 0.4251529
+
+
+$diversity_metric
+$diversity_metric$`1`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`1`
+[1] 1.275459
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`1`
+[1] 0.4251529
+
+
+$phases
+$phases$`1`
+[1] 0.8503058
+
+
+$agents
+$agents$`1`
+[1] 0.8503058
+
+
+$sync_off
+$sync_off$`1`
+[1] 0.4251529
+
+
+$mutation_radius
+$mutation_radius$`1`
+[1] 0.1913188        NA
+
+
+# 2021-12-24 17:30:50 -03: Sample 7 configurations from model
+# 2021-12-24 17:30:50 -03: Computing similarity of configurations ... DONE
+# 2021-12-24 17:30:50 -03: Configurations for the race n 2 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+# 2021-12-24 17:30:50 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         31|          8|          1|    0.000000000|          8|00:06:27|   NA|  NA|    NA|
+|x|         17|          8|          1|    0.000000000|         15|00:02:30|+1.00|1.00|0.0000|
+|x|         15|          8|          1|    0.000000000|         22|00:06:16|+1.00|1.00|0.0000|
+|x|         11|          8|          1|    0.000000000|         29|00:02:38|+1.00|1.00|0.0000|
+|x|         30|          8|         10|   -4.701031995|         36|00:08:02|+0.00|0.20|0.1750|
+|x|          3|          8|         10|   -3.917526663|         43|00:02:40|+0.00|0.17|0.1458|
+|x|          2|          8|         10|   -6.715759993|         50|00:08:06|+0.17|0.29|0.2083|
+|x|         22|          8|         10|   -5.876289994|         57|00:08:48|+0.16|0.26|0.3053|
+|x|         25|          8|         10|   -5.223368883|         64|00:02:36|+0.14|0.23|0.2739|
+|x|         28|          8|         15| -0.09558689496|         71|00:08:41|+0.16|0.25|0.3216|
+|x|         29|          8|         15| -0.09127445827|         78|00:08:56|+0.20|0.27|0.3470|
+|x|         19|          8|         15|  -0.1194836187|         85|00:08:20|+0.25|0.31|0.3741|
+|x|         13|          8|         15|  -0.1139964243|         92|00:08:40|+0.27|0.32|0.3884|
+|x|         23|          8|         15|  -0.1058538226|         99|00:02:41|+0.25|0.30|0.3666|
+|x|         20|          8|         15|  -0.1020069071|        106|00:08:50|+0.27|0.32|0.3753|
+|x|         14|          8|         15| -0.09563147545|        113|00:02:48|+0.25|0.30|0.3575|
+|x|          5|          8|         15|  -0.1152875289|        120|00:08:33|+0.28|0.32|0.3777|
+|x|          1|          8|         15|  -0.1088826661|        127|00:07:02|+0.26|0.30|0.3615|
+|x|         26|          8|         15|  -0.1031519995|        134|00:06:56|+0.25|0.29|0.3465|
+|-|         10|          3|         15| -0.09799439953|        141|00:06:44|+0.18|0.22|0.2780|
+|x|         12|          3|         15|  -0.1137939226|        143|00:04:21|+0.20|0.24|0.2925|
+|x|          9|          3|         15|  -0.1108101121|        145|00:04:53|+0.21|0.25|0.3033|
+|x|          6|          3|         15|  -0.1080857633|        147|00:04:43|+0.23|0.26|0.3110|
+|x|         16|          3|         15|  -0.1214898725|        149|00:04:23|+0.24|0.27|0.3235|
+|!|          4|          3|         15|  -0.1185562813|        151|00:04:53|+0.25|0.28|0.3296|
+|x|         24|          3|         15|  -0.1139964243|        153|00:03:28|+0.24|0.27|0.3186|
+|x|         21|          3|         15|  -0.1256922746|        155|00:04:18|+0.25|0.28|0.3290|
+|x|         18|          3|         15|  -0.1212032648|        157|00:03:27|+0.24|0.27|0.3187|
+|x|          8|          3|         15|  -0.1170238419|        159|00:03:32|+0.23|0.26|0.3091|
+|!|         27|          3|         15|  -0.1274491933|        161|00:04:30|+0.24|0.27|0.3174|
+|x|          7|          3|         15|  -0.1233379290|        163|00:01:33|+0.23|0.26|0.3084|
+|x|         32|          3|         15|  -0.1194836187|        166|00:01:32|+0.23|0.25|0.2999|
+|x|         33|          3|         15|  -0.1288866722|        169|00:04:23|+0.24|0.26|0.3068|
+|x|         34|          3|         15|  -0.1250958877|        172|00:01:33|+0.23|0.25|0.2989|
+|-|         35|          2|         15|  -0.1228974364|        175|00:04:34|-0.03|0.00|0.2647|
+|x|         36|          2|         10|   -5.876289994|        177|00:03:35|-0.03|0.00|0.2571|
+|x|         37|          2|         10|   -6.352745939|        179|00:04:28|-0.03|0.00|0.2635|
+|x|         38|          2|         10|   -6.185568415|        181|00:03:36|-0.03|0.00|0.2564|
+|x|         39|          2|         10|   -6.026964096|        183|00:04:38|-0.03|0.00|0.2632|
+|=|         40|          2|         10|   -5.876289994|        185|00:01:29|-0.03|0.00|0.2564|
+|x|         41|          2|         10|   -5.732965848|        187|00:03:29|-0.03|0.00|0.2500|
+|x|         42|          2|         10|   -6.156113327|        189|00:04:14|-0.02|0.00|0.2558|
+|x|         43|          2|         10|   -6.012947901|        191|00:01:26|-0.02|0.00|0.2497|
+|x|         44|          2|         10|   -5.876289994|        193|00:04:35|-0.02|0.00|0.2558|
+|=|         45|          2|         15|  -0.1178984292|        195|00:04:38|-0.02|0.00|0.2611|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because tests without elimination (2) >= elitistLimit (2)
+Best-so-far configuration:          15    mean value:   -0.1178984292
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+15                 NA          NA       NA        1
+
+# 2021-12-24 21:09:34 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :              96.3 Mb
+# 2021-12-24 21:09:34 -03: Results for the race of iteration 2 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+1    0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+1                          NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+15                 NA          NA       NA        1    TRUE     67
+10                 NA          NA       NA        1    TRUE     68
+1                  NA          NA       NA       NA   FALSE    Inf
+11                 NA          NA       NA        1   FALSE    Inf
+12                 NA          NA       NA        1   FALSE    Inf
+13                 NA          NA       NA        1   FALSE    Inf
+14                 NA          NA       NA        1   FALSE    Inf
+16                 NA          NA       NA        1   FALSE    Inf
+# 2021-12-24 21:09:34 -03: Extracting elites
+# 2021-12-24 21:09:34 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+15                 NA          NA       NA        1    TRUE     67        1
+# 2021-12-24 21:09:34 -03: End of iteration 2
+# 2021-12-24 21:09:34 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+# 2021-12-24 21:09:34 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             192.1 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.9 Mb
+                            gc :              96.3 Mb
+# 2021-12-24 21:09:35 -03: Iteration 3 of 5
+# experimentsUsedSoFar: 395
+# remainingBudget: 805
+# currentBudget: 268
+# nbConfigurations: 6
+# 2021-12-24 21:09:35 -03: Update model
+# Model:
+$K
+$K$`15`
+[1] 0.7435799
+
+
+$popSize
+$popSize$`15`
+[1] 1.85895
+
+
+$mating_rate
+$mating_rate$`15`
+[1] 0.148716 0.664100
+
+
+$mutation_rate
+$mutation_rate$`15`
+[1] 0.1821771 0.4873000
+
+
+$is_random_population
+$is_random_population$`15`
+[1] 0.37179
+
+
+$diversity_metric
+$diversity_metric$`15`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`15`
+[1] 1.11537
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`15`
+[1] 0.37179
+
+
+$phases
+$phases$`15`
+[1] 0.7435799
+
+
+$agents
+$agents$`15`
+[1] 0.7435799
+
+
+$sync_off
+$sync_off$`15`
+[1] 0.37179
+
+
+$mutation_radius
+$mutation_radius$`15`
+[1] 0.1673055        NA
+
+
+# 2021-12-24 21:09:35 -03: Sample 5 configurations from model
+# 2021-12-24 21:09:35 -03: Computing similarity of configurations . DONE
+# 2021-12-24 21:09:35 -03: Configurations for the race n 3 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+15                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+# 2021-12-24 21:09:35 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         46|          6|         15|  -0.4297843834|          6|00:07:26|   NA|  NA|    NA|
+|x|         26|          6|         15|  -0.2148921917|         11|00:05:21|+0.00|0.50|0.4167|
+|x|          9|          6|         15|  -0.1593114916|         16|00:07:10|+0.50|0.67|0.2778|
+|x|         11|          6|         15|  -0.1194836187|         21|00:02:11|+0.33|0.50|0.2778|
+|x|         29|          6|         15|  -0.1052169132|         26|00:07:33|+0.50|0.60|0.2500|
+|x|          8|          6|         15| -0.08768076103|         31|00:05:11|+0.40|0.50|0.2500|
+|x|         39|          6|         15| -0.08203352251|         36|00:07:06|+0.50|0.57|0.2381|
+|x|         40|          6|         15| -0.07177933220|         41|00:02:01|+0.43|0.50|0.2381|
+|x|         30|          6|         15|  -0.1115576712|         46|00:06:56|+0.50|0.56|0.2315|
+|x|         20|          6|         15|  -0.1052169132|         51|00:07:19|+0.56|0.60|0.2222|
+|x|         33|          6|         15|  -0.1347230469|         56|00:07:02|+0.60|0.64|0.2121|
+|x|          3|          6|         15|  -0.1234961263|         61|00:02:06|+0.55|0.58|0.2210|
+|x|         16|          6|         15|  -0.1470567615|         66|00:06:35|+0.58|0.62|0.2137|
+|x|         17|          6|         15|  -0.1365527071|         71|00:02:05|+0.54|0.57|0.2198|
+|x|          2|          6|         15|  -0.1561014855|         76|00:06:55|+0.57|0.60|0.2143|
+|x|         21|          6|         15|  -0.1732066666|         81|00:06:56|+0.60|0.62|0.2083|
+|x|         25|          6|         15|  -0.1630180392|         86|00:02:04|+0.56|0.59|0.2145|
+|x|          7|          6|         15|  -0.1539614815|         91|00:02:04|+0.53|0.56|0.2179|
+|x|          1|          6|         15|  -0.1458582456|         96|00:05:36|+0.50|0.53|0.2193|
+|-|          4|          1|         15|  -0.1409728379|        101|00:07:21|   NA|  NA|    NA|
+|.|         37|          1|         15|  -0.1547257686|        101|00:00:00|   NA|  NA|    NA|
+|.|         45|          1|         15|  -0.1498814197|        101|00:00:00|   NA|  NA|    NA|
+|.|         32|          1|         15|  -0.1433648362|        101|00:00:00|   NA|  NA|    NA|
+|.|         35|          1|         15|  -0.1393975552|        101|00:00:00|   NA|  NA|    NA|
+|.|         42|          1|         15|  -0.1510130283|        101|00:00:00|   NA|  NA|    NA|
+|.|         38|          1|         15|  -0.1452048349|        101|00:00:00|   NA|  NA|    NA|
+|.|         31|          1|         15|  -0.1398268780|        101|00:00:00|   NA|  NA|    NA|
+|.|         12|          1|         15|  -0.1501825032|        101|00:00:00|   NA|  NA|    NA|
+|.|         36|          1|         15|  -0.1450037962|        101|00:00:00|   NA|  NA|    NA|
+|.|         19|          1|         15|  -0.1544964825|        101|00:00:00|   NA|  NA|    NA|
+|.|         22|          1|         15|  -0.1510659537|        101|00:00:00|   NA|  NA|    NA|
+|.|         43|          1|         15|  -0.1463451427|        101|00:00:00|   NA|  NA|    NA|
+|.|         44|          1|         15|  -0.1433695351|        101|00:00:00|   NA|  NA|    NA|
+|.|         34|          1|         15|  -0.1391527840|        101|00:00:00|   NA|  NA|    NA|
+|.|         18|          1|         15|  -0.1351769902|        101|00:00:00|   NA|  NA|    NA|
+|.|         27|          1|         15|  -0.1433605289|        101|00:00:00|   NA|  NA|    NA|
+|.|         14|          1|         15|  -0.1394859200|        101|00:00:00|   NA|  NA|    NA|
+|.|          6|          1|         15|  -0.1370823456|        101|00:00:00|   NA|  NA|    NA|
+|.|         24|          1|         15|  -0.1335674136|        101|00:00:00|   NA|  NA|    NA|
+|.|          5|          1|         15|  -0.1409728379|        101|00:00:00|   NA|  NA|    NA|
+|.|         10|          1|         15|  -0.1375344760|        101|00:00:00|   NA|  NA|    NA|
+|.|         13|          1|         15|  -0.1354062763|        101|00:00:00|   NA|  NA|    NA|
+|.|         15|          1|         15|  -0.1322572932|        101|00:00:00|   NA|  NA|    NA|
+|.|         23|          1|         15|  -0.1292514456|        101|00:00:00|   NA|  NA|    NA|
+|.|         41|          1|         15|  -0.1263791913|        101|00:00:00|   NA|  NA|    NA|
+|.|         28|          1|         15|  -0.1246785586|        101|00:00:00|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          15    mean value:   -0.1246785586
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+15                 NA          NA       NA        1
+
+# 2021-12-24 22:56:41 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :              96.3 Mb
+# 2021-12-24 22:56:42 -03: Results for the race of iteration 3 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+15                 NA          NA       NA        1    TRUE      1
+17                 NA          NA       NA       15   FALSE    Inf
+18                 NA          NA       NA       15   FALSE    Inf
+19                 NA          NA       NA       15   FALSE    Inf
+20                 NA          NA       NA       15   FALSE    Inf
+21                 NA          NA       NA       15   FALSE    Inf
+# 2021-12-24 22:56:42 -03: Extracting elites
+# 2021-12-24 22:56:42 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+15                 NA          NA       NA        1    TRUE      1        1
+# 2021-12-24 22:56:42 -03: End of iteration 3
+# 2021-12-24 22:56:42 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+# 2021-12-24 22:56:42 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             199.1 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.9 Mb
+                            gc :              96.3 Mb
+# 2021-12-24 22:56:42 -03: Iteration 4 of 5
+# experimentsUsedSoFar: 496
+# remainingBudget: 704
+# currentBudget: 352
+# nbConfigurations: 7
+# 2021-12-24 22:56:42 -03: Update model
+# Model:
+$K
+$K$`15`
+[1] 0.6404448
+
+
+$popSize
+$popSize$`15`
+[1] 1.601112
+
+
+$mating_rate
+$mating_rate$`15`
+[1] 0.128089 0.664100
+
+
+$mutation_rate
+$mutation_rate$`15`
+[1] 0.156909 0.487300
+
+
+$is_random_population
+$is_random_population$`15`
+[1] 0.3202224
+
+
+$diversity_metric
+$diversity_metric$`15`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`15`
+[1] 0.9606672
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`15`
+[1] 0.3202224
+
+
+$phases
+$phases$`15`
+[1] 0.6404448
+
+
+$agents
+$agents$`15`
+[1] 0.6404448
+
+
+$sync_off
+$sync_off$`15`
+[1] 0.3202224
+
+
+$mutation_radius
+$mutation_radius$`15`
+[1] 0.1441001        NA
+
+
+# 2021-12-24 22:56:42 -03: Sample 6 configurations from model
+# 2021-12-24 22:56:42 -03: Computing similarity of configurations ... DONE
+# 2021-12-24 22:56:42 -03: Configurations for the race n 4 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+15   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+15                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+15                 NA          NA       NA        1
+22                 NA          NA       NA       15
+23                 NA          NA       NA       15
+24                 NA          NA       NA       15
+25                 NA          NA       NA       15
+26                 NA          NA       NA       15
+27                 NA          NA       NA       15
+# 2021-12-24 22:56:42 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         47|          7|         15|    0.000000000|          7|00:06:48|   NA|  NA|    NA|
+|x|         29|          7|         26| -0.03143079837|         13|00:08:49|+0.00|0.50|0.4286|
+|x|         43|          7|         26| -0.02095386558|         19|00:02:50|+0.00|0.33|0.2857|
+|x|         13|          7|         26| -0.03143079837|         25|00:08:48|+0.33|0.50|0.2857|
+|x|         45|          7|         26| -0.03771695804|         31|00:09:00|+0.50|0.60|0.2571|
+|x|         41|          7|         26| -0.03143079837|         37|00:06:50|+0.40|0.50|0.2571|
+|x|         18|          7|         26| -0.02694068432|         43|00:06:39|+0.33|0.43|0.2449|
+|x|         22|          7|         26| -0.03143079837|         49|00:08:37|+0.43|0.50|0.2449|
+|x|         27|          7|         15| -0.06915386099|         55|00:08:23|+0.36|0.43|0.2916|
+|x|          6|          7|         26| -0.03143079837|         61|00:09:02|+0.42|0.48|0.2821|
+|x|         24|          7|         26| -0.02857345306|         67|00:06:45|+0.38|0.44|0.2776|
+|x|          8|          7|         26| -0.02619233198|         73|00:06:51|+0.35|0.40|0.2703|
+|x|         30|          7|         15| -0.08463994029|         79|00:08:26|+0.33|0.38|0.2926|
+|x|          3|          7|         15| -0.07859423027|         85|00:02:48|+0.30|0.35|0.2837|
+|x|         25|          7|         15| -0.07335461492|         91|00:02:49|+0.28|0.33|0.2745|
+|x|          9|          7|         15| -0.07177933220|         97|00:08:56|+0.32|0.36|0.2768|
+|x|         37|          7|         15| -0.09283845286|        103|00:08:27|+0.32|0.36|0.2907|
+|x|         15|          7|         15| -0.08768076103|        109|00:06:47|+0.30|0.34|0.2836|
+|x|         23|          7|         15| -0.08306598414|        115|00:02:51|+0.28|0.32|0.2763|
+|-|         44|          2|         15| -0.08132018950|        121|00:08:47|+0.03|0.08|0.2421|
+|x|         11|          2|         26| -0.02095386558|        122|00:01:33|+0.03|0.08|0.2310|
+|x|         36|          2|         26| -0.02000141714|        123|00:03:52|+0.03|0.07|0.2208|
+|x|         28|          2|         26| -0.02186490321|        124|00:05:03|+0.06|0.10|0.2253|
+|x|         17|          2|         26| -0.02095386558|        125|00:01:35|+0.06|0.09|0.2165|
+|=|         35|          2|         26| -0.02263017483|        126|00:05:02|+0.08|0.12|0.2200|
+|x|         10|          2|         26| -0.02175978349|        127|00:03:58|+0.08|0.12|0.2123|
+|x|         39|          2|         26| -0.02328207287|        128|00:05:03|+0.11|0.14|0.2151|
+|x|         21|          2|         26| -0.02245057026|        129|00:04:48|+0.06|0.09|0.2354|
+|x|          4|          2|         26| -0.02384405394|        130|00:05:07|+0.08|0.11|0.2377|
+|=|         32|          2|         26| -0.02304925214|        131|00:01:34|+0.08|0.11|0.2305|
+|x|         33|          2|         26| -0.02230572788|        132|00:04:45|+0.04|0.07|0.2473|
+|x|         31|          2|         26| -0.02160867388|        133|00:03:55|+0.04|0.07|0.2399|
+|x|         46|          2|         26| -0.02095386558|        134|00:04:53|+0.01|0.04|0.2538|
+|x|         12|          2|         26| -0.02033757542|        135|00:04:41|-0.00|0.03|0.2656|
+|=|          5|          2|         26| -0.01975650183|        136|00:04:51|-0.02|0.01|0.2756|
+|x|         19|          2|         26| -0.01920771012|        137|00:04:51|-0.02|0.01|0.2841|
+|x|         42|          2|         26| -0.01868858281|        138|00:04:47|-0.03|0.00|0.2913|
+|x|         38|          2|         26| -0.01819677800|        139|00:03:55|-0.03|0.00|0.2834|
+|x|         16|          2|         15|  -0.1348020314|        140|00:04:50|-0.03|0.00|0.2895|
+|!|          7|          2|         15|  -0.1314319806|        141|00:01:34|-0.03|0.00|0.2821|
+|x|         20|          2|         26| -0.01839851612|        142|00:05:10|-0.02|0.00|0.2872|
+|x|          2|          2|         15|  -0.1365527071|        143|00:04:46|-0.02|0.00|0.2927|
+|x|          1|          2|         15|  -0.1333770627|        144|00:03:55|-0.02|0.00|0.2857|
+|x|         14|          2|         15|  -0.1303457659|        145|00:01:35|-0.02|0.00|0.2791|
+|!|         34|          2|         15|  -0.1274491933|        146|00:01:34|-0.02|0.00|0.2727|
+|x|         40|          2|         15|  -0.1246785586|        147|00:01:35|-0.02|0.00|0.2667|
+|x|         26|          2|         15|  -0.1220258234|        148|00:03:55|-0.02|0.00|0.2609|
+|x|         48|          2|         15|  -0.1194836187|        150|00:01:25|-0.02|0.00|0.2553|
+|x|         49|          2|         15|  -0.1170451775|        152|00:03:17|-0.02|0.00|0.2500|
+|-|         50|          1|         15|  -0.1147042740|        154|00:01:25|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          26    mean value:  -0.01508678322
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+26   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+26                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+26                 NA          NA       NA       15
+
+# 2021-12-25 03:05:39 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 03:05:39 -03: Results for the race of iteration 4 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+26   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+26                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+26                 NA          NA       NA       15    TRUE      1
+15                 NA          NA       NA        1   FALSE    Inf
+22                 NA          NA       NA       15   FALSE    Inf
+23                 NA          NA       NA       15   FALSE    Inf
+24                 NA          NA       NA       15   FALSE    Inf
+25                 NA          NA       NA       15   FALSE    Inf
+27                 NA          NA       NA       15   FALSE    Inf
+# 2021-12-25 03:05:39 -03: Extracting elites
+# 2021-12-25 03:05:39 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+26   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+26                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+26                 NA          NA       NA       15    TRUE      1        1
+# 2021-12-25 03:05:39 -03: End of iteration 4
+# 2021-12-25 03:05:39 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+22                 NA          NA       NA       15
+23                 NA          NA       NA       15
+24                 NA          NA       NA       15
+25                 NA          NA       NA       15
+26                 NA          NA       NA       15
+27                 NA          NA       NA       15
+# 2021-12-25 03:05:39 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             210.2 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.9 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 03:05:40 -03: Iteration 5 of 5
+# experimentsUsedSoFar: 650
+# remainingBudget: 550
+# currentBudget: 550
+# nbConfigurations: 10
+# 2021-12-25 03:05:40 -03: Update model
+# Model:
+$K
+$K$`26`
+[1] 0.5332876
+
+
+$popSize
+$popSize$`26`
+[1] 1.333219
+
+
+$mating_rate
+$mating_rate$`26`
+[1] 0.1066575 0.6555000
+
+
+$mutation_rate
+$mutation_rate$`26`
+[1] 0.1306555 0.3645000
+
+
+$is_random_population
+$is_random_population$`26`
+[1] 0.2666438
+
+
+$diversity_metric
+$diversity_metric$`26`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`26`
+[1] 0.7999315
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`26`
+[1] 0.2666438
+
+
+$phases
+$phases$`26`
+[1] 0.5332876
+
+
+$agents
+$agents$`26`
+[1] 0.5332876
+
+
+$sync_off
+$sync_off$`26`
+[1] 0.2666438
+
+
+$mutation_radius
+$mutation_radius$`26`
+[1] 0.1199897        NA
+
+
+# 2021-12-25 03:05:40 -03: Sample 9 configurations from model
+# 2021-12-25 03:05:40 -03: Computing similarity of configurations .... DONE
+# 2021-12-25 03:05:40 -03: Configurations for the race n 5 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+28   28     nsga2    XieBeni 4        1000      80      0.7597        0.3899
+29   29     nsga2    XieBeni 4        1000      20      0.7583        0.4854
+30   30     nsga2    XieBeni 5        1000      40      0.6800        0.1451
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+32   32     nsga2    XieBeni 5        1000      20      0.6488        0.1837
+33   33     nsga2    XieBeni 4        1000      20      0.5093        0.3738
+34   34     nsga2    XieBeni 5        1000      80      0.5470        0.0922
+35   35     nsga2    XieBeni 5        1000      20      0.6056        0.3184
+36   36     nsga2    XieBeni 4        1000      12      0.6473        0.4483
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+26   0.5                    0            0.05               NA              NA
+28   0.5                    0            0.05               NA              NA
+29   0.5                    0            0.05               NA              NA
+30   0.5                    0            0.05               NA              NA
+31   0.5                    0            0.05               NA              NA
+32   0.5                    0            0.05               NA              NA
+33   0.5                    0            0.05               NA              NA
+34   0.5                    0            0.05               NA              NA
+35   0.5                    0            0.05               NA              NA
+36   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+26                         NA     NA     NA              NA                 NA
+28                         NA     NA     NA              NA                 NA
+29                         NA     NA     NA              NA                 NA
+30                         NA     NA     NA              NA                 NA
+31                         NA     NA     NA              NA                 NA
+32                         NA     NA     NA              NA                 NA
+33                         NA     NA     NA              NA                 NA
+34                         NA     NA     NA              NA                 NA
+35                         NA     NA     NA              NA                 NA
+36                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+26                 NA          NA       NA       15
+28                 NA          NA       NA       26
+29                 NA          NA       NA       26
+30                 NA          NA       NA       26
+31                 NA          NA       NA       26
+32                 NA          NA       NA       26
+33                 NA          NA       NA       26
+34                 NA          NA       NA       26
+35                 NA          NA       NA       26
+36                 NA          NA       NA       26
+# 2021-12-25 03:05:40 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         51|         10|         31|  -0.5421272740|         10|00:11:46|   NA|  NA|    NA|
+|x|         50|         10|         31|  -0.2710636370|         19|00:03:15|+0.00|0.50|0.4500|
+|x|         42|         10|         34|   -8.178116935|         28|00:10:24|-0.16|0.23|0.6513|
+|x|         30|         10|         34|   -12.26717540|         37|00:09:58|+0.11|0.33|0.5763|
+|x|         33|         10|         34|   -14.72061048|         46|00:10:03|+0.29|0.43|0.4962|
+|x|          5|         10|         34|   -16.35623387|         55|00:10:10|+0.41|0.51|0.4310|
+|x|         35|         10|         34|   -14.01962903|         64|00:10:36|+0.28|0.38|0.5301|
+|x|         13|         10|         34|   -12.26717540|         73|00:10:15|+0.23|0.32|0.5642|
+|x|         25|         10|         34|   -10.90415591|         82|00:03:13|+0.20|0.29|0.5263|
+|x|         36|         10|         34|   -9.813740322|         91|00:08:11|+0.18|0.26|0.4910|
+|x|         28|         10|         34|   -8.921582111|        100|00:10:34|+0.17|0.25|0.5030|
+|x|         39|         10|         31|  -0.2258863642|        109|00:10:46|+0.19|0.25|0.5035|
+|x|         22|         10|         31|  -0.2502125880|        118|00:10:26|+0.21|0.27|0.4974|
+|x|         18|         10|         31|  -0.2323402603|        127|00:08:02|+0.19|0.25|0.4758|
+|x|         44|         10|         31|  -0.2529927279|        136|00:10:37|+0.22|0.27|0.4696|
+|x|         31|         10|         31|  -0.2371806824|        145|00:07:49|+0.20|0.25|0.4522|
+|x|          6|         10|         31|  -0.2551187172|        154|00:10:39|+0.23|0.27|0.4465|
+|x|         37|         10|         31|  -0.2409454551|        163|00:09:59|+0.21|0.26|0.4667|
+|x|         10|         10|         31|  -0.2282641154|        172|00:07:55|+0.20|0.24|0.4518|
+|-|         43|          4|         31|  -0.2168509096|        181|00:03:05|+0.02|0.07|0.4287|
+|x|         12|          4|         31|  -0.2065246758|        184|00:04:17|+0.00|0.05|0.4455|
+|x|         19|          4|         31|  -0.1971371905|        187|00:04:21|-0.00|0.04|0.4573|
+|x|         21|          4|         31|  -0.1885660083|        190|00:04:12|-0.01|0.04|0.4654|
+|x|         45|          4|         31|  -0.2032977277|        193|00:04:36|+0.00|0.04|0.4704|
+|=|          8|          4|         31|  -0.1951658186|        196|00:03:39|+0.00|0.04|0.4540|
+|x|         40|          4|         31|  -0.1876594410|        199|00:01:43|+0.00|0.04|0.4387|
+|x|         41|          4|         31|  -0.1807090913|        202|00:03:39|+0.00|0.04|0.4244|
+|x|          4|          4|         31|  -0.1936168836|        205|00:04:42|+0.01|0.04|0.4290|
+|x|         16|          4|         31|  -0.1869404393|        208|00:04:15|+0.00|0.04|0.4378|
+|=|         34|          4|         31|  -0.1807090913|        211|00:01:45|+0.00|0.04|0.4250|
+|x|          9|          4|         31|  -0.1923677424|        214|00:04:43|+0.01|0.04|0.4294|
+|x|         29|          4|         31|  -0.2032977277|        217|00:04:35|+0.02|0.05|0.4323|
+|x|         38|          4|         31|  -0.1971371905|        220|00:03:42|+0.02|0.05|0.4210|
+|x|         15|          4|         31|  -0.1913390379|        223|00:03:41|+0.02|0.05|0.4103|
+|=|         11|          4|         31|  -0.1858722082|        226|00:01:45|+0.02|0.04|0.4001|
+|x|         47|          4|         31|  -0.1807090913|        229|00:03:34|+0.02|0.04|0.3904|
+|x|         46|          4|         31|  -0.1758250618|        232|00:04:25|+0.01|0.04|0.3990|
+|x|         27|          4|         31|  -0.1711980865|        235|00:04:21|+0.01|0.03|0.4062|
+|x|         48|          4|         31|  -0.1668083920|        238|00:01:43|+0.01|0.03|0.3970|
+|=|          2|          4|         31|  -0.1626381822|        241|00:04:17|+0.01|0.03|0.4031|
+|x|         23|          4|         31|  -0.1586713973|        244|00:01:43|+0.01|0.03|0.3944|
+|x|         49|          4|         31|  -0.1548935069|        247|00:03:46|+0.01|0.03|0.3861|
+|x|          7|          4|         31|  -0.1512913323|        250|00:01:44|+0.01|0.03|0.3781|
+|x|         26|          4|         31|  -0.1478528929|        253|00:03:38|+0.01|0.03|0.3704|
+|=|         24|          4|         31|  -0.1445672731|        256|00:03:40|+0.01|0.03|0.3630|
+|x|          3|          4|         31|  -0.1414245063|        259|00:01:42|+0.01|0.03|0.3560|
+|x|         14|          4|         31|  -0.1384154742|        262|00:01:42|+0.01|0.03|0.3491|
+|x|         20|          4|         31|  -0.1468261367|        265|00:04:38|+0.01|0.03|0.3548|
+|x|         17|          4|         31|  -0.1438296849|        268|00:01:42|+0.01|0.03|0.3483|
+|=|         32|          4|         31|  -0.1409530912|        271|00:01:42|+0.01|0.03|0.3420|
+|x|          1|          4|         31|  -0.1381893051|        274|00:03:31|+0.01|0.03|0.3360|
+|x|         52|          4|         31|  -0.1355318185|        278|00:04:25|+0.01|0.03|0.3420|
+|x|         53|          4|         31|  -0.1329746144|        282|00:01:43|+0.01|0.03|0.3362|
+|x|         54|          4|         31|  -0.1305121215|        286|00:03:41|+0.01|0.03|0.3305|
+|=|         55|          4|         31|  -0.1379960334|        290|00:04:38|+0.01|0.03|0.3359|
+|x|         56|          4|         31|  -0.1355318185|        294|00:04:22|+0.01|0.03|0.3415|
+|x|         57|          4|         31|  -0.1426650721|        298|00:04:31|+0.01|0.03|0.3465|
+|x|         58|          4|         31|  -0.1402053295|        302|00:01:44|+0.01|0.03|0.3411|
+|x|         59|          4|         31|  -0.1378289680|        306|00:04:21|+0.01|0.03|0.3463|
+|=|         60|          4|         31|  -0.1355318185|        310|00:03:41|+0.01|0.03|0.3411|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because tests without elimination (2) >= elitistLimit (2)
+Best-so-far configuration:          31    mean value:   -0.1355318185
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+31                 NA          NA       NA       26
+
+# 2021-12-25 08:20:23 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 08:20:23 -03: Results for the race of iteration 5 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+34   34     nsga2    XieBeni 5        1000      80      0.5470        0.0922
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+28   28     nsga2    XieBeni 4        1000      80      0.7597        0.3899
+29   29     nsga2    XieBeni 4        1000      20      0.7583        0.4854
+30   30     nsga2    XieBeni 5        1000      40      0.6800        0.1451
+32   32     nsga2    XieBeni 5        1000      20      0.6488        0.1837
+33   33     nsga2    XieBeni 4        1000      20      0.5093        0.3738
+35   35     nsga2    XieBeni 5        1000      20      0.6056        0.3184
+36   36     nsga2    XieBeni 4        1000      12      0.6473        0.4483
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    0            0.05               NA              NA
+34   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+28   0.5                    0            0.05               NA              NA
+29   0.5                    0            0.05               NA              NA
+30   0.5                    0            0.05               NA              NA
+32   0.5                    0            0.05               NA              NA
+33   0.5                    0            0.05               NA              NA
+35   0.5                    0            0.05               NA              NA
+36   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                         NA     NA     NA              NA                 NA
+34                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+28                         NA     NA     NA              NA                 NA
+29                         NA     NA     NA              NA                 NA
+30                         NA     NA     NA              NA                 NA
+32                         NA     NA     NA              NA                 NA
+33                         NA     NA     NA              NA                 NA
+35                         NA     NA     NA              NA                 NA
+36                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+31                 NA          NA       NA       26    TRUE  142.5
+34                 NA          NA       NA       26    TRUE  142.5
+26                 NA          NA       NA       15    TRUE  157.5
+28                 NA          NA       NA       26    TRUE  157.5
+29                 NA          NA       NA       26   FALSE    Inf
+30                 NA          NA       NA       26   FALSE    Inf
+32                 NA          NA       NA       26   FALSE    Inf
+33                 NA          NA       NA       26   FALSE    Inf
+35                 NA          NA       NA       26   FALSE    Inf
+36                 NA          NA       NA       26   FALSE    Inf
+# 2021-12-25 08:20:23 -03: Extracting elites
+# 2021-12-25 08:20:23 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+31                 NA          NA       NA       26    TRUE  142.5        1
+# 2021-12-25 08:20:23 -03: End of iteration 5
+# 2021-12-25 08:20:23 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+28   28     nsga2    XieBeni 4        1000      80      0.7597        0.3899
+29   29     nsga2    XieBeni 4        1000      20      0.7583        0.4854
+30   30     nsga2    XieBeni 5        1000      40      0.6800        0.1451
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+32   32     nsga2    XieBeni 5        1000      20      0.6488        0.1837
+33   33     nsga2    XieBeni 4        1000      20      0.5093        0.3738
+34   34     nsga2    XieBeni 5        1000      80      0.5470        0.0922
+35   35     nsga2    XieBeni 5        1000      20      0.6056        0.3184
+36   36     nsga2    XieBeni 4        1000      12      0.6473        0.4483
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+28   0.5                    0            0.05               NA              NA
+29   0.5                    0            0.05               NA              NA
+30   0.5                    0            0.05               NA              NA
+31   0.5                    0            0.05               NA              NA
+32   0.5                    0            0.05               NA              NA
+33   0.5                    0            0.05               NA              NA
+34   0.5                    0            0.05               NA              NA
+35   0.5                    0            0.05               NA              NA
+36   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+28                         NA     NA     NA              NA                 NA
+29                         NA     NA     NA              NA                 NA
+30                         NA     NA     NA              NA                 NA
+31                         NA     NA     NA              NA                 NA
+32                         NA     NA     NA              NA                 NA
+33                         NA     NA     NA              NA                 NA
+34                         NA     NA     NA              NA                 NA
+35                         NA     NA     NA              NA                 NA
+36                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+22                 NA          NA       NA       15
+23                 NA          NA       NA       15
+24                 NA          NA       NA       15
+25                 NA          NA       NA       15
+26                 NA          NA       NA       15
+27                 NA          NA       NA       15
+28                 NA          NA       NA       26
+29                 NA          NA       NA       26
+30                 NA          NA       NA       26
+31                 NA          NA       NA       26
+32                 NA          NA       NA       26
+33                 NA          NA       NA       26
+34                 NA          NA       NA       26
+35                 NA          NA       NA       26
+36                 NA          NA       NA       26
+# 2021-12-25 08:20:23 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             230.8 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.9 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 08:20:24 -03: Iteration 6 of 6
+# experimentsUsedSoFar: 960
+# remainingBudget: 240
+# currentBudget: 240
+# nbConfigurations: 4
+# 2021-12-25 08:20:24 -03: Update model
+# Model:
+$K
+$K$`31`
+[1] 0.4866328
+
+
+$popSize
+$popSize$`31`
+[1] 1.216582
+
+
+$mating_rate
+$mating_rate$`31`
+[1] 0.09732657 0.79460000
+
+
+$mutation_rate
+$mutation_rate$`31`
+[1] 0.119225 0.326200
+
+
+$is_random_population
+$is_random_population$`31`
+[1] 0.2433164
+
+
+$diversity_metric
+$diversity_metric$`31`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`31`
+[1] 0.7299493
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`31`
+[1] 0.2433164
+
+
+$phases
+$phases$`31`
+[1] 0.4866328
+
+
+$agents
+$agents$`31`
+[1] 0.4866328
+
+
+$sync_off
+$sync_off$`31`
+[1] 0.2433164
+
+
+$mutation_radius
+$mutation_radius$`31`
+[1] 0.1094924        NA
+
+
+# 2021-12-25 08:20:24 -03: Sample 3 configurations from model
+# 2021-12-25 08:20:24 -03: Computing similarity of configurations .. DONE
+# 2021-12-25 08:20:24 -03: Configurations for the race n 6 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+38   38     nsga2    XieBeni 4        1000      12      0.7549        0.3970
+39   39     nsga2    XieBeni 5        1000      40      0.7926        0.0656
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+31   0.5                    0            0.05               NA              NA
+37   0.5                    0            0.05               NA              NA
+38   0.5                    0            0.05               NA              NA
+39   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+31                         NA     NA     NA              NA                 NA
+37                         NA     NA     NA              NA                 NA
+38                         NA     NA     NA              NA                 NA
+39                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+31                 NA          NA       NA       26
+37                 NA          NA       NA       31
+38                 NA          NA       NA       31
+39                 NA          NA       NA       31
+# 2021-12-25 08:20:24 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         61|          4|         37|  -0.4159392843|          4|00:03:14|   NA|  NA|    NA|
+|x|         50|          4|         37|  -0.2079696422|          7|00:01:13|+0.00|0.50|0.3750|
+|x|         42|          4|         37|  -0.1386464281|         10|00:03:52|+0.00|0.33|0.2500|
+|x|         41|          4|         37|  -0.2079696422|         13|00:03:12|+0.33|0.50|0.2500|
+|x|         40|          4|         37|  -0.1663757137|         16|00:01:17|+0.25|0.40|0.2250|
+|x|          5|          4|         37|  -0.1386464281|         19|00:03:48|+0.20|0.33|0.2000|
+|x|         34|          4|         37|  -0.1188397955|         22|00:01:15|+0.17|0.29|0.1786|
+|x|         44|          4|         37|  -0.1039848211|         25|00:03:56|+0.03|0.15|0.2723|
+|x|         17|          4|         37| -0.09243095208|         28|00:01:14|+0.03|0.14|0.2431|
+|x|         36|          4|         37|  -0.1247817853|         31|00:03:04|+0.11|0.20|0.2667|
+|x|         56|          4|         37|  -0.1134379866|         34|00:03:45|+0.10|0.18|0.2455|
+|x|         31|          4|         37|  -0.1386464281|         37|00:03:05|+0.17|0.24|0.2595|
+|x|         30|          4|         37|  -0.1279813183|         40|00:03:50|+0.16|0.22|0.2436|
+|x|         35|          4|         37|  -0.1188397955|         43|00:03:56|+0.11|0.17|0.2857|
+|x|         27|          4|         37|  -0.1109171425|         46|00:03:46|+0.10|0.16|0.2690|
+|x|         10|          4|         37|  -0.1299810264|         49|00:02:59|+0.15|0.20|0.2802|
+|x|         28|          4|         37|  -0.1223350836|         52|00:03:52|+0.12|0.18|0.3088|
+|x|         29|          4|         37|  -0.1155386901|         55|00:03:52|+0.12|0.17|0.3292|
+|x|         54|          4|         37|  -0.1313492477|         58|00:03:02|+0.14|0.19|0.3377|
+|-|         60|          2|         37|  -0.1455787495|         61|00:03:02|-0.01|0.04|0.2776|
+|x|         26|          2|         37|  -0.1584530607|         62|00:03:20|+0.02|0.06|0.2810|
+|x|         22|          2|         37|  -0.1512506489|         63|00:04:21|-0.01|0.03|0.2998|
+|x|         11|          2|         37|  -0.1446745337|         64|00:01:18|-0.01|0.03|0.2866|
+|x|         55|          2|         37|  -0.1386464281|         65|00:04:33|-0.03|0.01|0.3007|
+|=|         16|          2|         37|  -0.1331005710|         66|00:04:14|-0.03|0.01|0.2883|
+|x|         48|          2|         37|  -0.1279813183|         67|00:01:17|-0.03|0.01|0.2769|
+|x|         49|          2|         37|  -0.1386464281|         68|00:03:27|-0.02|0.02|0.2821|
+|x|         58|          2|         37|  -0.1336947700|         69|00:01:16|-0.01|0.02|0.2718|
+|x|         43|          2|         37|  -0.1290846055|         70|00:01:17|-0.01|0.02|0.2623|
+|=|          9|          2|         37|  -0.1247817853|         71|00:04:33|-0.03|0.01|0.2736|
+|x|          1|          2|         37|  -0.1341739627|         72|00:03:19|-0.02|0.02|0.2785|
+|x|          8|          2|         37|  -0.1429791290|         73|00:03:21|-0.00|0.03|0.2823|
+|x|         39|          2|         37|  -0.1386464281|         74|00:04:23|-0.02|0.01|0.2926|
+|x|          2|          2|         37|  -0.1345685920|         75|00:04:02|-0.02|0.01|0.2839|
+|=|         21|          2|         37|  -0.1307237751|         76|00:04:09|-0.02|0.01|0.2756|
+|x|         19|          2|         37|  -0.1270925591|         77|00:04:04|-0.02|0.01|0.2679|
+|x|         24|          2|         37|  -0.1348992274|         78|00:03:19|-0.01|0.02|0.2718|
+|x|         46|          2|         37|  -0.1313492477|         79|00:04:07|-0.01|0.02|0.2646|
+|x|          3|          2|         37|  -0.1279813183|         80|00:01:15|-0.01|0.02|0.2578|
+|=|         59|          2|         37|  -0.1247817853|         81|00:04:08|-0.01|0.02|0.2513|
+|x|          4|          2|         37|  -0.1217383271|         82|00:04:20|-0.01|0.01|0.2598|
+|x|         57|          2|         37|  -0.1188397955|         83|00:04:26|-0.02|0.00|0.2671|
+|x|         18|          2|         37|  -0.1257490860|         84|00:03:18|-0.01|0.01|0.2713|
+|x|         25|          2|         37|  -0.1228911522|         85|00:01:16|-0.01|0.01|0.2651|
+|=|         52|          2|         37|  -0.1201602377|         86|00:04:04|-0.01|0.01|0.2591|
+|x|         33|          2|         37|  -0.1175480586|         87|00:04:14|-0.01|0.01|0.2534|
+|x|         20|          2|         37|  -0.1150470361|         88|00:04:24|-0.02|0.00|0.2599|
+|x|         13|          2|         37|  -0.1126502228|         89|00:04:22|-0.02|0.00|0.2657|
+|x|         45|          2|         31|  -0.1438296849|         90|00:04:16|-0.02|0.00|0.2708|
+|!|         53|          2|         31|  -0.1409530912|         91|00:01:16|-0.02|0.00|0.2653|
+|x|         32|          2|         31|  -0.1381893051|         92|00:01:16|-0.02|0.00|0.2600|
+|x|         37|          2|         31|  -0.1355318185|         93|00:04:11|-0.02|0.00|0.2549|
+|x|          7|          2|         31|  -0.1329746144|         94|00:01:16|-0.02|0.00|0.2500|
+|x|         12|          2|         31|  -0.1305121215|         95|00:04:09|-0.02|0.00|0.2453|
+|!|         23|          2|         31|  -0.1281391739|         96|00:01:16|-0.02|0.00|0.2407|
+|x|         14|          2|         31|  -0.1258509743|         97|00:01:16|-0.02|0.00|0.2364|
+|x|          6|          2|         31|  -0.1331540673|         98|00:04:23|-0.02|0.00|0.2409|
+|x|         15|          2|         31|  -0.1308583075|         99|00:03:24|-0.02|0.00|0.2456|
+|x|         51|          2|         31|  -0.1378289680|        100|00:04:28|-0.02|0.00|0.2499|
+|!|         47|          2|         31|  -0.1355318185|        101|00:03:21|-0.02|0.00|0.2542|
+|x|         38|          2|         37|  -0.1090988287|        102|00:03:23|-0.02|0.00|0.2582|
+|x|         62|          2|         37|  -0.1073391702|        104|00:01:00|-0.02|0.00|0.2540|
+|x|         63|          2|         37|  -0.1056353738|        106|00:03:23|-0.02|0.00|0.2499|
+|x|         64|          2|         31|  -0.1355318185|        108|00:03:31|-0.02|0.00|0.2540|
+|-|         65|          1|         37|  -0.1087841205|        110|00:02:44|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          37    mean value:   -0.1087841205
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+37   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+37                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+37                 NA          NA       NA       31
+
+# 2021-12-25 11:46:50 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 11:46:50 -03: Results for the race of iteration 6 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+38   38     nsga2    XieBeni 4        1000      12      0.7549        0.3970
+39   39     nsga2    XieBeni 5        1000      40      0.7926        0.0656
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+37   0.5                    0            0.05               NA              NA
+31   0.5                    0            0.05               NA              NA
+38   0.5                    0            0.05               NA              NA
+39   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+37                         NA     NA     NA              NA                 NA
+31                         NA     NA     NA              NA                 NA
+38                         NA     NA     NA              NA                 NA
+39                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+37                 NA          NA       NA       31    TRUE      1
+31                 NA          NA       NA       26   FALSE    Inf
+38                 NA          NA       NA       31   FALSE    Inf
+39                 NA          NA       NA       31   FALSE    Inf
+# 2021-12-25 11:46:50 -03: Extracting elites
+# 2021-12-25 11:46:50 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+37   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+37                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+37                 NA          NA       NA       31    TRUE      1        1
+# 2021-12-25 11:46:50 -03: End of iteration 6
+# 2021-12-25 11:46:50 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+28   28     nsga2    XieBeni 4        1000      80      0.7597        0.3899
+29   29     nsga2    XieBeni 4        1000      20      0.7583        0.4854
+30   30     nsga2    XieBeni 5        1000      40      0.6800        0.1451
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+32   32     nsga2    XieBeni 5        1000      20      0.6488        0.1837
+33   33     nsga2    XieBeni 4        1000      20      0.5093        0.3738
+34   34     nsga2    XieBeni 5        1000      80      0.5470        0.0922
+35   35     nsga2    XieBeni 5        1000      20      0.6056        0.3184
+36   36     nsga2    XieBeni 4        1000      12      0.6473        0.4483
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+38   38     nsga2    XieBeni 4        1000      12      0.7549        0.3970
+39   39     nsga2    XieBeni 5        1000      40      0.7926        0.0656
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+28   0.5                    0            0.05               NA              NA
+29   0.5                    0            0.05               NA              NA
+30   0.5                    0            0.05               NA              NA
+31   0.5                    0            0.05               NA              NA
+32   0.5                    0            0.05               NA              NA
+33   0.5                    0            0.05               NA              NA
+34   0.5                    0            0.05               NA              NA
+35   0.5                    0            0.05               NA              NA
+36   0.5                    0            0.05               NA              NA
+37   0.5                    0            0.05               NA              NA
+38   0.5                    0            0.05               NA              NA
+39   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+28                         NA     NA     NA              NA                 NA
+29                         NA     NA     NA              NA                 NA
+30                         NA     NA     NA              NA                 NA
+31                         NA     NA     NA              NA                 NA
+32                         NA     NA     NA              NA                 NA
+33                         NA     NA     NA              NA                 NA
+34                         NA     NA     NA              NA                 NA
+35                         NA     NA     NA              NA                 NA
+36                         NA     NA     NA              NA                 NA
+37                         NA     NA     NA              NA                 NA
+38                         NA     NA     NA              NA                 NA
+39                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+22                 NA          NA       NA       15
+23                 NA          NA       NA       15
+24                 NA          NA       NA       15
+25                 NA          NA       NA       15
+26                 NA          NA       NA       15
+27                 NA          NA       NA       15
+28                 NA          NA       NA       26
+29                 NA          NA       NA       26
+30                 NA          NA       NA       26
+31                 NA          NA       NA       26
+32                 NA          NA       NA       26
+33                 NA          NA       NA       26
+34                 NA          NA       NA       26
+35                 NA          NA       NA       26
+36                 NA          NA       NA       26
+37                 NA          NA       NA       31
+38                 NA          NA       NA       31
+39                 NA          NA       NA       31
+# 2021-12-25 11:46:50 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             240.2 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               1.0 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 11:46:50 -03: Iteration 7 of 7
+# experimentsUsedSoFar: 1070
+# remainingBudget: 130
+# currentBudget: 130
+# nbConfigurations: 2
+# 2021-12-25 11:46:50 -03: Update model
+# Model:
+$K
+$K$`37`
+[1] 0.4866328
+
+
+$popSize
+$popSize$`37`
+[1] 1.216582
+
+
+$mating_rate
+$mating_rate$`37`
+[1] 0.09732657 0.73940000
+
+
+$mutation_rate
+$mutation_rate$`37`
+[1] 0.119225 0.186700
+
+
+$is_random_population
+$is_random_population$`37`
+[1] 0.2433164
+
+
+$diversity_metric
+$diversity_metric$`37`
+[1] 0.5 0.5
+
+
+$diversity_level
+$diversity_level$`37`
+[1] 0.7299493
+
+
+$auto_adjust_initial_params
+$auto_adjust_initial_params$`37`
+[1] 0.2433164
+
+
+$phases
+$phases$`37`
+[1] 0.4866328
+
+
+$agents
+$agents$`37`
+[1] 0.4866328
+
+
+$sync_off
+$sync_off$`37`
+[1] 0.2433164
+
+
+$mutation_radius
+$mutation_radius$`37`
+[1] 0.1094924        NA
+
+
+# 2021-12-25 11:46:50 -03: Sample 1 configurations from model
+# 2021-12-25 11:46:50 -03: Computing similarity of configurations .. DONE
+# 2021-12-25 11:46:50 -03: Configurations for the race n 7 (elite configurations listed first, then new configurations):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+40   40     nsga2    XieBeni 5        1000      12      0.8054        0.1868
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+37   0.5                    0            0.05               NA              NA
+40   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+37                         NA     NA     NA              NA                 NA
+40                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+37                 NA          NA       NA       31
+40                 NA          NA       NA       37
+# 2021-12-25 11:46:50 -03: Launch race
+# Markers:
+     x No test is performed.
+     c Configurations are discarded only due to capping.
+     - The test is performed and some configurations are discarded.
+     = The test is performed but no configuration is discarded.
+     ! The test is performed and configurations could be discarded but elite configurations are preserved.
+     . All alive configurations are elite and nothing is discarded
+
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+| |   Instance|      Alive|       Best|      Mean best| Exp so far|  W time|  rho|KenW|  Qvar|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+|x|         66|          2|         37|    0.000000000|          2|00:03:30|   NA|  NA|    NA|
+|x|         12|          2|         37|    0.000000000|          3|00:04:07|+1.00|1.00|0.0000|
+|x|         55|          2|         37|    0.000000000|          4|00:04:21|+1.00|1.00|0.0000|
+|x|         36|          2|         37|  -0.1039848211|          5|00:03:24|+0.00|0.25|0.1250|
+|x|         59|          2|         37| -0.08318785687|          6|00:04:14|+0.00|0.20|0.1000|
+|x|         17|          2|         37| -0.06932321406|          7|00:01:18|+0.00|0.17|0.0833|
+|x|         24|          2|         37|  -0.1188397955|          8|00:03:27|+0.17|0.29|0.1190|
+|x|         52|          2|         37|  -0.1039848211|          9|00:04:23|+0.14|0.25|0.1071|
+|x|         30|          2|         37| -0.09243095208|         10|00:04:16|+0.12|0.22|0.0972|
+|x|         51|          2|         37| -0.08318785687|         11|00:04:27|+0.11|0.20|0.0889|
+|x|         44|          2|         37| -0.07562532443|         12|00:04:29|+0.10|0.18|0.0818|
+|x|         19|          2|         37| -0.06932321406|         13|00:04:08|+0.09|0.17|0.0758|
+|x|         39|          2|         37| -0.06399065913|         14|00:04:27|+0.08|0.15|0.0705|
+|x|          9|          2|         37| -0.05941989776|         15|00:04:21|+0.08|0.14|0.0659|
+|x|          2|          2|         37| -0.05545857125|         16|00:04:09|+0.07|0.13|0.0619|
+|x|         49|          2|         37| -0.07798861582|         17|00:03:19|+0.13|0.19|0.0813|
+|x|         13|          2|         37| -0.07340105018|         18|00:04:22|+0.12|0.18|0.0772|
+|x|         26|          2|         37| -0.09243095208|         19|00:03:22|+0.18|0.22|0.0915|
+|x|         28|          2|         37| -0.08756616513|         20|00:04:28|+0.17|0.21|0.0877|
+|=|          5|          2|         37| -0.08318785687|         21|00:04:13|+0.16|0.20|0.0842|
+|x|          7|          2|         37| -0.07922653035|         22|00:01:17|+0.15|0.19|0.0810|
+|x|         42|          2|         37| -0.07562532443|         23|00:04:17|+0.14|0.18|0.0779|
+|x|         10|          2|         37| -0.09042158355|         24|00:03:21|+0.18|0.22|0.0889|
+|x|         46|          2|         37| -0.08665401757|         25|00:04:15|+0.17|0.21|0.0861|
+|!|         58|          2|         37| -0.08318785687|         26|00:01:17|+0.17|0.20|0.0833|
+|x|         33|          2|         37| -0.07998832391|         27|00:04:11|+0.16|0.19|0.0808|
+|x|         45|          2|         37| -0.07702579340|         28|00:04:27|+0.15|0.19|0.0783|
+|x|         63|          2|         37| -0.07427487221|         29|00:04:12|+0.15|0.18|0.0761|
+|x|          3|          2|         37| -0.07171366972|         30|00:01:19|+0.14|0.17|0.0739|
+|!|         41|          2|         37| -0.08318785687|         31|00:03:27|+0.17|0.20|0.0828|
+|x|         53|          2|         37| -0.08050437762|         32|00:01:17|+0.17|0.19|0.0806|
+|x|         61|          2|         37| -0.09098671845|         33|00:03:29|+0.19|0.22|0.0882|
+|x|         62|          2|         37| -0.08822954517|         34|00:01:18|+0.19|0.21|0.0862|
+|x|         65|          2|         37| -0.09786806691|         35|00:03:21|+0.21|0.24|0.0927|
+|!|          8|          2|         37|  -0.1069558160|         36|00:03:20|+0.24|0.26|0.0983|
+|x|         38|          2|         37|  -0.1155386901|         37|00:03:22|+0.26|0.28|0.1032|
+|x|          4|          2|         37|  -0.1124160228|         38|00:04:23|+0.25|0.27|0.1014|
+|x|         11|          2|         37|  -0.1094577064|         39|00:01:20|+0.24|0.26|0.0996|
+|x|         23|          2|         37|  -0.1066510986|         40|00:01:20|+0.24|0.26|0.0978|
+|!|         18|          2|         37|  -0.1143833032|         41|00:03:24|+0.26|0.28|0.1022|
+|x|         50|          2|         37|  -0.1115934665|         42|00:01:18|+0.25|0.27|0.1006|
+|x|         43|          2|         37|  -0.1089364792|         43|00:01:17|+0.24|0.26|0.0990|
+|x|         31|          2|         37|  -0.1160760794|         44|00:03:23|+0.26|0.28|0.1030|
+|x|         54|          2|         37|  -0.1228911522|         45|00:03:23|+0.28|0.30|0.1065|
+|!|         20|          2|         37|  -0.1201602377|         46|00:04:24|+0.27|0.29|0.1051|
+|x|         60|          2|         37|  -0.1265902170|         47|00:03:28|+0.29|0.30|0.1082|
+|x|         32|          2|         37|  -0.1238968081|         48|00:01:19|+0.28|0.30|0.1068|
+|x|         22|          2|         37|  -0.1213156246|         49|00:04:20|+0.28|0.29|0.1055|
+|x|          1|          2|         37|  -0.1273283524|         50|00:03:22|+0.29|0.31|0.1084|
+|!|         35|          2|         37|  -0.1247817853|         51|00:04:22|+0.29|0.30|0.1071|
+|x|         27|          2|         37|  -0.1223350836|         52|00:04:08|+0.28|0.29|0.1059|
+|x|         25|          2|         37|  -0.1199824859|         53|00:01:17|+0.27|0.29|0.1046|
+|x|         29|          2|         37|  -0.1177186654|         54|00:04:32|+0.27|0.28|0.1034|
+|x|         14|          2|         37|  -0.1155386901|         55|00:01:18|+0.26|0.28|0.1022|
+|!|         16|          2|         37|  -0.1134379866|         56|00:04:07|+0.26|0.27|0.1010|
+|x|          6|          2|         37|  -0.1114123083|         57|00:04:28|+0.25|0.27|0.0998|
+|x|         40|          2|         37|  -0.1094577064|         58|00:01:17|+0.25|0.26|0.0987|
+|x|         47|          2|         37|  -0.1147418715|         59|00:03:24|+0.26|0.28|0.1016|
+|x|         21|          2|         37|  -0.1127970941|         60|00:04:07|+0.26|0.27|0.1005|
+|!|         56|          2|         37|  -0.1109171425|         61|00:04:12|+0.25|0.27|0.0994|
+|x|         34|          2|         37|  -0.1090988287|         62|00:01:19|+0.25|0.26|0.0984|
+|x|         37|          2|         37|  -0.1073391702|         63|00:04:17|+0.25|0.26|0.0973|
+|x|         48|          2|         37|  -0.1056353738|         64|00:01:19|+0.24|0.25|0.0963|
+|x|         64|          2|         37|  -0.1039848211|         65|00:04:29|+0.24|0.25|0.0952|
+|!|         15|          2|         37|  -0.1087841205|         66|00:03:21|+0.25|0.26|0.0981|
+|x|         57|          2|         37|  -0.1071358763|         67|00:04:23|+0.25|0.26|0.0971|
+|x|         67|          2|         37|  -0.1055368333|         69|00:03:36|+0.24|0.25|0.0961|
+|x|         68|          2|         37|  -0.1039848211|         71|00:00:58|+0.24|0.25|0.0951|
+|x|         69|          2|         37|  -0.1024777947|         73|00:03:38|+0.24|0.25|0.0942|
+|-|         70|          1|         37|  -0.1010138262|         75|00:00:58|   NA|  NA|    NA|
++-+-----------+-----------+-----------+---------------+-----------+--------+-----+----+------+
+# Stopped because number of alive configurations (1) <= minimum number of configurations (1)
+Best-so-far configuration:          40    mean value:     0.000000000
+Description of the best-so-far configuration:
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+40   40     nsga2    XieBeni 5        1000      12      0.8054        0.1868
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+40   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+40                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+40                 NA          NA       NA       37
+
+# 2021-12-25 15:36:34 -03: Memory used in race():
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               0.7 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 15:36:34 -03: Results for the race of iteration 7 (from best to worst, according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+40   40     nsga2    XieBeni 5        1000      12      0.8054        0.1868
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+40   0.5                    0            0.05               NA              NA
+37   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+40                         NA     NA     NA              NA                 NA
+37                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK.
+40                 NA          NA       NA       37    TRUE      1
+37                 NA          NA       NA       31   FALSE    Inf
+# 2021-12-25 15:36:34 -03: Extracting elites
+# 2021-12-25 15:36:34 -03: Elite configurations (first number is the configuration ID; listed from best to worst according to the sum of ranks):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+40   40     nsga2    XieBeni 5        1000      12      0.8054        0.1868
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+40   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+40                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT. .ALIVE. .RANK. .WEIGHT.
+40                 NA          NA       NA       37    TRUE      1        1
+# 2021-12-25 15:36:34 -03: End of iteration 7
+# 2021-12-25 15:36:34 -03: All configurations (sampling order):
+   .ID. algorithm objectives K evaluations popSize mating_rate mutation_rate
+1     1     nsga2    XieBeni 5        1000      20      0.7652        0.4562
+2     2     nsga2    XieBeni 5        1000     100      0.8551        0.0667
+3     3     nsga2    XieBeni 4        1000      60      0.8893        0.2388
+4     4     nsga2    XieBeni 4        1000     100      0.6059        0.0947
+5     5     nsga2    XieBeni 4        1000      80      0.8543        0.0573
+6     6     nsga2    XieBeni 5        1000      60      0.6523        0.3436
+7     7     nsga2    XieBeni 4        1000      12      0.8676        0.3647
+8     8     nsga2    XieBeni 3        1000      80      0.6374        0.4711
+9     9     nsga2    XieBeni 5        1000      60      0.7909        0.2875
+10   10     nsga2    XieBeni 5        1000      12      0.7856        0.2931
+11   11     nsga2    XieBeni 5        1000      20      0.7452        0.3724
+12   12     nsga2    XieBeni 4        1000      12      0.6815        0.4371
+13   13     nsga2    XieBeni 5        1000      12      0.5904        0.4017
+14   14     nsga2    XieBeni 5        1000      60      0.6889        0.4455
+15   15     nsga2    XieBeni 5        1000      40      0.6641        0.4873
+16   16     nsga2    XieBeni 4        1000      20      0.8853        0.2455
+17   17     nsga2    XieBeni 4        1000      60      0.8419        0.3959
+18   18     nsga2    XieBeni 5        1000      20      0.6089        0.3487
+19   19     nsga2    XieBeni 4        1000      40      0.8392        0.1301
+20   20     nsga2    XieBeni 4        1000      20      0.7185        0.4140
+21   21     nsga2    XieBeni 4        1000      12      0.6566        0.3375
+22   22     nsga2    XieBeni 5        1000      12      0.5267        0.4252
+23   23     nsga2    XieBeni 5        1000      12      0.5433        0.4855
+24   24     nsga2    XieBeni 5        1000      12      0.5002        0.4364
+25   25     nsga2    XieBeni 4        1000      40      0.8241        0.2571
+26   26     nsga2    XieBeni 5        1000      20      0.6555        0.3645
+27   27     nsga2    XieBeni 5        1000      60      0.7562        0.4471
+28   28     nsga2    XieBeni 4        1000      80      0.7597        0.3899
+29   29     nsga2    XieBeni 4        1000      20      0.7583        0.4854
+30   30     nsga2    XieBeni 5        1000      40      0.6800        0.1451
+31   31     nsga2    XieBeni 5        1000      12      0.7946        0.3262
+32   32     nsga2    XieBeni 5        1000      20      0.6488        0.1837
+33   33     nsga2    XieBeni 4        1000      20      0.5093        0.3738
+34   34     nsga2    XieBeni 5        1000      80      0.5470        0.0922
+35   35     nsga2    XieBeni 5        1000      20      0.6056        0.3184
+36   36     nsga2    XieBeni 4        1000      12      0.6473        0.4483
+37   37     nsga2    XieBeni 5        1000      12      0.7394        0.1867
+38   38     nsga2    XieBeni 4        1000      12      0.7549        0.3970
+39   39     nsga2    XieBeni 5        1000      40      0.7926        0.0656
+40   40     nsga2    XieBeni 5        1000      12      0.8054        0.1868
+   alpha is_random_population convergence_tol diversity_metric diversity_level
+1    0.5                    0            0.05               NA              NA
+2    0.5                    1            0.05               NA              NA
+3    0.5                    0            0.05               NA              NA
+4    0.5                    0            0.05               NA              NA
+5    0.5                    0            0.05               NA              NA
+6    0.5                    1            0.05               NA              NA
+7    0.5                    1            0.05               NA              NA
+8    0.5                    1            0.05               NA              NA
+9    0.5                    1            0.05               NA              NA
+10   0.5                    0            0.05               NA              NA
+11   0.5                    0            0.05               NA              NA
+12   0.5                    0            0.05               NA              NA
+13   0.5                    0            0.05               NA              NA
+14   0.5                    0            0.05               NA              NA
+15   0.5                    0            0.05               NA              NA
+16   0.5                    0            0.05               NA              NA
+17   0.5                    0            0.05               NA              NA
+18   0.5                    0            0.05               NA              NA
+19   0.5                    0            0.05               NA              NA
+20   0.5                    0            0.05               NA              NA
+21   0.5                    0            0.05               NA              NA
+22   0.5                    0            0.05               NA              NA
+23   0.5                    0            0.05               NA              NA
+24   0.5                    0            0.05               NA              NA
+25   0.5                    0            0.05               NA              NA
+26   0.5                    0            0.05               NA              NA
+27   0.5                    0            0.05               NA              NA
+28   0.5                    0            0.05               NA              NA
+29   0.5                    0            0.05               NA              NA
+30   0.5                    0            0.05               NA              NA
+31   0.5                    0            0.05               NA              NA
+32   0.5                    0            0.05               NA              NA
+33   0.5                    0            0.05               NA              NA
+34   0.5                    0            0.05               NA              NA
+35   0.5                    0            0.05               NA              NA
+36   0.5                    0            0.05               NA              NA
+37   0.5                    0            0.05               NA              NA
+38   0.5                    0            0.05               NA              NA
+39   0.5                    0            0.05               NA              NA
+40   0.5                    0            0.05               NA              NA
+   auto_adjust_initial_params phases agents mutation_radius min_density_radius
+1                          NA     NA     NA              NA                 NA
+2                          NA     NA     NA              NA                 NA
+3                          NA     NA     NA              NA                 NA
+4                          NA     NA     NA              NA                 NA
+5                          NA     NA     NA              NA                 NA
+6                          NA     NA     NA              NA                 NA
+7                          NA     NA     NA              NA                 NA
+8                          NA     NA     NA              NA                 NA
+9                          NA     NA     NA              NA                 NA
+10                         NA     NA     NA              NA                 NA
+11                         NA     NA     NA              NA                 NA
+12                         NA     NA     NA              NA                 NA
+13                         NA     NA     NA              NA                 NA
+14                         NA     NA     NA              NA                 NA
+15                         NA     NA     NA              NA                 NA
+16                         NA     NA     NA              NA                 NA
+17                         NA     NA     NA              NA                 NA
+18                         NA     NA     NA              NA                 NA
+19                         NA     NA     NA              NA                 NA
+20                         NA     NA     NA              NA                 NA
+21                         NA     NA     NA              NA                 NA
+22                         NA     NA     NA              NA                 NA
+23                         NA     NA     NA              NA                 NA
+24                         NA     NA     NA              NA                 NA
+25                         NA     NA     NA              NA                 NA
+26                         NA     NA     NA              NA                 NA
+27                         NA     NA     NA              NA                 NA
+28                         NA     NA     NA              NA                 NA
+29                         NA     NA     NA              NA                 NA
+30                         NA     NA     NA              NA                 NA
+31                         NA     NA     NA              NA                 NA
+32                         NA     NA     NA              NA                 NA
+33                         NA     NA     NA              NA                 NA
+34                         NA     NA     NA              NA                 NA
+35                         NA     NA     NA              NA                 NA
+36                         NA     NA     NA              NA                 NA
+37                         NA     NA     NA              NA                 NA
+38                         NA     NA     NA              NA                 NA
+39                         NA     NA     NA              NA                 NA
+40                         NA     NA     NA              NA                 NA
+   max_density_radius density_tol sync_off .PARENT.
+1                  NA          NA       NA       NA
+2                  NA          NA       NA       NA
+3                  NA          NA       NA       NA
+4                  NA          NA       NA       NA
+5                  NA          NA       NA       NA
+6                  NA          NA       NA       NA
+7                  NA          NA       NA       NA
+8                  NA          NA       NA       NA
+9                  NA          NA       NA       NA
+10                 NA          NA       NA        1
+11                 NA          NA       NA        1
+12                 NA          NA       NA        1
+13                 NA          NA       NA        1
+14                 NA          NA       NA        1
+15                 NA          NA       NA        1
+16                 NA          NA       NA        1
+17                 NA          NA       NA       15
+18                 NA          NA       NA       15
+19                 NA          NA       NA       15
+20                 NA          NA       NA       15
+21                 NA          NA       NA       15
+22                 NA          NA       NA       15
+23                 NA          NA       NA       15
+24                 NA          NA       NA       15
+25                 NA          NA       NA       15
+26                 NA          NA       NA       15
+27                 NA          NA       NA       15
+28                 NA          NA       NA       26
+29                 NA          NA       NA       26
+30                 NA          NA       NA       26
+31                 NA          NA       NA       26
+32                 NA          NA       NA       26
+33                 NA          NA       NA       26
+34                 NA          NA       NA       26
+35                 NA          NA       NA       26
+36                 NA          NA       NA       26
+37                 NA          NA       NA       31
+38                 NA          NA       NA       31
+39                 NA          NA       NA       31
+40                 NA          NA       NA       37
+# 2021-12-25 15:36:34 -03: Memory used in irace():
+                       catInfo :              52.9 Kb
+                  iraceResults :             246.3 Kb
+                      scenario :             111.9 Kb
+       .irace$target.evaluator :             229.4 Kb
+          .irace$target.runner :             344.4 Kb
+                         Total :               1.0 Mb
+                            gc :             102.2 Mb
+# 2021-12-25 15:36:34 -03: Stopped because there is not enough budget left to race more than the minimum (1)
+# You may either increase the budget or set 'minNbSurvival' to a lower value
+# Iteration: 8
+# nbIterations: 8
+# experimentsUsedSoFar: 1145
+# timeUsed: 0
+# remainingBudget: 55
+# currentBudget: 55
+# number of elites: 1
+# nbConfigurations: 1
+[1] "irace finished!"
+[1] "Starting post analysis..."
+Only 1 configurations available, reducing n,
+Skipping fixed parameter: algorithm 
+Skipping fixed parameter: objectives 
+Plotting: K 
+Skipping fixed parameter: evaluations 
+Plotting: popSize 
+Plotting: mating_rate 
+Plotting: mutation_rate 
+Skipping fixed parameter: alpha 
+Plotting: is_random_population 
+Plotting: diversity_metric 
+Plotting: diversity_level 
+Plotting: auto_adjust_initial_params 
+Skipping fixed parameter: min_density_radius 
+Skipping fixed parameter: max_density_radius 
+Skipping fixed parameter: density_tol 
+Plotting: phases 
+Plotting: agents 
+Plotting: sync_off 
+Skipping fixed parameter: convergence_tol 
+Plotting: mutation_radius 
+All values are NA for:  mutation_radius , skipping plot
+[1] "Post analysis finished"
+[1] TRUE
+There were 50 or more warnings (use warnings() to see the first 50)

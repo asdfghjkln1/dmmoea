@@ -113,10 +113,12 @@ test_best_configurations_paired <- function(){
     params$density_tol <- best_params$density_tol
   }
   ##
+  seeds <- data.frame("id"=rep(1:trials), "dataset"=rep(dataset, trials), "seed"=rep(NA, trials))
   for(i in 1:trials){
     seed <- as.numeric(Sys.time())
-    if(dataset=="arabidopsis" || dataset=="sporulation"){
-      P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE)
+    seeds[i, "seed"] <- seed
+    if(dataset=="arabidopsis" || dataset=="cell_cycle"){
+      P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
     }else{
       P <- generate_initial_pop(pop.size, K, distances$n.genes, seed) 
     }
@@ -145,16 +147,16 @@ test_best_configurations_paired <- function(){
       params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
       params$convergence_tol <- best_params$convergence_tol
       params$mutation_radius <- best_params$mutation_radius
-      params$seed <- runif(1, 0, 1)*1235
+      params$seed <- seed
       output.exp <- file.path(test.path, algorithm, dataset, i)
       dir.create(output.exp, showWarnings = FALSE, recursive = TRUE)
       print(paste("Algorithm", algorithm, "dataset", dataset, "run", i, "..."))
       if(algorithm == "dmnsga2"){
-        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else if(algorithm == "dnsga2"){
-        res <- dnsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- dnsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else if(algorithm == "nsga2"){
-        res <- nsga2(distances, params, output.exp, initial_population=P, debug=TRUE, plot=FALSE)
+        res <- nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
       }else{
         print("Algorithm not supported!!")
       }

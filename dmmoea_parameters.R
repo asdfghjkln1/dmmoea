@@ -31,16 +31,16 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   #serie_k <- 4
   
   ##Initial population params
-  min_density_radius <- 0.01 # Minimum radius to calculate cluster density
-  max_density_radius <- 0.2 # Maximum radius to calculate cluster density
-  density_tol <- 0.01 # Percentage of dataset points as minimum acceptable density
-  auto_adjust_initial_params <- TRUE # If true ignore all 3 previous parameters and auto adjust
+  min_density_radius <- 0.01 #0.01 # Minimum radius to calculate cluster density
+  max_density_radius <- 0.2 #0.2 # Maximum radius to calculate cluster density
+  density_tol <- 0.01 #0.01 # Percentage of dataset points as minimum acceptable density
+  auto_adjust_initial_params <- FALSE # If true ignore all 3 previous parameters and auto adjust
   
   ##Memetic parameters
   agents <- 4
   phases <- 4
   sync_off <- FALSE
-  sync_method <- "hc"
+  sync_method <- "pam"
   diversity_level <- 4
   diversity_metric <- diversity_metric
   
@@ -55,7 +55,7 @@ init_parameters <- function(dataset.name="arabidopsis", objectives="XieBeni", di
   ratMuta<-0.1
   mutType<-"all" # "mut.only", "selective", "all"
   tourSize <- 2 #ceiling(popSize*0.20)
-  tolerancia <- 0.05 # Minimum convergence index to consider "no changes"
+  tolerancia <- -0.05 # Minimum convergence index to consider "no changes"
   seed <- 123
   
   return(list( dataset=dataset, cores=cores, objectives=obj_names, objDim=objDim, obj_maximize=maximize,

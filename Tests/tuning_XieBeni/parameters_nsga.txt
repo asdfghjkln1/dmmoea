@@ -17,4 +17,4 @@ phases "--phases " o (1, 2, 3) | algorithm == "dmnsga2"
 agents "--agents " o (2, 4, 6) | algorithm == "dmnsga2"
 sync_off "--sync_off " o (0, 1) | algorithm == "dmnsga2" && diversity_level != 4
 convergence_tol "--conv_tol " o (0.05)
-mutation_radius "--mut_radius " r (0.05, 0.5) | algorithm != "nsga2" 
+mutation_radius "--mut_radius " r (0.05, 0.25) | algorithm != "nsga2" 
