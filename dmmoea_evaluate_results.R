@@ -22,8 +22,10 @@ evaluate_results <- function(){
   #if(!file.exists(file.path(results.path, "limits.csv"))){
     #warning("Limits not found, please run \"dmmoea_normalize_limits.R\" first.")
     #return(-1)
-  print("Getting normalization limits...")
-  limits <- get_normalization_limits(results.path)
+  if(length(list.dirs(results.path, recursive = FALSE)) > 1){
+    print("Getting normalization limits...")
+    limits <- get_normalization_limits(results.path) 
+  }
   #}
   #limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
   print("Finished.")
@@ -35,11 +37,17 @@ evaluate_results <- function(){
     print("Diversity plot data not found!. Initiating evaluation...")
     evaluate_run_results(results.path, limits)
   }
-  print("Experiment evaluation done. Plotting results...")
-  plot_algorithm_comparison_pareto(results.path)
-  print("Pareto comparison done. Plotting other comparison metrics...")
+  if(file.exists(file.path(results.path, "data_pareto.csv"))){
+    print("Experiment evaluation done. Plotting results...")
+    plot_algorithm_comparison_pareto(results.path, load.data=TRUE)
+  }else{
+    print("Getting pareto front and plotting...")
+    plot_algorithm_comparison_pareto(results.path, load.data=FALSE)
+  }
+  
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
+  print("Pareto comparison done. Plotting other comparison metrics...")
   plot_algorithm_comparison(results.path, plot.data)
   plot_algorithm_comparison_diversity(results.path, plot.data.diversity)
   print("Done.")

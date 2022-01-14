@@ -1,6 +1,9 @@
 dir.create(Sys.getenv("R_LIBS_USER"), recursive = TRUE, showWarnings = FALSE)
 .libPaths(Sys.getenv("R_LIBS_USER"))
 lib <- Sys.getenv("R_LIBS_USER")
+if(exists("lib.path")){
+  lib <- lib.path
+}
 
 if(!require(nsga2R)){
   install.packages("nsga2R", lib=lib)
