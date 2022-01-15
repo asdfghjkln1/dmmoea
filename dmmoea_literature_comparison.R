@@ -1,8 +1,8 @@
 literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum < 6){
-    print(paste0("Not enough parameters (", argnum, "/6)"))
+  if(argnum < 7){
+    print(paste0("Not enough parameters (", argnum, "/7)"))
     return(-1)
   }
   path <- args[1] # "X:\\Universidad\\dmmoea"
@@ -10,24 +10,9 @@ literature_comparison_experiments <- function(){
   algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
   ref.algorithm <- args[4] # "dnsga2"
   evaluations <- as.numeric(args[5]) # 2000
-  trials <- as.numeric(args[6]) # "1"
-  if(!is.na(args[7])){
-    clust.id <- as.character(args[7])
-    if(clust.id == "1"){
-      trials <- 1:5
-    }else if(clust.id == "2"){
-      trials <- 6:10
-    }else if(clust.id == "3"){
-      trials <- 11:15
-    }else if(clust.id == "4"){
-      trials <- 16:20
-    }else if(clust.id == "5"){
-      trials <- 21:25
-    }else if(clust.id == "6"){
-      trials <- 26:31
-    }
-  }
-  
+  trial.start <- as.numeric(args[6]) # 1
+  trial.stop <- as.numeric(args[7]) # 31
+
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -86,10 +71,10 @@ literature_comparison_experiments <- function(){
   }
 }
 
-execute_tests <- function(params, path, output.folder, algorithm, dataset, limits, trials="1:31"){
+execute_tests <- function(params, path, output.folder, algorithm, dataset, limits, trial.start=1, trial.stop=31){
   distances <- load.gene.distance(dataset, params$alpha)
   trials <- eval(parse(text = trials))
-  for(i in trials){
+  for(i in trial.start:trial.stop){
     output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
     if(dir.exists(output.exp)){
       next
