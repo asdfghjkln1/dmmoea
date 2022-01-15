@@ -3,8 +3,8 @@ compare_operators <- function(){
   Sys.setlocale("LC_CTYPE","spanish")
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 5){
-    print(paste0("Not enough parameters (", argnum, "/5)"))
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
   path <- args[1] #"X:\\Universidad\\dmmoea" #args[1] # "X:\\Universidad\\dmmoea" #args[1] #
@@ -12,6 +12,7 @@ compare_operators <- function(){
   operator <- args[3] #"lv3"
   runs <- as.numeric(args[4])
   generations <- as.numeric(args[5])
+  param.path <- args[6]
   
   setwd(path)
   library(ggpubr)
@@ -26,7 +27,35 @@ compare_operators <- function(){
   dir.create(results.path, recursive = TRUE, showWarnings = FALSE)
   print("Path in:")
   print(results.path)
-  params <- init_parameters()
+  #params <- init_parameters()
+  
+  best_params <- read.table(file.path(path, param.path, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
+  print("best params:")
+  print(best_params)
+  params <- init_parameters(objectives=best_params$objectives)
+  params$K <- as.numeric(best_params$K)
+  params$objectives <- best_params$objectives
+  params$popSize <- as.numeric(best_params$popSize)
+  params$mating_rate <- best_params$mating_rate
+  params$mutation_rate <- best_params$mutation_rate
+  params$alpha <- best_params$alpha
+  params$is_random_population <- as.numeric(best_params$is_random_population)
+  params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
+  if(!is.na(params$auto_adjust_initial_params)){
+    params$min_density_radius <- best_params$min_density_radius
+    params$max_density_radius <- best_params$max_density_radius
+    params$density_tol <- best_params$density_tol
+  }
+  params$diversity_metric <- best_params$diversity_metric
+  params$diversity_level <- best_params$diversity_level
+  params$phases <- best_params$phases
+  params$agents <- best_params$agents
+  params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
+  params$convergence_tol <- -1 #best_params$convergence_tol
+  params$mutation_radius <- best_params$mutation_radius
+  
+  
+  
   params$evaluations <- params$popSize*(generations+1)
   
   datasets <- c("arabidopsis")#, "cell_cycle", "serum", "sporulation")

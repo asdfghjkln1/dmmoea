@@ -1,18 +1,17 @@
 literature_comparison_experiments <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum < 7){
-    print(paste0("Not enough parameters (", argnum, "/7)"))
+  if(argnum < 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
   path <- args[1] # "X:\\Universidad\\dmmoea"
   params.path <- args[2] #"Tests\\a"
   algorithms.param <- args[3] # "tmix,mfuzz,dnsga2"
   ref.algorithm <- args[4] # "dnsga2"
-  trials <- as.numeric(args[5]) # "1"
-  evaluations <- as.numeric(args[6]) # 2000
-  lib.path <<- args[7]
-  if(!is.na(args[8])){
+  evaluations <- as.numeric(args[5]) # 2000
+  trials <- as.numeric(args[6]) # "1"
+  if(!is.na(args[7])){
     clust.id <- as.character(args[7])
     if(clust.id == "1"){
       trials <- 1:5
