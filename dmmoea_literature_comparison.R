@@ -66,7 +66,7 @@ literature_comparison_experiments <- function(){
       print(dataset)
       output.folder <- file.path(test.path, algorithm, dataset)
       limits <- read.table(file.path(tune.path, ref.algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
-      execute_tests(params, path, output.folder, algorithm, dataset, limits, trials=trials) 
+      execute_tests(params, path, output.folder, algorithm, dataset, limits, trial.start=trial.start, trial.stop = trial.stop) 
     }
   }
 }
