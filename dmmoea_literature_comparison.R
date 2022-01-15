@@ -73,7 +73,7 @@ literature_comparison_experiments <- function(){
 
 execute_tests <- function(params, path, output.folder, algorithm, dataset, limits, trial.start=1, trial.stop=31){
   distances <- load.gene.distance(dataset, params$alpha)
-  trials <- eval(parse(text = trials))
+  #trials <- eval(parse(text = trials))
   for(i in trial.start:trial.stop){
     output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
     if(dir.exists(output.exp)){
