@@ -2369,7 +2369,8 @@ get_normalization_limits <- function(base.path){
     }
   }
   datasets <- unique(data$dataset)
-  cut <- 0.9
+  cut.f1 <- 0.9
+  cut.f2 <- 0.9
   dir.create(file.path(base.path, "figures", "limits"), recursive = TRUE, showWarnings = FALSE)
   for(j in 1:length(datasets)){
     dataset <- datasets[j]
@@ -2377,7 +2378,7 @@ get_normalization_limits <- function(base.path){
     ggplot(data.dataset, aes(x=max.f1)) +
       geom_histogram(color="darkblue", fill="lightblue") +
       labs(title="Distribution of expression objective function limits", x="Frecuency", subtitle=dataset) +
-      geom_vline(xintercept = quantile(data.dataset$max.f1, cut, na.rm=TRUE)) +
+      geom_vline(xintercept = quantile(data.dataset$max.f1, cut.f1, na.rm=TRUE)) +
       theme_minimal()
     
     ggsave(file.path(base.path, "figures", "limits", paste0("limit_f1_", dataset,".png")), width = 6, height = 4)
@@ -2385,7 +2386,7 @@ get_normalization_limits <- function(base.path){
     ggplot(data.dataset, aes(x=max.f2)) +
       geom_histogram(color="darkblue", fill="lightblue") +
       labs(title="Distribution of biological objective function limits", x="Frecuency", subtitle=dataset) +
-      geom_vline(xintercept = quantile(data.dataset$max.f2, cut, na.rm=TRUE)) +
+      geom_vline(xintercept = quantile(data.dataset$max.f2, cut.f2, na.rm=TRUE)) +
       theme_minimal()
     
     ggsave(file.path(base.path, "figures", "limits", paste0("limit_f2_", dataset,".png")), width = 6, height = 4)
@@ -2397,12 +2398,24 @@ get_normalization_limits <- function(base.path){
       dataset <- datasets[j]
       if(dir.exists(file.path(base.path, algorithm, dataset))){
         data.dataset <- data[data$dataset == dataset, ]
-        limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data.dataset$max.f1, cut, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data.dataset$max.f2, cut, na.rm=TRUE))
+        print(paste0("Dataset ", dataset))
+        ratio <- quantile(data.dataset$max.f1, 0.9, na.rm=TRUE)/quantile(data.dataset$max.f2, 0.9, na.rm=TRUE)
+        print(ratio)
+	if(ratio > 35){
+          cut.f1 <- 0.5
+	}else if(ratio < 0.02){
+          cut.f2 <- 0.5
+	}else if(ratio > 10){
+          cut.f1 <- 0.7
+	}else if(ratio < 0.1){
+	  cut.f2 <- 0.7
+	}
+        limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data.dataset$max.f1, cut.f1, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data.dataset$max.f2, cut.f2, na.rm=TRUE))
         write.table(limits, file=file.path(base.path, algorithm, dataset, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, col.names = TRUE)
       }
     }
   }
-  limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut, na.rm=TRUE))
+  limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data$max.f1, cut.f1, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data$max.f2, cut.f2, na.rm=TRUE))
   write.table(limits, file=file.path(base.path, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, col.names = TRUE)
   return(limits)
 }
