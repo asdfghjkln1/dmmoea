@@ -27,7 +27,7 @@ literature_comparison_experiments <- function(){
   #Load best params
   best_params <- read.table(file.path(tune.path, ref.algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
   
-  test.path <- file.path(path, "Tests", "experiments", best_params$objectives)
+  test.path <- file.path(path, "Tests", "experiments", paste0(best_params$objectives, "_2"))
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- as.numeric(best_params$K)
@@ -84,11 +84,11 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
     if(algorithm == "dmnsga2"){
-      res <- diverse_memetic_nsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
+      res <- diverse_memetic_nsga2(distances, params, output.exp, limits=limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "dnsga2"){
-      res <- dnsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
+      res <- dnsga2(distances, params, output.exp,  limits=limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "nsga2"){
-      res <- nsga2(distances, params, output.exp, limits, debug=TRUE, plot=FALSE)
+      res <- nsga2(distances, params, output.exp,  limits=limits, debug=TRUE, plot=FALSE)
     }else if(algorithm == "moc.gapbk"){
       res <- run_moc_gapbk(distances, params, output.exp, limits)
     }else if(algorithm == "tmix"){
@@ -100,7 +100,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
       return(NULL)
     }
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
+                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=FALSE)
   }
 }
 
@@ -130,24 +130,24 @@ run_tmix_clust <- function(distances, params, output.exp, limits, debug=TRUE){
   }
   D <- as.data.frame(distances$data.matrix)
   D.exp <- distances$exp.dist
-  params$popSize <- round(params$popSize/10)
+  #params$popSize <- round(params$popSize/5)
   population <- as.data.frame(matrix(nrow=params$popSize, ncol=params$K))
   clustering.groups <- list()
   i <- 1
   while(i <= params$popSize){
     print(paste0("Solution ", i, "/", params$popSize))
-    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max = 100, mc_em_iter_max=50)
+    tmix.res <- TMixClust(D, nb_clusters = params$K, em_iter_max = 1000/params$popSize, mc_em_iter_max=2)
     groups <- tmix.res$em_cluster_assignment
     medoids <- get.medoid.diss.matrix(groups, D.exp)
     if(nrow(unique(t(medoids))) == params$K){
-      print("New solution:")
+      #print("New solution:")
       print(medoids)
       population[i, ] <- medoids
       clustering.groups[[i]] <- groups
       i <- i + 1
     }
-    print("Population status:")
-    print(population)
+    #print("Population status:")
+    #print(population)
   }
   row.names(population) <- 1:nrow(population)
   P.rows <- row.names(population)
@@ -156,6 +156,8 @@ run_tmix_clust <- function(distances, params, output.exp, limits, debug=TRUE){
   P.rows <- row.names(population)
   population <- evaluate_population(population, distances, clustering.groups, params)
   clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  print("Popualtion Results:")
+  print(population)
   sink(type="output")
   return(list("population"=population, "clustering"=clustering.groups))
 }
