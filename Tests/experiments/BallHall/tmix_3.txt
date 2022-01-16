@@ -19,6 +19,10 @@ Loading required package: doParallel
 Loading required package: foreach
 Loading required package: iterators
 Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
 Loading required package: ggpubr
 Loading required package: rstatix
 
@@ -123,280 +127,35 @@ The following object is masked from ‘package:ggpubr’:
 [1] "arabidopsis"
 [1] "Starting dataset:"
 [1] "cell_cycle"
-[1] "Starting tmix in cell_cycle run: 4"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 5"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 6"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 7"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 8"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 9"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in cell_cycle run: 10"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
 [1] "Starting tmix in cell_cycle run: 11"
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
@@ -406,6 +165,10 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
@@ -414,12 +177,16 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -432,10 +199,38 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -452,16 +247,9 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -472,10 +260,9 @@ Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -486,19 +273,6 @@ Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
@@ -515,8 +289,22 @@ Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -528,7 +316,23 @@ Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -543,9 +347,9 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -559,10 +363,9 @@ log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -572,6 +375,31 @@ Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -582,7 +410,38 @@ Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -594,32 +453,14 @@ Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 log likelihood is increasing
 log likelihood is increasing
@@ -627,261 +468,17 @@ log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 [1] "Starting dataset:"
 [1] "serum"
-[1] "Starting tmix in serum run: 1"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 2"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 3"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 4"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 5"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 6"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 7"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 8"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 9"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-[1] "Starting tmix in serum run: 10"
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
-Initializing ...
-Performing EM, this operation might take a few minutes ...
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-Clustering done, results stored in a TMixClust object.
 [1] "Starting tmix in serum run: 11"
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
@@ -891,15 +488,21 @@ Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
@@ -910,9 +513,33 @@ Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
@@ -927,17 +554,38 @@ Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
-log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+gss warning in ssanova: iteration for model selection fails to convergelog likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
@@ -947,11 +595,33 @@ Clustering done, results stored in a TMixClust object.
 Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
 Initializing ...
@@ -975,12 +645,373 @@ Initializing ...
 Performing EM, this operation might take a few minutes ...
 log likelihood is increasing
 Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+gss warning in ssanova: iteration for model selection fails to convergePerforming EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+gss warning in ssanova: iteration for model selection fails to convergelog likelihood is increasing
+Clustering done, results stored in a TMixClust object.
 [1] "Starting dataset:"
 [1] "sporulation"
-Error in file(file, "rt") : cannot open the connection
-Calls: literature_comparison_experiments -> read.table -> file
-In addition: Warning messages:
-1: no DISPLAY variable so Tk is not available 
-2: In file(file, "rt") :
-  cannot open file '/home/DIINF/vrivera/dmmoea/Tests/tuning_BallHall/dnsga2/sporulation/limits.csv': No such file or directory
-Execution halted
+[1] "Starting tmix in sporulation run: 11"
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+[1] "Starting tmix in sporulation run: 12"
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+[1] "Starting tmix in sporulation run: 13"
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+[1] "Starting tmix in sporulation run: 14"
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+[1] "Starting tmix in sporulation run: 15"
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Initializing ...
+Performing EM, this operation might take a few minutes ...
+log likelihood is increasing
+Clustering done, results stored in a TMixClust object.
+Warning message:
+no DISPLAY variable so Tk is not available 
