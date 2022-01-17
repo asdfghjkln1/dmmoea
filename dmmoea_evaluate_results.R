@@ -8,7 +8,7 @@ evaluate_results <- function(){
   }
   path <- args[1]
   results.path <- args[2]
-  limit.run <- args[3]
+  limit.run <- as.numeric(args[3])
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -73,7 +73,7 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.
       scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
       evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",", row.names=NULL)
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
-      experiments <- experiments[as.numeric(experiments) < run.limit]
+      experiments <- experiments[as.numeric(experiments) < limit.run]
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
