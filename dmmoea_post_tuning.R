@@ -152,11 +152,11 @@ test_best_configurations_paired <- function(){
       dir.create(output.exp, showWarnings = FALSE, recursive = TRUE)
       print(paste("Algorithm", algorithm, "dataset", dataset, "run", i, "..."))
       if(algorithm == "dmnsga2"){
-        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
+        res <- diverse_memetic_nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=FALSE, plot=FALSE)
       }else if(algorithm == "dnsga2"){
-        res <- dnsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
+        res <- dnsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=FALSE, plot=FALSE)
       }else if(algorithm == "nsga2"){
-        res <- nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=TRUE, plot=FALSE)
+        res <- nsga2(distances, params, output.exp, initial_population=P, limits=NULL, debug=FALSE, plot=FALSE)
       }else{
         print("Algorithm not supported!!")
       }
@@ -188,13 +188,13 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, n.tim
     exp.id <- basename(output.exp)
     if(algorithm.name == "dmnsga2"){
       #print("DMNSGA2")
-      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
     }else if(algorithm.name == "dnsga2"){
       #print("DNSGA2")
-      res <- dnsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+      res <- dnsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
     }else if(algorithm.name == "nsga2"){
       #print("NSGA2")
-      res <- nsga2(distances, params, output.exp, debug=TRUE, plot=TRUE)
+      res <- nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
     }else{
       print("Algorithm not supported!!")
     }
