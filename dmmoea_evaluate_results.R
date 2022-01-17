@@ -2,12 +2,13 @@
 evaluate_results <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 2){
-    print(paste0("Not enough parameters (", argnum, "/2)"))
+  if(argnum < 2){
+    print(paste0("Not enough parameters (", argnum, "/3)"))
     return(-1)
   }
   path <- args[1]
   results.path <- args[2]
+  limit.run <- args[3]
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -32,17 +33,17 @@ evaluate_results <- function(){
   
   if(!file.exists(file.path(results.path, "plot_data.csv"))){
     print("Quality plot data not found!. Initiating evaluation...")
-    evaluate_run_results(results.path, limits)
+    evaluate_run_results(results.path, limits, limit.run = limit.run)
   }else if(!file.exists(file.path(results.path, "plot_data_diversity.csv"))){
     print("Diversity plot data not found!. Initiating evaluation...")
-    evaluate_run_results(results.path, limits)
+    evaluate_run_results(results.path, limits, limit.run = limit.run)
   }
   if(file.exists(file.path(results.path, "data_pareto.csv"))){
     print("Experiment evaluation done. Plotting results...")
-    plot_algorithm_comparison_pareto(results.path, load.data=TRUE)
+    plot_algorithm_comparison_pareto(results.path, load.data=TRUE, limit.run = limit.run)
   }else{
     print("Getting pareto front and plotting...")
-    plot_algorithm_comparison_pareto(results.path, load.data=FALSE)
+    plot_algorithm_comparison_pareto(results.path, load.data=FALSE, limit.run = limit.run)
   }
   
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -53,15 +54,15 @@ evaluate_results <- function(){
   print("Done.")
 }
 
-evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5){
+evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.run=Inf){
   algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)
+  algorithms <- algorithms[!(algorithms %in% "figures")]
   plot.data <- as.data.frame(matrix(nrow=0, ncol=6))
   plot.data.diversity <- as.data.frame(matrix(nrow=0, ncol=6))
   colnames(plot.data) <- c("id", "Algorithm", "Dataset", "Hypervolume", "Silhouette", "Delta")
   colnames(plot.data.diversity) <- c("id", "Algorithm", "Dataset", "Metric", "Diversity", "Cluster_Ratio")
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
-    if(algorithm == "figures"){ next }
     datasets <- list.dirs(path=file.path(path, algorithm), full.names = FALSE, recursive = FALSE)
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
@@ -72,6 +73,7 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5){
       scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
       evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",", row.names=NULL)
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
+      experiments <- experiments[as.numeric(experiments) < run.limit]
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)

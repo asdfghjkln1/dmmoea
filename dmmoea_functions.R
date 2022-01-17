@@ -1769,23 +1769,22 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
   ggsave(file.path(exp.path, "figures", "clust_ratio_results_NMI.png"), height=7, width=7)
 }
 
-plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE){
+plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, run.limit=Inf){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
+  algorithms <- algorithms[!(algorithms %in% "figures")]
   if(!load.data){
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
     colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Algorithm", "Dataset")
     for(i in 1:length(algorithms)){
       algorithm <- algorithms[i]
-      if(algorithm == "figures"){
-        next
-      }
       datasets <- list.dirs(path=file.path(folder.path, algorithm), recursive = FALSE, full.names=FALSE)
       for(j in 1:length(datasets)){
         pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) #** N of objectives hardcoded! **
         dataset <- datasets[j]
         dataset.path <- file.path(folder.path, algorithm, dataset)
         experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
+        experiments <- experiments[as.numeric(experiments) < run.limit]
         for(k in 1:length(experiments)){
           experiment <- experiments[k]
           if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
@@ -1906,9 +1905,12 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #}
   if(pareto.only){
     if(nrow(population) < 2){
+      print("There is only one solution in population!!")
       pareto <- as.data.frame(t(as.matrix(population[population[, "rnkIndex"] == 1, ])))
     }else{
       pareto <- population[population$rnkIndex == 1, ]
+      print("Pareto solutions:")
+      print(pareto)
     }
   }else{
     pareto <- population
