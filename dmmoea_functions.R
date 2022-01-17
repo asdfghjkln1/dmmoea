@@ -1769,7 +1769,7 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
   ggsave(file.path(exp.path, "figures", "clust_ratio_results_NMI.png"), height=7, width=7)
 }
 
-plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, run.limit=Inf){
+plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.run=Inf){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
   algorithms <- algorithms[!(algorithms %in% "figures")]
@@ -1784,7 +1784,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, run.li
         dataset <- datasets[j]
         dataset.path <- file.path(folder.path, algorithm, dataset)
         experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
-        experiments <- experiments[as.numeric(experiments) < run.limit]
+        experiments <- experiments[as.numeric(experiments) < limit.run]
         for(k in 1:length(experiments)){
           experiment <- experiments[k]
           if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
