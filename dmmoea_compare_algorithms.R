@@ -33,6 +33,7 @@ compare_algorithms <- function(){
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data$Algorithm <- as.factor(plot.data$Algorithm)
+  plot.data.diversity$Algorithm <- as.factor(plot.data.diversity$Algorithm)
   plot.data$id <- as.factor(plot.data$id)
   
   datasets <- unique(plot.data$Dataset)
@@ -58,6 +59,12 @@ compare_algorithms <- function(){
 
 kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, output.path){
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
+  #print("Levels before:")
+  #print(levels(data$Algorithm))
+  data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
+  #print("Levels:")
+  #print(levels(data$Algorithm))
+  
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
@@ -88,15 +95,15 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, outpu
   }else if(metric == "Delta"){
     text.title <- paste0("Delta: ", dataset.name)
   }
-  data$Algorithm <- factor(data$Algorithm, levels=c("dsga2", "dnsga2", "dmnsga2"))
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
          caption = get_pwc_label(pwc),
          fill="Algoritmo",
          title=text.title) +
-    theme_minimal() +
-    scale_fill_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II")) +
+    theme_pubr() +
+    scale_fill_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
+                        values=c("#00AFBB", "#E7B800", "#FC4E07")) +
     theme(strip.text.x = element_blank(), 
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
@@ -129,7 +136,7 @@ compare_pareto_front <- function(data, dataset.name, output.path){
       pareto.1 <- data[data$Algorithm == alg.1, 1:2]
       pareto.2 <- data[data$Algorithm == alg.2, 1:2]
       epsilon.matrix[i,j] <- eaf::epsilon_mult(pareto.1, pareto.2, maximise=FALSE)#epsilon_multiplicative(pareto.1, pareto.2)
-      epsilon.matrix[j,i] <- eaf::epsilon_mult(pareto.2, pareto.1, maximise=FALSE)#epsilon_multiplicative(pareto.2, pareto.1)
+      epsilon.matrix[j,i] <- eaf::epsilon_mult(pareto.1, pareto.2, maximise=TRUE)#epsilon_multiplicative(pareto.2, pareto.1)
       #IGD.matrix[i,j] <- inverse_generational_distance_plus(pareto.2, ideal.pareto)
     }
   }
@@ -185,12 +192,13 @@ compare_pareto_front <- function(data, dataset.name, output.path){
       axis.text.y = element_text(size=6)
     )
   p2 <- tableGrob(IGD.table, rows = NULL)
-  sg <- grid::textGrob(paste0("Dataset ", dataset.name), gp = grid::gpar(fontsize = 9))
+  #sg <- grid::textGrob(paste0("Dataset ", dataset.name), gp = grid::gpar(fontsize = 9))
   dir.create(output.path, showWarnings = FALSE, recursive = TRUE)
-  ggsave(file.path(output.path, paste0("pareto_comparison_", dataset.name, ".png")), 
+  ggsave(file.path(output.path, paste0("pareto_metrics_", dataset.name, ".png")), 
          arrangeGrob(p1, p2, widths = c(5, 4), nrow=1, 
-                     top="Comparaci\U00F3n entre fronteras de pareto", 
-                     bottom=sg), 
+                     top="Comparaci\U00F3n entre fronteras de pareto"
+                     #bottom=sg), 
+                      ),
          height=2.5, width=6)
 }
 

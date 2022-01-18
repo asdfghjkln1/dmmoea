@@ -1863,27 +1863,30 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     }else if(dataset == "sporulation"){
       dataset.name = "Sporulation"
     }
-    ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
-      labs(title=paste0("Fronteras de pareto: ",dataset.name), colour="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
-      geom_point() +
-      geom_line() +
-      theme(legend.position="top",
-            title=element_text(size=20, face='bold')) +
-      theme_minimal() +
-      scale_colour_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"))
     
-    ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,".png")), height=7, width=7) 
+    #ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
+    #  labs(title=paste0("Fronteras de pareto: ",dataset.name), colour="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
+    #  geom_point() +
+    #  geom_line() +
+    #  theme(legend.position="top",
+    #        title=element_text(size=20, face='bold')) +
+    #  theme_minimal() +
+    #  scale_colour_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"))
+    #
+    #ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,".png")), height=7, width=7) 
     
     ggplot(data.norm, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Fronteras de pareto: ", dataset.name), colour="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
-      geom_point() +
+      geom_point(position=position_dodge(width=0.01)) +
+      #geom_point() +
       geom_line() +
       theme(legend.position="top", 
             title=element_text(size=20, face='bold')) +
       #xlim(0, 1) +
       #ylim(0, 1) +
       theme_minimal() +
-      scale_colour_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"))
+      scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
+                            values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
