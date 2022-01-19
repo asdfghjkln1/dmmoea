@@ -1,0 +1,281 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+[1] "Path in:"
+[1] "~/dmmoea/Tests/runs/BallHall"
+[1] "Getting normalization limits..."
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+[1] "Dataset arabidopsis"
+      90% 
+0.9873418 
+[1] "Dataset cell_cycle"
+      90% 
+0.3858568 
+[1] "Dataset serum"
+      90% 
+0.9498956 
+[1] "Dataset sporulation"
+       90% 
+0.04549284 
+[1] "Dataset arabidopsis"
+      90% 
+0.9873418 
+[1] "Dataset cell_cycle"
+      90% 
+0.3858568 
+[1] "Dataset serum"
+      90% 
+0.9498956 
+[1] "Dataset sporulation"
+       90% 
+0.04549284 
+[1] "Dataset arabidopsis"
+      90% 
+0.9873418 
+[1] "Dataset cell_cycle"
+      90% 
+0.3858568 
+[1] "Dataset serum"
+      90% 
+0.9498956 
+[1] "Dataset sporulation"
+       90% 
+0.04549284 
+[1] "Finished."
+[1] "Inf run is: "
+[1] 15
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dmnsga2 arabidopsis 15 evaluated!"
+[1] "dmnsga2 arabidopsis 16 evaluated!"
+[1] "dmnsga2 arabidopsis 17 evaluated!"
+[1] "dmnsga2 arabidopsis 18 evaluated!"
+[1] "dmnsga2 arabidopsis 19 evaluated!"
+[1] "dmnsga2 arabidopsis 20 evaluated!"
+[1] "dmnsga2 arabidopsis 21 evaluated!"
+[1] "dmnsga2 arabidopsis 22 evaluated!"
+[1] "dmnsga2 arabidopsis 23 evaluated!"
+[1] "dmnsga2 arabidopsis 24 evaluated!"
+[1] "dmnsga2 arabidopsis 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dmnsga2 cell_cycle 15 evaluated!"
+[1] "dmnsga2 cell_cycle 16 evaluated!"
+[1] "dmnsga2 cell_cycle 17 evaluated!"
+[1] "dmnsga2 cell_cycle 18 evaluated!"
+[1] "dmnsga2 cell_cycle 19 evaluated!"
+[1] "dmnsga2 cell_cycle 20 evaluated!"
+[1] "dmnsga2 cell_cycle 21 evaluated!"
+[1] "dmnsga2 cell_cycle 22 evaluated!"
+[1] "dmnsga2 cell_cycle 23 evaluated!"
+[1] "dmnsga2 cell_cycle 24 evaluated!"
+[1] "dmnsga2 cell_cycle 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dmnsga2 serum 15 evaluated!"
+[1] "dmnsga2 serum 16 evaluated!"
+[1] "dmnsga2 serum 17 evaluated!"
+[1] "dmnsga2 serum 18 evaluated!"
+[1] "dmnsga2 serum 19 evaluated!"
+[1] "dmnsga2 serum 20 evaluated!"
+[1] "dmnsga2 serum 21 evaluated!"
+[1] "dmnsga2 serum 22 evaluated!"
+[1] "dmnsga2 serum 23 evaluated!"
+[1] "dmnsga2 serum 24 evaluated!"
+[1] "dmnsga2 serum 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dmnsga2 sporulation 15 evaluated!"
+[1] "dmnsga2 sporulation 16 evaluated!"
+[1] "dmnsga2 sporulation 17 evaluated!"
+[1] "dmnsga2 sporulation 18 evaluated!"
+[1] "dmnsga2 sporulation 19 evaluated!"
+[1] "dmnsga2 sporulation 20 evaluated!"
+[1] "dmnsga2 sporulation 21 evaluated!"
+[1] "dmnsga2 sporulation 22 evaluated!"
+[1] "dmnsga2 sporulation 23 evaluated!"
+[1] "dmnsga2 sporulation 24 evaluated!"
+[1] "dmnsga2 sporulation 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dnsga2 arabidopsis 15 evaluated!"
+[1] "dnsga2 arabidopsis 16 evaluated!"
+[1] "dnsga2 arabidopsis 17 evaluated!"
+[1] "dnsga2 arabidopsis 18 evaluated!"
+[1] "dnsga2 arabidopsis 19 evaluated!"
+[1] "dnsga2 arabidopsis 20 evaluated!"
+[1] "dnsga2 arabidopsis 21 evaluated!"
+[1] "dnsga2 arabidopsis 22 evaluated!"
+[1] "dnsga2 arabidopsis 23 evaluated!"
+[1] "dnsga2 arabidopsis 24 evaluated!"
+[1] "dnsga2 arabidopsis 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dnsga2 cell_cycle 15 evaluated!"
+[1] "dnsga2 cell_cycle 16 evaluated!"
+[1] "dnsga2 cell_cycle 17 evaluated!"
+[1] "dnsga2 cell_cycle 18 evaluated!"
+[1] "dnsga2 cell_cycle 19 evaluated!"
+[1] "dnsga2 cell_cycle 20 evaluated!"
+[1] "dnsga2 cell_cycle 21 evaluated!"
+[1] "dnsga2 cell_cycle 22 evaluated!"
+[1] "dnsga2 cell_cycle 23 evaluated!"
+[1] "dnsga2 cell_cycle 24 evaluated!"
+[1] "dnsga2 cell_cycle 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dnsga2 serum 15 evaluated!"
+[1] "dnsga2 serum 16 evaluated!"
+[1] "dnsga2 serum 17 evaluated!"
+[1] "dnsga2 serum 18 evaluated!"
+[1] "dnsga2 serum 19 evaluated!"
+[1] "dnsga2 serum 20 evaluated!"
+[1] "dnsga2 serum 21 evaluated!"
+[1] "dnsga2 serum 22 evaluated!"
+[1] "dnsga2 serum 23 evaluated!"
+[1] "dnsga2 serum 24 evaluated!"
+[1] "dnsga2 serum 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "dnsga2 sporulation 15 evaluated!"
+[1] "dnsga2 sporulation 16 evaluated!"
+[1] "dnsga2 sporulation 17 evaluated!"
+[1] "dnsga2 sporulation 18 evaluated!"
+[1] "dnsga2 sporulation 19 evaluated!"
+[1] "dnsga2 sporulation 20 evaluated!"
+[1] "dnsga2 sporulation 21 evaluated!"
+[1] "dnsga2 sporulation 22 evaluated!"
+[1] "dnsga2 sporulation 23 evaluated!"
+[1] "dnsga2 sporulation 24 evaluated!"
+[1] "dnsga2 sporulation 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "nsga2 arabidopsis 15 evaluated!"
+[1] "nsga2 arabidopsis 16 evaluated!"
+[1] "nsga2 arabidopsis 17 evaluated!"
+[1] "nsga2 arabidopsis 18 evaluated!"
+[1] "nsga2 arabidopsis 19 evaluated!"
+[1] "nsga2 arabidopsis 20 evaluated!"
+[1] "nsga2 arabidopsis 21 evaluated!"
+[1] "nsga2 arabidopsis 22 evaluated!"
+[1] "nsga2 arabidopsis 23 evaluated!"
+[1] "nsga2 arabidopsis 24 evaluated!"
+[1] "nsga2 arabidopsis 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "nsga2 cell_cycle 15 evaluated!"
+[1] "nsga2 cell_cycle 16 evaluated!"
+[1] "nsga2 cell_cycle 17 evaluated!"
+[1] "nsga2 cell_cycle 18 evaluated!"
+[1] "nsga2 cell_cycle 19 evaluated!"
+[1] "nsga2 cell_cycle 20 evaluated!"
+[1] "nsga2 cell_cycle 21 evaluated!"
+[1] "nsga2 cell_cycle 22 evaluated!"
+[1] "nsga2 cell_cycle 23 evaluated!"
+[1] "nsga2 cell_cycle 24 evaluated!"
+[1] "nsga2 cell_cycle 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "nsga2 serum 15 evaluated!"
+[1] "nsga2 serum 16 evaluated!"
+[1] "nsga2 serum 17 evaluated!"
+[1] "nsga2 serum 18 evaluated!"
+[1] "nsga2 serum 19 evaluated!"
+[1] "nsga2 serum 20 evaluated!"
+[1] "nsga2 serum 21 evaluated!"
+[1] "nsga2 serum 22 evaluated!"
+[1] "nsga2 serum 23 evaluated!"
+[1] "nsga2 serum 24 evaluated!"
+[1] "nsga2 serum 25 evaluated!"
+[1] "Checking these experiments"
+ [1] "15" "16" "17" "18" "19" "20" "21" "22" "23" "24" "25"
+[1] "nsga2 sporulation 15 evaluated!"
+[1] "nsga2 sporulation 16 evaluated!"
+[1] "nsga2 sporulation 17 evaluated!"
+[1] "nsga2 sporulation 18 evaluated!"
+[1] "nsga2 sporulation 19 evaluated!"
+[1] "nsga2 sporulation 20 evaluated!"
+[1] "nsga2 sporulation 21 evaluated!"
+[1] "nsga2 sporulation 22 evaluated!"
+[1] "nsga2 sporulation 23 evaluated!"
+[1] "nsga2 sporulation 24 evaluated!"
+[1] "nsga2 sporulation 25 evaluated!"
+[1] "Writing in:"
+[1] "~/dmmoea/Tests/runs/BallHall/plot_data.csv"
+[1] "Experiment evaluation done. Plotting results..."
+[1] "Previous run data found!. Plotting results..."
+[1] "Pareto comparison done. Plotting other comparison metrics..."
+[1] "Done."
+There were 50 or more warnings (use warnings() to see the first 50)

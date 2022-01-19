@@ -1,0 +1,86 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+[1] "Algorithm dmnsga2 dataset cell_cycle run 31 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3       f1       f2 rnkIndex cd.density
+1 261 158 356 1.385484 2.622423        1        Inf
+2 108 251 167 2.351794 1.967771        1        Inf
+3 261 158  60 1.453823 2.447482        1 0.03262124
+4 158 365 261 1.567077 2.117872        1 0.03105823
+5 347 296 114 1.657401 1.982820        1 0.03013234
+[1] "Algorithm dnsga2 dataset cell_cycle run 31 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3       f1       f2 rnkIndex   cd.density
+1   5  79 348 1.538684 3.687007        1          Inf
+2 114 251 167 2.497190 1.967771        1          Inf
+3 112 109 156 2.090409 1.985486        1 0.0018107814
+4 332 302 167 1.887931 2.070545        1 0.0015068514
+5  23 302 128 1.590838 2.203219        1 0.0011583812
+6 106 137 232 1.545646 2.981180        1 0.0003989768
+[1] "Algorithm nsga2 dataset cell_cycle run 31 ..."

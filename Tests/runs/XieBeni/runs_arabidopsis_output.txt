@@ -1,0 +1,162 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+[1] "Algorithm dmnsga2 dataset arabidopsis run 1 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 1 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 1 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 2 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 2 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 2 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 3 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 3 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 3 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 4 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 4 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 4 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 5 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 5 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 5 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 6 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 6 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 6 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 7 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 7 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 7 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 8 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 8 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 8 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 9 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 9 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 9 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 10 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 10 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 10 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 11 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 11 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 11 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 12 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 12 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 12 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 13 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 13 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 13 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 14 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 14 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 14 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 15 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 15 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 15 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 16 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 16 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 16 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 17 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 17 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 17 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 18 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 18 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 18 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 19 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 19 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 19 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 20 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 20 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 20 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 21 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 21 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 21 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 22 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 22 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 22 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 23 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 23 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 23 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 24 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 24 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 24 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 25 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 25 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 25 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 26 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 26 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 26 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 27 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 27 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 27 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 28 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 28 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 28 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 29 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 29 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 29 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 30 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 30 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 30 ..."
+[1] "Algorithm dmnsga2 dataset arabidopsis run 31 ..."
+[1] "Algorithm dnsga2 dataset arabidopsis run 31 ..."
+[1] "Algorithm nsga2 dataset arabidopsis run 31 ..."
+There were 50 or more warnings (use warnings() to see the first 50)

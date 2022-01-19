@@ -1,0 +1,388 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+[1] "Algorithm dmnsga2 dataset sporulation run 1 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 1 ..."
+[1] "Algorithm nsga2 dataset sporulation run 1 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 2 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 2 ..."
+[1] "Algorithm nsga2 dataset sporulation run 2 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 3 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 3 ..."
+[1] "Algorithm nsga2 dataset sporulation run 3 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 4 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 4 ..."
+[1] "Algorithm nsga2 dataset sporulation run 4 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 5 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 5 ..."
+[1] "Algorithm nsga2 dataset sporulation run 5 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 6 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 6 ..."
+[1] "Algorithm nsga2 dataset sporulation run 6 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 7 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 7 ..."
+[1] "Algorithm nsga2 dataset sporulation run 7 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 8 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 8 ..."
+[1] "Algorithm nsga2 dataset sporulation run 8 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 9 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 9 ..."
+[1] "Algorithm nsga2 dataset sporulation run 9 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 10 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 10 ..."
+[1] "Algorithm nsga2 dataset sporulation run 10 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 11 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 11 ..."
+[1] "Algorithm nsga2 dataset sporulation run 11 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 12 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 12 ..."
+[1] "Algorithm nsga2 dataset sporulation run 12 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 13 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 13 ..."
+[1] "Algorithm nsga2 dataset sporulation run 13 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 14 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 14 ..."
+[1] "Algorithm nsga2 dataset sporulation run 14 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 15 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 15 ..."
+[1] "Algorithm nsga2 dataset sporulation run 15 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 16 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 16 ..."
+[1] "Algorithm nsga2 dataset sporulation run 16 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 17 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 17 ..."
+[1] "Algorithm nsga2 dataset sporulation run 17 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 18 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 18 ..."
+[1] "Algorithm nsga2 dataset sporulation run 18 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 19 ..."
+[1] "Algorithm dnsga2 dataset sporulation run 19 ..."
+[1] "Algorithm nsga2 dataset sporulation run 19 ..."
+[1] "Algorithm dmnsga2 dataset sporulation run 20 ..."
+[1] "Pareto solutions:"
+  V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1 30  65 151  51 103 20.700908 3.739901        1        Inf
+2 65  30 207 434 103  6.995873 5.346622        1        Inf
+3 30  65 215 434 103  7.059478 4.199991        1  0.3815182
+4 30 103  65 434 208  7.059772 3.957999        1  0.1344484
+[1] "Algorithm dnsga2 dataset sporulation run 20 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 130 225 429 345 407  7.368868 7.970673        1         Inf
+2 313  30  66 292 383 21.990999 3.739901        1         Inf
+3 345 168 292  11  51 11.046372 5.677264        1 0.076955844
+4 292  30 208 383 372 11.370732 4.594528        1 0.056369322
+5 292  43 208 143 225 10.327508 6.814592        1 0.042943546
+6 445  34 139 292 376  9.037808 7.097243        1 0.036626849
+7 292 383  30 103 126 13.292376 4.052277        1 0.029908165
+8 445 225 292 345 407  9.365302 6.915243        1 0.009829857
+[1] "Algorithm nsga2 dataset sporulation run 20 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4 V5        f1       f2 rnkIndex cd.density
+1 292 335 139 103 51 17.099501 3.739901        1        Inf
+2 292  20  44 169 51  6.978119 4.677030        1        Inf
+3 292  30  44 151 51  8.080827 4.052277        1 0.09908765
+4 292  30  44 169 51  7.123057 4.364654        1 0.09898040
+[1] "Algorithm dmnsga2 dataset sporulation run 21 ..."
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex  cd.density
+1  376  65 103 188  37  5.567397 50.327801        1         Inf
+2  267 415  65  99 139 15.273850  3.739901        1         Inf
+3  376 345 103 188  65  6.049936 46.507629        1 0.961885169
+4  267 376  52  20  65  6.426190  5.565555        1 0.892285562
+5  267 471 139  43 356 11.193143  5.237148        1 0.016588142
+6   65 471   4  99 267 12.863447  4.830077        1 0.015978057
+7   65  10  51 292 232 14.748208  4.052277        1 0.011469289
+8   52  65 103 376 254 11.949179  5.114074        1 0.010823600
+9   30 267  65  99 471 12.865582  4.423006        1 0.010664973
+10 292  99 232 376  65 14.038922  4.202383        1 0.008384064
+11 415 380 267 198  65 13.403763  4.364654        1 0.006200914
+[1] "Algorithm dnsga2 dataset sporulation run 21 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 376 200 409  65   4  5.985411 6.425413        1         Inf
+2  30  66   4  65 301 20.173538 3.739901        1         Inf
+3 143 200  65 376   4  6.088533 6.157690        1 0.036439467
+4  65   4 103   2 341  9.503447 4.481893        1 0.032895513
+5  65  66 419   4 301 18.546947 4.052277        1 0.010848064
+6  65  30 103 272 197 18.438000 4.314554        1 0.007496754
+7   2   4 103 431 341 15.283357 4.437600        1 0.004053244
+[1] "Algorithm nsga2 dataset sporulation run 21 ..."
+[1] "Pareto solutions:"
+  V1  V2 V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 65  22 66 116 267 20.107083 3.739901        1         Inf
+2 65 232 21 376 407  5.718459 5.068526        1         Inf
+3 65  22 66 376 208  8.221074 4.594982        1 0.010802169
+4 65  30 66 376 208  8.293855 4.202383        1 0.005314518
+5 65  25 66 116 232 19.623380 3.804241        1 0.003876148
+6 65  22 66 116 126 19.284199 4.052277        1 0.003724170
+7 65 434 66   2 208  8.427920 4.152327        1 0.002679386
+8 65 232 66 116 467 18.303994 4.133603        1 0.002504523
+9 65 232 66 116 428 18.798867 4.103841        1 0.001151437
+[1] "Algorithm dmnsga2 dataset sporulation run 22 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1  30  65 212 258  43 25.217877  3.739901        1        Inf
+2 189 376 103  37  65  5.572203 50.327801        1        Inf
+3  37 376  65  74 208  6.129932  6.830134        1 0.99869095
+4  51 450 151 258  65 11.735259  4.052277        1 0.14593993
+5  37 376  65 250 103  7.633176  4.594982        1 0.06658764
+6 317  65   2   4 103  9.497587  4.481893        1 0.03939684
+7 198  65 188   2  66  8.212519  4.530378        1 0.01784687
+[1] "Algorithm dnsga2 dataset sporulation run 22 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1  37 271 335  66  98 111.36495 3.739901        1         Inf
+2 202  35   3  41  65   9.53268 7.390491        1         Inf
+3  66 111 364 200  37  12.12879 6.065683        1 0.028991661
+4 211 423  11   7 200  15.03232 5.296187        1 0.027009433
+5 313  65   3  41  35  10.13231 6.772561        1 0.025942384
+6  11  99 117  65 200  51.11795 4.052277        1 0.015434222
+7  75  43 201 200 104  30.46491 4.363200        1 0.013542977
+8  48 414 126 200 372  17.46343 4.691851        1 0.012178770
+9 137 201  21 198  48  21.48425 4.685124        1 0.006936413
+[1] "Algorithm nsga2 dataset sporulation run 22 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5         f1        f2 rnkIndex cd.density
+1 466 152 392 456 421 410.455514  3.511277        1        Inf
+2 347 292 225 356 427   6.658186 35.163951        1        Inf
+3 347 292 225 356 436   6.696258 32.298831        1 0.87847537
+4 345 292 225 356 427   7.265263  7.358268        1 0.80669318
+5 272 292 365 103 421   7.948235  6.377895        1 0.07828000
+6 272 434 225 356 436   8.024720  4.287964        1 0.07031614
+7 272 292 225 356 436   7.297607  6.765243        1 0.03098746
+8 232 292 103  65 415  15.258273  3.739901        1 0.02886229
+9 272 292 103  65 421   8.133638  4.152327        1 0.01746971
+[1] "Algorithm dmnsga2 dataset sporulation run 23 ..."
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1   65 345 202  52  40  7.150123 8.310177        1        Inf
+2   30  65 267 394 198 13.709038 3.739901        1        Inf
+3  345  65 394  52 163  7.917612 6.170016        1 0.21271943
+4   65 345 221  52  40  7.253788 7.506258        1 0.15759042
+5  345  65 394 292 198  8.339845 4.870506        1 0.13687578
+6  189  29 103 433  65 10.738443 4.530378        1 0.10590047
+7   40 213  41 345  52  8.294070 5.688117        1 0.09805359
+8  360 267 345  40  52  7.205094 7.506325        1 0.09474464
+9  292  65 103 208  33 12.211422 3.977932        1 0.09370084
+10  29  74  65 111 208  8.112178 5.702310        1 0.05685273
+[1] "Algorithm dnsga2 dataset sporulation run 23 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 345  74 166 413  29  8.333599 6.810939        1         Inf
+2  30 292 400 103 228 11.207276 3.739901        1         Inf
+3 103   4 292 211 345  9.781088 4.870506        1 0.018459188
+4 345  74 195 103  11  9.158584 5.920698        1 0.018205604
+5 292 146 400   4 103 11.127866 4.314554        1 0.016798157
+6 345 292 168 103 364  9.069139 5.997104        1 0.014392428
+7 156 400 345 103 292 11.052547 4.780149        1 0.009007957
+[1] "Algorithm nsga2 dataset sporulation run 23 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1  66 400 302 258 382 27.162050 3.739901        1         Inf
+2 225 405 331 101 376  4.942280 6.289652        1         Inf
+3 225 414 331 101  51  5.620719 5.087845        1 0.045248930
+4  30 400 331 258 382 18.890803 4.052277        1 0.020393732
+5 225 434 272 101  51  7.143383 4.470157        1 0.016262931
+6 225 422 272 101  51  7.064223 4.779001        1 0.014602984
+7 225 414 331 143  51  7.002783 4.916155        1 0.010341776
+8 225 434 272  22 417 12.627148 4.287964        1 0.009509155
+9 225 434 272  93  51  8.541967 4.289197        1 0.006890673
+[1] "Algorithm dmnsga2 dataset sporulation run 24 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  65   4 149 376 409  5.968355 5.977192        1        Inf
+2 103   4 292  65 341 13.062269 3.739901        1        Inf
+3   4  65 407 292 376  6.736769 5.068526        1 0.14749697
+4 103   4  65 231  20  9.216046 4.052277        1 0.14462069
+5 103   4 157  65  20  9.155862 4.579824        1 0.07944338
+6 380 292  65 228  97  8.317460 4.855965        1 0.05453663
+7 103  65 376   4 341  8.982390 4.594982        1 0.04482105
+8  65 171 421 103  74  7.913112 4.928890        1 0.02804221
+9  74  65 171 345 103  7.747097 5.026783        1 0.02726392
+[1] "Algorithm dnsga2 dataset sporulation run 24 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1  65 376 202 103  40  5.913067 7.949180        1         Inf
+2 292  65  21 341 103 13.191031 3.739901        1         Inf
+3  14  65 292 351 103  7.367002 5.951945        1 0.006217586
+4 159  65 351  14 103  6.851501 6.497058        1 0.006048886
+5 151 103 292 444 376  8.179388 4.594982        1 0.005843896
+6 376  65 292 341 103 12.589567 4.202383        1 0.002488458
+7 376  65 292  17 103  7.162284 6.297186        1 0.002001760
+8   4  20 202 103  65  9.136552 4.364654        1 0.001668202
+[1] "Algorithm nsga2 dataset sporulation run 24 ..."
+[1] "Pareto solutions:"
+   V1  V2 V3  V4 V5       f1       f2 rnkIndex cd.density
+1 151 103 65 292 29 7.599853 3.739901        1        Inf
+2 151 103 65 292 32 7.219186 4.340152        1        Inf
+[1] "Algorithm dmnsga2 dataset sporulation run 25 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1 292 103 400  30 196 11.434865  3.739901        1        Inf
+2 331  65 101 346  32  5.722108 10.264828        1        Inf
+3   3  52 466 434 313  7.147274  7.603934        1 0.15897395
+4 104   7  65  51 300  8.752286  6.002092        1 0.08642491
+5   8 450 300 103 345  9.538642  5.287364        1 0.04223703
+6   7  65 292  51 300 10.875248  4.546696        1 0.03473046
+7 400 103 169 143 292 10.416284  4.870506        1 0.02301362
+8  51  65 189  66  26 10.722628  4.671109        1 0.01208568
+[1] "Algorithm dnsga2 dataset sporulation run 25 ..."
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1  188 376  65  19 407  5.471381 47.274416        1        Inf
+2  211 322  65  54 103 36.493190  3.739901        1        Inf
+3   39 376 345 407  65  6.320903  7.345883        1 0.84742859
+4  345 376 312  65 407  9.798728  5.548895        1 0.02934792
+5  189   3  35  68 345  9.737523  6.374529        1 0.02769006
+6  169  22  65 376 103 11.299406  4.987580        1 0.02095109
+7   93  30 103 335  65 18.475929  4.090851        1 0.01991417
+8    2 107 357 189 347 15.307727  4.580678        1 0.01962180
+9  103   6  65 167 376  7.091914  6.851347        1 0.01363070
+10 345 167 376  65 407  6.625768  7.006803        1 0.01048687
+[1] "Algorithm nsga2 dataset sporulation run 25 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 103 400 211  51 258 19.706025 3.739901        1         Inf
+2 434  52 143 410 125  6.756908 9.566964        1         Inf
+3 434  52 143 410 229  6.795571 6.627917        1 0.102369543
+4 434 400 232 407  74  7.951280 5.121323        1 0.037539931
+5  11 400 232  51 258 11.224361 4.052277        1 0.014558775
+6 434 400 232  51 258 10.413430 4.314554        1 0.014349396
+7 434  76 211  51 258 10.371902 4.671109        1 0.014043994
+8 434 400 143  51 341  9.899877 4.922240        1 0.007962123
+9 434 400 143 181  74  9.226729 5.010240        1 0.004859324
+[1] "Algorithm dmnsga2 dataset sporulation run 26 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1 225  12 305  51   3  7.118293 6.149278        1        Inf
+2 394 139 200  65  30 15.151383 3.739901        1        Inf
+3  65  30  52 407 188  8.086862 5.369349        1 0.27838909
+4 152  37  51  66  65 10.236088 4.364654        1 0.21049743
+5 232  37  51  66  65 10.444804 4.052277        1 0.15487134
+6  65 156   7 394 200  9.647034 4.921554        1 0.14536086
+7 272  30 200 407  65  8.628448 5.001190        1 0.09894196
+8  37 221 225  51  43  9.576575 4.964569        1 0.02006485
+[1] "Algorithm dnsga2 dataset sporulation run 26 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1        f2 rnkIndex  cd.density
+1 380 292 400 154 267 39.119737  3.739901        1         Inf
+2  22 347 292 225  70  6.386077 33.024023        1         Inf
+3  25 111 429 143 225  9.537257  6.370393        1 0.465097606
+4 292  22 371 325  93 14.447706  4.606167        1 0.022321765
+5  17 292 208 375 367 11.636830  5.617072        1 0.018535374
+6 208 292  52 400  22 11.046735  5.691467        1 0.012860150
+7  22 258 190 371  73 34.132761  4.052277        1 0.010191906
+8 292 400  22 208  87 19.687985  4.314957        1 0.009837125
+[1] "Algorithm nsga2 dataset sporulation run 26 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1  51 267 400  99 271 25.741224 3.739901        1         Inf
+2  29 376 232 450 407  6.557270 5.494841        1         Inf
+3 380 376 327 446 225  8.574241 4.528075        1 0.008140258
+4  22 190 228 200  98 19.798944 4.364654        1 0.006651053
+[1] "Algorithm dmnsga2 dataset sporulation run 27 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5       f1       f2 rnkIndex cd.density
+1   4  65 292 103 151 8.441908 3.739901        1        Inf
+2 111 292   4 426 143 6.143869 7.170312        1        Inf
+3   3 292 111  65 143 6.838689 6.695950        1  0.1830291
+4  65  66 198 292  20 7.448831 4.052277        1  0.1718806
+5 409 292   4  65 151 6.900753 5.526221        1  0.1697083
+6   4  65 151 292 143 7.029657 4.870506        1  0.1573547
+[1] "Algorithm dnsga2 dataset sporulation run 27 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex   cd.density
+1  65 211 267  78  30 28.754572 3.739901        1          Inf
+2 235  66  65   7 111  8.252096 6.892045        1          Inf
+3  65  30 240  73 116 19.097470 4.174522        1 0.0009203141
+4  30  65 264  99 345 14.139052 4.518861        1 0.0006196215
+5  65  66 381   7 111 10.343542 5.512151        1 0.0003955353
+6  95  65 378 206 407  9.252629 5.897976        1 0.0002312989
+[1] "Algorithm nsga2 dataset sporulation run 27 ..."
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1 142 407 277 446  30  8.100509 7.028020        1         Inf
+2  30 258  51  65 151 11.807104 3.739901        1         Inf
+3  30 206  51  65  97  9.360371 4.482855        1 0.011496849
+4 450 258  51  65 151 11.735259 4.052277        1 0.003337819
+5  30 206  51  65 449 11.584673 4.481893        1 0.001972599
+[1] "Algorithm dmnsga2 dataset sporulation run 28 ..."
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1  267  10 151  99 400 22.917715  3.739901        1        Inf
+2   30  65 187 376 103  6.914645 22.139621        1        Inf
+3  364 345   3  34 273  8.785376  8.162178        1 0.88466179
+4   65  30 101 356 167  9.329855  5.738593        1 0.15102000
+5  400  30 151 188 103 14.707108  3.957999        1 0.09446669
+6  231  65 345  99 450 11.699780  4.870506        1 0.05404420
+7  151  79 188  30 400 13.996940  4.404856        1 0.05348975
+8  292 381 376  66 262 11.270221  5.557409        1 0.04266816
+9  292 151 376  66 443 11.732860  4.594982        1 0.03991867
+10 151 376 292 100 381 11.215086  5.615369        1 0.02248323
+[1] "Algorithm dnsga2 dataset sporulation run 28 ..."
