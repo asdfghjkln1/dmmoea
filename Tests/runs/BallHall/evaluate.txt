@@ -78,41 +78,17 @@ The following object is masked from ‘package:BiocGenerics’:
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 [1] "Dataset arabidopsis"
-      90% 
-0.3616734 
 [1] "Dataset cell_cycle"
-      90% 
-0.3228191 
 [1] "Dataset serum"
-     90% 
-0.309536 
 [1] "Dataset sporulation"
-       90% 
-0.03120357 
 [1] "Dataset arabidopsis"
-      90% 
-0.3616734 
 [1] "Dataset cell_cycle"
-      90% 
-0.3228191 
 [1] "Dataset serum"
-     90% 
-0.309536 
 [1] "Dataset sporulation"
-       90% 
-0.03120357 
 [1] "Dataset arabidopsis"
-      90% 
-0.3616734 
 [1] "Dataset cell_cycle"
-      90% 
-0.3228191 
 [1] "Dataset serum"
-     90% 
-0.309536 
 [1] "Dataset sporulation"
-       90% 
-0.03120357 
 [1] "Finished."
 [1] "Quality plot data not found!. Initiating evaluation..."
 [1] "Checking these experiments"
@@ -504,40 +480,3 @@ The following object is masked from ‘package:BiocGenerics’:
  [1] "1"  "10" "11" "12" "13" "14" "15" "16" "17" "18" "19" "2"  "20" "21" "22"
 [16] "23" "24" "25" "26" "27" "28" "29" "3"  "30" "31" "4"  "5"  "6"  "7"  "8" 
 [31] "9" 
-[1] "nsga2 sporulation 1 evaluated!"
-[1] "nsga2 sporulation 10 evaluated!"
-[1] "nsga2 sporulation 11 evaluated!"
-[1] "nsga2 sporulation 12 evaluated!"
-[1] "nsga2 sporulation 13 evaluated!"
-[1] "nsga2 sporulation 14 evaluated!"
-[1] "nsga2 sporulation 15 evaluated!"
-[1] "nsga2 sporulation 16 evaluated!"
-[1] "nsga2 sporulation 17 evaluated!"
-[1] "nsga2 sporulation 18 evaluated!"
-[1] "nsga2 sporulation 19 evaluated!"
-[1] "nsga2 sporulation 2 evaluated!"
-[1] "nsga2 sporulation 20 evaluated!"
-[1] "nsga2 sporulation 21 evaluated!"
-[1] "nsga2 sporulation 22 evaluated!"
-[1] "nsga2 sporulation 23 evaluated!"
-[1] "nsga2 sporulation 24 evaluated!"
-[1] "nsga2 sporulation 25 evaluated!"
-[1] "nsga2 sporulation 26 evaluated!"
-[1] "nsga2 sporulation 27 evaluated!"
-[1] "nsga2 sporulation 28 evaluated!"
-[1] "nsga2 sporulation 29 evaluated!"
-[1] "nsga2 sporulation 3 evaluated!"
-[1] "nsga2 sporulation 30 evaluated!"
-[1] "nsga2 sporulation 31 evaluated!"
-[1] "nsga2 sporulation 4 evaluated!"
-[1] "nsga2 sporulation 5 evaluated!"
-[1] "nsga2 sporulation 6 evaluated!"
-[1] "nsga2 sporulation 7 evaluated!"
-[1] "nsga2 sporulation 8 evaluated!"
-[1] "nsga2 sporulation 9 evaluated!"
-[1] "Writing in:"
-[1] "~/dmmoea/Tests/runs/BallHall/plot_data.csv"
-[1] "Getting pareto front and plotting..."
-[1] "Pareto comparison done. Plotting other comparison metrics..."
-[1] "Done."
-There were 50 or more warnings (use warnings() to see the first 50)
