@@ -1,7 +1,4 @@
 calculate_hypervolume_manual <- function(){
-  #library(eaf)
-  source("dmmoea_functions.R")
-  source("dmmoea_libraries.R")
   args <- commandArgs(trailingOnly = TRUE)
   
   path <- args[1]
@@ -9,62 +6,47 @@ calculate_hypervolume_manual <- function(){
   dataset <- args[3]
 
   setwd(path)
-  source("dmmoea_functions.R")
-  #source("dmmoea_parameters.R")
-  source("dmmoea_libraries.R")
-  #source("dmmoea_irace_conf.R")
   
   path <- file.path(path, results.path)
   print("Path in:")
   print(path)
-  #path <- "~/dmmoea/Tests/runs/BallHall"
   
-  #algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)
-  #print(algorithms)
   algorithms <- c("dmnsga2", "dnsga2", "nsga2")
 
-  #limits <- read.table(file.path(path, "dnsga2", dataset, "limits.csv"), sep=",", header=TRUE, row.names=NULL)
-  #print(limits)
-  #data <- read.table(file.path(path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
-  #scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
-  #scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
+  data <- read.table(file.path(path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
   
-  ideal <- data[data$Algorithm == "Ideal Pareto"]
+  ideal <- data[data$Algorithm == "Ideal pareto", ]
   ideal <- ideal[!duplicated(ideal[, 1:2]) , ]
-  print(paste0("Pareto front size: ", nrow(ideal)))
   
+  contribution <- as.data.frame(matrix(nrow = 0, ncol = 7))
+  colnames(contribution) <- c("id", "Algorithm", "Dataset", "hypervolume", "contributed", "total", "ratio")
+  print("Calculating contribution to pareto front and hypervolume values...")
   for(i in 1:length(algorithms)){
     algorithm <- algorithms[i]
     datasets <- list.dirs(path=file.path(path, algorithm), full.names = FALSE, recursive = FALSE)
-    exp.path <- file.path(path, algorithm, dataset)
-    limits <- read.table(file.path(exp.path, "limits.csv"), sep=",", header=TRUE, row.names=NULL)
-    scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
-    scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
-    contribution <- as.data.frame(matrix(nrow = 0, ncol = 7))
-    colnames(contribution) <- c("id", "Algorithm", "Dataset", "hypervolume", "contributed", "total", "ratio")
     for(j in 1:length(datasets)){
       dataset <- datasets[j]
+      exp.path <- file.path(path, algorithm, dataset)
+      limits <- read.table(file.path(exp.path, "limits.csv"), sep=",", header=TRUE, row.names=NULL)
+      scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
+      scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
       ideal.dataset <- ideal[ideal$Dataset == dataset, ]
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
-        print(data)
-        
         nrow.pareto <- nrow(data)
-        contrib <- do.call(paste0, data) %in% do.call(paste0, ideal)
+        contrib <- do.call(paste0, data[, 1:2]) %in% do.call(paste0, ideal.dataset[, 1:2])
         contrib <- sum(contrib)
-        print(paste0("Exp ", experiment, ": ", contrib, " / ", nrow.pareto, " -> ", round(contrib/nrow.pareto, 2)))
         #print(paste0("Experiment ", experiment, "has contributed ", contrib, " solutions out of ", nrow.pareto))
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
-        hv <- calculate_hypervolume(data, c(1,1), maximize=FALSE) #eaf::hypervolume(data, c(1,1), maximize=FALSE) 
-        contribution <- rbind(contribution, c(experiment, algorithm, dataset, hv, contrib, nrow.pareto, round(contrib/nrow.pareto, 2)))
-        print(paste(algorithm, dataset, experiment, "HV =", round(hv[k], 3)))
+        hv <- calculate_hypervolume(data, c(1,1), maximise=FALSE) #eaf::hypervolume(data, c(1,1), maximize=FALSE) 
+        contribution <- rbind(contribution, c(experiment, algorithm, dataset, hv, contrib, nrow.pareto, round(contrib/nrow.pareto, 2)))  
       }
       print(paste(algorithm,dataset, "Mean HV=", mean(hv)))
     }
   }
-  
+  colnames(contribution) <- c("id", "Algorithm", "Dataset", "hypervolume", "contributed", "total", "ratio")
   write.table(contribution, file=file.path(path, "contribution.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
 }
 
