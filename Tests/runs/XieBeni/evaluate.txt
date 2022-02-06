@@ -69,50 +69,6 @@ The following object is masked from ‘package:BiocGenerics’:
 [1] "Path in:"
 [1] "~/dmmoea/Tests/runs/XieBeni"
 [1] "Getting normalization limits..."
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-[1] "Dataset arabidopsis"
-     90% 
-3.306054 
-[1] "Dataset cell_cycle"
-     90% 
-1.607062 
-[1] "Dataset serum"
-      90% 
-0.9880805 
-[1] "Dataset sporulation"
-     90% 
-30.41404 
-[1] "Dataset arabidopsis"
-     90% 
-3.306054 
-[1] "Dataset cell_cycle"
-     90% 
-1.607062 
-[1] "Dataset serum"
-      90% 
-0.9880805 
-[1] "Dataset sporulation"
-     90% 
-30.41404 
-[1] "Dataset arabidopsis"
-     90% 
-3.306054 
-[1] "Dataset cell_cycle"
-     90% 
-1.607062 
-[1] "Dataset serum"
-      90% 
-0.9880805 
-[1] "Dataset sporulation"
-     90% 
-30.41404 
 [1] "Finished."
 [1] "Quality plot data not found!. Initiating evaluation..."
 [1] "Checking these experiments"

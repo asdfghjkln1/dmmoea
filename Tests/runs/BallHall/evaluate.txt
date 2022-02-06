@@ -69,50 +69,6 @@ The following object is masked from ‘package:BiocGenerics’:
 [1] "Path in:"
 [1] "~/dmmoea/Tests/runs/BallHall"
 [1] "Getting normalization limits..."
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-`stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
-[1] "Dataset arabidopsis"
-      90% 
-0.3616734 
-[1] "Dataset cell_cycle"
-      90% 
-0.3228191 
-[1] "Dataset serum"
-     90% 
-0.309536 
-[1] "Dataset sporulation"
-       90% 
-0.03120357 
-[1] "Dataset arabidopsis"
-      90% 
-0.3616734 
-[1] "Dataset cell_cycle"
-      90% 
-0.3228191 
-[1] "Dataset serum"
-     90% 
-0.309536 
-[1] "Dataset sporulation"
-       90% 
-0.03120357 
-[1] "Dataset arabidopsis"
-      90% 
-0.3616734 
-[1] "Dataset cell_cycle"
-      90% 
-0.3228191 
-[1] "Dataset serum"
-     90% 
-0.309536 
-[1] "Dataset sporulation"
-       90% 
-0.03120357 
 [1] "Finished."
 [1] "Quality plot data not found!. Initiating evaluation..."
 [1] "Checking these experiments"
