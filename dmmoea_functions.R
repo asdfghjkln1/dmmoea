@@ -1888,7 +1888,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
       #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
       scale_fill_manual(labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
-                        values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) +
+                        values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) 
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
