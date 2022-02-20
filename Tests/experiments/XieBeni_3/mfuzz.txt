@@ -1,0 +1,674 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Loading required package: amap
+Loading required package: doSNOW
+Loading required package: snow
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, splitIndices,
+    stopCluster
+
+Loading required package: miscTools
+
+Attaching package: ‘miscTools’
+
+The following object is masked from ‘package:Biobase’:
+
+    rowMedians
+
+Loading required package: fields
+Loading required package: spam
+Loading required package: dotCall64
+Loading required package: grid
+Spam version 2.7-0 (2021-06-25) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.
+
+Attaching package: ‘spam’
+
+The following objects are masked from ‘package:base’:
+
+    backsolve, forwardsolve
+
+Loading required package: viridis
+Loading required package: viridisLite
+
+Try help(fields) to get started.
+Loading required package: Rmisc
+Loading required package: lattice
+Loading required package: plyr
+
+Attaching package: ‘plyr’
+
+The following objects are masked from ‘package:rstatix’:
+
+    desc, mutate
+
+The following object is masked from ‘package:ggpubr’:
+
+    mutate
+
+[1] "Starting algorithm:"
+[1] "mfuzz"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting mfuzz in arabidopsis run: 1"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+19  9  8 10 25  4 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 2"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+2  4 10  8  9 25 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 3"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+9  9 10 25  4  8 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 4"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+4 10 25  9  4  8 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 5"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+19 10 25  9  4  8 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 6"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+6  18 10 14 22 11 65.69345 29.240629        1        Inf
+21 10  9  8 25  4 69.04667  7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 7"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+11  8  4  9 25 10 69.04667 7.263227        1        Inf
+28  9 14  4 24 12 53.22310 9.444291        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 8"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+4  8 11 25 15  4 73.57130 11.920823        1        Inf
+6 10 24  9  8  4 74.72587  8.330325        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 9"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+14 14 10  4 16  9 34.11514 6.550938        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 10"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+5 16  9  4 14 10 34.11514 6.550938        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 11"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+24  4 14  9 16 10 34.11514 6.550938        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 12"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+23  4 25  8  9 10 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 13"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+38  9 10 14 16  4 34.11514 6.550938        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 14"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+16  4 25  8 10  9 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 15"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+19  4 10  8  9 25 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 16"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+7 10 25  9  8  4 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 17"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+2  4 25  8 10  9 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 18"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+10  9  8  4 25 10 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 19"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+17  4 25  8 10  9 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 20"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+24  4 25  9  8 10 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 21"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+35 10  8  9  4 25 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 22"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+27  4 24  9 10  8 74.72587 8.330325        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 23"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+9  4  8 10 25  9 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 24"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+5 25  4 10  8  9 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 25"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+29  8 25 10  9  4 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 26"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+17  9 10  8  4 25 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 27"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+19 10  9  4  8 25 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 28"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+32  9  8  4 25 10 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 29"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+27 25  4 10  9  8 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 30"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+12 10 25  9  4  8 69.04667 7.263227        1        Inf
+[1] "Starting mfuzz in arabidopsis run: 31"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+4  9  4  8 25 10 69.04667 7.263227        1        Inf
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting mfuzz in cell_cycle run: 1"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+23  5 41 21  8 37 215.28128 6.209391        1        Inf
+32 40  9 47 50 67  24.77464 9.029582        1        Inf
+19 17 33  9 21  8  78.91544 6.886474        1  0.4073204
+2  45  7 26  8 17 211.70928 6.501254        1  0.2719238
+[1] "Starting mfuzz in cell_cycle run: 2"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+8  37  8  5 41 21 215.28128 6.209391        1        Inf
+29  9 47 50 40 67  24.77464 9.029582        1        Inf
+2  45 26  7  8 17 211.70928 6.501254        1  0.3863738
+[1] "Starting mfuzz in cell_cycle run: 3"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+2  45 17  7  8 26 211.70928 6.501254        1        Inf
+25  9 50 47 67 40  24.77464 9.029582        1        Inf
+13 41 39  8 20  5  70.62745 6.924004        1  0.4076668
+[1] "Starting mfuzz in cell_cycle run: 4"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+4  45 26  8  7 17 211.70928  6.501254        1        Inf
+6  15  8 44 35 56  35.43805 11.655078        1        Inf
+19 16 47 63  9 51  91.09134  7.563161        1  0.3377235
+1  41 47  9 64 52  79.90791 10.362894        1  0.1960986
+[1] "Starting mfuzz in cell_cycle run: 5"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+2   7 45 26 17  8 211.70928  6.501254        1        Inf
+11 44  8 14 34 57  12.84822 93.929059        1        Inf
+13 59  8 25 45 31  44.51903 12.797538        1   1.272633
+5  51 40  9 47 68 180.32657  9.685184        1   0.380536
+[1] "Starting mfuzz in cell_cycle run: 6"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+23 45 14 58  8 32 36.36465 11.547137        1        Inf
+26  7 17 36 21  8 81.65556  5.942579        1        Inf
+12 50 67 41 47  9 58.02708  6.811587        1  0.7951258
+[1] "Starting mfuzz in cell_cycle run: 7"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+4  17 21 36  8  7 81.65556 5.942579        1        Inf
+19 40 67 47 50  9 24.77464 9.029582        1        Inf
+33 67 50 47 41  9 58.02708 6.811587        1  0.1736132
+[1] "Starting mfuzz in cell_cycle run: 8"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+5   7 17 45 27  8 83.28234 52.512265        1        Inf
+30  7 41 32  8 21 98.30432  6.222071        1        Inf
+[1] "Starting mfuzz in cell_cycle run: 9"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+6  41  8 21 37  5 215.28128  6.209391        1        Inf
+28 57 44 34 14  8  12.84822 93.929059        1        Inf
+5  27 45  8  7 17  83.28234 52.512265        1  1.0834074
+20  8 18 41 20 40 128.09323 16.579020        1  0.6085459
+26 40  9 47 51 66 177.27432 13.861324        1  0.1739923
+10 51 68  9 40 47 180.32657  9.685184        1  0.1463971
+7  45  7  8 17 26 211.70928  6.501254        1  0.1036302
+[1] "Starting mfuzz in cell_cycle run: 10"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+1  27 21 62  9 47  55.19616 14.834592        1        Inf
+4  17  8 26  7 45 211.70928  6.501254        1        Inf
+10 41  9 47 50 67  58.02708  6.811587        1  0.4944154
+[1] "Starting mfuzz in cell_cycle run: 11"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+16 32  7  8 21 41 98.30432  6.222071        1        Inf
+26 27  8 63 46 21 35.39397 52.534687        1        Inf
+39  8 45 31 25 59 44.51903 12.797538        1  1.1008738
+20 47 49  9 42 67 91.01118  6.509803        1  0.2455395
+[1] "Starting mfuzz in cell_cycle run: 12"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+4  26 45  8  7 17 211.70928  6.501254        1        Inf
+28 63  8 21 46 27  35.39397 52.534687        1        Inf
+35 15  8 38 57 43  37.82818  7.492510        1   1.339481
+[1] "Starting mfuzz in cell_cycle run: 13"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+1  45 17  8  7 26 211.70928  6.501254        1        Inf
+10  8 58 26 45 32  48.25665 11.388143        1        Inf
+8   9 47 41 67 50  58.02708  6.811587        1  0.3202643
+38 67 41 49  9 47  53.81338  6.893610        1  0.1187565
+[1] "Starting mfuzz in cell_cycle run: 14"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+1  17 26 45  7  8 211.70928  6.501254        1        Inf
+33 45 58 14 32  8  36.36465 11.547137        1        Inf
+5  63  9 47 51 16  91.09134  7.563161        1  0.3374688
+23 41 50 66  9 47  59.31635  8.502666        1  0.1921567
+[1] "Starting mfuzz in cell_cycle run: 15"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+2  45  8 26 17  7 211.70928 6.501254        1        Inf
+15 67 50 47 41  9  58.02708 6.811587        1        Inf
+[1] "Starting mfuzz in cell_cycle run: 16"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+8  21 37 41  5  8 215.28128  6.209391        1        Inf
+15  8 15 44 56 34  37.22560 90.515564        1        Inf
+30 67 41 47  9 49  53.81338  6.893610        1  1.3336819
+2  45 26  7 17  8 211.70928  6.501254        1  0.3201101
+[1] "Starting mfuzz in cell_cycle run: 17"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+2  26  8 45  7 17 211.70928  6.501254        1        Inf
+12  8 46 21 27 63  35.39397 52.534687        1        Inf
+4  64 52  9 41 47  79.90791 10.362894        1   1.339481
+[1] "Starting mfuzz in cell_cycle run: 18"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+30  8 33 17 21  7 81.43196  6.138035        1        Inf
+31 47 63 15  9 52 26.36912 18.354773        1        Inf
+23  9 41 47 64 52 79.90791 10.362894        1  0.3676465
+[1] "Starting mfuzz in cell_cycle run: 19"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+8   8 31 45 59 25 44.51903 12.79754        1        Inf
+15  8 35 21  7 17 84.03608  5.81291        1        Inf
+22 64 47 41 52  9 79.90791 10.36289        1   1.077448
+[1] "Starting mfuzz in cell_cycle run: 20"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+13 41 37  5  8 21 215.28128  6.209391        1        Inf
+17 15 47 63 52  9  26.36912 18.354773        1        Inf
+11  7 21  8 41 32  98.30432  6.222071        1  0.3106149
+32 62 21 27  9 47  55.19616 14.834592        1  0.3092112
+2  50 67 41 47  9  58.02708  6.811587        1  0.2675878
+[1] "Starting mfuzz in cell_cycle run: 21"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+14 26  8 17 45  7 211.70928 6.501254        1        Inf
+32 41 50  9 47 67  58.02708 6.811587        1        Inf
+[1] "Starting mfuzz in cell_cycle run: 22"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+11 21 45 42  7  8 562.60644 6.392264        1        Inf
+27 40  9 50 67 47  24.77464 9.029582        1        Inf
+1   7 45 17  8 26 211.70928 6.501254        1  0.9020843
+25  9 63 47 16 51  91.09134 7.563161        1  0.4023915
+[1] "Starting mfuzz in cell_cycle run: 23"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+1  17 26  8  7 45 211.70928  6.501254        1        Inf
+14 68 39  9 47 52  99.13878 16.464207        1        Inf
+[1] "Starting mfuzz in cell_cycle run: 24"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+4  67  9 47 50 40  24.77464 9.029582        1        Inf
+21 32 17  7 21  8 156.37581 5.542386        1        Inf
+10 47 67 42 49  9  91.01118 6.509803        1  0.1976061
+34 41 67 50  9 47  58.02708 6.811587        1  0.1488762
+[1] "Starting mfuzz in cell_cycle run: 25"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+1  17  8 26 45  7 211.70928  6.501254        1        Inf
+29 21 46  8 27 63  35.39397 52.534687        1        Inf
+40  8 58 45 32 14  36.36465 11.547137        1  0.8905216
+20  8 32 45 26 58  48.25665 11.388143        1  0.4437818
+[1] "Starting mfuzz in cell_cycle run: 26"
+[1] "Pareto solutions:"
+  V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+1 67 47 41 49  9  53.81338 6.893610        1        Inf
+3  8 26 17  7 45 211.70928 6.501254        1        Inf
+5 42 67 49 47  9  91.01118 6.509803        1  0.3237222
+[1] "Starting mfuzz in cell_cycle run: 27"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1        f2 rnkIndex cd.density
+9  45 25 31  8 59  44.51903 12.797538        1        Inf
+19 17  8 21  7 32 156.37581  5.542386        1        Inf
+39 67 41  9 50 47  58.02708  6.811587        1  0.3703672
+[1] "Starting mfuzz in cell_cycle run: 28"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+8  67 47  9 40 50 24.77464 9.029582        1        Inf
+14 21  7 32  8 41 98.30432 6.222071        1        Inf
+22 67 47  9 50 41 58.02708 6.811587        1  0.1551743
+[1] "Starting mfuzz in cell_cycle run: 29"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+16 67 47 50 41  9 58.02708 6.811587        1        Inf
+37 32 41 21  7  8 98.30432 6.222071        1        Inf
+[1] "Starting mfuzz in cell_cycle run: 30"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5        f1       f2 rnkIndex cd.density
+18 32 17 21  8  7 156.37581 5.542386        1        Inf
+24 50  9 47 67 40  24.77464 9.029582        1        Inf
+36 67  9 49 42 47  91.01118 6.509803        1  0.1985115
+28 32 21  7 41  8  98.30432 6.222071        1  0.1439293
+[1] "Starting mfuzz in cell_cycle run: 31"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+1  45 60 28  8 25 58.66049 12.726144        1        Inf
+10 35  8 17  7 21 84.03608  5.812910        1        Inf
+2  41 66  9 50 47 59.31635  8.502666        1  0.1991872
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting mfuzz in serum run: 1"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 2"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 3"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 4"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 5"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 6"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 7"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 8"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 9"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 10"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 11"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 12"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 13"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 14"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 15"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 16"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 17"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 18"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 19"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 20"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 21"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 22"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 23"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 24"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 25"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 26"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 27"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 28"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 29"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 30"
+[1] "There is only one solution in population!!"
+[1] "Starting mfuzz in serum run: 31"
+[1] "There is only one solution in population!!"
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting mfuzz in sporulation run: 1"
+[1] "Pareto solutions:"
+    V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+29 132 17 60  4 10 241.0995 8.097573        1        Inf
+[1] "Starting mfuzz in sporulation run: 2"
+[1] "Pareto solutions:"
+   V1  V2 V3 V4  V5        f1        f2 rnkIndex cd.density
+26 10   4 60 17 131 233.17893  6.287027        1        Inf
+29 60 119 12 50  17  77.49259 27.666010        1        Inf
+18  9  16 12 60 164 170.29311  7.082649        1   0.466529
+[1] "Starting mfuzz in sporulation run: 3"
+[1] "Pareto solutions:"
+   V1  V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+24  4 131 10 17 60 233.1789 6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 4"
+[1] "Pareto solutions:"
+    V1 V2 V3  V4 V5        f1       f2 rnkIndex cd.density
+9  119 17 12  50 60  77.49259 27.66601        1        Inf
+24  29  4 60 140 17 409.78653 10.28661        1        Inf
+[1] "Starting mfuzz in sporulation run: 5"
+[1] "Pareto solutions:"
+    V1  V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+1   60 119 49 17 12 206.2900 27.666010        1        Inf
+36 131  60 17  4 10 233.1789  6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 6"
+[1] "Pareto solutions:"
+   V1  V2 V3 V4  V5       f1        f2 rnkIndex cd.density
+25 12 122 46 17  60 165.0480 25.621411        1        Inf
+30 58  16 14 27 164 763.7181  8.642507        1        Inf
+[1] "Starting mfuzz in sporulation run: 7"
+[1] "Pareto solutions:"
+    V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+25  60 10 17  4 131 233.1789 6.287027        1        Inf
+29 164  6 55 16  61 158.9551 7.331011        1        Inf
+[1] "Starting mfuzz in sporulation run: 8"
+[1] "Pareto solutions:"
+    V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+35 135  4 60 10 17 233.5864 6.461821        1        Inf
+[1] "Starting mfuzz in sporulation run: 9"
+[1] "Pareto solutions:"
+   V1 V2  V3  V4  V5       f1       f2 rnkIndex cd.density
+7  60 16  10  56 164 194.2526 8.080340        1        Inf
+35 17 60   4 143  29 461.8564 6.131024        1        Inf
+4  29 17 141   4  60 426.0060 6.569233        1  0.5437847
+[1] "Starting mfuzz in sporulation run: 10"
+[1] "Pareto solutions:"
+  V1 V2 V3  V4 V5       f1       f2 rnkIndex cd.density
+5 10  4 17 131 60 233.1789 6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 11"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+25 60 17  4 10 135 233.5864 6.461821        1        Inf
+[1] "Starting mfuzz in sporulation run: 12"
+[1] "Pareto solutions:"
+   V1  V2 V3 V4 V5       f1        f2 rnkIndex cd.density
+8 121  12 47 17 60 112.6789 24.510505        1        Inf
+9  12 164 60  9 16 170.2931  7.082649        1        Inf
+[1] "Starting mfuzz in sporulation run: 13"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+15 17 60  4 10 131 233.1789 6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 14"
+[1] "Pareto solutions:"
+    V1  V2  V3 V4 V5       f1        f2 rnkIndex cd.density
+2   17 138  60  4 29 420.5912  5.916343        1        Inf
+10 118  60  51 17 12  29.2154 28.009732        1        Inf
+36  17  60 131  4 10 233.1789  6.287027        1  0.6839883
+[1] "Starting mfuzz in sporulation run: 15"
+[1] "Pareto solutions:"
+   V1 V2  V3  V4  V5       f1        f2 rnkIndex cd.density
+10 46 12 122  60  17 165.0480 25.621411        1        Inf
+39 60 17   4  29 138 420.5912  5.916343        1        Inf
+27 17 60  10 131   4 233.1789  6.287027        1  0.2328202
+[1] "Starting mfuzz in sporulation run: 16"
+[1] "Pareto solutions:"
+   V1 V2 V3  V4 V5        f1        f2 rnkIndex cd.density
+8  16 27 58 164 14 763.71812  8.642507        1        Inf
+26 12 50 17 119 60  77.49259 27.666010        1        Inf
+[1] "Starting mfuzz in sporulation run: 17"
+[1] "Pareto solutions:"
+   V1  V2  V3 V4 V5       f1        f2 rnkIndex cd.density
+12 58  27 164 16 14 763.7181  8.642507        1        Inf
+23 12  49 119 60 17 206.2900 27.666010        1        Inf
+15 16 164  58 27 13 738.9632  8.757079        1   1.344005
+[1] "Starting mfuzz in sporulation run: 18"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+34 10  5 60 17 129 239.4529 6.936608        1        Inf
+[1] "Starting mfuzz in sporulation run: 19"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+14  4 10 17 60 131 233.1789 6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 20"
+[1] "Pareto solutions:"
+    V1 V2  V3  V4 V5       f1        f2 rnkIndex cd.density
+1   58 16  27 164 14 763.7181  8.642507        1        Inf
+2  158 19  55  52 17 514.2073 32.521738        1        Inf
+17  16 58 164  13 27 738.9632  8.757079        1   1.127124
+[1] "Starting mfuzz in sporulation run: 21"
+[1] "Pareto solutions:"
+   V1 V2  V3 V4  V5       f1       f2 rnkIndex cd.density
+8  56 16 164 10  60 194.2526 8.080340        1        Inf
+36 60 29  17  4 143 461.8564 6.131024        1        Inf
+20 10  4  17 60 131 233.1789 6.287027        1  0.1928856
+[1] "Starting mfuzz in sporulation run: 22"
+[1] "Pareto solutions:"
+   V1 V2  V3 V4 V5       f1       f2 rnkIndex cd.density
+10 61 55 164 16  6 158.9551 7.331011        1        Inf
+[1] "Starting mfuzz in sporulation run: 23"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1      f2 rnkIndex cd.density
+12 12  9 59 16 164 147.3066 7.84048        1        Inf
+[1] "Starting mfuzz in sporulation run: 24"
+[1] "Pareto solutions:"
+   V1 V2  V3 V4 V5       f1        f2 rnkIndex cd.density
+3  16 13 164 58 27 738.9632  8.757079        1        Inf
+7 120 60   6  7 17 381.6062 61.777706        1        Inf
+1  55 52 158 19 17 514.2073 32.521738        1   1.882787
+[1] "Starting mfuzz in sporulation run: 25"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1        f2 rnkIndex cd.density
+16 51 60 12 17 118  29.2154 28.009732        1        Inf
+19 10  4 60 17 131 233.1789  6.287027        1        Inf
+[1] "Starting mfuzz in sporulation run: 26"
+[1] "Pareto solutions:"
+   V1  V2  V3 V4  V5        f1        f2 rnkIndex cd.density
+1  17  12  47 60 121  112.6789 24.510505        1        Inf
+23 60 147   4 26  17 5726.4230  7.553034        1        Inf
+36 27  25 164 57  16  771.6422 14.700581        1   1.318997
+[1] "Starting mfuzz in sporulation run: 27"
+[1] "Pareto solutions:"
+    V1  V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+1   52 158 55 17 19 514.2073 32.52174        1        Inf
+16 164  57 25 16 27 771.6422 14.70058        1        Inf
+[1] "Starting mfuzz in sporulation run: 28"
+[1] "Pareto solutions:"
+    V1 V2 V3  V4 V5       f1        f2 rnkIndex cd.density
+3  139 60  4  29 17 425.0785  6.234706        1        Inf
+16   7 17  6 122 60 376.6869 60.711792        1        Inf
+[1] "Starting mfuzz in sporulation run: 29"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4  V5       f1       f2 rnkIndex cd.density
+27 60 17  4 29 142 416.0342 9.043757        1        Inf
+[1] "Starting mfuzz in sporulation run: 30"
+[1] "Pareto solutions:"
+   V1 V2 V3  V4 V5       f1        f2 rnkIndex cd.density
+11 29 17 60 141  4 426.0060  6.569233        1        Inf
+22 51 60 17 118 12  29.2154 28.009732        1        Inf
+[1] "Starting mfuzz in sporulation run: 31"
+[1] "Pareto solutions:"
+   V1 V2 V3 V4 V5       f1       f2 rnkIndex cd.density
+1 131 10  4 60 17 233.1789 6.287027        1        Inf
+Warning message:
+no DISPLAY variable so Tk is not available 
