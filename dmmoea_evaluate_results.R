@@ -79,7 +79,7 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
         data.pareto <- read.table(file.path(exp.path, experiment, "population.csv"), sep=",", header=TRUE, row.names=NULL)
         data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
-        hv <- eaf::hypervolume(data, c(1,1), maximize=FALSE) #calculate_hypervolume(data, c(1,1), maximize)
+        hv <- calculate_hypervolume(data, c(1,1), maximize) #eaf::hypervolume(data, c(1,1), maximize=FALSE) #
         sil <- evaluation.file[k, "avg_sil"]
         delta <- evaluation.file[k, "delta"]
         diversity.jaccard <- diversity_analysis(data.pareto, distances, metric="jaccard", 

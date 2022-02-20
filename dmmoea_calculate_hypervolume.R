@@ -11,17 +11,28 @@ calculate_single_hv <- function(){
   path <- file.path(path, results.path)
   print("Path in:")
   print(file.path(path, "dmnsga2", dataset, paste0(exp, ".csv")))
-  pareto.dmnsga <- read.table(file.path(path, "dmnsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=TRUE, row.names=NULL)
-  pareto.dnsga <- read.table(file.path(path, "dnsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=TRUE, row.names=NULL)
-  pareto.nsga <- read.table(file.path(path, "nsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=TRUE, row.names=NULL)
+  pareto.dmnsga <- read.table(file.path(path, "dmnsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=FALSE, row.names=NULL)
+  pareto.dnsga <- read.table(file.path(path, "dnsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=FALSE, row.names=NULL)
+  pareto.nsga <- read.table(file.path(path, "nsga2", dataset, exp, paste0(exp, ".csv")), sep=",", header=FALSE, row.names=NULL)
   #path <- "X:/Universidad/dmmoea/Tests/runs/BallHall"
   limits <- read.table(file.path(path, "dmnsga2", "arabidopsis", "limits.csv"), sep=",", header=TRUE, row.names=NULL)
   scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
   scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
+  #print("DMNSGA2")
+  #print(pareto.dmnsga)
+  #print(limits)
   pareto.dmnsga <- data.frame("f1"=unlist(lapply(pareto.dmnsga[, 1], scaler.f1)), "f2"=unlist(lapply(pareto.dmnsga[, 2], scaler.f2)))
+  #print(pareto.dmnsga)
+  #print("DNSGA2")
+  #print(pareto.dnsga)
+  #print(limits)
   pareto.dnsga <- data.frame("f1"=unlist(lapply(pareto.dnsga[, 1], scaler.f1)), "f2"=unlist(lapply(pareto.dnsga[, 2], scaler.f2)))
+  #print(pareto.dnsga)
+  #print("NSGA2")
+  #print(pareto.nsga)
+  #print(limits)
   pareto.nsga <- data.frame("f1"=unlist(lapply(pareto.nsga[, 1], scaler.f1)), "f2"=unlist(lapply(pareto.nsga[, 2], scaler.f2)))
-  print(pareto.dmnsga)
+  #print(pareto.nsga)
   
   hv.dmnsga <- calculate_hypervolume(pareto.dmnsga, c(1,1), maximise=FALSE) #eaf::hypervolume(data, c(1,1), maximize=FALSE) 
   hv.dnsga <- calculate_hypervolume(pareto.dnsga, c(1,1), maximise=FALSE) #eaf::hypervolume(data, c(1,1), maximize=FALSE) 
@@ -32,7 +43,6 @@ calculate_single_hv <- function(){
   
   data <- rbind(rbind(pareto.dmnsga, pareto.dnsga), pareto.nsga)
   data[, "class"] <- c( rep("dmnsga2", nrow(pareto.dmnsga)) , rep("dnsga2", nrow(pareto.dnsga)) , rep("nsga2", nrow(pareto.nsga)))
-  print(data)
   gg <- ggplot(data, aes(x=f1, y=f2, group=class, color=class)) + 
     geom_point() +
     geom_line(aes(group=class))
@@ -45,7 +55,7 @@ calculate_single_hv <- function(){
   #plot(gg)
 }
 
-#calculate_hv()
+#calculate_single_hv()
 
 test_hypervolume_contribution <- function(){
   args <- commandArgs(trailingOnly = TRUE)
@@ -255,6 +265,6 @@ calculate_hypervolume_manual_2 <- function(){
   print(hv)
 }
 
-#test_hypervolume_contribution()
+test_hypervolume_contribution()
 
-calculate_hypervolume_manual()
+#calculate_hypervolume_manual()

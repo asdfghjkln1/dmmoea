@@ -95,7 +95,9 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, limit
       res <- run_tmix_clust(distances, params, output.exp, limits, debug=TRUE)
     }else if(algorithm == "mfuzz"){
       res <- run_mfuzz_clust(distances, params, output.exp, limits)
-    }else{
+    }else if(algorithm == "random"){
+      res <- run_random(distances, params, output.exp, limits)
+    }else {
       warning("Algorithm not supported!!")
       return(NULL)
     }
@@ -190,6 +192,22 @@ run_mfuzz_clust <- function(distances, params, output.exp, limits){
   P.rows <- row.names(population)
   population <- evaluate_population(population, distances, clustering.groups, params)
   clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  return(list("population"=population, "clustering"=clustering.groups))
+}
+
+run_random <- function(distances, params, output.exp, limits){
+  
+  P <- params$Pop.size * 10
+  population <- generate_initial_pop(P, params$K, distances$n.genes) 
+  
+  row.names(population) <- 1:nrow(population)
+  P.rows <- row.names(population)
+  population <- remove_duplicated(population, params$K)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  P.rows <- row.names(population)
+  population <- evaluate_population(population, distances, clustering.groups, params)
+  clustering.groups <- clustering.groups[match((row.names(population)), P.rows)]
+  
   return(list("population"=population, "clustering"=clustering.groups))
 }
 

@@ -1775,7 +1775,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
   algorithms <- algorithms[!(algorithms %in% "figures")]
   if(!load.data){
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
-    colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Algorithm", "Dataset")
+    colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")
     for(i in 1:length(algorithms)){
       algorithm <- algorithms[i]
       datasets <- list.dirs(path=file.path(folder.path, algorithm), recursive = FALSE, full.names=FALSE)
@@ -1813,7 +1813,6 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     
     # Generate ideal pareto for each dataset
     for(j in 1:length(datasets)){
-      dataset <- datasets[j]
       data <- plot.data[plot.data$Dataset == dataset, ]
       ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
       rnkIndex <- integer(nrow(data))
@@ -1831,12 +1830,13 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
   }else{
     print("Previous run data found!. Plotting results...")
     plot.data <- read.table(file.path(exp.path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
-    plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
+    #plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
     plot.data.norm <- read.table(file.path(exp.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
-    plot.data.norm$Algorithm <- factor(plot.data.norm$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
+    #plot.data.norm$Algorithm <- factor(plot.data.norm$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
   }
   datasets <- unique(plot.data$Dataset)
-  plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
+  #plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
+  plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("dnsga2", "dmnsga2", "moc.gapbk", "tmix", "mfuzz", "Ideal pareto"))
   
   #Plot each dataset pareto front
   dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
@@ -1885,8 +1885,10 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       #xlim(0, 1) +
       #ylim(0, 1) +
       theme_minimal() +
-      scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
-                            values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
+      #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
+      #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
+      scale_fill_manual(labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
+                        values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) +
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
