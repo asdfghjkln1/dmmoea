@@ -1,0 +1,213 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Loading required package: amap
+Loading required package: doSNOW
+Loading required package: snow
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, splitIndices,
+    stopCluster
+
+Loading required package: miscTools
+
+Attaching package: ‘miscTools’
+
+The following object is masked from ‘package:Biobase’:
+
+    rowMedians
+
+Loading required package: fields
+Loading required package: spam
+Loading required package: dotCall64
+Loading required package: grid
+Spam version 2.7-0 (2021-06-25) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.
+
+Attaching package: ‘spam’
+
+The following objects are masked from ‘package:base’:
+
+    backsolve, forwardsolve
+
+Loading required package: viridis
+Loading required package: viridisLite
+
+Try help(fields) to get started.
+Loading required package: Rmisc
+Loading required package: lattice
+Loading required package: plyr
+
+Attaching package: ‘plyr’
+
+The following objects are masked from ‘package:rstatix’:
+
+    desc, mutate
+
+The following object is masked from ‘package:ggpubr’:
+
+    mutate
+
+[1] "Starting algorithm:"
+[1] "nsga2"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting nsga2 in arabidopsis run: 6"
+[1] "Pareto solutions:"
+  V1  V2 V3  V4 V5       f1        f2 rnkIndex cd.density
+1 81 117 46 115 25 5.194810 13.156371        1        Inf
+2 81 121 46   9 31 6.396569  3.968982        1        Inf
+3 81 131 46   9 25 5.196759  8.653447        1  0.5206384
+4 81 117 46   9 25 5.308208  7.872454        1  0.4159858
+5 81 128 46   9 25 5.503739  4.447776        1  0.3919892
+[1] "Starting nsga2 in arabidopsis run: 7"
+[1] "Pareto solutions:"
+   V1 V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1 118 58 113 122  36 50.145454 3.200684        1        Inf
+2  72 46  13  34 130  5.478464 8.096415        1        Inf
+3  72 46  13  34 112  5.701609 5.853994        1 0.64160575
+4  76 46  13  34 109  6.442392 4.601679        1 0.24624484
+5 118 36 113 122  23 27.631069 3.267868        1 0.16722483
+6 118 46 113  36   9  6.989130 4.081545        1 0.16017002
+7 118 46 113  36  23  9.738951 3.708299        1 0.14995918
+8 118 55 113 122  36 26.184352 3.641114        1 0.14523834
+9  76 46 113  34   9  6.537380 4.521975        1 0.09695337
+[1] "Starting nsga2 in arabidopsis run: 8"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1  107  52  94   1  26 21.963420  4.602362        1        Inf
+2   18  41  84 124  56  4.968026 12.045191        1        Inf
+3   18  41 124  65  56  5.497808 10.053027        1 0.11445972
+4   18 111  84   1  56  5.704917  7.520175        1 0.11054009
+5   18  41   3 124  56  5.178915 10.664370        1 0.07285135
+6   20 111  84   1  56  6.165413  7.023915        1 0.06341047
+7   20  41   1 114  56  6.536933  5.803398        1 0.05294381
+8  129  52  78   1 102 10.457584  5.324606        1 0.02740459
+9  129  52  94   1  26 18.418083  4.854481        1 0.02474624
+10 129   1  94  19 102  7.364281  5.613921        1 0.02387089
+11 129  52  13   1 102 11.250955  5.035728        1 0.02064031
+12 129  52  13   1  56 16.491577  5.033367        1 0.01856751
+[1] "Starting nsga2 in arabidopsis run: 9"
+[1] "Pareto solutions:"
+  V1 V2  V3 V4 V5       f1        f2 rnkIndex cd.density
+1 78 96 107  9 32 9.280413  4.051301        1        Inf
+2 68 13 124 46 31 5.603169 26.305665        1        Inf
+3 76 13 124 46 31 5.678861  6.781077        1 0.80409681
+4 76 46 124  9 31 5.951116  4.465205        1 0.10108492
+5 72 13 124 46 34 5.837633  6.311579        1 0.09443171
+6 76 45 107  9 59 9.015902  4.212362        1 0.03420945
+[1] "Starting nsga2 in arabidopsis run: 10"
+[1] "Pareto solutions:"
+  V1  V2 V3  V4  V5        f1         f2 rnkIndex  cd.density
+1 36 121 96  70  19 42.218710   3.966207        1         Inf
+2 13 121 83 103  33  5.161676 477.080350        1         Inf
+3 13  32 83 103 132  5.948353   8.747017        1 0.990450932
+4 36 121  7  81  19  9.587074   3.968982        1 0.025186197
+5 13  32 84 103 132  6.041675   8.140783        1 0.009827892
+6  9 128 19  46  90  7.120529   4.485622        1 0.009335912
+7 36 128 19  46  68  8.185846   4.439734        1 0.002843450
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting nsga2 in cell_cycle run: 6"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  130  21 352 181 158  4.661089 6.606160        1        Inf
+2  109 348 163 176  92 10.903647 3.307625        1        Inf
+3  318   7 324 267 158  4.757110 4.876634        1 0.33143772
+4  158  43 163  25 350  6.324338 3.674360        1 0.11901792
+5  318  23 334 267 158  4.834555 4.504022        1 0.07910573
+6  376   7  83 267 158  6.260872 4.062190        1 0.07844764
+7  158 106 163 176 350  7.920381 3.389365        1 0.06440770
+8  104   7 163 176 158  8.233857 3.362209        1 0.03689237
+9  158  21  83 267 350  5.529124 4.223028        1 0.03281999
+10 337   7  83 267 158  5.955982 4.155100        1 0.03115316
+11 318  21  83 267 158  5.182964 4.394655        1 0.03100520
+12 337  21  83 267 158  5.525764 4.342044        1 0.02973739
+[1] "Starting nsga2 in cell_cycle run: 7"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  157   9 374 261  92 11.275033 3.348644        1        Inf
+2  198  21 327 169 110  4.749452 6.377195        1        Inf
+3  262 312 374 169   7  7.150745 3.409043        1 0.07145578
+4  357 312 132 169   7  5.614143 4.018508        1 0.06272208
+5  357 127 374 261 132  6.580903 3.545261        1 0.05117200
+6  186  21 327 169   7  5.256161 5.302438        1 0.04903356
+7   57  21 373 169 134  4.793751 5.678790        1 0.04362861
+8   57  21 373 169   7  5.306794 4.702171        1 0.03755193
+9   57  21 380 169   7  5.462673 4.488788        1 0.03256896
+10 262  21 376 169 100  5.188280 5.633836        1 0.02523273
+11 357  21 132 169   7  5.446330 4.614457        1 0.01291517
+[1] "Starting nsga2 in cell_cycle run: 8"
