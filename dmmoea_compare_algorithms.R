@@ -128,13 +128,25 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
   #print("Levels before:")
   #print(levels(data$Algorithm))
-  print(levels(data$Algorithm))
-  data$Algorithm <- factor(data$Algorithm, levels=c("dnsga2", "dmnsga2", "moc.gapbk", "mfuzz", "tmix"))
-  print(levels(data$Algorithm))
+  #print(levels(data$Algorithm))
+  
+  #algorithms <- unique(data$Algorithm)
+  #for(i in 1:length(algorithms)){
+  #  r <- nrow(data[data$c])
+  #}
+  #data$Algorithm <- factor(data$Algorithm, levels=c("dnsga2", "dmnsga2","mfuzz", "moc.gapbk", "tmix"))
+  #print(levels(data$Algorithm))
   #print("Levels:")
   #print(levels(data$Algorithm))
   
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
+  
+  print("Levels before kruskal")
+  data$Algorithm <- factor(data$Algorithm, levels=unique(data$Algorithm))
+  print(levels(data$Algorithm))
+  if(dataset == "serum"){
+    print(data)
+  }
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
   pwc <- pwc %>% add_xy_position(x = exp.group)
@@ -153,6 +165,7 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
     dataset.name = "Sporulation"
   }
   
+  print("Wilcox done")
   if(metric == "Diversity"){
     text.title <- paste0("Diversidad: ", dataset.name)
   }else if(metric == "Hypervolume"){
@@ -164,6 +177,37 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   }else if(metric == "Delta"){
     text.title <- paste0("Delta: ", dataset.name)
   }
+  
+  labels <- c()
+  values <- c()
+  levels <- levels(data$Algorithm)
+  if("nsga2" %in% levels){
+    labels <- c(labels, "NSGA-II")
+    values <- c(values, "#00AFBB")
+  } 
+  if("dnsga2" %in% levels){
+    labels <- c(labels, "DNSGA-II")
+    values <- c(values, "#E7B800")
+  } 
+  if("dmnsga2" %in% levels){
+    labels <- c(labels, "DMNSGA-II")
+    values <- c(values, "#FC4E07")
+  }
+  if("moc.gapbk" %in% levels){
+    labels <- c(labels, "MOCGaPBK")
+    values <- c(values, "#E7B800")
+  } 
+  if("mfuzz" %in% levels){
+    labels <- c(labels, "Fuzzy")
+    values <- c(values, "#14453D")
+  } 
+  if("tmix" %in% levels){
+    labels <- c(labels, "Mixture M.")
+    values <- c(values, "#083D77")
+  }
+  
+  print("Final labels:")
+  print(labels)
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
@@ -171,8 +215,8 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
          fill="Algoritmo",
          title=text.title) +
     theme_pubr() +
-    scale_fill_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix"),
-                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) +
+    scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II", "MOCGaPBK", "Fuzzy", "Mixture"),
+                      values=values) + #c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) +
     theme(strip.text.x = element_blank(), 
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
@@ -215,8 +259,7 @@ compare_pareto_front <- function(data, dataset.name, output.path){
     epsilon.matrix[epsilon.matrix == i] <- algorithms[i]
   }
   epsilon.matrix$value <- ep.value
-  
-  
+
   # --------- # 
   # Calculate IGD+ distance as implemented in: https://mlopez-ibanez.github.io/eaf/reference/igd.html
   IGD.table <- data.frame("Algoritmo"=algorithms, "IGD"=rep(0, length(algorithms)))
@@ -240,9 +283,15 @@ compare_pareto_front <- function(data, dataset.name, output.path){
   algorithms[algorithms == "nsga2"] <- "NSGA-II"
   algorithms[algorithms == "dnsga2"] <- "DNSGA-II"
   algorithms[algorithms == "dmnsga2"] <- "DMNSGA-II"
+  algorithms[algorithms == "mfuzz"] <- "Fuzzy"
+  algorithms[algorithms == "moc.gapbk"] <- "MOC.GaPBK"
+  algorithms[algorithms == "tmix"] <- "Mixture"
   epsilon.matrix[epsilon.matrix == "nsga2"] <- "NSGA-II"
   epsilon.matrix[epsilon.matrix == "dnsga2"] <- "DNSGA-II"
   epsilon.matrix[epsilon.matrix == "dmnsga2"] <- "DMNSGA-II"
+  epsilon.matrix[epsilon.matrix == "mfuzz"] <- "Fuzzy"
+  epsilon.matrix[epsilon.matrix == "moc.gapbk"] <- "MOCGaPBK"
+  epsilon.matrix[epsilon.matrix == "tmix"] <- "Mixture"
   
   IGD.table$Algoritmo <- paste0(algorithms, " (", rnk, ")")
 

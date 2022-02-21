@@ -1774,6 +1774,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
   algorithms <- algorithms[!(algorithms %in% "figures")]
   if(!load.data){
+    print("data not loaded!")
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
     colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")
     for(i in 1:length(algorithms)){
@@ -1813,7 +1814,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     
     # Generate ideal pareto for each dataset
     for(j in 1:length(datasets)){
-      data <- plot.data[plot.data$Dataset == dataset, ]
+      data <- plot.data[plot.data$Dataset == datasets[j], ]
       ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
       rnkIndex <- integer(nrow(data))
       i <- 1

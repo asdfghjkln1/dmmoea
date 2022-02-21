@@ -106,8 +106,8 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.
 
 diversity_analysis <- function(P, distances, metric, exp.path=NULL, alpha=0.5, plot=FALSE){
   P <- as.matrix(P)
-  if(nrow(P) < 4){
-    return(NA)
+  if(nrow(P) < 2){
+    return(list("diss"=NA, "avg.dist"=NA, "k.ratio"=NA))
   }
   res.P <- cluster_data(distances, P, alpha)
   P <- res.P$population
@@ -115,6 +115,11 @@ diversity_analysis <- function(P, distances, metric, exp.path=NULL, alpha=0.5, p
   d.matrix.P <- calculate_diversity_matrix(P.groups, metric)
   avg.dist <- mean(d.matrix.P[lower.tri(d.matrix.P, diag = FALSE)])
   d.matrix.P <- as.dist(d.matrix.P)
+  if(nrow(P) < 4){
+    return(list("diss"=d.matrix.P, "avg.dist"=avg.dist, "k.ratio"=NA))
+  }
+  
+  
   hc <- hclust(d=d.matrix.P, method="single")
   sil <- c(-1)
   for(i in 2:(nrow(P)-1)){
