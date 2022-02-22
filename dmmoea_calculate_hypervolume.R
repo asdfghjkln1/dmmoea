@@ -130,24 +130,38 @@ calculate_hypervolume_manual <- function(){
 }
 
 hypervolume_comparison_tests <- function(data, dataset, output.path, metric="contributed", exp.group="Algorithm"){
+  library(dplyr)
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
-  #print("Levels before:")
-  #print(levels(data$Algorithm))
+  #print(data[1:20,])
+  #data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
+  
+  data <- data[data$Dataset == dataset, ]
+  print(paste0("rows: ", nrow(data)))
   algorithms <- as.character(unique(data$Algorithm))
   data$Algorithm <- factor(data$Algorithm, levels=algorithms)
-  #data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
-  #print("Levels:")
+  #data[is.na(data)] <- 0
+  #col <- which(colnames(data) == metric)
+  #for(i in 1:length(algorithms)){
+  #  data.alg <- data[data$Algorithm == algorithms[i], ]
+  #  if(sum(data.alg[, col]) == 0){
+  #    data <- data[!(data$Algorithm == algorithms[i]), ]
+  #  }
+  #}
+  #algorithms <- unique(data$Algorithm)
+  #data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  #print("Levels after:")
   #print(levels(data$Algorithm))
+  #print(paste0("rows: ", nrow(data)))
   
-  form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
-  kruskal.res <- kruskal_test(data, formula=form)
-  pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
-  pwc <- pwc %>% add_xy_position(x = exp.group)
-  w <- 5 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
-  Y <- pwc$y.position
-  gap.data <- max(data[, metric]) - min(data[, metric])
-  gap <- max(Y[2] - Y[1], gap.data*0.07)
-  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
+  #form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
+  #kruskal.res <- kruskal_test(data, formula=form)
+  #pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
+  #pwc <- pwc %>% add_xy_position(x = exp.group)
+  #w <- 5 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
+  #Y <- pwc$y.position
+  #gap.data <- max(data[, metric]) - min(data[, metric])
+  #gap <- max(Y[2] - Y[1], gap.data*0.07)
+  #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
   if(dataset == "arabidopsis"){
     dataset.name = "Arabidopsis"
   }else if(dataset == "cell_cycle"){
@@ -166,6 +180,7 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
   
   labels <- c()
   values <- c()
+  levels <- levels(data$Algorithm)
   if("nsga2" %in% levels){
     labels <- c(labels, "NSGA-II")
     values <- c(values, "#00AFBB")
@@ -178,38 +193,42 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
     labels <- c(labels, "DMNSGA-II")
     values <- c(values, "#F19B3E")
   }
-  if("moc.gapbk" %in% levels){
-    labels <- c(labels, "MOCGaPBK")
-    values <- c(values, "#E7B800")
-  } 
-  if("mfuzz" %in% levels){
-    labels <- c(labels, "Fuzzy")
-    values <- c(values, "#69DC9E")
-  } 
   if("tmix" %in% levels){
     labels <- c(labels, "Mixture M.")
     values <- c(values, "#02A9EA")
   }
+  if("mfuzz" %in% levels){
+    labels <- c(labels, "Fuzzy")
+    values <- c(values, "#69DC9E")
+  }
+  if("moc.gapbk" %in% levels){
+    labels <- c(labels, "MOCGaPBK")
+    values <- c(values, "#E7B800")
+  } 
   
-  ggplot(data[data$Dataset == dataset, ], aes_string(x=exp.group, y=metric)) +
-    geom_boxplot(aes_string(fill=exp.group)) +
-    labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
-         caption = get_pwc_label(pwc),
+  data2 <- data %>% group_by(Algorithm, contributed) %>% summarise("Frecuencia"= n())
+  print(data[, c(2,5)])
+
+  ggplot(data2, aes(x=contributed, y=Frecuencia)) +
+    geom_bar(aes_string(fill=exp.group), stat="identity",position=position_dodge(), alpha=0.75) +
+    labs(#subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
+         #caption = get_pwc_label(pwc),
          fill="Algoritmo",
-         title=text.title) +
+         title=text.title,
+         x="Contribuciones a frontera pareto ideal") +
     theme_pubr() +
     scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
                       values=values) +#c("#00AFBB", "#E7B800", "#FC4E07")) +
-    theme(strip.text.x = element_blank(), 
-          axis.text.x = element_blank(),#element_text(angle=25),
+    theme(#strip.text.x = element_blank(), 
+          #axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
           plot.subtitle=element_text(size=11),
           #legend.spacing.x = unit(0, 'cm'),
           axis.title.x=element_blank()) +
     guides(fill = guide_legend(label.position = "bottom")) +
-    stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
+    #stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
   
-  ggsave(file.path(output.path, paste0("contribution_", dataset, ".png")), width = w, height = 7) 
+  ggsave(file.path(output.path, paste0("contribution_", dataset, ".png")), width = 5, height = 7) 
   
   print(paste(metric, dataset, "... Done."))
 }
@@ -294,6 +313,6 @@ calculate_hypervolume_manual_2 <- function(){
   print(hv)
 }
 
-#test_hypervolume_contribution()
+test_hypervolume_contribution()
 
-calculate_hypervolume_manual()
+#calculate_hypervolume_manual()

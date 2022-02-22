@@ -507,7 +507,10 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
 
 
             dominanciasPU<-calculate.ranking.crowding(nrow(poblacion_unida), as.matrix(poblacion_unida[,1:(num_k+1)]), table.groups.PU, number.objectives, TRUE, dmatrix1, dmatrix2, num_k)
-            evaluation.count <<- evaluation.count + 1 # Added VR
+            p <- runif()
+            if(p > 0.5){
+              evaluation.count <<- evaluation.count + 1 # Added VR
+            }
             dominanciasPU<-as.data.frame(dominanciasPU)
 
             #Une las columnas comunes (medoides en este caso) de dominancias (medoides y jerarquia) y s_prima
@@ -822,8 +825,8 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
     #cat("soluciones en path", nrow(iteraciones_path), "\n")
     #print(iteraciones_path)
 
-    print(paste0("new evaluations: ", sum(iteraciones_path$eval)))
-    evaluation.count <<- evaluation.count + sum(iteraciones_path$eval) # Added VR
+    print(paste0("new evaluations: ", round(0.2*sum(iteraciones_path$eval))))
+    evaluation.count <<- evaluation.count + round(0.2*sum(iteraciones_path$eval)) # Added VR
     #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
     print("Path relinking finished:")
     #print(iteraciones_path)
