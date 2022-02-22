@@ -88,7 +88,7 @@ calculate_hypervolume_manual <- function(){
   print("Path in:")
   print(path)
   
-  algorithms <- c("dmnsga2", "dnsga2", "nsga2")
+  algorithms <- c("dmnsga2", "dnsga2", "tmix", "mfuzz", "moc.gapbk")#"nsga2")
 
   data <- read.table(file.path(path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
   
@@ -133,7 +133,9 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
   #print("Levels before:")
   #print(levels(data$Algorithm))
-  data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
+  algorithms <- as.character(unique(data$Algorithm))
+  data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  #data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
   #print("Levels:")
   #print(levels(data$Algorithm))
   
@@ -162,6 +164,33 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
     text.title <- paste0("Porcentaje contribuci\U00F3n a frontera pareto")
   }
   
+  labels <- c()
+  values <- c()
+  if("nsga2" %in% levels){
+    labels <- c(labels, "NSGA-II")
+    values <- c(values, "#00AFBB")
+  } 
+  if("dnsga2" %in% levels){
+    labels <- c(labels, "DNSGA-II")
+    values <- c(values, "#FC4E07")
+  } 
+  if("dmnsga2" %in% levels){
+    labels <- c(labels, "DMNSGA-II")
+    values <- c(values, "#F19B3E")
+  }
+  if("moc.gapbk" %in% levels){
+    labels <- c(labels, "MOCGaPBK")
+    values <- c(values, "#E7B800")
+  } 
+  if("mfuzz" %in% levels){
+    labels <- c(labels, "Fuzzy")
+    values <- c(values, "#69DC9E")
+  } 
+  if("tmix" %in% levels){
+    labels <- c(labels, "Mixture M.")
+    values <- c(values, "#02A9EA")
+  }
+  
   ggplot(data[data$Dataset == dataset, ], aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
@@ -169,8 +198,8 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
          fill="Algoritmo",
          title=text.title) +
     theme_pubr() +
-    scale_fill_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
-                      values=c("#00AFBB", "#E7B800", "#FC4E07")) +
+    scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
+                      values=values) +#c("#00AFBB", "#E7B800", "#FC4E07")) +
     theme(strip.text.x = element_blank(), 
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
@@ -265,6 +294,6 @@ calculate_hypervolume_manual_2 <- function(){
   print(hv)
 }
 
-test_hypervolume_contribution()
+#test_hypervolume_contribution()
 
-#calculate_hypervolume_manual()
+calculate_hypervolume_manual()

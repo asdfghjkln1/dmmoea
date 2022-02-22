@@ -61,9 +61,7 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, outpu
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
   #print("Levels before:")
   #print(levels(data$Algorithm))
-  print(levels(data$Algorithm))
   data$Algorithm <- factor(data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2"))
-  print(levels(data$Algorithm))
   #print("Levels:")
   #print(levels(data$Algorithm))
   
@@ -126,27 +124,21 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, outpu
 
 kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dataset, output.path){
   dir.create(output.path, recursive=TRUE, showWarnings = FALSE)
-  #print("Levels before:")
-  #print(levels(data$Algorithm))
-  #print(levels(data$Algorithm))
-  
-  #algorithms <- unique(data$Algorithm)
-  #for(i in 1:length(algorithms)){
-  #  r <- nrow(data[data$c])
-  #}
-  #data$Algorithm <- factor(data$Algorithm, levels=c("dnsga2", "dmnsga2","mfuzz", "moc.gapbk", "tmix"))
-  #print(levels(data$Algorithm))
-  #print("Levels:")
-  #print(levels(data$Algorithm))
   
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
-  
-  print("Levels before kruskal")
-  data$Algorithm <- factor(data$Algorithm, levels=unique(data$Algorithm))
-  print(levels(data$Algorithm))
-  if(dataset == "serum"){
-    print(data)
+  algorithms <- as.character(unique(data$Algorithm))
+  data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  data[is.na(data)] <- 0
+  col <- which(colnames(data) == metric)
+  for(i in 1:length(algorithms)){
+    data.alg <- data[data$Algorithm == algorithms[i], ]
+    if(sum(data.alg[, col]) == 0){
+      data <- data[!(data$Algorithm == algorithms[i]), ]
+    }
   }
+  algorithms <- unique(data$Algorithm)
+  data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
   pwc <- pwc %>% add_xy_position(x = exp.group)
@@ -165,7 +157,6 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
     dataset.name = "Sporulation"
   }
   
-  print("Wilcox done")
   if(metric == "Diversity"){
     text.title <- paste0("Diversidad: ", dataset.name)
   }else if(metric == "Hypervolume"){
@@ -187,11 +178,11 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   } 
   if("dnsga2" %in% levels){
     labels <- c(labels, "DNSGA-II")
-    values <- c(values, "#E7B800")
+    values <- c(values, "#FC4E07")
   } 
   if("dmnsga2" %in% levels){
     labels <- c(labels, "DMNSGA-II")
-    values <- c(values, "#FC4E07")
+    values <- c(values, "#F19B3E")
   }
   if("moc.gapbk" %in% levels){
     labels <- c(labels, "MOCGaPBK")
@@ -199,15 +190,13 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   } 
   if("mfuzz" %in% levels){
     labels <- c(labels, "Fuzzy")
-    values <- c(values, "#14453D")
+    values <- c(values, "#69DC9E")
   } 
   if("tmix" %in% levels){
     labels <- c(labels, "Mixture M.")
-    values <- c(values, "#083D77")
+    values <- c(values, "#02A9EA")
   }
   
-  print("Final labels:")
-  print(labels)
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
