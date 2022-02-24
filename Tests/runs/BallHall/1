@@ -1,0 +1,8 @@
+
+Command 'Rcript' not found, did you mean:
+
+  command 'Rscript' from deb r-base-core (3.6.3-2)
+  command 'script' from deb bsdutils (1:2.34-0.1ubuntu9.3)
+
+Try: apt install <deb name>
+
