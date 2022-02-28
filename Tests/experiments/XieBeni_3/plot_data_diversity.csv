@@ -485,8 +485,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 9,moc.gapbk,serum,NMI,0.3588,0.75
 1,moc.gapbk,sporulation,jaccard,0.355488888888889,0.666666666666667
 1,moc.gapbk,sporulation,NMI,0.295288888888889,0.666666666666667
-10,moc.gapbk,sporulation,jaccard,0.340333333333333,0.666666666666667
-10,moc.gapbk,sporulation,NMI,0.392111111111111,0.777777777777778
+10,moc.gapbk,sporulation,jaccard,0.393955555555556,0.222222222222222
+10,moc.gapbk,sporulation,NMI,0.372377777777778,0.777777777777778
 11,moc.gapbk,sporulation,jaccard,0.419133333333333,0.8
 11,moc.gapbk,sporulation,NMI,0.353333333333333,0.8
 12,moc.gapbk,sporulation,jaccard,0.470333333333333,0.5

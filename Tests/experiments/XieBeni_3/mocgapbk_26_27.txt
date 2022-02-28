@@ -125,19 +125,4 @@ The following object is masked from ‘package:ggpubr’:
 [1] "moc.gapbk"
 [1] "Starting dataset:"
 [1] "arabidopsis"
-[1] "Starting moc.gapbk in arabidopsis run: 22"
-[1] "Pareto solutions:"
-    V1  V2  V3  V4 V5        f1        f2 rnkIndex    density
-1  109 121 125   1 51 19.655762  4.284771        1        Inf
-2   86  41 111  56  5  5.287750 11.245692        1        Inf
-6    9 125  51   1 92 11.179537  4.446326        1 0.64640912
-3   84 125 111  56  5  5.404441  7.193322        1 0.62403395
-4   84 125 111  49  5  5.693288  7.098313        1 0.51006756
-9   86  51 125   1 96  7.610608  4.711612        1 0.35435184
-8   86  41  51 127 96 10.747507  4.468561        1 0.26476079
-10  86  51 125 127 96  7.775557  4.640167        1 0.21710866
-5   86 125  51   1 96  7.610608  4.711612        1 0.14370746
-7   86 125  51 127 96  7.775557  4.640167        1 0.03613304
-[1] "Starting dataset:"
-[1] "cell_cycle"
-[1] "Starting moc.gapbk in cell_cycle run: 21"
+[1] "Starting moc.gapbk in arabidopsis run: 26"
