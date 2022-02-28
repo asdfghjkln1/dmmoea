@@ -1,0 +1,208 @@
+Loading required package: nsga2R
+Loading required package: mco
+
+Attaching package: ‘mco’
+
+The following object is masked _by_ ‘.GlobalEnv’:
+
+    nsga2
+
+Loading required package: cluster
+Loading required package: factoextra
+Loading required package: ggplot2
+Welcome! Want to learn more? See two factoextra-related books at https://goo.gl/ve3WBa
+Loading required package: NbClust
+Loading required package: infotheo
+Loading required package: irace
+Loading required package: parallel
+Loading required package: doParallel
+Loading required package: foreach
+Loading required package: iterators
+Loading required package: clValid
+Loading required package: tictoc
+Loading required package: anticlust
+Loading required package: scclust
+Loading required package: distances
+Loading required package: ggpubr
+Loading required package: rstatix
+
+Attaching package: ‘rstatix’
+
+The following object is masked from ‘package:stats’:
+
+    filter
+
+Loading required package: TMixClust
+Loading required package: Mfuzz
+Loading required package: Biobase
+Loading required package: BiocGenerics
+
+Attaching package: ‘BiocGenerics’
+
+The following objects are masked from ‘package:stats’:
+
+    IQR, mad, sd, var, xtabs
+
+The following objects are masked from ‘package:base’:
+
+    anyDuplicated, append, as.data.frame, basename, cbind, colnames,
+    dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
+    grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
+    order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
+    rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
+    union, unique, unsplit, which.max, which.min
+
+Welcome to Bioconductor
+
+    Vignettes contain introductory material; view with
+    'browseVignettes()'. To cite Bioconductor, see
+    'citation("Biobase")', and for packages 'citation("pkgname")'.
+
+Loading required package: e1071
+
+Attaching package: ‘DynDoc’
+
+The following object is masked from ‘package:BiocGenerics’:
+
+    path
+
+Loading required package: amap
+Loading required package: doSNOW
+Loading required package: snow
+
+Attaching package: ‘snow’
+
+The following objects are masked from ‘package:parallel’:
+
+    clusterApply, clusterApplyLB, clusterCall, clusterEvalQ,
+    clusterExport, clusterMap, clusterSplit, makeCluster, parApply,
+    parCapply, parLapply, parRapply, parSapply, splitIndices,
+    stopCluster
+
+Loading required package: miscTools
+
+Attaching package: ‘miscTools’
+
+The following object is masked from ‘package:Biobase’:
+
+    rowMedians
+
+Loading required package: fields
+Loading required package: spam
+Loading required package: dotCall64
+Loading required package: grid
+Spam version 2.7-0 (2021-06-25) is loaded.
+Type 'help( Spam)' or 'demo( spam)' for a short introduction 
+and overview of this package.
+Help for individual functions is also obtained by adding the
+suffix '.spam' to the function name, e.g. 'help( chol.spam)'.
+
+Attaching package: ‘spam’
+
+The following objects are masked from ‘package:base’:
+
+    backsolve, forwardsolve
+
+Loading required package: viridis
+Loading required package: viridisLite
+
+Try help(fields) to get started.
+Loading required package: Rmisc
+Loading required package: lattice
+Loading required package: plyr
+
+Attaching package: ‘plyr’
+
+The following objects are masked from ‘package:rstatix’:
+
+    desc, mutate
+
+The following object is masked from ‘package:ggpubr’:
+
+    mutate
+
+[1] "Starting algorithm:"
+[1] "moc.gapbk"
+[1] "Starting dataset:"
+[1] "arabidopsis"
+[1] "Starting moc.gapbk in arabidopsis run: 20"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4 V5        f1       f2 rnkIndex   density
+1   13 111  15  88 55  5.025909 7.776153        1       Inf
+2   68  36   7 108 55 17.848746 4.439734        1       Inf
+3   10 111  46  88 55  7.531554 6.231340        1 0.7276862
+4   10  17 131  86 55  9.048677 5.843019        1 0.5350593
+5   10  17  46  86 55  9.074748 4.616587        1 0.4546059
+6  116  17  46  78 55 14.601528 4.464052        1 0.4393534
+7  133  17  46  86 55 11.528924 4.571819        1 0.3917456
+9   70  17   7  78 55 16.675282 4.445001        1 0.2605258
+8   13 111  46  88 55  7.972995 6.115100        1 0.2347024
+10  13  17  46  86 55 10.107177 4.601679        1 0.2048089
+[1] "Starting moc.gapbk in arabidopsis run: 21"
+[1] "Pareto solutions:"
+    V1 V2  V3  V4  V5       f1       f2 rnkIndex    density
+1   78 21 117  46 115 5.266114 7.782369        1        Inf
+2  109 34  70  46   9 6.615244 4.445001        1        Inf
+9  130 34  72  46   9 5.698127 4.768249        1 1.23393849
+3  130 46  34  72   9 5.698127 4.768249        1 0.37869925
+4   78 34 117  46   9 6.144414 4.573070        1 0.34132974
+10  78 46  34 117   9 6.144414 4.573070        1 0.20181983
+7  130 34  78  46   9 6.373941 4.488445        1 0.19368087
+6   78 34 114  46   9 6.337793 4.537914        1 0.15815927
+5  130 46  78  34   9 6.373941 4.488445        1 0.03981074
+8  114 34  78  46   9 6.337793 4.537914        1 0.03732720
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting moc.gapbk in cell_cycle run: 20"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex   density
+1   26 109 366 304 379 14.256080 4.311542        1       Inf
+3  151   6 273  18 381  4.028644 7.402764        1       Inf
+7   26 380 120  18  95  4.900723 5.216869        1 0.9935689
+4  335 109 120 263  41 10.951195 4.690685        1 0.5877143
+5  182 380 120  18  95  7.449077 4.871356        1 0.4250673
+6  175 380 120 361  95  6.731223 5.148271        1 0.3367435
+10  26 109 120 261 379 13.800164 4.315766        1 0.2360195
+9  335 109 367 261 379 12.556023 4.527292        1 0.2130024
+8  335 109 120 252 379 12.336282 4.531749        1 0.2097714
+11 335  14  21 263  41  7.402270 4.932007        1 0.1597700
+[1] "Starting moc.gapbk in cell_cycle run: 21"
+[1] "Pareto solutions:"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex   density
+1    2  57 164 342 339  5.001224 14.942864        1       Inf
+2   31 128 111 107 314 13.174767  4.431471        1       Inf
+3    2 311 164 342 339  6.156793  6.296274        1 1.0478905
+9   31 128 111 107 273  9.594245  4.452355        1 0.4598545
+8    5 116 164 107 374  8.107795  4.947130        1 0.2302019
+4    5 116 164 342 374  6.936545  5.109475        1 0.2156884
+7  254 116 111 107 182  8.440308  4.623610        1 0.2091262
+10 254 116 111 107 167  9.541337  4.592495        1 0.1574719
+5   31 311 164 342 339  6.681761  6.089291        1 0.1513596
+6   31 116 164 342 374  6.846552  5.592322        1 0.1243865
+[1] "Starting dataset:"
+[1] "serum"
+[1] "Starting moc.gapbk in serum run: 20"
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5       f1         f2 rnkIndex   density
+2 383 185 413 350  18 9.000573   4.574591        1       Inf
+1 383 483 259 248 314 5.763753 134.532647        1       Inf
+7 383 483 259 248 101 5.971313 123.501526        1 1.0754812
+6 383 483 436 248 314 6.104437   8.443620        1 1.0249586
+3 263 483 448 350 314 6.972438   4.607508        1 0.8021669
+4 383  67 436 350 314 6.406805   4.683053        1 0.1991989
+5 383  54 436 350 314 6.352912   5.621053        1 0.1223519
+[1] "Starting moc.gapbk in serum run: 21"
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex    density
+1  26 185 251 263 249 12.893645 4.574591        1        Inf
+2 125 293  10 256 385  5.614411 7.558482        1        Inf
+5 125 409  68 256 385  6.192682 6.997405        1 0.92065677
+3 496 417  87 212 385  9.152459 4.595270        1 0.84693530
+6 208 403  93 256 385  6.440275 4.686375        1 0.84687516
+4 314 257  55 456 347  6.831653 4.616832        1 0.36476493
+7 125 409  83 256 385  5.831413 7.183931        1 0.17606603
+9 125 409  10 256 385  5.816549 7.368583        1 0.15533541
+8 314  62 383 456 347  6.559812 4.620916        1 0.07707252
+[1] "Starting dataset:"
+[1] "sporulation"
+[1] "Starting moc.gapbk in sporulation run: 20"
