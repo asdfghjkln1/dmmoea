@@ -106,7 +106,7 @@ id,Algorithm,Dataset,hypervolume,contributed,total,ratio
 15,dnsga2,serum,0.289683804759918,0,19,0
 1,dnsga2,sporulation,0.356976883970938,2,15,0.13
 2,dnsga2,sporulation,0.358236782708372,1,19,0.05
-3,dnsga2,sporulation,0.356621597374104,2,14,0.14
+3,dnsga2,sporulation,0.356621597374104,1,14,0.07
 4,dnsga2,sporulation,0.354721380299563,0,11,0
 5,dnsga2,sporulation,0.351650644228367,0,12,0
 6,dnsga2,sporulation,0.355516802397414,1,13,0.08
@@ -118,7 +118,7 @@ id,Algorithm,Dataset,hypervolume,contributed,total,ratio
 12,dnsga2,sporulation,0.358588368583057,4,11,0.36
 13,dnsga2,sporulation,0.358765082874267,1,19,0.05
 14,dnsga2,sporulation,0.355003277669347,2,16,0.12
-15,dnsga2,sporulation,0.349850754861379,0,12,0
+15,dnsga2,sporulation,0.349850754861379,1,12,0.08
 1,tmix,arabidopsis,0.17811472306089,1,3,0.33
 2,tmix,arabidopsis,0.175984696710211,1,2,0.5
 3,tmix,arabidopsis,0.175984696710211,1,2,0.5
@@ -268,7 +268,7 @@ id,Algorithm,Dataset,hypervolume,contributed,total,ratio
 12,moc.gapbk,cell_cycle,0.608629775380072,0,10,0
 13,moc.gapbk,cell_cycle,0.627491654007474,0,10,0
 14,moc.gapbk,cell_cycle,0.583685734296415,0,8,0
-15,moc.gapbk,cell_cycle,0.63257167454979,0,10,0
+15,moc.gapbk,cell_cycle,0.63257167454979,1,10,0.1
 1,moc.gapbk,serum,0.723842043905773,0,9,0
 2,moc.gapbk,serum,0.725064150972586,2,10,0.2
 3,moc.gapbk,serum,0.755806699429999,2,10,0.2
