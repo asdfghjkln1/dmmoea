@@ -1772,7 +1772,7 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
 plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.run=Inf){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
-  algorithms <- algorithms[!(algorithms %in% "figures")]
+  algorithms <- algorithms[!(algorithms %in% c("figures", "nsga2", "random"))]
   if(!load.data){
     print("data not loaded!")
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
@@ -1783,9 +1783,10 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       for(j in 1:length(datasets)){
         pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) #** N of objectives hardcoded! **
         dataset <- datasets[j]
+        print(paste0("Starting dataset ", dataset, " in ", algorithm))
         dataset.path <- file.path(folder.path, algorithm, dataset)
         experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
-        experiments <- experiments[as.numeric(experiments) < limit.run]
+        experiments <- experiments[as.numeric(experiments) <= limit.run]
         for(k in 1:length(experiments)){
           experiment <- experiments[k]
           if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
@@ -1888,8 +1889,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       theme_minimal() +
       #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
       #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
-      scale_fill_manual(labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
-                        values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) 
+      scale_colour_manual(labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
+                       values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) 
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
