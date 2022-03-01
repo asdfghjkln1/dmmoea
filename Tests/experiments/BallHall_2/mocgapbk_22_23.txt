@@ -199,3 +199,13 @@ The following object is masked from ‘package:ggpubr’:
 [1] "Starting dataset:"
 [1] "sporulation"
 [1] "Starting moc.gapbk in sporulation run: 22"
+[1] "Pareto solutions:"
+   V1  V2  V3  V4 V5       f1       f2 rnkIndex   density
+1 414  26 390 307 44 9.489178 4.565015        1       Inf
+2 143 225 376 320 73 5.087186 8.334746        1       Inf
+3 225 143 376 320 73 5.087186 8.334746        1       Inf
+5  26 225 376 200 73 6.678387 4.820971        1 1.0517974
+7 143 225 376 200 73 5.203211 6.378890        1 0.8539473
+6 225 143 376 200 73 5.203211 6.378890        1 0.4396279
+4 225  26 376 200 73 6.678387 4.820971        1 0.4030136
+[1] "Starting moc.gapbk in sporulation run: 23"
