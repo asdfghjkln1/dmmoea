@@ -8,7 +8,8 @@ single_test <- function(){
   path <- args[1] #"X:\\Universidad\\dmmoea" #args[1] # "X:\\Universidad\\dmmoea" #args[1] #
   results.path <- args[2] #"Tests\\operators" # args[2] #"Tests\\runs\\XieBeni" # args[2]
   param.path <- args[3]
-  runs <- args[4]
+  limits.dir <- args[4]
+  runs <- args[5]
   
   setwd(path)
   library(ggpubr)
@@ -64,13 +65,13 @@ single_test <- function(){
     dataset <- datasets[j]
     params$dataset <- dataset
     distances <- load.gene.distance(dataset, params$alpha)
-    test_algorithm(algorithms, params, distances, dataset, results.path, runs)
+    test_algorithm(algorithms, params, distances, dataset, results.path, limits.dir, runs)
   }
   #}
   print("Tests finished!...")
 }
 
-test_algorithm <- function(algorithms, params, distances, dataset, results.path, runs){
+test_algorithm <- function(algorithms, params, distances, dataset, results.path, limits.dir, runs){
   
   time <- read.table(file.path(results.path, "time.csv") , sep=",", header = TRUE, row.names=NULL)
   for(i in 1:runs){
@@ -78,6 +79,7 @@ test_algorithm <- function(algorithms, params, distances, dataset, results.path,
     #P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
     for(j in 1:length(algorithms)){
       algorithm <- algorithms[j]
+      limits <- read.table(file.path(limits.dir, algorithm, dataset , "limits.csv") , sep=",", header = TRUE, row.names=NULL)
       output.path <- file.path(results.path, algorithm, dataset)
       print(paste0("algorithm ", algorithm, " dataset ", dataset, " run ", i))
       output.exp <- file.path(output.path, i)
