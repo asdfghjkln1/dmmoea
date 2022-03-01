@@ -1,5 +1,4 @@
-calculate_single_hv <- function(){
-  Sys.setlocale("LC_CTYPE","spanish")
+single_test <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
   if(argnum != 4){
@@ -16,9 +15,13 @@ calculate_single_hv <- function(){
   library(rstatix)
   library(ggplot2)
   library(gridExtra)
-  source("dmmoea_distances.R")
-  source("dmmoea_parameters.R")
   source("dmmoea_functions.R")
+  source("dmmoea_parameters.R")
+  source("dmmoea_libraries.R")
+  source("dmmoea_distances.R")
+  source("dmmoea_irace_conf.R")
+  source("moc.gapbk/R/libraries.R")
+  source("moc.gapbk/R/main.R")
   
   results.path <- file.path(path, results.path)
   dir.create(results.path, recursive = TRUE, showWarnings = FALSE)
@@ -27,8 +30,6 @@ calculate_single_hv <- function(){
   #params <- init_parameters()
   
   best_params <- read.table(file.path(path, param.path, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
-  print("best params:")
-  print(best_params)
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- 6 #as.numeric(best_params$K)
   params$objectives <- best_params$objectives
@@ -50,13 +51,10 @@ calculate_single_hv <- function(){
   params$sync_off <- ifelse(is.na(as.numeric(best_params$sync_off)), 0, as.numeric(best_params$sync_off))
   params$convergence_tol <- -1 #best_params$convergence_tol
   params$mutation_radius <- best_params$mutation_radius
-  
-  
-  
   params$evaluations <- 4000 #params$popSize*(generations+1)
   
-  time <- as.data.frame(matrix(ncol=5, nrow=0))
-  colnames(time) <- c("id", "Algorithm", "Dataset", "start", "end")
+  time <- as.data.frame(matrix(ncol=4, nrow=0))
+  colnames(time) <- c("id", "Algorithm", "Dataset", "elapsed")
   if(!file.exists(file.path(results.path, "time.csv"))){
     write.table(time, file=file.path(results.path, "time.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
@@ -74,13 +72,13 @@ calculate_single_hv <- function(){
 
 test_algorithm <- function(algorithms, params, distances, dataset, results.path, runs){
   
-  time <- read.table(file.path(results.path, "time.csv") , sep=",", header = FALSE, row.names=NULL)
+  time <- read.table(file.path(results.path, "time.csv") , sep=",", header = TRUE, row.names=NULL)
   for(i in 1:runs){
     seed <- as.numeric(Sys.time())
     #P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
     for(j in 1:length(algorithms)){
       algorithm <- algorithms[j]
-      output.path <- file.path(output.folder, algorithm, dataset)
+      output.path <- file.path(results.path, algorithm, dataset)
       print(paste0("algorithm ", algorithm, " dataset ", dataset, " run ", i))
       output.exp <- file.path(output.path, i)
       if(dir.exists(output.exp)){
@@ -108,8 +106,8 @@ test_algorithm <- function(algorithms, params, distances, dataset, results.path,
       }
       end <- Sys.time()
       elapsed <- end - start
-      time.elapsed <- c(i, algorithm, dataset, elapsed)
-      write.table(time.elapsed, file=file.path(results.path, "time.csv"), sep=",", append = TRUE, row.names = FALSE, col.names = TRUE)
+      time.elapsed <- data.frame(i, algorithm, dataset, as.numeric(elapsed))
+      write.table(time.elapsed, file=file.path(results.path, "time.csv"), sep=",", append = TRUE,  quote = FALSE, row.names = FALSE, col.names = FALSE)
       
       evaluate_solutions(res$population, res$clustering, distances, params$K, 
                          params$objDim, params$obj_maximize, dirname(output.exp), as.character(i), algorithm, dataset, plot=TRUE)
