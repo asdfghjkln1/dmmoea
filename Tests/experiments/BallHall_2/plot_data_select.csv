@@ -1,0 +1,17 @@
+Algorithm,Dataset,,id
+tmix,arabidopsis,0.172402347045075,1
+tmix,cell_cycle,0.08916678931841,11
+tmix,sporulation,0.434992014374463,1
+moc.gapbk,arabidopsis,0.246045472844256 ,2
+moc.gapbk,cell_cycle,0.578922557420267 ,10
+moc.gapbk,serum,0.754071635073339 ,14
+mfuzz,arabidopsis,0.0281066256323207 ,3
+mfuzz,cell_cycle,0.0496856153519441 ,1
+dnsga2,arabidopsis,0.112102909606863 ,5
+dnsga2,cell_cycle,0.0747411265047012 ,9
+dnsga2,serum,0.154925092566382 ,6
+dnsga2,sporulation,0.293475915319996 ,2
+dmnsga2,arabidopsis,0.10945051595214,15
+dmnsga2,cell_cycle,0.0719095201167329 ,2
+dmnsga2,serum,0.148883765377917 ,10
+dmnsga2,sporulation,0.291446565359233 ,2
