@@ -410,7 +410,7 @@ calculate.objectives.range<-function(population, par_var, par_obj, local_search)
 
 generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, num_objects, pop_size, dmatrix1, dmatrix2, number.objectives){
 
-  print(paste0("Evaluations before PLS:", evaluation.count))
+  #print(paste0("Evaluations before PLS:", evaluation.count))
   #Dejar solo medoides. Pero como maximo el tama?o de la poblaci?n.
   if(nrow(population_pareto)>pop_size){
     poblacion_A0<-population_pareto[1:pop_size,1:num_k]
@@ -507,10 +507,10 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
 
 
             dominanciasPU<-calculate.ranking.crowding(nrow(poblacion_unida), as.matrix(poblacion_unida[,1:(num_k+1)]), table.groups.PU, number.objectives, TRUE, dmatrix1, dmatrix2, num_k)
-            p <- runif(1)
-            if(p > 0.5){
-              evaluation.count <<- evaluation.count + 1 # Added VR
-            }
+            #p <- runif(1)
+            #if(p > 0.5){
+            evaluation.count <<- evaluation.count + 1 # Added VR
+            #}
             dominanciasPU<-as.data.frame(dominanciasPU)
 
             #Une las columnas comunes (medoides en este caso) de dominancias (medoides y jerarquia) y s_prima
@@ -826,7 +826,7 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
     #print(iteraciones_path)
 
     print(paste0("new evaluations: ", round(0.2*sum(iteraciones_path$eval))))
-    evaluation.count <<- evaluation.count + round(0.2*sum(iteraciones_path$eval)) # Added VR
+    evaluation.count <<- evaluation.count + iteraciones_path$eval #round(0.2*sum(iteraciones_path$eval)) # Added VR
     #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
     print("Path relinking finished:")
     #print(iteraciones_path)
