@@ -68,365 +68,126 @@ The following object is masked from ‘package:BiocGenerics’:
 
 [1] "Path in:"
 [1] "~/dmmoea/Tests/experiments/XieBeni_3"
-[1] "Quality plot data not found!. Initiating evaluation..."
-[1] "dmnsga2 arabidopsis 1 evaluated!"
-[1] "dmnsga2 arabidopsis 10 evaluated!"
-[1] "dmnsga2 arabidopsis 11 evaluated!"
-[1] "dmnsga2 arabidopsis 12 evaluated!"
-[1] "dmnsga2 arabidopsis 13 evaluated!"
-[1] "dmnsga2 arabidopsis 14 evaluated!"
-[1] "dmnsga2 arabidopsis 2 evaluated!"
-[1] "dmnsga2 arabidopsis 3 evaluated!"
-[1] "dmnsga2 arabidopsis 4 evaluated!"
-[1] "dmnsga2 arabidopsis 5 evaluated!"
-[1] "dmnsga2 arabidopsis 6 evaluated!"
-[1] "dmnsga2 arabidopsis 7 evaluated!"
-[1] "dmnsga2 arabidopsis 8 evaluated!"
-[1] "dmnsga2 arabidopsis 9 evaluated!"
-[1] "dmnsga2 cell_cycle 1 evaluated!"
-[1] "dmnsga2 cell_cycle 10 evaluated!"
-[1] "dmnsga2 cell_cycle 11 evaluated!"
-[1] "dmnsga2 cell_cycle 12 evaluated!"
-[1] "dmnsga2 cell_cycle 13 evaluated!"
-[1] "dmnsga2 cell_cycle 14 evaluated!"
-[1] "dmnsga2 cell_cycle 2 evaluated!"
-[1] "dmnsga2 cell_cycle 3 evaluated!"
-[1] "dmnsga2 cell_cycle 4 evaluated!"
-[1] "dmnsga2 cell_cycle 5 evaluated!"
-[1] "dmnsga2 cell_cycle 6 evaluated!"
-[1] "dmnsga2 cell_cycle 7 evaluated!"
-[1] "dmnsga2 cell_cycle 8 evaluated!"
-[1] "dmnsga2 cell_cycle 9 evaluated!"
-[1] "dmnsga2 serum 1 evaluated!"
-[1] "dmnsga2 serum 10 evaluated!"
-[1] "dmnsga2 serum 11 evaluated!"
-[1] "dmnsga2 serum 12 evaluated!"
-[1] "dmnsga2 serum 13 evaluated!"
-[1] "dmnsga2 serum 14 evaluated!"
-[1] "dmnsga2 serum 2 evaluated!"
-[1] "dmnsga2 serum 3 evaluated!"
-[1] "dmnsga2 serum 4 evaluated!"
-[1] "dmnsga2 serum 5 evaluated!"
-[1] "dmnsga2 serum 6 evaluated!"
-[1] "dmnsga2 serum 7 evaluated!"
-[1] "dmnsga2 serum 8 evaluated!"
-[1] "dmnsga2 serum 9 evaluated!"
-[1] "dmnsga2 sporulation 1 evaluated!"
-[1] "dmnsga2 sporulation 10 evaluated!"
-[1] "dmnsga2 sporulation 11 evaluated!"
-[1] "dmnsga2 sporulation 12 evaluated!"
-[1] "dmnsga2 sporulation 13 evaluated!"
-[1] "dmnsga2 sporulation 14 evaluated!"
-[1] "dmnsga2 sporulation 2 evaluated!"
-[1] "dmnsga2 sporulation 3 evaluated!"
-[1] "dmnsga2 sporulation 4 evaluated!"
-[1] "dmnsga2 sporulation 5 evaluated!"
-[1] "dmnsga2 sporulation 6 evaluated!"
-[1] "dmnsga2 sporulation 7 evaluated!"
-[1] "dmnsga2 sporulation 8 evaluated!"
-[1] "dmnsga2 sporulation 9 evaluated!"
-[1] "dnsga2 arabidopsis 1 evaluated!"
-[1] "dnsga2 arabidopsis 10 evaluated!"
-[1] "dnsga2 arabidopsis 11 evaluated!"
-[1] "dnsga2 arabidopsis 12 evaluated!"
-[1] "dnsga2 arabidopsis 13 evaluated!"
-[1] "dnsga2 arabidopsis 14 evaluated!"
-[1] "dnsga2 arabidopsis 2 evaluated!"
-[1] "dnsga2 arabidopsis 3 evaluated!"
-[1] "dnsga2 arabidopsis 4 evaluated!"
-[1] "dnsga2 arabidopsis 5 evaluated!"
-[1] "dnsga2 arabidopsis 6 evaluated!"
-[1] "dnsga2 arabidopsis 7 evaluated!"
-[1] "dnsga2 arabidopsis 8 evaluated!"
-[1] "dnsga2 arabidopsis 9 evaluated!"
-[1] "dnsga2 cell_cycle 1 evaluated!"
-[1] "dnsga2 cell_cycle 10 evaluated!"
-[1] "dnsga2 cell_cycle 11 evaluated!"
-[1] "dnsga2 cell_cycle 12 evaluated!"
-[1] "dnsga2 cell_cycle 13 evaluated!"
-[1] "dnsga2 cell_cycle 14 evaluated!"
-[1] "dnsga2 cell_cycle 2 evaluated!"
-[1] "dnsga2 cell_cycle 3 evaluated!"
-[1] "dnsga2 cell_cycle 4 evaluated!"
-[1] "dnsga2 cell_cycle 5 evaluated!"
-[1] "dnsga2 cell_cycle 6 evaluated!"
-[1] "dnsga2 cell_cycle 7 evaluated!"
-[1] "dnsga2 cell_cycle 8 evaluated!"
-[1] "dnsga2 cell_cycle 9 evaluated!"
-[1] "dnsga2 serum 1 evaluated!"
-[1] "dnsga2 serum 10 evaluated!"
-[1] "dnsga2 serum 11 evaluated!"
-[1] "dnsga2 serum 12 evaluated!"
-[1] "dnsga2 serum 13 evaluated!"
-[1] "dnsga2 serum 14 evaluated!"
-[1] "dnsga2 serum 2 evaluated!"
-[1] "dnsga2 serum 3 evaluated!"
-[1] "dnsga2 serum 4 evaluated!"
-[1] "dnsga2 serum 5 evaluated!"
-[1] "dnsga2 serum 6 evaluated!"
-[1] "dnsga2 serum 7 evaluated!"
-[1] "dnsga2 serum 8 evaluated!"
-[1] "dnsga2 serum 9 evaluated!"
-[1] "dnsga2 sporulation 1 evaluated!"
-[1] "dnsga2 sporulation 10 evaluated!"
-[1] "dnsga2 sporulation 11 evaluated!"
-[1] "dnsga2 sporulation 12 evaluated!"
-[1] "dnsga2 sporulation 13 evaluated!"
-[1] "dnsga2 sporulation 14 evaluated!"
-[1] "dnsga2 sporulation 2 evaluated!"
-[1] "dnsga2 sporulation 3 evaluated!"
-[1] "dnsga2 sporulation 4 evaluated!"
-[1] "dnsga2 sporulation 5 evaluated!"
-[1] "dnsga2 sporulation 6 evaluated!"
-[1] "dnsga2 sporulation 7 evaluated!"
-[1] "dnsga2 sporulation 8 evaluated!"
-[1] "dnsga2 sporulation 9 evaluated!"
-[1] "mfuzz arabidopsis 1 evaluated!"
-[1] "mfuzz arabidopsis 10 evaluated!"
-[1] "mfuzz arabidopsis 11 evaluated!"
-[1] "mfuzz arabidopsis 12 evaluated!"
-[1] "mfuzz arabidopsis 13 evaluated!"
-[1] "mfuzz arabidopsis 14 evaluated!"
-[1] "mfuzz arabidopsis 2 evaluated!"
-[1] "mfuzz arabidopsis 3 evaluated!"
-[1] "mfuzz arabidopsis 4 evaluated!"
-[1] "mfuzz arabidopsis 5 evaluated!"
-[1] "mfuzz arabidopsis 6 evaluated!"
-[1] "mfuzz arabidopsis 7 evaluated!"
-[1] "mfuzz arabidopsis 8 evaluated!"
-[1] "mfuzz arabidopsis 9 evaluated!"
-[1] "mfuzz cell_cycle 1 evaluated!"
-[1] "mfuzz cell_cycle 10 evaluated!"
-[1] "mfuzz cell_cycle 11 evaluated!"
-[1] "mfuzz cell_cycle 12 evaluated!"
-[1] "mfuzz cell_cycle 13 evaluated!"
-[1] "mfuzz cell_cycle 14 evaluated!"
-[1] "mfuzz cell_cycle 2 evaluated!"
-[1] "mfuzz cell_cycle 3 evaluated!"
-[1] "mfuzz cell_cycle 4 evaluated!"
-[1] "mfuzz cell_cycle 5 evaluated!"
-[1] "mfuzz cell_cycle 6 evaluated!"
-[1] "mfuzz cell_cycle 7 evaluated!"
-[1] "mfuzz cell_cycle 8 evaluated!"
-[1] "mfuzz cell_cycle 9 evaluated!"
-[1] "mfuzz serum 1 evaluated!"
-[1] "mfuzz serum 10 evaluated!"
-[1] "mfuzz serum 11 evaluated!"
-[1] "mfuzz serum 12 evaluated!"
-[1] "mfuzz serum 13 evaluated!"
-[1] "mfuzz serum 14 evaluated!"
-[1] "mfuzz serum 2 evaluated!"
-[1] "mfuzz serum 3 evaluated!"
-[1] "mfuzz serum 4 evaluated!"
-[1] "mfuzz serum 5 evaluated!"
-[1] "mfuzz serum 6 evaluated!"
-[1] "mfuzz serum 7 evaluated!"
-[1] "mfuzz serum 8 evaluated!"
-[1] "mfuzz serum 9 evaluated!"
-[1] "mfuzz sporulation 1 evaluated!"
-[1] "mfuzz sporulation 10 evaluated!"
-[1] "mfuzz sporulation 11 evaluated!"
-[1] "mfuzz sporulation 12 evaluated!"
-[1] "mfuzz sporulation 13 evaluated!"
-[1] "mfuzz sporulation 14 evaluated!"
-[1] "mfuzz sporulation 2 evaluated!"
-[1] "mfuzz sporulation 3 evaluated!"
-[1] "mfuzz sporulation 4 evaluated!"
-[1] "mfuzz sporulation 5 evaluated!"
-[1] "mfuzz sporulation 6 evaluated!"
-[1] "mfuzz sporulation 7 evaluated!"
-[1] "mfuzz sporulation 8 evaluated!"
-[1] "mfuzz sporulation 9 evaluated!"
-[1] "moc.gapbk arabidopsis 1 evaluated!"
-[1] "moc.gapbk arabidopsis 10 evaluated!"
-[1] "moc.gapbk arabidopsis 11 evaluated!"
-[1] "moc.gapbk arabidopsis 12 evaluated!"
-[1] "moc.gapbk arabidopsis 13 evaluated!"
-[1] "moc.gapbk arabidopsis 14 evaluated!"
-[1] "moc.gapbk arabidopsis 2 evaluated!"
-[1] "moc.gapbk arabidopsis 3 evaluated!"
-[1] "moc.gapbk arabidopsis 4 evaluated!"
-[1] "moc.gapbk arabidopsis 5 evaluated!"
-[1] "moc.gapbk arabidopsis 6 evaluated!"
-[1] "moc.gapbk arabidopsis 7 evaluated!"
-[1] "moc.gapbk arabidopsis 8 evaluated!"
-[1] "moc.gapbk arabidopsis 9 evaluated!"
-[1] "moc.gapbk cell_cycle 1 evaluated!"
-[1] "moc.gapbk cell_cycle 10 evaluated!"
-[1] "moc.gapbk cell_cycle 11 evaluated!"
-[1] "moc.gapbk cell_cycle 12 evaluated!"
-[1] "moc.gapbk cell_cycle 13 evaluated!"
-[1] "moc.gapbk cell_cycle 14 evaluated!"
-[1] "moc.gapbk cell_cycle 2 evaluated!"
-[1] "moc.gapbk cell_cycle 3 evaluated!"
-[1] "moc.gapbk cell_cycle 4 evaluated!"
-[1] "moc.gapbk cell_cycle 5 evaluated!"
-[1] "moc.gapbk cell_cycle 6 evaluated!"
-[1] "moc.gapbk cell_cycle 7 evaluated!"
-[1] "moc.gapbk cell_cycle 8 evaluated!"
-[1] "moc.gapbk cell_cycle 9 evaluated!"
-[1] "moc.gapbk serum 1 evaluated!"
-[1] "moc.gapbk serum 10 evaluated!"
-[1] "moc.gapbk serum 11 evaluated!"
-[1] "moc.gapbk serum 12 evaluated!"
-[1] "moc.gapbk serum 13 evaluated!"
-[1] "moc.gapbk serum 14 evaluated!"
-[1] "moc.gapbk serum 2 evaluated!"
-[1] "moc.gapbk serum 3 evaluated!"
-[1] "moc.gapbk serum 4 evaluated!"
-[1] "moc.gapbk serum 5 evaluated!"
-[1] "moc.gapbk serum 6 evaluated!"
-[1] "moc.gapbk serum 7 evaluated!"
-[1] "moc.gapbk serum 8 evaluated!"
-[1] "moc.gapbk serum 9 evaluated!"
-[1] "moc.gapbk sporulation 1 evaluated!"
-[1] "moc.gapbk sporulation 10 evaluated!"
-[1] "moc.gapbk sporulation 11 evaluated!"
-[1] "moc.gapbk sporulation 12 evaluated!"
-[1] "moc.gapbk sporulation 13 evaluated!"
-[1] "moc.gapbk sporulation 14 evaluated!"
-[1] "moc.gapbk sporulation 2 evaluated!"
-[1] "moc.gapbk sporulation 3 evaluated!"
-[1] "moc.gapbk sporulation 4 evaluated!"
-[1] "moc.gapbk sporulation 5 evaluated!"
-[1] "moc.gapbk sporulation 6 evaluated!"
-[1] "moc.gapbk sporulation 7 evaluated!"
-[1] "moc.gapbk sporulation 8 evaluated!"
-[1] "moc.gapbk sporulation 9 evaluated!"
-[1] "nsga2 arabidopsis 1 evaluated!"
-[1] "nsga2 arabidopsis 10 evaluated!"
-[1] "nsga2 arabidopsis 11 evaluated!"
-[1] "nsga2 arabidopsis 12 evaluated!"
-[1] "nsga2 arabidopsis 13 evaluated!"
-[1] "nsga2 arabidopsis 14 evaluated!"
-[1] "nsga2 arabidopsis 2 evaluated!"
-[1] "nsga2 arabidopsis 3 evaluated!"
-[1] "nsga2 arabidopsis 4 evaluated!"
-[1] "nsga2 arabidopsis 5 evaluated!"
-[1] "nsga2 arabidopsis 6 evaluated!"
-[1] "nsga2 arabidopsis 7 evaluated!"
-[1] "nsga2 arabidopsis 8 evaluated!"
-[1] "nsga2 arabidopsis 9 evaluated!"
-[1] "nsga2 cell_cycle 1 evaluated!"
-[1] "nsga2 cell_cycle 10 evaluated!"
-[1] "nsga2 cell_cycle 11 evaluated!"
-[1] "nsga2 cell_cycle 12 evaluated!"
-[1] "nsga2 cell_cycle 13 evaluated!"
-[1] "nsga2 cell_cycle 14 evaluated!"
-[1] "nsga2 cell_cycle 2 evaluated!"
-[1] "nsga2 cell_cycle 3 evaluated!"
-[1] "nsga2 cell_cycle 4 evaluated!"
-[1] "nsga2 cell_cycle 5 evaluated!"
-[1] "nsga2 cell_cycle 6 evaluated!"
-[1] "nsga2 cell_cycle 7 evaluated!"
-[1] "nsga2 cell_cycle 8 evaluated!"
-[1] "nsga2 cell_cycle 9 evaluated!"
-[1] "nsga2 serum 1 evaluated!"
-[1] "nsga2 serum 10 evaluated!"
-[1] "nsga2 serum 11 evaluated!"
-[1] "nsga2 serum 12 evaluated!"
-[1] "nsga2 serum 13 evaluated!"
-[1] "nsga2 serum 14 evaluated!"
-[1] "nsga2 serum 2 evaluated!"
-[1] "nsga2 serum 3 evaluated!"
-[1] "nsga2 serum 4 evaluated!"
-[1] "nsga2 serum 5 evaluated!"
-[1] "nsga2 serum 6 evaluated!"
-[1] "nsga2 serum 7 evaluated!"
-[1] "nsga2 serum 8 evaluated!"
-[1] "nsga2 serum 9 evaluated!"
-[1] "nsga2 sporulation 1 evaluated!"
-[1] "nsga2 sporulation 10 evaluated!"
-[1] "nsga2 sporulation 11 evaluated!"
-[1] "nsga2 sporulation 12 evaluated!"
-[1] "nsga2 sporulation 13 evaluated!"
-[1] "nsga2 sporulation 14 evaluated!"
-[1] "nsga2 sporulation 2 evaluated!"
-[1] "nsga2 sporulation 3 evaluated!"
-[1] "nsga2 sporulation 4 evaluated!"
-[1] "nsga2 sporulation 5 evaluated!"
-[1] "nsga2 sporulation 6 evaluated!"
-[1] "nsga2 sporulation 7 evaluated!"
-[1] "nsga2 sporulation 8 evaluated!"
-[1] "nsga2 sporulation 9 evaluated!"
-[1] "tmix arabidopsis 1 evaluated!"
-[1] "tmix arabidopsis 10 evaluated!"
-[1] "tmix arabidopsis 11 evaluated!"
-[1] "tmix arabidopsis 12 evaluated!"
-[1] "tmix arabidopsis 13 evaluated!"
-[1] "tmix arabidopsis 14 evaluated!"
-[1] "tmix arabidopsis 2 evaluated!"
-[1] "tmix arabidopsis 3 evaluated!"
-[1] "tmix arabidopsis 4 evaluated!"
-[1] "tmix arabidopsis 5 evaluated!"
-[1] "tmix arabidopsis 6 evaluated!"
-[1] "tmix arabidopsis 7 evaluated!"
-[1] "tmix arabidopsis 8 evaluated!"
-[1] "tmix arabidopsis 9 evaluated!"
-[1] "tmix cell_cycle 1 evaluated!"
-[1] "tmix cell_cycle 10 evaluated!"
-[1] "tmix cell_cycle 11 evaluated!"
-[1] "tmix cell_cycle 12 evaluated!"
-[1] "tmix cell_cycle 13 evaluated!"
-[1] "tmix cell_cycle 14 evaluated!"
-[1] "tmix cell_cycle 2 evaluated!"
-[1] "tmix cell_cycle 3 evaluated!"
-[1] "tmix cell_cycle 4 evaluated!"
-[1] "tmix cell_cycle 5 evaluated!"
-[1] "tmix cell_cycle 6 evaluated!"
-[1] "tmix cell_cycle 7 evaluated!"
-[1] "tmix cell_cycle 8 evaluated!"
-[1] "tmix cell_cycle 9 evaluated!"
-[1] "tmix serum 1 evaluated!"
-[1] "tmix serum 10 evaluated!"
-[1] "tmix serum 11 evaluated!"
-[1] "tmix serum 12 evaluated!"
-[1] "tmix serum 13 evaluated!"
-[1] "tmix serum 14 evaluated!"
-[1] "tmix serum 2 evaluated!"
-[1] "tmix serum 3 evaluated!"
-[1] "tmix serum 4 evaluated!"
-[1] "tmix serum 5 evaluated!"
-[1] "tmix serum 6 evaluated!"
-[1] "tmix serum 7 evaluated!"
-[1] "tmix serum 8 evaluated!"
-[1] "tmix serum 9 evaluated!"
-[1] "tmix sporulation 1 evaluated!"
-[1] "tmix sporulation 10 evaluated!"
-[1] "tmix sporulation 11 evaluated!"
-[1] "tmix sporulation 12 evaluated!"
-[1] "tmix sporulation 13 evaluated!"
-[1] "tmix sporulation 14 evaluated!"
-[1] "tmix sporulation 2 evaluated!"
-[1] "tmix sporulation 3 evaluated!"
-[1] "tmix sporulation 4 evaluated!"
-[1] "tmix sporulation 5 evaluated!"
-[1] "tmix sporulation 6 evaluated!"
-[1] "tmix sporulation 7 evaluated!"
-[1] "tmix sporulation 8 evaluated!"
-[1] "tmix sporulation 9 evaluated!"
-[1] "Getting pareto front and plotting..."
+[1] "Experiment evaluation done. Plotting results..."
 [1] "data not loaded!"
-[1] "Starting dataset arabidopsis in dmnsga2"
-[1] "Starting dataset cell_cycle in dmnsga2"
-[1] "Starting dataset serum in dmnsga2"
-[1] "Starting dataset sporulation in dmnsga2"
-[1] "Starting dataset arabidopsis in dnsga2"
-[1] "Starting dataset cell_cycle in dnsga2"
-[1] "Starting dataset serum in dnsga2"
-[1] "Starting dataset sporulation in dnsga2"
-[1] "Starting dataset arabidopsis in mfuzz"
-[1] "Starting dataset cell_cycle in mfuzz"
-[1] "Starting dataset serum in mfuzz"
-[1] "Starting dataset sporulation in mfuzz"
-[1] "Starting dataset arabidopsis in moc.gapbk"
-[1] "Starting dataset cell_cycle in moc.gapbk"
-[1] "Starting dataset serum in moc.gapbk"
-[1] "Starting dataset sporulation in moc.gapbk"
-[1] "Starting dataset arabidopsis in tmix"
-[1] "Starting dataset cell_cycle in tmix"
-[1] "Starting dataset serum in tmix"
-[1] "Starting dataset sporulation in tmix"
+[1] "Loaded pareto selected"
+[1] "Selecting:"
+          f1       f2 rnkIndex     Dataset Algorithm
+1   5.746933 8.606810        1 arabidopsis   dmnsga2
+2  28.526256 3.641114        1 arabidopsis   dmnsga2
+3  10.233942 3.955354        1 arabidopsis   dmnsga2
+4   5.801266 4.526293        1 arabidopsis   dmnsga2
+5   8.909076 4.227779        1 arabidopsis   dmnsga2
+6   7.431584 4.447776        1 arabidopsis   dmnsga2
+27  6.174633 7.458383        1 arabidopsis    dnsga2
+28  6.521568 4.517146        1 arabidopsis    dnsga2
+29  6.428138 5.861739        1 arabidopsis    dnsga2
+30  6.408437 6.145126        1 arabidopsis    dnsga2
+31 10.692047 4.135959        1 arabidopsis    dnsga2
+32  7.482589 4.506485        1 arabidopsis    dnsga2
+33  7.771975 4.447776        1 arabidopsis    dnsga2
+56 57.875397 7.830884        1 arabidopsis      tmix
+57 28.996905 8.257989        1 arabidopsis      tmix
+61 34.115142 6.550938        1 arabidopsis     mfuzz
+69  6.191290 8.392984        1 arabidopsis moc.gapbk
+70 18.400543 4.439734        1 arabidopsis moc.gapbk
+71 16.591312 4.473494        1 arabidopsis moc.gapbk
+72  7.548940 5.169638        1 arabidopsis moc.gapbk
+73 10.311863 4.521975        1 arabidopsis moc.gapbk
+74  6.682468 7.015272        1 arabidopsis moc.gapbk
+75 10.106373 4.662404        1 arabidopsis moc.gapbk
+76  6.316238 7.895018        1 arabidopsis moc.gapbk
+77  6.966426 6.193626        1 arabidopsis moc.gapbk
+78  6.966426 6.193626        1 arabidopsis moc.gapbk
+[1] "Selecting:"
+           f1        f2 rnkIndex    Dataset Algorithm
+7   11.048786  3.281642        1 cell_cycle   dmnsga2
+8    4.632500  5.746772        1 cell_cycle   dmnsga2
+9    5.115115  4.709924        1 cell_cycle   dmnsga2
+10   4.802503  5.283160        1 cell_cycle   dmnsga2
+11   5.164263  4.117081        1 cell_cycle   dmnsga2
+12   6.099472  3.348644        1 cell_cycle   dmnsga2
+13   5.683762  3.703264        1 cell_cycle   dmnsga2
+34   6.424484 13.812583        1 cell_cycle    dnsga2
+35  39.943092  3.641114        1 cell_cycle    dnsga2
+36   6.698751  6.978265        1 cell_cycle    dnsga2
+37  10.600307  4.081545        1 cell_cycle    dnsga2
+38  38.349877  3.708299        1 cell_cycle    dnsga2
+39   6.749286  4.533489        1 cell_cycle    dnsga2
+40   7.538669  4.122146        1 cell_cycle    dnsga2
+58  24.034895  5.311324        1 cell_cycle      tmix
+62 211.709280  6.501254        1 cell_cycle     mfuzz
+63  35.438054 11.655078        1 cell_cycle     mfuzz
+64  91.091336  7.563161        1 cell_cycle     mfuzz
+65  79.907905 10.362894        1 cell_cycle     mfuzz
+79  26.871423  4.472271        1 cell_cycle moc.gapbk
+80   4.661360 14.914876        1 cell_cycle moc.gapbk
+81  17.654662  4.695230        1 cell_cycle moc.gapbk
+82   5.342054 12.872452        1 cell_cycle moc.gapbk
+83   5.496776  8.263677        1 cell_cycle moc.gapbk
+84  11.209319  4.736774        1 cell_cycle moc.gapbk
+85   6.266722  4.839427        1 cell_cycle moc.gapbk
+86   6.106581  5.975779        1 cell_cycle moc.gapbk
+87   5.551038  7.116449        1 cell_cycle moc.gapbk
+88  10.036874  4.797408        1 cell_cycle moc.gapbk
+[1] "Selecting:"
+          f1        f2 rnkIndex Dataset Algorithm
+14  5.932199 11.268944        1   serum   dmnsga2
+15 18.787174  3.611472        1   serum   dmnsga2
+16  9.022471  3.943661        1   serum   dmnsga2
+17  6.211003  8.188086        1   serum   dmnsga2
+18  6.366917  4.676573        1   serum   dmnsga2
+19  6.152904 10.394613        1   serum   dmnsga2
+20  7.473184  3.993455        1   serum   dmnsga2
+21  7.059075  3.844141        1   serum   dmnsga2
+41  6.629244  4.646134        1   serum    dnsga2
+42 16.898068  3.779219        1   serum    dnsga2
+43 15.256911  3.887954        1   serum    dnsga2
+44 12.370847  4.234585        1   serum    dnsga2
+45  8.390539  4.467804        1   serum    dnsga2
+46 12.053327  4.259246        1   serum    dnsga2
+47 10.209674  4.302249        1   serum    dnsga2
+48  9.904786  4.325643        1   serum    dnsga2
+49  7.794581  4.616832        1   serum    dnsga2
+50  7.147153  4.643173        1   serum    dnsga2
+89  6.487867  6.796185        1   serum moc.gapbk
+90  8.898437  4.576689        1   serum moc.gapbk
+91  6.847268  4.643389        1   serum moc.gapbk
+92  6.606363  6.400407        1   serum moc.gapbk
+[1] "Selecting:"
+            f1        f2 rnkIndex     Dataset Algorithm
+22    6.203041 10.245586        1 sporulation   dmnsga2
+23    6.289174  4.607508        1 sporulation   dmnsga2
+24    6.780054  3.976100        1 sporulation   dmnsga2
+25    6.797593  3.943952        1 sporulation   dmnsga2
+26   11.168122  3.739901        1 sporulation   dmnsga2
+51   11.199290  3.739901        1 sporulation    dnsga2
+52    7.226201  6.534397        1 sporulation    dnsga2
+53    8.949159  4.364654        1 sporulation    dnsga2
+54    7.369558  6.319912        1 sporulation    dnsga2
+55   11.197218  4.052277        1 sporulation    dnsga2
+59   82.889300 10.973601        1 sporulation      tmix
+60  103.330576  4.677030        1 sporulation      tmix
+66  233.178925  6.287027        1 sporulation     mfuzz
+67   77.492589 27.666010        1 sporulation     mfuzz
+68  170.293109  7.082649        1 sporulation     mfuzz
+93   54.928828  4.532061        1 sporulation moc.gapbk
+94    8.431794  6.377081        1 sporulation moc.gapbk
+95   14.817183  5.330144        1 sporulation moc.gapbk
+96    8.748402  5.981095        1 sporulation moc.gapbk
+97   17.431789  4.672524        1 sporulation moc.gapbk
+98   26.006624  4.667238        1 sporulation moc.gapbk
+99   41.087768  4.636490        1 sporulation moc.gapbk
+100  51.920967  4.591361        1 sporulation moc.gapbk
+101  42.216796  4.605353        1 sporulation moc.gapbk
 [1] "Pareto comparison done. Plotting other comparison metrics..."
 [1] "Done."
-There were 50 or more warnings (use warnings() to see the first 50)
+Warning messages:
+1: no DISPLAY variable so Tk is not available 
+2: position_dodge requires non-overlapping x intervals 
+3: position_dodge requires non-overlapping x intervals 
+4: position_dodge requires non-overlapping x intervals 
+5: position_dodge requires non-overlapping x intervals 
+6: Removed 3 rows containing non-finite values (stat_boxplot). 
+7: Removed 118 rows containing non-finite values (stat_boxplot). 
+8: Removed 59 rows containing non-finite values (stat_boxplot). 
