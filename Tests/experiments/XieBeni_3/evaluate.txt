@@ -88,17 +88,17 @@ The following object is masked from ‘package:BiocGenerics’:
 33  7.771975 4.447776        1 arabidopsis    dnsga2
 56 57.875397 7.830884        1 arabidopsis      tmix
 57 28.996905 8.257989        1 arabidopsis      tmix
-61 34.115142 6.550938        1 arabidopsis     mfuzz
-69  6.191290 8.392984        1 arabidopsis moc.gapbk
-70 18.400543 4.439734        1 arabidopsis moc.gapbk
-71 16.591312 4.473494        1 arabidopsis moc.gapbk
-72  7.548940 5.169638        1 arabidopsis moc.gapbk
-73 10.311863 4.521975        1 arabidopsis moc.gapbk
-74  6.682468 7.015272        1 arabidopsis moc.gapbk
-75 10.106373 4.662404        1 arabidopsis moc.gapbk
-76  6.316238 7.895018        1 arabidopsis moc.gapbk
-77  6.966426 6.193626        1 arabidopsis moc.gapbk
+62 34.115142 6.550938        1 arabidopsis     mfuzz
+70  6.191290 8.392984        1 arabidopsis moc.gapbk
+71 18.400543 4.439734        1 arabidopsis moc.gapbk
+72 16.591312 4.473494        1 arabidopsis moc.gapbk
+73  7.548940 5.169638        1 arabidopsis moc.gapbk
+74 10.311863 4.521975        1 arabidopsis moc.gapbk
+75  6.682468 7.015272        1 arabidopsis moc.gapbk
+76 10.106373 4.662404        1 arabidopsis moc.gapbk
+77  6.316238 7.895018        1 arabidopsis moc.gapbk
 78  6.966426 6.193626        1 arabidopsis moc.gapbk
+79  6.966426 6.193626        1 arabidopsis moc.gapbk
 [1] "Selecting:"
            f1        f2 rnkIndex    Dataset Algorithm
 7   11.048786  3.281642        1 cell_cycle   dmnsga2
@@ -116,20 +116,20 @@ The following object is masked from ‘package:BiocGenerics’:
 39   6.749286  4.533489        1 cell_cycle    dnsga2
 40   7.538669  4.122146        1 cell_cycle    dnsga2
 58  24.034895  5.311324        1 cell_cycle      tmix
-62 211.709280  6.501254        1 cell_cycle     mfuzz
-63  35.438054 11.655078        1 cell_cycle     mfuzz
-64  91.091336  7.563161        1 cell_cycle     mfuzz
-65  79.907905 10.362894        1 cell_cycle     mfuzz
-79  26.871423  4.472271        1 cell_cycle moc.gapbk
-80   4.661360 14.914876        1 cell_cycle moc.gapbk
-81  17.654662  4.695230        1 cell_cycle moc.gapbk
-82   5.342054 12.872452        1 cell_cycle moc.gapbk
-83   5.496776  8.263677        1 cell_cycle moc.gapbk
-84  11.209319  4.736774        1 cell_cycle moc.gapbk
-85   6.266722  4.839427        1 cell_cycle moc.gapbk
-86   6.106581  5.975779        1 cell_cycle moc.gapbk
-87   5.551038  7.116449        1 cell_cycle moc.gapbk
-88  10.036874  4.797408        1 cell_cycle moc.gapbk
+63 211.709280  6.501254        1 cell_cycle     mfuzz
+64  35.438054 11.655078        1 cell_cycle     mfuzz
+65  91.091336  7.563161        1 cell_cycle     mfuzz
+66  79.907905 10.362894        1 cell_cycle     mfuzz
+80  26.871423  4.472271        1 cell_cycle moc.gapbk
+81   4.661360 14.914876        1 cell_cycle moc.gapbk
+82  17.654662  4.695230        1 cell_cycle moc.gapbk
+83   5.342054 12.872452        1 cell_cycle moc.gapbk
+84   5.496776  8.263677        1 cell_cycle moc.gapbk
+85  11.209319  4.736774        1 cell_cycle moc.gapbk
+86   6.266722  4.839427        1 cell_cycle moc.gapbk
+87   6.106581  5.975779        1 cell_cycle moc.gapbk
+88   5.551038  7.116449        1 cell_cycle moc.gapbk
+89  10.036874  4.797408        1 cell_cycle moc.gapbk
 [1] "Selecting:"
           f1        f2 rnkIndex Dataset Algorithm
 14  5.932199 11.268944        1   serum   dmnsga2
@@ -150,10 +150,11 @@ The following object is masked from ‘package:BiocGenerics’:
 48  9.904786  4.325643        1   serum    dnsga2
 49  7.794581  4.616832        1   serum    dnsga2
 50  7.147153  4.643173        1   serum    dnsga2
-89  6.487867  6.796185        1   serum moc.gapbk
-90  8.898437  4.576689        1   serum moc.gapbk
-91  6.847268  4.643389        1   serum moc.gapbk
-92  6.606363  6.400407        1   serum moc.gapbk
+59 81.846593  4.681382        1   serum      tmix
+90  6.487867  6.796185        1   serum moc.gapbk
+91  8.898437  4.576689        1   serum moc.gapbk
+92  6.847268  4.643389        1   serum moc.gapbk
+93  6.606363  6.400407        1   serum moc.gapbk
 [1] "Selecting:"
             f1        f2 rnkIndex     Dataset Algorithm
 22    6.203041 10.245586        1 sporulation   dmnsga2
@@ -166,20 +167,20 @@ The following object is masked from ‘package:BiocGenerics’:
 53    8.949159  4.364654        1 sporulation    dnsga2
 54    7.369558  6.319912        1 sporulation    dnsga2
 55   11.197218  4.052277        1 sporulation    dnsga2
-59   82.889300 10.973601        1 sporulation      tmix
-60  103.330576  4.677030        1 sporulation      tmix
-66  233.178925  6.287027        1 sporulation     mfuzz
-67   77.492589 27.666010        1 sporulation     mfuzz
-68  170.293109  7.082649        1 sporulation     mfuzz
-93   54.928828  4.532061        1 sporulation moc.gapbk
-94    8.431794  6.377081        1 sporulation moc.gapbk
-95   14.817183  5.330144        1 sporulation moc.gapbk
-96    8.748402  5.981095        1 sporulation moc.gapbk
-97   17.431789  4.672524        1 sporulation moc.gapbk
-98   26.006624  4.667238        1 sporulation moc.gapbk
-99   41.087768  4.636490        1 sporulation moc.gapbk
-100  51.920967  4.591361        1 sporulation moc.gapbk
-101  42.216796  4.605353        1 sporulation moc.gapbk
+60   82.889300 10.973601        1 sporulation      tmix
+61  103.330576  4.677030        1 sporulation      tmix
+67  233.178925  6.287027        1 sporulation     mfuzz
+68   77.492589 27.666010        1 sporulation     mfuzz
+69  170.293109  7.082649        1 sporulation     mfuzz
+94   54.928828  4.532061        1 sporulation moc.gapbk
+95    8.431794  6.377081        1 sporulation moc.gapbk
+96   14.817183  5.330144        1 sporulation moc.gapbk
+97    8.748402  5.981095        1 sporulation moc.gapbk
+98   17.431789  4.672524        1 sporulation moc.gapbk
+99   26.006624  4.667238        1 sporulation moc.gapbk
+100  41.087768  4.636490        1 sporulation moc.gapbk
+101  51.920967  4.591361        1 sporulation moc.gapbk
+102  42.216796  4.605353        1 sporulation moc.gapbk
 [1] "Pareto comparison done. Plotting other comparison metrics..."
 [1] "Done."
 Warning messages:
