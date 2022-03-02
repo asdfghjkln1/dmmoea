@@ -177,6 +177,9 @@ The following object is masked from ‘package:BiocGenerics’:
 96  41.087768  4.636490        1 sporulation moc.gapbk
 97  51.920967  4.591361        1 sporulation moc.gapbk
 98  42.216796  4.605353        1 sporulation moc.gapbk
+[1] "Levels are:"
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "moc.gapbk"    "Pareto ideal"
+[6] "tmix"        
             f1        f2 rnkIndex     Dataset    Algorithm
 22  0.03642568 0.9336575        1 sporulation Pareto ideal
 23  0.03693147 0.4198720        1 sporulation Pareto ideal
@@ -205,8 +208,10 @@ The following object is masked from ‘package:BiocGenerics’:
 96  0.24127675 0.4225131        1 sporulation    moc.gapbk
 97  0.30489177 0.4184005        1 sporulation    moc.gapbk
 98  0.24790666 0.4196757        1 sporulation    moc.gapbk
-[1] "dmnsga2"      "dnsga2"       "tmix"         "mfuzz"        "moc.gapbk"   
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "tmix"         "moc.gapbk"   
 [6] "Pareto ideal"
+[1] "Levels are:"
+[1] "dmnsga2"      "dnsga2"       "moc.gapbk"    "Pareto ideal"
            f1        f2 rnkIndex Dataset    Algorithm
 14  0.3157579 0.9999950        1   serum Pareto ideal
 15  1.0000000 0.3204785        1   serum Pareto ideal
@@ -239,8 +244,10 @@ The following object is masked from ‘package:BiocGenerics’:
 87  0.4736442 0.4061309        1   serum    moc.gapbk
 881 0.3644650 0.4120497        1   serum    moc.gapbk
 89  0.3516422 0.5679658        1   serum    moc.gapbk
-[1] "dmnsga2"      "dnsga2"       "tmix"         "mfuzz"        "moc.gapbk"   
-[6] "Pareto ideal"
+[1] "dmnsga2"      "dnsga2"       "moc.gapbk"    "Pareto ideal"
+[1] "Levels are:"
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "moc.gapbk"    "Pareto ideal"
+[6] "tmix"        
             f1        f2 rnkIndex    Dataset    Algorithm
 7   0.12129349 0.2200259        1 cell_cycle Pareto ideal
 8   0.05085555 0.3853066        1 cell_cycle Pareto ideal
@@ -277,8 +284,11 @@ The following object is masked from ‘package:BiocGenerics’:
 83  0.06703800 0.4006610        1 cell_cycle    moc.gapbk
 84  0.06093925 0.4771401        1 cell_cycle    moc.gapbk
 85  0.11018473 0.3216542        1 cell_cycle    moc.gapbk
-[1] "dmnsga2"      "dnsga2"       "tmix"         "mfuzz"        "moc.gapbk"   
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "tmix"         "moc.gapbk"   
 [6] "Pareto ideal"
+[1] "Levels are:"
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "moc.gapbk"    "Pareto ideal"
+[6] "tmix"        
             f1        f2 rnkIndex     Dataset    Algorithm
 1   0.09929838 1.0000000        1 arabidopsis Pareto ideal
 2   0.49289095 0.4230509        1 arabidopsis Pareto ideal
@@ -313,7 +323,7 @@ The following object is masked from ‘package:BiocGenerics’:
 73  0.10913513 0.9173001        1 arabidopsis    moc.gapbk
 74  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
 75  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
-[1] "dmnsga2"      "dnsga2"       "tmix"         "mfuzz"        "moc.gapbk"   
+[1] "dmnsga2"      "dnsga2"       "mfuzz"        "tmix"         "moc.gapbk"   
 [6] "Pareto ideal"
 [1] "Pareto comparison done. Plotting other comparison metrics..."
 [1] "Done."
