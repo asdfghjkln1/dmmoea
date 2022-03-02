@@ -180,139 +180,147 @@ The following object is masked from ‘package:BiocGenerics’:
 99   41.087768  4.636490        1 sporulation moc.gapbk
 100  51.920967  4.591361        1 sporulation moc.gapbk
 101  42.216796  4.605353        1 sporulation moc.gapbk
-            f1        f2 rnkIndex     Dataset Algorithm
-22  0.03642568 0.9336575        1 sporulation      <NA>
-23  0.03693147 0.4198720        1 sporulation      <NA>
-24  0.03981403 0.3623332        1 sporulation      <NA>
-25  0.03991702 0.3594036        1 sporulation      <NA>
-26  0.06558176 0.3408089        1 sporulation      <NA>
-221 0.03642568 0.9336575        1 sporulation   dmnsga2
-231 0.03693147 0.4198720        1 sporulation   dmnsga2
-241 0.03981403 0.3623332        1 sporulation   dmnsga2
-251 0.03991702 0.3594036        1 sporulation   dmnsga2
-261 0.06558176 0.3408089        1 sporulation   dmnsga2
-51  0.06576478 0.3408089        1 sporulation    dnsga2
-52  0.04243390 0.5954651        1 sporulation    dnsga2
-53  0.05255151 0.3977412        1 sporulation    dnsga2
-54  0.04327573 0.5759196        1 sporulation    dnsga2
-55  0.06575262 0.3692751        1 sporulation    dnsga2
-61  1.00000000 0.5729229        1 sporulation     mfuzz
-62  0.45505417 1.0000000        1 sporulation     mfuzz
-63  1.00000000 0.6454261        1 sporulation     mfuzz
-67  0.48674488 1.0000000        1 sporulation      tmix
-68  0.60678073 0.4262074        1 sporulation      tmix
-93  0.32255461 0.4129967        1 sporulation moc.gapbk
-94  0.04951342 0.5811293        1 sporulation moc.gapbk
-95  0.08700988 0.4857242        1 sporulation moc.gapbk
-96  0.05137261 0.5450440        1 sporulation moc.gapbk
-97  0.10236345 0.4257968        1 sporulation moc.gapbk
-98  0.15271683 0.4253150        1 sporulation moc.gapbk
-99  0.24127675 0.4225131        1 sporulation moc.gapbk
-100 0.30489177 0.4184005        1 sporulation moc.gapbk
-101 0.24790666 0.4196757        1 sporulation moc.gapbk
-           f1        f2 rnkIndex Dataset Algorithm
-14  0.3157579 0.9999950        1   serum      <NA>
-15  1.0000000 0.3204785        1   serum      <NA>
-17  0.3305980 0.7266028        1   serum      <NA>
-18  0.3388970 0.4149945        1   serum      <NA>
-19  0.3275055 0.9224077        1   serum      <NA>
-21  0.3757391 0.3411253        1   serum      <NA>
-41  0.3528601 0.4122934        1   serum      <NA>
-42  0.8994470 0.3353642        1   serum      <NA>
-91  0.3644650 0.4120497        1   serum      <NA>
-141 0.3157579 0.9999950        1   serum   dmnsga2
-151 1.0000000 0.3204785        1   serum   dmnsga2
-16  0.4802463 0.3499566        1   serum   dmnsga2
-171 0.3305980 0.7266028        1   serum   dmnsga2
-181 0.3388970 0.4149945        1   serum   dmnsga2
-191 0.3275055 0.9224077        1   serum   dmnsga2
-20  0.3977811 0.3543752        1   serum   dmnsga2
-211 0.3757391 0.3411253        1   serum   dmnsga2
-411 0.3528601 0.4122934        1   serum    dnsga2
-421 0.8994470 0.3353642        1   serum    dnsga2
-43  0.8120919 0.3450132        1   serum    dnsga2
-44  0.6584730 0.3757729        1   serum    dnsga2
-45  0.4466100 0.3964686        1   serum    dnsga2
-46  0.6415721 0.3779613        1   serum    dnsga2
-47  0.5434385 0.3817774        1   serum    dnsga2
-48  0.5272100 0.3838533        1   serum    dnsga2
-49  0.4148884 0.4096931        1   serum    dnsga2
-50  0.3804273 0.4120306        1   serum    dnsga2
-89  0.3453349 0.6030868        1   serum moc.gapbk
-90  0.4736442 0.4061309        1   serum moc.gapbk
-911 0.3644650 0.4120497        1   serum moc.gapbk
-92  0.3516422 0.5679658        1   serum moc.gapbk
-            f1        f2 rnkIndex    Dataset Algorithm
-7   0.12129349 0.2200259        1 cell_cycle      <NA>
-8   0.05085555 0.3853066        1 cell_cycle      <NA>
-9   0.05615370 0.3157886        1 cell_cycle      <NA>
-10  0.05272184 0.3542227        1 cell_cycle      <NA>
-11  0.05669324 0.2760400        1 cell_cycle      <NA>
-12  0.06695996 0.2245182        1 cell_cycle      <NA>
-13  0.06239630 0.2482946        1 cell_cycle      <NA>
-710 0.12129349 0.2200259        1 cell_cycle   dmnsga2
-810 0.05085555 0.3853066        1 cell_cycle   dmnsga2
-910 0.05615370 0.3157886        1 cell_cycle   dmnsga2
-102 0.05272184 0.3542227        1 cell_cycle   dmnsga2
-111 0.05669324 0.2760400        1 cell_cycle   dmnsga2
-121 0.06695996 0.2245182        1 cell_cycle   dmnsga2
-131 0.06239630 0.2482946        1 cell_cycle   dmnsga2
-34  0.07052793 0.9260991        1 cell_cycle    dnsga2
-35  0.43849496 0.2441276        1 cell_cycle    dnsga2
-36  0.07353884 0.4678752        1 cell_cycle    dnsga2
-37  0.11637009 0.2736574        1 cell_cycle    dnsga2
-38  0.42100466 0.2486322        1 cell_cycle    dnsga2
-39  0.07409361 0.3039591        1 cell_cycle    dnsga2
-40  0.08275946 0.2763796        1 cell_cycle    dnsga2
-57  1.00000000 0.4358928        1 cell_cycle     mfuzz
-58  0.38903869 0.7814438        1 cell_cycle     mfuzz
-59  1.00000000 0.5070910        1 cell_cycle     mfuzz
-60  0.87722838 0.6948061        1 cell_cycle     mfuzz
-66  0.26385489 0.3561110        1 cell_cycle      tmix
-79  0.29499428 0.2998546        1 cell_cycle moc.gapbk
-80  0.05117238 1.0000000        1 cell_cycle moc.gapbk
-81  0.19381275 0.3148034        1 cell_cycle moc.gapbk
-82  0.05864503 0.8630657        1 cell_cycle moc.gapbk
-83  0.06034357 0.5540588        1 cell_cycle moc.gapbk
-84  0.12305581 0.3175888        1 cell_cycle moc.gapbk
-85  0.06879602 0.3244715        1 cell_cycle moc.gapbk
-86  0.06703800 0.4006610        1 cell_cycle moc.gapbk
-87  0.06093925 0.4771401        1 cell_cycle moc.gapbk
-88  0.11018473 0.3216542        1 cell_cycle moc.gapbk
-            f1        f2 rnkIndex     Dataset Algorithm
-1   0.09929838 1.0000000        1 arabidopsis      <NA>
-2   0.49289095 0.4230509        1 arabidopsis      <NA>
-3   0.17682717 0.4595615        1 arabidopsis      <NA>
-4   0.10023719 0.5258973        1 arabidopsis      <NA>
-5   0.15393548 0.4912138        1 arabidopsis      <NA>
-6   0.12840663 0.5167746        1 arabidopsis      <NA>
-28  0.11268292 0.5248345        1 arabidopsis      <NA>
-110 0.09929838 1.0000000        1 arabidopsis   dmnsga2
-210 0.49289095 0.4230509        1 arabidopsis   dmnsga2
-310 0.17682717 0.4595615        1 arabidopsis   dmnsga2
-410 0.10023719 0.5258973        1 arabidopsis   dmnsga2
-510 0.15393548 0.4912138        1 arabidopsis   dmnsga2
-610 0.12840663 0.5167746        1 arabidopsis   dmnsga2
-27  0.10668841 0.8665686        1 arabidopsis    dnsga2
-281 0.11268292 0.5248345        1 arabidopsis    dnsga2
-29  0.11106859 0.6810590        1 arabidopsis    dnsga2
-30  0.11072819 0.7139850        1 arabidopsis    dnsga2
-31  0.18474256 0.4805455        1 arabidopsis    dnsga2
-32  0.12928793 0.5235959        1 arabidopsis    dnsga2
-33  0.13428808 0.5167746        1 arabidopsis    dnsga2
-56  0.58945853 0.7611352        1 arabidopsis     mfuzz
-64  1.00000000 0.9098485        1 arabidopsis      tmix
-65  0.50102306 0.9594726        1 arabidopsis      tmix
-69  0.10697622 0.9751573        1 arabidopsis moc.gapbk
-70  0.31793380 0.5158403        1 arabidopsis moc.gapbk
-71  0.28667300 0.5197628        1 arabidopsis moc.gapbk
-72  0.13043437 0.6006458        1 arabidopsis moc.gapbk
-73  0.17817353 0.5253957        1 arabidopsis moc.gapbk
-74  0.11546303 0.8150849        1 arabidopsis moc.gapbk
-75  0.17462298 0.5417116        1 arabidopsis moc.gapbk
-76  0.10913513 0.9173001        1 arabidopsis moc.gapbk
-77  0.12036940 0.7196201        1 arabidopsis moc.gapbk
-78  0.12036940 0.7196201        1 arabidopsis moc.gapbk
+            f1        f2 rnkIndex     Dataset    Algorithm
+22  0.03642568 0.9336575        1 sporulation Pareto ideal
+23  0.03693147 0.4198720        1 sporulation Pareto ideal
+24  0.03981403 0.3623332        1 sporulation Pareto ideal
+25  0.03991702 0.3594036        1 sporulation Pareto ideal
+26  0.06558176 0.3408089        1 sporulation Pareto ideal
+221 0.03642568 0.9336575        1 sporulation      dmnsga2
+231 0.03693147 0.4198720        1 sporulation      dmnsga2
+241 0.03981403 0.3623332        1 sporulation      dmnsga2
+251 0.03991702 0.3594036        1 sporulation      dmnsga2
+261 0.06558176 0.3408089        1 sporulation      dmnsga2
+51  0.06576478 0.3408089        1 sporulation       dnsga2
+52  0.04243390 0.5954651        1 sporulation       dnsga2
+53  0.05255151 0.3977412        1 sporulation       dnsga2
+54  0.04327573 0.5759196        1 sporulation       dnsga2
+55  0.06575262 0.3692751        1 sporulation       dnsga2
+61  1.00000000 0.5729229        1 sporulation        mfuzz
+62  0.45505417 1.0000000        1 sporulation        mfuzz
+63  1.00000000 0.6454261        1 sporulation        mfuzz
+67  0.48674488 1.0000000        1 sporulation         tmix
+68  0.60678073 0.4262074        1 sporulation         tmix
+93  0.32255461 0.4129967        1 sporulation    moc.gapbk
+94  0.04951342 0.5811293        1 sporulation    moc.gapbk
+95  0.08700988 0.4857242        1 sporulation    moc.gapbk
+96  0.05137261 0.5450440        1 sporulation    moc.gapbk
+97  0.10236345 0.4257968        1 sporulation    moc.gapbk
+98  0.15271683 0.4253150        1 sporulation    moc.gapbk
+99  0.24127675 0.4225131        1 sporulation    moc.gapbk
+100 0.30489177 0.4184005        1 sporulation    moc.gapbk
+101 0.24790666 0.4196757        1 sporulation    moc.gapbk
+[1] "dnsga2"       "dmnsga2"      "tmix"         "mfuzz"        "moc.gapbk"   
+[6] "Pareto ideal"
+           f1        f2 rnkIndex Dataset    Algorithm
+14  0.3157579 0.9999950        1   serum Pareto ideal
+15  1.0000000 0.3204785        1   serum Pareto ideal
+17  0.3305980 0.7266028        1   serum Pareto ideal
+18  0.3388970 0.4149945        1   serum Pareto ideal
+19  0.3275055 0.9224077        1   serum Pareto ideal
+21  0.3757391 0.3411253        1   serum Pareto ideal
+41  0.3528601 0.4122934        1   serum Pareto ideal
+42  0.8994470 0.3353642        1   serum Pareto ideal
+91  0.3644650 0.4120497        1   serum Pareto ideal
+141 0.3157579 0.9999950        1   serum      dmnsga2
+151 1.0000000 0.3204785        1   serum      dmnsga2
+16  0.4802463 0.3499566        1   serum      dmnsga2
+171 0.3305980 0.7266028        1   serum      dmnsga2
+181 0.3388970 0.4149945        1   serum      dmnsga2
+191 0.3275055 0.9224077        1   serum      dmnsga2
+20  0.3977811 0.3543752        1   serum      dmnsga2
+211 0.3757391 0.3411253        1   serum      dmnsga2
+411 0.3528601 0.4122934        1   serum       dnsga2
+421 0.8994470 0.3353642        1   serum       dnsga2
+43  0.8120919 0.3450132        1   serum       dnsga2
+44  0.6584730 0.3757729        1   serum       dnsga2
+45  0.4466100 0.3964686        1   serum       dnsga2
+46  0.6415721 0.3779613        1   serum       dnsga2
+47  0.5434385 0.3817774        1   serum       dnsga2
+48  0.5272100 0.3838533        1   serum       dnsga2
+49  0.4148884 0.4096931        1   serum       dnsga2
+50  0.3804273 0.4120306        1   serum       dnsga2
+89  0.3453349 0.6030868        1   serum    moc.gapbk
+90  0.4736442 0.4061309        1   serum    moc.gapbk
+911 0.3644650 0.4120497        1   serum    moc.gapbk
+92  0.3516422 0.5679658        1   serum    moc.gapbk
+[1] "dnsga2"       "dmnsga2"      "tmix"         "mfuzz"        "moc.gapbk"   
+[6] "Pareto ideal"
+            f1        f2 rnkIndex    Dataset    Algorithm
+7   0.12129349 0.2200259        1 cell_cycle Pareto ideal
+8   0.05085555 0.3853066        1 cell_cycle Pareto ideal
+9   0.05615370 0.3157886        1 cell_cycle Pareto ideal
+10  0.05272184 0.3542227        1 cell_cycle Pareto ideal
+11  0.05669324 0.2760400        1 cell_cycle Pareto ideal
+12  0.06695996 0.2245182        1 cell_cycle Pareto ideal
+13  0.06239630 0.2482946        1 cell_cycle Pareto ideal
+710 0.12129349 0.2200259        1 cell_cycle      dmnsga2
+810 0.05085555 0.3853066        1 cell_cycle      dmnsga2
+910 0.05615370 0.3157886        1 cell_cycle      dmnsga2
+102 0.05272184 0.3542227        1 cell_cycle      dmnsga2
+111 0.05669324 0.2760400        1 cell_cycle      dmnsga2
+121 0.06695996 0.2245182        1 cell_cycle      dmnsga2
+131 0.06239630 0.2482946        1 cell_cycle      dmnsga2
+34  0.07052793 0.9260991        1 cell_cycle       dnsga2
+35  0.43849496 0.2441276        1 cell_cycle       dnsga2
+36  0.07353884 0.4678752        1 cell_cycle       dnsga2
+37  0.11637009 0.2736574        1 cell_cycle       dnsga2
+38  0.42100466 0.2486322        1 cell_cycle       dnsga2
+39  0.07409361 0.3039591        1 cell_cycle       dnsga2
+40  0.08275946 0.2763796        1 cell_cycle       dnsga2
+57  1.00000000 0.4358928        1 cell_cycle        mfuzz
+58  0.38903869 0.7814438        1 cell_cycle        mfuzz
+59  1.00000000 0.5070910        1 cell_cycle        mfuzz
+60  0.87722838 0.6948061        1 cell_cycle        mfuzz
+66  0.26385489 0.3561110        1 cell_cycle         tmix
+79  0.29499428 0.2998546        1 cell_cycle    moc.gapbk
+80  0.05117238 1.0000000        1 cell_cycle    moc.gapbk
+81  0.19381275 0.3148034        1 cell_cycle    moc.gapbk
+82  0.05864503 0.8630657        1 cell_cycle    moc.gapbk
+83  0.06034357 0.5540588        1 cell_cycle    moc.gapbk
+84  0.12305581 0.3175888        1 cell_cycle    moc.gapbk
+85  0.06879602 0.3244715        1 cell_cycle    moc.gapbk
+86  0.06703800 0.4006610        1 cell_cycle    moc.gapbk
+87  0.06093925 0.4771401        1 cell_cycle    moc.gapbk
+88  0.11018473 0.3216542        1 cell_cycle    moc.gapbk
+[1] "dnsga2"       "dmnsga2"      "tmix"         "mfuzz"        "moc.gapbk"   
+[6] "Pareto ideal"
+            f1        f2 rnkIndex     Dataset    Algorithm
+1   0.09929838 1.0000000        1 arabidopsis Pareto ideal
+2   0.49289095 0.4230509        1 arabidopsis Pareto ideal
+3   0.17682717 0.4595615        1 arabidopsis Pareto ideal
+4   0.10023719 0.5258973        1 arabidopsis Pareto ideal
+5   0.15393548 0.4912138        1 arabidopsis Pareto ideal
+6   0.12840663 0.5167746        1 arabidopsis Pareto ideal
+28  0.11268292 0.5248345        1 arabidopsis Pareto ideal
+110 0.09929838 1.0000000        1 arabidopsis      dmnsga2
+210 0.49289095 0.4230509        1 arabidopsis      dmnsga2
+310 0.17682717 0.4595615        1 arabidopsis      dmnsga2
+410 0.10023719 0.5258973        1 arabidopsis      dmnsga2
+510 0.15393548 0.4912138        1 arabidopsis      dmnsga2
+610 0.12840663 0.5167746        1 arabidopsis      dmnsga2
+27  0.10668841 0.8665686        1 arabidopsis       dnsga2
+281 0.11268292 0.5248345        1 arabidopsis       dnsga2
+29  0.11106859 0.6810590        1 arabidopsis       dnsga2
+30  0.11072819 0.7139850        1 arabidopsis       dnsga2
+31  0.18474256 0.4805455        1 arabidopsis       dnsga2
+32  0.12928793 0.5235959        1 arabidopsis       dnsga2
+33  0.13428808 0.5167746        1 arabidopsis       dnsga2
+56  0.58945853 0.7611352        1 arabidopsis        mfuzz
+64  1.00000000 0.9098485        1 arabidopsis         tmix
+65  0.50102306 0.9594726        1 arabidopsis         tmix
+69  0.10697622 0.9751573        1 arabidopsis    moc.gapbk
+70  0.31793380 0.5158403        1 arabidopsis    moc.gapbk
+71  0.28667300 0.5197628        1 arabidopsis    moc.gapbk
+72  0.13043437 0.6006458        1 arabidopsis    moc.gapbk
+73  0.17817353 0.5253957        1 arabidopsis    moc.gapbk
+74  0.11546303 0.8150849        1 arabidopsis    moc.gapbk
+75  0.17462298 0.5417116        1 arabidopsis    moc.gapbk
+76  0.10913513 0.9173001        1 arabidopsis    moc.gapbk
+77  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
+78  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
+[1] "dnsga2"       "dmnsga2"      "tmix"         "mfuzz"        "moc.gapbk"   
+[6] "Pareto ideal"
 [1] "Pareto comparison done. Plotting other comparison metrics..."
 [1] "Done."
 Warning messages:
