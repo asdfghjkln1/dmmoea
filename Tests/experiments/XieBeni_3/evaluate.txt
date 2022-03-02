@@ -181,6 +181,140 @@ The following object is masked from ‘package:BiocGenerics’:
 100  41.087768  4.636490        1 sporulation moc.gapbk
 101  51.920967  4.591361        1 sporulation moc.gapbk
 102  42.216796  4.605353        1 sporulation moc.gapbk
+            f1        f2 rnkIndex     Dataset    Algorithm
+22  0.02660207 0.3703313        1 sporulation Ideal pareto
+23  0.02697146 0.1665404        1 sporulation Ideal pareto
+24  0.02907662 0.1437179        1 sporulation Ideal pareto
+25  0.02915184 0.1425559        1 sporulation Ideal pareto
+26  0.04789508 0.1351804        1 sporulation Ideal pareto
+221 0.02660207 0.3703313        1 sporulation      dmnsga2
+231 0.02697146 0.1665404        1 sporulation      dmnsga2
+241 0.02907662 0.1437179        1 sporulation      dmnsga2
+251 0.02915184 0.1425559        1 sporulation      dmnsga2
+261 0.04789508 0.1351804        1 sporulation      dmnsga2
+51  0.04802874 0.1351804        1 sporulation       dnsga2
+52  0.03098995 0.2361887        1 sporulation       dnsga2
+53  0.03837894 0.1577624        1 sporulation       dnsga2
+54  0.03160474 0.2284361        1 sporulation       dnsga2
+55  0.04801986 0.1464714        1 sporulation       dnsga2
+60  0.35547513 0.3966458        1 sporulation         tmix
+61  0.44313862 0.1690534        1 sporulation         tmix
+67  1.00000000 0.2272474        1 sporulation        mfuzz
+68  0.33233105 1.0000000        1 sporulation        mfuzz
+69  0.73031097 0.2560055        1 sporulation        mfuzz
+94  0.23556517 0.1638134        1 sporulation    moc.gapbk
+95  0.03616019 0.2305025        1 sporulation    moc.gapbk
+96  0.06354427 0.1926604        1 sporulation    moc.gapbk
+97  0.03751798 0.2161894        1 sporulation    moc.gapbk
+98  0.07475715 0.1688905        1 sporulation    moc.gapbk
+99  0.11153078 0.1686994        1 sporulation    moc.gapbk
+100 0.17620706 0.1675880        1 sporulation    moc.gapbk
+101 0.22266580 0.1659568        1 sporulation    moc.gapbk
+102 0.18104895 0.1664626        1 sporulation    moc.gapbk
+            f1        f2 rnkIndex Dataset    Algorithm
+14  0.07247949 0.9999950        1   serum Ideal pareto
+15  0.22954131 0.3204785        1   serum Ideal pareto
+17  0.07588591 0.7266028        1   serum Ideal pareto
+18  0.07779086 0.4149945        1   serum Ideal pareto
+19  0.07517605 0.9224077        1   serum Ideal pareto
+21  0.08624764 0.3411253        1   serum Ideal pareto
+41  0.08099597 0.4122934        1   serum Ideal pareto
+42  0.20646025 0.3353642        1   serum Ideal pareto
+92  0.08365978 0.4120497        1   serum Ideal pareto
+141 0.07247949 0.9999950        1   serum      dmnsga2
+151 0.22954131 0.3204785        1   serum      dmnsga2
+16  0.11023637 0.3499566        1   serum      dmnsga2
+171 0.07588591 0.7266028        1   serum      dmnsga2
+181 0.07779086 0.4149945        1   serum      dmnsga2
+191 0.07517605 0.9224077        1   serum      dmnsga2
+20  0.09130720 0.3543752        1   serum      dmnsga2
+211 0.08624764 0.3411253        1   serum      dmnsga2
+411 0.08099597 0.4122934        1   serum       dnsga2
+421 0.20646025 0.3353642        1   serum       dnsga2
+43  0.18640863 0.3450132        1   serum       dnsga2
+44  0.15114676 0.3757729        1   serum       dnsga2
+45  0.10251544 0.3964686        1   serum       dnsga2
+46  0.14726730 0.3779613        1   serum       dnsga2
+47  0.12474159 0.3817774        1   serum       dnsga2
+48  0.12101647 0.3838533        1   serum       dnsga2
+49  0.09523404 0.4096931        1   serum       dnsga2
+50  0.08732377 0.4120306        1   serum       dnsga2
+59  1.00000000 0.4154213        1   serum         tmix
+90  0.07926863 0.6030868        1   serum    moc.gapbk
+91  0.10872092 0.4061309        1   serum    moc.gapbk
+921 0.08365978 0.4120497        1   serum    moc.gapbk
+93  0.08071640 0.5679658        1   serum    moc.gapbk
+            f1        f2 rnkIndex    Dataset    Algorithm
+7   0.05218855 0.2200259        1 cell_cycle Ideal pareto
+8   0.02188145 0.3853066        1 cell_cycle Ideal pareto
+9   0.02416107 0.3157886        1 cell_cycle Ideal pareto
+10  0.02268445 0.3542227        1 cell_cycle Ideal pareto
+11  0.02439321 0.2760400        1 cell_cycle Ideal pareto
+12  0.02881064 0.2245182        1 cell_cycle Ideal pareto
+13  0.02684705 0.2482946        1 cell_cycle Ideal pareto
+710 0.05218855 0.2200259        1 cell_cycle      dmnsga2
+810 0.02188145 0.3853066        1 cell_cycle      dmnsga2
+910 0.02416107 0.3157886        1 cell_cycle      dmnsga2
+103 0.02268445 0.3542227        1 cell_cycle      dmnsga2
+111 0.02439321 0.2760400        1 cell_cycle      dmnsga2
+121 0.02881064 0.2245182        1 cell_cycle      dmnsga2
+131 0.02684705 0.2482946        1 cell_cycle      dmnsga2
+34  0.03034582 0.9260991        1 cell_cycle       dnsga2
+35  0.18866979 0.2441276        1 cell_cycle       dnsga2
+36  0.03164132 0.4678752        1 cell_cycle       dnsga2
+37  0.05007018 0.2736574        1 cell_cycle       dnsga2
+38  0.18114429 0.2486322        1 cell_cycle       dnsga2
+39  0.03188002 0.3039591        1 cell_cycle       dnsga2
+40  0.03560864 0.2763796        1 cell_cycle       dnsga2
+58  0.11352798 0.3561110        1 cell_cycle         tmix
+63  1.00000000 0.4358928        1 cell_cycle        mfuzz
+64  0.16739040 0.7814438        1 cell_cycle        mfuzz
+65  0.43026672 0.5070910        1 cell_cycle        mfuzz
+66  0.37744217 0.6948061        1 cell_cycle        mfuzz
+80  0.12692622 0.2998546        1 cell_cycle    moc.gapbk
+81  0.02201777 1.0000000        1 cell_cycle    moc.gapbk
+82  0.08339117 0.3148034        1 cell_cycle    moc.gapbk
+83  0.02523301 0.8630657        1 cell_cycle    moc.gapbk
+84  0.02596383 0.5540588        1 cell_cycle    moc.gapbk
+85  0.05294682 0.3175888        1 cell_cycle    moc.gapbk
+86  0.02960064 0.3244715        1 cell_cycle    moc.gapbk
+87  0.02884422 0.4006610        1 cell_cycle    moc.gapbk
+88  0.02622013 0.4771401        1 cell_cycle    moc.gapbk
+89  0.04740882 0.3216542        1 cell_cycle    moc.gapbk
+            f1        f2 rnkIndex     Dataset    Algorithm
+1   0.09929838 1.0000000        1 arabidopsis Ideal pareto
+2   0.49289095 0.4230509        1 arabidopsis Ideal pareto
+3   0.17682717 0.4595615        1 arabidopsis Ideal pareto
+4   0.10023719 0.5258973        1 arabidopsis Ideal pareto
+5   0.15393548 0.4912138        1 arabidopsis Ideal pareto
+6   0.12840663 0.5167746        1 arabidopsis Ideal pareto
+28  0.11268292 0.5248345        1 arabidopsis Ideal pareto
+110 0.09929838 1.0000000        1 arabidopsis      dmnsga2
+210 0.49289095 0.4230509        1 arabidopsis      dmnsga2
+310 0.17682717 0.4595615        1 arabidopsis      dmnsga2
+410 0.10023719 0.5258973        1 arabidopsis      dmnsga2
+510 0.15393548 0.4912138        1 arabidopsis      dmnsga2
+610 0.12840663 0.5167746        1 arabidopsis      dmnsga2
+27  0.10668841 0.8665686        1 arabidopsis       dnsga2
+281 0.11268292 0.5248345        1 arabidopsis       dnsga2
+29  0.11106859 0.6810590        1 arabidopsis       dnsga2
+30  0.11072819 0.7139850        1 arabidopsis       dnsga2
+31  0.18474256 0.4805455        1 arabidopsis       dnsga2
+32  0.12928793 0.5235959        1 arabidopsis       dnsga2
+33  0.13428808 0.5167746        1 arabidopsis       dnsga2
+56  1.00000000 0.9098485        1 arabidopsis         tmix
+57  0.50102306 0.9594726        1 arabidopsis         tmix
+62  0.58945853 0.7611352        1 arabidopsis        mfuzz
+70  0.10697622 0.9751573        1 arabidopsis    moc.gapbk
+71  0.31793380 0.5158403        1 arabidopsis    moc.gapbk
+72  0.28667300 0.5197628        1 arabidopsis    moc.gapbk
+73  0.13043437 0.6006458        1 arabidopsis    moc.gapbk
+74  0.17817353 0.5253957        1 arabidopsis    moc.gapbk
+75  0.11546303 0.8150849        1 arabidopsis    moc.gapbk
+76  0.17462298 0.5417116        1 arabidopsis    moc.gapbk
+77  0.10913513 0.9173001        1 arabidopsis    moc.gapbk
+78  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
+79  0.12036940 0.7196201        1 arabidopsis    moc.gapbk
 [1] "Pareto comparison done. Plotting other comparison metrics..."
 [1] "Done."
 Warning messages:
