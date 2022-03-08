@@ -1851,6 +1851,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
   
   #Plot each dataset pareto front
   dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
+  print("Plotting each dataset...")
   for(i in 1:length(datasets)){
     dataset <- datasets[i]
     data <- plot.data[plot.data$Dataset == dataset, ]
@@ -1936,7 +1937,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     print(levels(data.norm$Algorithm))
     ggplot(data.norm, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Fronteras de pareto: ", dataset.name), color="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
-      geom_point(position=position_dodge(width=0.01)) +
+      geom_point() + #position=position_dodge(width=0.01)) +
       geom_line() +
       theme(legend.position="top", 
             axis.title.x = element_text(size=14),
@@ -1944,12 +1945,13 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
             title=element_text(size=20, face='bold')) +
       #xlim(0, 1) +
       #ylim(0, 1) +
-      theme_minimal()
-      #+
+      theme_minimal() +
       #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
       #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
       scale_colour_manual(labels=labels,  #labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
-                       values=values)    #c("#00AFBB", "#E7B800", "#FC4E07", "#48D125", "#B744B8", "#ADBFD3"))
+                       values=values) +    #c("#00AFBB", "#E7B800", "#FC4E07", "#48D125", "#B744B8", "#ADBFD3")) +
+      scale_shape_manual(values = c(rep(1, length(labels)-1), 5)) +
+      guides(shape = FALSE)
     #facet_wrap(~Dataset, scale="free")
     
     ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm_wide.png")), height=7, width=7) 
