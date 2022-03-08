@@ -630,7 +630,7 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
     poblacion_jorge=subset(poblacion_A, poblacion_A$paretoranking==1)
 
 
-    print(paste0("Evaluations after PLS:", evaluation.count))
+    #print(paste0("Evaluations after PLS:", evaluation.count))
     return(as.data.frame(poblacion_A[,]))
 
 
@@ -639,7 +639,7 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
 
     rownames(population_pareto)<-c(1:nrow(population_pareto))
     poblacion_A<-population_pareto[1,]
-    print(paste0("Evaluations after PLS:", evaluation.count))
+    #print(paste0("Evaluations after PLS:", evaluation.count))
     return(poblacion_A)
 
   }
@@ -825,10 +825,10 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
     #cat("soluciones en path", nrow(iteraciones_path), "\n")
     #print(iteraciones_path)
 
-    print(paste0("new evaluations: ", round(0.2*sum(iteraciones_path$eval))))
+    #print(paste0("new evaluations: ", round(0.2*sum(iteraciones_path$eval))))
     evaluation.count <<- evaluation.count + iteraciones_path$eval #round(0.2*sum(iteraciones_path$eval)) # Added VR
     #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
-    print("Path relinking finished:")
+    #print("Path relinking finished:")
     #print(iteraciones_path)
 
     if (nrow(iteraciones_path)>0) {

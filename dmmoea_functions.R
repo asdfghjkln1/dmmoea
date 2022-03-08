@@ -1,4 +1,3 @@
-
 #plot_generation_metrics <- function(P, clustering, distances, output.path, algorithm.name, generation, dataset.name, plot.silhouette=FALSE, plot.diversity=TRUE){
 #  len.groups <- length(clustering)
 #  if(len.groups > 1){
@@ -1772,41 +1771,48 @@ plot_algorithm_comparison_diversity <- function(exp.path, plot.data){
 plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.run=Inf){
   folder.path <- file.path(exp.path)
   algorithms <- list.dirs(path=folder.path, full.names=FALSE, recursive = FALSE)
-  algorithms <- algorithms[!(algorithms %in% c("figures", "nsga2", "random"))]
+  algorithms <- algorithms[!(algorithms %in% c("figures"))]#, "nsga2", "random"))]
   if(!load.data){
     print("data not loaded!")
+    selected <- read.table(file.path(exp.path, "data_pareto_selected.csv"), sep=",", header=TRUE, row.names=NULL)
+    print("Loaded pareto selected")
+    print(selected)
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
     colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")
     for(i in 1:length(algorithms)){
       algorithm <- algorithms[i]
-      datasets <- list.dirs(path=file.path(folder.path, algorithm), recursive = FALSE, full.names=FALSE)
+      #datasets <- list.dirs(path=file.path(folder.path, algorithm), recursive = FALSE, full.names=FALSE)
+      datasets <- c("arabidopsis","cell_cycle","serum","sporulation")
       for(j in 1:length(datasets)){
-        pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) #** N of objectives hardcoded! **
+        #pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) #** N of objectives hardcoded! **
         dataset <- datasets[j]
-        print(paste0("Starting dataset ", dataset, " in ", algorithm))
-        dataset.path <- file.path(folder.path, algorithm, dataset)
-        experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
-        experiments <- experiments[as.numeric(experiments) <= limit.run]
-        for(k in 1:length(experiments)){
-          experiment <- experiments[k]
-          if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
-            obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE, row.names=NULL)
-            pareto.dataset <- rbind(pareto.dataset, obj.values)
-          }
-        }
-        ranking <- nsga2R::fastNonDominatedSorting(as.matrix(pareto.dataset))
-        rnkIndex <- integer(nrow(pareto.dataset))
-        i <- 1
-        while (i <= length(ranking)) {
-          rnkIndex[ranking[[i]]] <- i
-          i <- i + 1
-        } 
-        pareto.dataset[, "rnkIndex"] <- rnkIndex
-        pareto.dataset <- pareto.dataset[order(rnkIndex), ]
-        pareto.dataset <- pareto.dataset[pareto.dataset$rnkIndex == 1, ]
-        colnames(pareto.dataset) <- c("f1", "f2", "rnkIndex")
-        pareto.dataset[, "Dataset"] <- rep(dataset, nrow(pareto.dataset))
-        pareto.dataset[, "Algorithm"] <- rep(algorithm, nrow(pareto.dataset))
+        #print(paste0("Starting dataset ", dataset, " in ", algorithm))
+        #dataset.path <- file.path(folder.path, algorithm, dataset)
+        #experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
+        #experiments <- experiments[as.numeric(experiments) <= limit.run]
+        #for(k in 1:length(experiments)){
+        #  experiment <- experiments[k]
+        #  if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
+        #    obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE, row.names=NULL)
+        #    pareto.dataset <- rbind(pareto.dataset, obj.values)
+        #  }
+        #}
+        #ranking <- nsga2R::fastNonDominatedSorting(as.matrix(pareto.dataset))
+        #rnkIndex <- integer(nrow(pareto.dataset))
+        #i <- 1
+        #while (i <= length(ranking)) {
+        #  rnkIndex[ranking[[i]]] <- i
+        #  i <- i + 1
+        #}
+	pareto.dataset <- selected[selected$Dataset == dataset, ]
+        print("Selecting:")
+        print(pareto.dataset) 
+        #pareto.dataset[, "rnkIndex"] <- rnkIndex
+        #pareto.dataset <- pareto.dataset[order(rnkIndex), ]
+        #pareto.dataset <- pareto.dataset[pareto.dataset$rnkIndex == 1, ]
+        #colnames(pareto.dataset) <- c("f1", "f2", "rnkIndex")
+        #pareto.dataset[, "Dataset"] <- rep(dataset, nrow(pareto.dataset))
+        #pareto.dataset[, "Algorithm"] <- rep(algorithm, nrow(pareto.dataset))
         plot.data <- rbind(plot.data, pareto.dataset)
       }
     }
@@ -1815,7 +1821,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     
     # Generate ideal pareto for each dataset
     for(j in 1:length(datasets)){
-      data <- plot.data[plot.data$Dataset == datasets[j], ]
+      #data <- plot.data[plot.data$Dataset == datasets[j], ]
+      data <- selected[selected$Dataset == datasets[j], ]
       ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
       rnkIndex <- integer(nrow(data))
       i <- 1
@@ -1825,20 +1832,22 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       }
       data[, "rnkIndex"] <- rnkIndex
       ideal.pareto <- data[data$rnkIndex == 1, ]
-      ideal.pareto[, "Algorithm"] <- rep("Ideal pareto", nrow(ideal.pareto))
+      ideal.pareto[, "Algorithm"] <- rep("Pareto ideal", nrow(ideal.pareto))
       plot.data <- rbind(ideal.pareto, plot.data)
     }
     
   }else{
     print("Previous run data found!. Plotting results...")
+    #print("blocking load")
+    #return()
     plot.data <- read.table(file.path(exp.path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
     #plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
     plot.data.norm <- read.table(file.path(exp.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
     #plot.data.norm$Algorithm <- factor(plot.data.norm$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
   }
   datasets <- unique(plot.data$Dataset)
-  #plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
-  plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("dnsga2", "dmnsga2", "moc.gapbk", "tmix", "mfuzz", "Ideal pareto"))
+  plot.data$Algorithm <- factor(plot.data$Algorithm) #, levels=c("dmnsga2", "dnsga2", "nsga2", "Pareto ideal"))
+  #plot.data$Algorithm <- factor(plot.data$Algorithm) #, levels=c("dnsga2", "dmnsga2", "moc.gapbk", "tmix", "mfuzz", "Ideal pareto"))
   
   #Plot each dataset pareto front
   dir.create(file.path(folder.path, "figures"), recursive=TRUE, showWarnings = FALSE)
@@ -1850,8 +1859,9 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       data.norm <- plot.data.norm[plot.data.norm$Dataset == dataset, ]
     }else{
       dataset.path <- file.path(folder.path, algorithms[1], dataset) # A little hardcoded, but it should work
-      limits <- read.table(file.path(dataset.path, "limits.csv"), sep=",", header = TRUE, row.names=NULL)
+      limits <- read.table(file.path(dataset.path, "limits_alt.csv"), sep=",", header = TRUE, row.names=NULL)
       data.norm <- data
+      data.norm$Algorithm <- factor(data.norm$Algorithm)
       data.norm[, c("f1", "f2")] <- normalise_pareto(as.matrix(data.norm[, c("f1", "f2")]), limits=limits)
       plot.data.norm <- rbind(plot.data.norm, data.norm)
     }
@@ -1865,7 +1875,52 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     }else if(dataset == "sporulation"){
       dataset.name = "Sporulation"
     }
-    
+    labels <- c()
+	values <- c()
+	factors <- c()
+	levels <- levels(data.norm$Algorithm)
+    print("Levels are:")
+    print(levels)
+	if("dmnsga2" %in% levels){
+	labels <- c(labels, "DMNSGA-II")
+	values <- c(values, "#00AFBB")
+	factors <- c(factors, "dmnsga2")
+	} 
+	if("dnsga2" %in% levels){
+	labels <- c(labels, "DNSGA-II")
+	values <- c(values, "#E7B800")
+	factors <- c(factors, "dnsga2")
+	}
+        if("mfuzz" %in% levels){
+	labels <- c(labels, "Fuzzy")
+	values <- c(values, "#48D125")
+	factors <- c(factors, "mfuzz")
+	}
+	if("tmix" %in% levels){
+	labels <- c(labels, "Mixture M.")
+	values <- c(values, "#FC3408")
+	factors <- c(factors, "tmix")
+	}
+	if("moc.gapbk" %in% levels){
+	labels <- c(labels, "MOCGaPBK")
+	values <- c(values, "#B744B8")
+	factors <- c(factors, "moc.gapbk")
+	}
+	if("nsga2" %in% levels){
+	labels <- c(labels, "NSGA-II")
+	values <- c(values, "#FA6941")
+	factors <- c(factors, "nsga2")
+	}
+        if("Pareto ideal" %in% levels){
+	labels <- c(labels, "Pareto ideal")
+        values<- c(values, "#ADBFD3")
+        factors <- c(factors, "Pareto ideal")
+	} 
+    data.norm$Algorithm <- factor(data.norm$Algorithm, levels = factors)
+    print("Colors are:")
+    print(values)
+    print("Factors are:")
+    print(factors)
     #ggplot(data, aes(x=f1, y=f2, color=Algorithm)) +
     #  labs(title=paste0("Fronteras de pareto: ",dataset.name), colour="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
     #  geom_point() +
@@ -1877,34 +1932,37 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     #
     #ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,".png")), height=7, width=7) 
     
+    print(data.norm)
+    print(levels(data.norm$Algorithm))
     ggplot(data.norm, aes(x=f1, y=f2, color=Algorithm)) +
-      labs(title=paste0("Fronteras de pareto: ", dataset.name), colour="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
+      labs(title=paste0("Fronteras de pareto: ", dataset.name), color="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
       geom_point(position=position_dodge(width=0.01)) +
-      #geom_point() +
       geom_line() +
       theme(legend.position="top", 
+            axis.title.x = element_text(size=14),
+            axis.title.y = element_text(size=14),
             title=element_text(size=20, face='bold')) +
       #xlim(0, 1) +
       #ylim(0, 1) +
-      theme_minimal() +
+      theme_minimal()
+      #+
       #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
       #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
-      scale_colour_manual(labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
-                       values=c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) 
+      scale_colour_manual(labels=labels,  #labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),
+                       values=values)    #c("#00AFBB", "#E7B800", "#FC4E07", "#48D125", "#B744B8", "#ADBFD3"))
     #facet_wrap(~Dataset, scale="free")
     
-    ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
+    ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm_wide.png")), height=7, width=7) 
   }
   if(!load.data){
-    write.table(plot.data, file=file.path(folder.path, "data_pareto.csv"), sep=",", row.names = FALSE, col.names = TRUE)
-    write.table(plot.data.norm, file=file.path(folder.path, "data_pareto_norm.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(plot.data, file=file.path(folder.path, "data_pareto_wide.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(plot.data.norm, file=file.path(folder.path, "data_pareto_norm_wide.csv"), sep=",", row.names = FALSE, col.names = TRUE)
   }
 }
 
 ## Evaluation Metrics
 
 evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, pareto.only=TRUE, plot=FALSE){
-  output <- file.path(output.base, exp.id) # Path of overall results from instance (like normalization limits)
   dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #if(plot){
   #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
