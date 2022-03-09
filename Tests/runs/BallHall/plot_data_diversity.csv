@@ -47,6 +47,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dmnsga2,arabidopsis,NMI,0.373821428571429,0.428571428571429
 30,dmnsga2,arabidopsis,jaccard,0.515581818181818,0.3
 30,dmnsga2,arabidopsis,NMI,0.387454545454545,0.3
+31,dmnsga2,arabidopsis,jaccard,0.519138888888889,0.25
+31,dmnsga2,arabidopsis,NMI,0.390888888888889,0.375
 4,dmnsga2,arabidopsis,jaccard,0.534222222222222,0.666666666666667
 4,dmnsga2,arabidopsis,NMI,0.376666666666667,0.666666666666667
 5,dmnsga2,arabidopsis,jaccard,0.5525,0.714285714285714
@@ -107,6 +109,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dmnsga2,cell_cycle,NMI,0.450018181818182,0.4
 30,dmnsga2,cell_cycle,jaccard,0.550057142857143,0.214285714285714
 30,dmnsga2,cell_cycle,NMI,0.528704761904762,0.571428571428571
+31,dmnsga2,cell_cycle,jaccard,0.593805555555556,0.25
+31,dmnsga2,cell_cycle,NMI,0.526694444444444,0.25
 4,dmnsga2,cell_cycle,jaccard,0.476611111111111,0.25
 4,dmnsga2,cell_cycle,NMI,0.414638888888889,0.25
 5,dmnsga2,cell_cycle,jaccard,0.466444444444444,0.25
@@ -167,6 +171,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dmnsga2,serum,NMI,0.365916666666667,0.875
 30,dmnsga2,serum,jaccard,0.523884615384615,0.5
 30,dmnsga2,serum,NMI,0.371769230769231,0.5
+31,dmnsga2,serum,jaccard,0.480944444444444,0.375
+31,dmnsga2,serum,NMI,0.328694444444444,0.25
 4,dmnsga2,serum,jaccard,0.465439393939394,0.363636363636364
 4,dmnsga2,serum,NMI,0.354393939393939,0.454545454545455
 5,dmnsga2,serum,jaccard,0.496848484848485,0.454545454545455
@@ -227,6 +233,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dmnsga2,sporulation,NMI,0.297222222222222,0.375
 30,dmnsga2,sporulation,jaccard,0.4148,0.4
 30,dmnsga2,sporulation,NMI,0.361963636363636,0.3
+31,dmnsga2,sporulation,jaccard,0.335321428571429,0.285714285714286
+31,dmnsga2,sporulation,NMI,0.303464285714286,0.428571428571429
 4,dmnsga2,sporulation,jaccard,0.46630303030303,0.454545454545455
 4,dmnsga2,sporulation,NMI,0.392727272727273,0.545454545454545
 5,dmnsga2,sporulation,jaccard,0.377214285714286,0.285714285714286
@@ -287,6 +295,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dnsga2,arabidopsis,NMI,0.316371794871795,0.333333333333333
 30,dnsga2,arabidopsis,jaccard,0.378619047619048,0.5
 30,dnsga2,arabidopsis,NMI,0.263952380952381,0.5
+31,dnsga2,arabidopsis,jaccard,0.448305555555556,0.25
+31,dnsga2,arabidopsis,NMI,0.323388888888889,0.25
 4,dnsga2,arabidopsis,jaccard,0.4314,0.6
 4,dnsga2,arabidopsis,NMI,0.314133333333333,0.8
 5,dnsga2,arabidopsis,jaccard,0.435254545454545,0.2
@@ -347,6 +357,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dnsga2,cell_cycle,NMI,0.254527777777778,0.875
 30,dnsga2,cell_cycle,jaccard,0.428769230769231,0.166666666666667
 30,dnsga2,cell_cycle,NMI,0.3755,0.166666666666667
+31,dnsga2,cell_cycle,jaccard,0.252872727272727,0.2
+31,dnsga2,cell_cycle,NMI,0.214727272727273,0.5
 4,dnsga2,cell_cycle,jaccard,0.315177777777778,0.222222222222222
 4,dnsga2,cell_cycle,NMI,0.267111111111111,0.222222222222222
 5,dnsga2,cell_cycle,jaccard,0.341761904761905,0.333333333333333
@@ -407,6 +419,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dnsga2,serum,NMI,0.223871794871795,0.166666666666667
 30,dnsga2,serum,jaccard,0.45,0.8
 30,dnsga2,serum,NMI,0.2872,0.4
+31,dnsga2,serum,jaccard,0.403563636363636,0.5
+31,dnsga2,serum,NMI,0.273818181818182,0.3
 4,dnsga2,serum,jaccard,0.335133333333333,0.444444444444444
 4,dnsga2,serum,NMI,0.235466666666667,0.222222222222222
 5,dnsga2,serum,jaccard,0.331892857142857,0.428571428571429
@@ -467,6 +481,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,dnsga2,sporulation,NMI,0.197948717948718,0.416666666666667
 30,dnsga2,sporulation,jaccard,0.285532608695652,0.347826086956522
 30,dnsga2,sporulation,NMI,0.23581884057971,0.347826086956522
+31,dnsga2,sporulation,jaccard,0.284183333333333,0.266666666666667
+31,dnsga2,sporulation,NMI,0.217933333333333,0.2
 4,dnsga2,sporulation,jaccard,0.318846153846154,0.416666666666667
 4,dnsga2,sporulation,NMI,0.273858974358974,0.416666666666667
 5,dnsga2,sporulation,jaccard,0.333583333333333,0.133333333333333
@@ -527,6 +543,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,nsga2,arabidopsis,NMI,0.321488888888889,0.444444444444444
 30,nsga2,arabidopsis,jaccard,0.418622222222222,0.777777777777778
 30,nsga2,arabidopsis,NMI,0.284666666666667,0.555555555555556
+31,nsga2,arabidopsis,jaccard,0.467694444444444,0.5
+31,nsga2,arabidopsis,NMI,0.341888888888889,0.5
 4,nsga2,arabidopsis,jaccard,0.476133333333333,0.555555555555556
 4,nsga2,arabidopsis,NMI,0.318955555555556,0.444444444444444
 5,nsga2,arabidopsis,jaccard,0.472181818181818,0.5
@@ -587,6 +605,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,nsga2,cell_cycle,NMI,0.319155555555556,0.222222222222222
 30,nsga2,cell_cycle,jaccard,0.5006,0.8
 30,nsga2,cell_cycle,NMI,0.446236363636364,0.8
+31,nsga2,cell_cycle,jaccard,0.555142857142857,0.428571428571429
+31,nsga2,cell_cycle,NMI,0.42525,0.428571428571429
 4,nsga2,cell_cycle,jaccard,0.464318181818182,0.545454545454545
 4,nsga2,cell_cycle,NMI,0.438939393939394,0.272727272727273
 5,nsga2,cell_cycle,jaccard,0.520636363636364,0.272727272727273
@@ -647,6 +667,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,nsga2,serum,NMI,0.387893939393939,0.636363636363636
 30,nsga2,serum,jaccard,0.433488888888889,0.222222222222222
 30,nsga2,serum,NMI,0.283,0.555555555555556
+31,nsga2,serum,jaccard,0.297318181818182,0.363636363636364
+31,nsga2,serum,NMI,0.199893939393939,0.363636363636364
 4,nsga2,serum,jaccard,0.442166666666667,0.454545454545455
 4,nsga2,serum,NMI,0.335363636363636,0.454545454545455
 5,nsga2,serum,jaccard,0.386,0.222222222222222
@@ -707,6 +729,8 @@ id,Algorithm,Dataset,Metric,Diversity,Cluster_Ratio
 3,nsga2,sporulation,NMI,0.252575757575758,0.454545454545455
 30,nsga2,sporulation,jaccard,0.351712121212121,0.181818181818182
 30,nsga2,sporulation,NMI,0.261727272727273,0.545454545454545
+31,nsga2,sporulation,jaccard,0.468904761904762,0.5
+31,nsga2,sporulation,NMI,0.357952380952381,0.5
 4,nsga2,sporulation,jaccard,0.278194444444444,0.25
 4,nsga2,sporulation,NMI,0.200194444444444,0.25
 5,nsga2,sporulation,jaccard,0.435424242424242,0.272727272727273
