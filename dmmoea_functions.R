@@ -1892,7 +1892,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
 	values <- c(values, "#E7B800")
 	factors <- c(factors, "dnsga2")
 	}
-        if("mfuzz" %in% levels){
+  if("mfuzz" %in% levels){
 	labels <- c(labels, "Fuzzy")
 	values <- c(values, "#48D125")
 	factors <- c(factors, "mfuzz")
@@ -1939,13 +1939,13 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       labs(title=paste0("Fronteras de pareto: ", dataset.name), color="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
       geom_point() + #position=position_dodge(width=0.01)) +
       geom_line() +
+      theme_minimal() +
       theme(legend.position="top", 
-            axis.title.x = element_text(size=14),
-            axis.title.y = element_text(size=14),
-            title=element_text(size=20, face='bold')) +
+            axis.title.x = element_text(size=12),
+            axis.title.y = element_text(size=12),
+            title=element_text(size=16, face='bold')) +
       #xlim(0, 1) +
       #ylim(0, 1) +
-      theme_minimal() +
       #scale_colour_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"),
       #                      values=c("#00AFBB", "#E7B800", "#FC4E07", "#118f24"))
       scale_colour_manual(labels=labels,  #labels=c("DNSGA-II", "DMNSGA-II", "MOCGaPBK", "MFuzz", "TMix", "Pareto ideal"),

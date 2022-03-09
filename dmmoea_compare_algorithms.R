@@ -30,6 +30,7 @@ compare_algorithms <- function(){
     return(-1)
   }
   plot.pareto.norm <- read.table(file.path(results.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
+  #print(plot.pareto.norm)
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data$Algorithm <- as.factor(plot.data$Algorithm)
@@ -42,7 +43,7 @@ compare_algorithms <- function(){
   for(j in 1:length(datasets)){
     dataset <- datasets[j]
     data.pareto <- plot.pareto.norm[ plot.pareto.norm$Dataset == dataset, ]
-    compare_pareto_front(data.pareto, dataset, figure.path)
+    #compare_pareto_front(data.pareto, dataset, figure.path)
     
     data <- plot.data[plot.data$Dataset == dataset, ]
     data.diversity <- plot.data.diversity[plot.data.diversity$Dataset == dataset, ]
@@ -95,6 +96,41 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, outpu
   }else if(metric == "Delta"){
     text.title <- paste0("Delta: ", dataset.name)
   }
+  
+  labels <- c()
+  values <- c()
+  levels <- levels(data$Algorithm)
+  if("dmnsga2" %in% levels){
+    labels <- c(labels, "DMNSGA-II")
+    values <- c(values, "#00AFBB")
+    factors <- c(factors, "dmnsga2")
+  } 
+  if("dnsga2" %in% levels){
+    labels <- c(labels, "DNSGA-II")
+    values <- c(values, "#E7B800")
+    factors <- c(factors, "dnsga2")
+  }
+  if("mfuzz" %in% levels){
+    labels <- c(labels, "Fuzzy")
+    values <- c(values, "#48D125")
+    factors <- c(factors, "mfuzz")
+  }
+  if("tmix" %in% levels){
+    labels <- c(labels, "Mixture M.")
+    values <- c(values, "#FC3408")
+    factors <- c(factors, "tmix")
+  }
+  if("moc.gapbk" %in% levels){
+    labels <- c(labels, "MOCGaPBK")
+    values <- c(values, "#B744B8")
+    factors <- c(factors, "moc.gapbk")
+  }
+  if("nsga2" %in% levels){
+    labels <- c(labels, "NSGA-II")
+    values <- c(values, "#FA6941")
+    factors <- c(factors, "nsga2")
+  }
+  
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
@@ -102,12 +138,12 @@ kruskal.multi.variable.tests <- function(data, metric, exp.group, dataset, outpu
          fill="Algoritmo",
          title=text.title) +
     theme_pubr() +
-    scale_fill_manual(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
-                        values=c("#00AFBB", "#E7B800", "#FC4E07")) +
+    scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
+                        values=values) + #c("#00AFBB", "#E7B800", "#FC4E07")) +
     theme(strip.text.x = element_blank(), 
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
-          plot.subtitle=element_text(size=11),
+          plot.subtitle=element_text(size=12),
           #legend.spacing.x = unit(0, 'cm'),
           axis.title.x=element_blank()) +
     guides(fill = guide_legend(label.position = "bottom")) +
@@ -142,11 +178,12 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   kruskal.res <- kruskal_test(data, formula=form)
   pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
   pwc <- pwc %>% add_xy_position(x = exp.group)
+  signif.label <- ifelse(exp.group > 3 , "p.adj.signif", "p = {p.adj}")
   w <- 3.5 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
-  Y <- pwc$y.position
-  gap.data <- max(data[, metric]) - min(data[, metric])
-  gap <- max(Y[2] - Y[1], gap.data*0.07)
-  pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
+  #Y <- pwc$y.position
+  #gap.data <- max(data[, metric]) - min(data[, metric])
+  #gap <- max(Y[2] - Y[1], gap.data*0.07)
+  #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
   if(dataset == "arabidopsis"){
     dataset.name = "Arabidopsis"
   }else if(dataset == "cell_cycle"){
@@ -159,42 +196,54 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   
   if(metric == "Diversity"){
     text.title <- paste0("Diversidad: ", dataset.name)
+    y.title <- paste0("Distancia (", data[1,4], ")")
   }else if(metric == "Hypervolume"){
     text.title <- paste0("Hipervolumen: ", dataset.name)
+    y.title <- "Hipervolumen"
   }else if(metric == "Cluster_Ratio"){
     text.title <- paste0("Cociente de cluster: ", dataset.name)
+    y.title <- "Cociente de cluster"
   }else if(metric == "Silhouette"){
     text.title <- paste0("Silueta: ", dataset.name)
+    y.title <- "Silueta"
   }else if(metric == "Delta"){
     text.title <- paste0("Delta: ", dataset.name)
+    y.title <- "Delta"
   }
   
+  factors <- c()
   labels <- c()
   values <- c()
   levels <- levels(data$Algorithm)
-  if("nsga2" %in% levels){
-    labels <- c(labels, "NSGA-II")
+  if("dmnsga2" %in% levels){
+    labels <- c(labels, "DMNSGA-II")
     values <- c(values, "#00AFBB")
+    factors <- c(factors, "dmnsga2")
   } 
   if("dnsga2" %in% levels){
     labels <- c(labels, "DNSGA-II")
-    values <- c(values, "#FC4E07")
-  } 
-  if("dmnsga2" %in% levels){
-    labels <- c(labels, "DMNSGA-II")
-    values <- c(values, "#F19B3E")
+    values <- c(values, "#E7B800")
+    factors <- c(factors, "dnsga2")
+  }
+  if("mfuzz" %in% levels){
+    labels <- c(labels, "Fuzzy")
+    values <- c(values, "#48D125")
+    factors <- c(factors, "mfuzz")
+  }
+  if("tmix" %in% levels){
+    labels <- c(labels, "Mixture M.")
+    values <- c(values, "#FC3408")
+    factors <- c(factors, "tmix")
   }
   if("moc.gapbk" %in% levels){
     labels <- c(labels, "MOCGaPBK")
-    values <- c(values, "#E7B800")
-  } 
-  if("mfuzz" %in% levels){
-    labels <- c(labels, "Fuzzy")
-    values <- c(values, "#69DC9E")
-  } 
-  if("tmix" %in% levels){
-    labels <- c(labels, "Mixture M.")
-    values <- c(values, "#02A9EA")
+    values <- c(values, "#B744B8")
+    factors <- c(factors, "moc.gapbk")
+  }
+  if("nsga2" %in% levels){
+    labels <- c(labels, "NSGA-II")
+    values <- c(values, "#FA6941")
+    factors <- c(factors, "nsga2")
   }
   
   ggplot(data, aes_string(x=exp.group, y=metric)) +
@@ -203,17 +252,20 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
          caption = get_pwc_label(pwc),
          fill="Algoritmo",
          title=text.title) +
-    theme_pubr() +
+    theme_minimal() +
     scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II", "MOCGaPBK", "Fuzzy", "Mixture"),
                       values=values) + #c("#00AFBB", "#E7B800", "#FC4E07", "#632B30", "#14453D", "#083D77")) +
-    theme(strip.text.x = element_blank(), 
+    theme(strip.text.x = element_blank(),
+          axis.title.y = element_text(size=12), 
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
-          plot.subtitle=element_text(size=11),
+          plot.subtitle=element_text(size=10),
+          legend.title=element_text(size=12),
           #legend.spacing.x = unit(0, 'cm'),
-          axis.title.x=element_blank()) +
+          axis.title.x=element_blank(),
+          title = element_text(size=15, face="bold")) +
     guides(fill = guide_legend(label.position = "bottom")) +
-    stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
+    stat_pvalue_manual(pwc, label = signif.label, hide.ns = TRUE, step.increase=0.025)
   if(data[1,4] == "NMI"){
     ggsave(file.path(output.path, paste0(metric, "_results_", dataset, "_NMI.png")), width = w, height = 7)
   }else if(data[1,4] == "jaccard"){
