@@ -125,20 +125,6 @@ The following object is masked from ‘package:ggpubr’:
 [1] "moc.gapbk"
 [1] "Starting dataset:"
 [1] "arabidopsis"
-[1] "Starting moc.gapbk in arabidopsis run: 16"
-[1] "Pareto solutions:"
-   V1 V2  V3 V4  V5       f1        f2 rnkIndex   density
-1  95 10 113 20 120 4.950117 20.778958        1       Inf
-2  46 68  34  9 127 6.526458  4.439734        1       Inf
-3  38 10 113 20 120 4.966761 11.515191        1 0.8310576
-4  88 10 113 20  47 5.105941  8.815277        1 0.5245774
-7  83 10 113 20 105 5.458849  8.044637        1 0.4461305
-5  72 10 113 20 105 6.329519  6.368302        1 0.3158471
-6  90 10 113 20 105 5.626895  6.925688        1 0.3005382
-8  86 10 113 20 105 5.824055  6.919547        1 0.2890042
-9  88 10 113 20  49 6.055517  6.646372        1 0.2815140
-10 72 10 113 20  49 6.232905  6.557671        1 0.1908403
-Error in file.path(output, id) : object 'output' not found
-Calls: literature_comparison_experiments ... execute_tests -> evaluate_solutions -> write.table -> file.path
-In addition: There were 50 or more warnings (use warnings() to see the first 50)
-Execution halted
+[1] "Starting dataset:"
+[1] "cell_cycle"
+[1] "Starting moc.gapbk in cell_cycle run: 17"
