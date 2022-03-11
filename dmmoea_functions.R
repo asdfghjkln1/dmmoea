@@ -1967,8 +1967,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
 evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, pareto.only=TRUE, plot=FALSE){
   dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #if(plot){
-  #  output.plots <- file.path(output, exp.id) # Path only used when plotting an individual instance's results plots
-    #dir.create(file.path(output, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
+  #  output.plots <- file.path(output.base, exp.id) # Path only used when plotting an individual instance's results plots
+    #dir.create(file.path(output.base, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
   #}
   if(pareto.only){
     if(nrow(population) < 2){
@@ -1995,25 +1995,25 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   labels[K+1] <- "Average sil"
   silhouette.res <- data.frame(matrix(ncol=K+1, nrow=N))
   colnames(silhouette.res) <- labels
-  if(plot){
-    dir.create(file.path(output, "clustering"), recursive = TRUE, showWarnings = FALSE)
-  }
+  #if(plot){
+  #  dir.create(file.path(output.base, exp.id, "clustering"), recursive = TRUE, showWarnings = FALSE)
+  #}
   for(i in 1:N){
     # Calculate Silhouette metric
     sil <- cluster::silhouette(clustering[[i]], gene.dist)
     pam.res <- cluster::pam(gene.dist, metric = "euclidean", k = K, medoids = pareto[i, 1:K], do.swap = FALSE)
     plot.pam <- factoextra::fviz_cluster(pam.res, geom = "point")
     plot.sil <- factoextra::fviz_silhouette(sil, print.summary=FALSE)
-    if(plot){
-      out.file <- file.path(output, "clustering", paste0("p", i, "_pam.png"))
-      png(out.file)
-      print(plot.pam)
-      dev.off()
-      out.file.2 <- file.path(output, "clustering", paste0("p", i, "_sil.png"))
-      png(out.file.2)
-      print(plot.sil)
-      dev.off() 
-    }
+    #if(plot){
+    #  out.file <- file.path(output.base, exp.id, "clustering", paste0("p", i, "_pam.png"))
+    #  png(out.file)
+    #  print(plot.pam)
+    #  dev.off()
+    #  out.file.2 <- file.path(output.base, exp.id, "clustering", paste0("p", i, "_sil.png"))
+    #  png(out.file.2)
+    #  print(plot.sil)
+    #  dev.off() 
+    #}
     res <- summary(sil)
     
     silhouette.res[i, 1:K] <- unname(res$clus.avg.widths)
@@ -2026,9 +2026,9 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   
   results <- data.frame("silhouette"=silhouette.res, "delta"=delta)#, "hypervolume"=hv.res)
   # Save silhouette results
-  if(plot){
-    write.csv(silhouette.res, file.path(output, "clustering", "silhouette.csv"), row.names=FALSE) 
-  }
+  #if(plot){
+  #  write.csv(silhouette.res, file.path(output.base, exp.id, "clustering", "silhouette.csv"), row.names=FALSE) 
+  #}
   # Append this experiment evaluations (row) to instance's file (data.frame)
   eval.file <- file.path(output.base, "evaluations.csv")
   #print("At evaluate_solutions")
@@ -2038,7 +2038,7 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
     write.table(res, file = eval.file, sep = ",", append = TRUE, quote = FALSE,
                 col.names = FALSE, row.names = FALSE)
   }else{
-    #dir.create(file.path(output), recursive = TRUE, showWarnings = FALSE)
+    #dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
     write.table(res, file = eval.file, sep = ",", append = FALSE, quote = FALSE,
                 col.names = TRUE, row.names = FALSE)
   }
@@ -2047,11 +2047,11 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #if(!dir.exists(output.base)){
   #  dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #}
-  write.table(pareto[, obj.index], file = file.path(output, id), sep=",", append=FALSE, quote=FALSE, col.names=FALSE, row.names=FALSE)
-  if(file.exists(file.path(output, "population.csv"))){
-    write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=TRUE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
+  write.table(pareto[, obj.index], file = file.path(output.base, exp.id, id), sep=",", append=FALSE, quote=FALSE, col.names=FALSE, row.names=FALSE)
+  if(file.exists(file.path(output.base, exp.id, "population.csv"))){
+    write.table(pareto[, 1:K], file = file.path(output.base, exp.id, "population.csv"), sep=",", append=TRUE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
   }else{
-    write.table(pareto[, 1:K], file = file.path(output, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
+    write.table(pareto[, 1:K], file = file.path(output.base, exp.id, "population.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE) 
   }
   #write.csv(delta, file.path(output.path, "delta.csv"), row.names=FALSE)
   #write(hv.res, file.path(output.path, "hypervolume.txt"))
