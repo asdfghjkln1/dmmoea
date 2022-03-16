@@ -83,6 +83,11 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     }
   }
   has.converged <- FALSE
+  if(evaluation.count >= evaluations){
+    print("No evaluations, returning...")
+    print(P)
+    has.converged <- TRUE
+  }
   ## Main generation loop
   while(!has.converged){
     
