@@ -179,16 +179,17 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
+    #convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes >= generations.no.change.limit || evaluation.count > evaluations){
+    #if(generations.no.changes >= generations.no.change.limit || evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     ## Continue to next generation
@@ -387,13 +388,14 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes > generations.no.change.limit ||  evaluation.count > evaluations){
+    #if(generations.no.changes > generations.no.change.limit ||  evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     
@@ -535,16 +537,17 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
+    #convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes > generations.no.change.limit || evaluation.count > evaluations){
+    #if(generations.no.changes > generations.no.change.limit || evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     
@@ -1632,6 +1635,27 @@ plot_phase_population <- function(solutions, phase, output.path, limits, is_fina
 
   dir.create(folder, recursive = TRUE, showWarnings = FALSE)
   suppressWarnings(ggsave(filename, height=5, width=7))
+}
+
+#status == 0 <-- algorithm started
+#status == 1 <-- algorithm finished
+save_timestamps <- function(status=0, output.path){
+  path <- file.path(output.path, "time.csv")
+  if(status){
+    time <- read.csv(path, header = TRUE, sep=" ")
+    print(time)
+    time$finish <- as.character(Sys.time())
+    print(time$start)
+    print(time$finish)
+    elapsed <- round(difftime(time$finish, time$start, units="mins"), 2)
+    time$elapsed <- elapsed
+    print(time)
+    write.table(time, file = path, row.names = FALSE, col.names = TRUE, append = FALSE)
+  }else{
+    time <- data.frame("start"=as.character(Sys.time()), "finish"=NA, "elapsed"=NA)
+    write.table(time, file = path, row.names = FALSE)
+    print(time)
+  }
 }
 
 # exp.path: path until database name

@@ -1,14 +1,15 @@
 test_best_configurations <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 4){
-    print(paste0("Not enough parameters (", argnum, "/4)"))
+  if(argnum != 5){
+    print(paste0("Not enough parameters (", argnum, "/5)"))
     return(-1)
   }
   path <- args[1] 
-  trials <- args[2]
-  obj_fun <- args[3]
-  evaluations <- as.numeric(args[4])
+  obj_fun <- args[2]
+  evaluations <- as.numeric(args[3])
+  trial.start <- as.numeric(args[4])
+  trial.stop <- as.numeric(args[5])
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -60,7 +61,7 @@ test_best_configurations <- function(){
       print(dataset)
       output.folder <- file.path(test.path, algorithm, dataset)
       limits <- read.table(file.path(tune.path, algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
-      execute_tests(params, path, output.folder, algorithm, dataset, limits, n.times=trials) 
+      execute_tests(params, path, output.folder, algorithm, dataset, limits, trial.start=trial.start, trial.stop = trial.stop) 
     }
   }
   
@@ -172,8 +173,7 @@ test_best_configurations_paired <- function(){
   }
 }
 
-
-execute_tests <- function(params, path, output.folder, algorithm, dataset, n.times=1){
+execute_tests <- function(params, path, output.folder, algorithm, dataset, trial.start=1, trial.stop=31){
   #setwd(path)
   #source("dmmoea_functions.R")
   #source("dmmoea_parameters.R")
@@ -183,7 +183,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, n.tim
   algorithm.name <- strsplit(algorithm, "_")[[1]][1]
 
   distances <- load.gene.distance(dataset, params$alpha)
-  for(i in 1:n.times){
+  for(i in trial.start:trial.stop){
     output.exp <- file.path(output.folder, i)#file.path(basename(params$test.path), "Debug", "test")
     if(dir.exists(output.exp)){
       next
@@ -192,6 +192,8 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, n.tim
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
+    save_timestamps(status=0,output.path = output.exp)
+    
     if(algorithm.name == "dmnsga2"){
       #print("DMNSGA2")
       res <- diverse_memetic_nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
@@ -204,11 +206,12 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, n.tim
     }else{
       print("Algorithm not supported!!")
     }
+    save_timestamps(status=1,output.path = output.exp)
     
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=TRUE)
+                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=FALSE)
   }
 }
 
 
-test_best_configurations_paired()
+#test_best_configurations_paired()
