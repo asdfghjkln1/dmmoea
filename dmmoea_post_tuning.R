@@ -213,5 +213,5 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
   }
 }
 
-
+test_best_configurations()
 #test_best_configurations_paired()
