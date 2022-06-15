@@ -96,15 +96,15 @@ test_best_configurations_paired <- function(){
   source("dmmoea_irace_conf.R")
   
   tune.path <- file.path(path, "Tests", paste0("tuning_", obj_fun))
-  test.path <- file.path(path, "Tests", "runs", obj_fun)
-  algorithms <- list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
+  test.path <- file.path(path, "Tests", "runs", "random") #obj_fun)
+  algorithms <- "nsga2" #list.dirs(path=tune.path, full.names = FALSE, recursive = FALSE)
   params <- init_parameters(dataset)
   params$K <- K
   params$popSize <- pop.size
   alpha <- 0.5
   distances <- load.gene.distance(dataset, alpha)
   ## Super hard-coded... 
-  best_params <- read.table(file.path(tune.path, "dnsga2", "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
+  best_params <- read.table(file.path(tune.path, "nsga2", "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
   params$is_random_population <- best_params$is_random_population
   params$auto_adjust_initial_params <- best_params$auto_adjust_initial_params
   if(!is.na(params$auto_adjust_initial_params)){
@@ -117,21 +117,24 @@ test_best_configurations_paired <- function(){
   for(i in 1:trials){
     seed <- as.numeric(Sys.time())
     seeds[i, "seed"] <- seed
-    if(dataset=="arabidopsis" || dataset=="cell_cycle"){
-      P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
-    }else{
+    #if(dataset=="arabidopsis" || dataset=="cell_cycle"){
+    #  P <- generate_diverse_initial_pop(distances, params, diverse_population=TRUE, seed=seed)
+    #}else{
       P <- generate_initial_pop(pop.size, K, distances$n.genes, seed) 
-    }
+    #}
+    print(dataset)
+    print(algorithms)
     for(j in 1:length(algorithms)){
       algorithm <- algorithms[j]
       #algorithm <- strsplit(algorithms[i], "_")[[1]][1]
+      print(algorithm)
       if(algorithm == "figures"){ next }
+      print(file.path(test.path, algorithm, dataset, i))
       if(dir.exists(file.path(test.path, algorithm, dataset, i))){
         next
       }
       ### Initialize parameters ###
       best_params <- read.table(file.path(tune.path, algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
-      
       #params$objectives <- best_params$objectives
       #params$K <- best_params$K
       params$objectives <- best_params$objectives
@@ -160,6 +163,9 @@ test_best_configurations_paired <- function(){
       }else{
         print("Algorithm not supported!!")
       }
+      print("Finished. Evaluating solutions...")
+      print(dirname(output.exp))
+      print(i)
       evaluate_solutions(res$population, res$clustering, distances, params$K, 
                          params$objDim, params$obj_maximize, dirname(output.exp), i, algorithm, dataset, plot=FALSE)
     }

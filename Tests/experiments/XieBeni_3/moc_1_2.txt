@@ -128,3 +128,13 @@ The following object is masked from ‘package:ggpubr’:
 [1] "Starting dataset:"
 [1] "cell_cycle"
 [1] "Starting moc.gapbk in cell_cycle run: 16"
+[1] "Pareto solutions:"
+   V1  V2  V3  V4  V5       f1       f2 rnkIndex   density
+1 363  95 313 332 164 6.908513 4.332803        1       Inf
+2  75 165 370 274  26 5.207357 6.230246        1       Inf
+3  75 165 334 274  26 6.587140 6.105884        1 1.8070011
+4  75 165 325 274  26 5.450552 6.135297        1 0.8766268
+Error in file.path(output, id) : object 'output' not found
+Calls: literature_comparison_experiments ... execute_tests -> evaluate_solutions -> write.table -> file.path
+In addition: There were 36 warnings (use warnings() to see them)
+Execution halted
