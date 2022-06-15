@@ -192,8 +192,9 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
-    save_timestamps(status=0,output.path = output.exp)
+    dir.create(file.path(output.exp), recursive = TRUE, showWarnings = FALSE) 
     
+    save_timestamps(status=0,output.path = output.exp)
     if(algorithm.name == "dmnsga2"){
       #print("DMNSGA2")
       res <- diverse_memetic_nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
