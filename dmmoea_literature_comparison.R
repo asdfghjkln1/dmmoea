@@ -84,6 +84,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
     dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
+    save_timestamps(status=0, output.path = output.folder)
     if(algorithm == "dmnsga2"){
       res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=FALSE)
     }else if(algorithm == "dnsga2"){
@@ -98,16 +99,11 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
       res <- run_mfuzz_clust(distances, params, output.exp)
     }else if(algorithm == "random"){
       res <- run_random(distances, params, output.exp)
-    }else if(algorithm == "spaces"){
-      res <- run_spaces(distances, params, output.exp, dataset)
-      return(NULL)
-    }else if(algorithm == "cluster_n"){
-      res <- run_cluster_n(distances, output.exp, dataset, trials=10)
-      return(NULL)
     }else {
       warning("Algorithm not supported!!")
       return(NULL)
     }
+    save_timestamps(status=1, output.path = output.folder)
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
                        params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=FALSE)
   }
