@@ -1,15 +1,16 @@
 test_best_configurations <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
-  if(argnum != 5){
-    print(paste0("Not enough parameters (", argnum, "/5)"))
+  if(argnum != 6){
+    print(paste0("Not enough parameters (", argnum, "/6)"))
     return(-1)
   }
   path <- args[1] 
   obj_fun <- args[2]
-  evaluations <- as.numeric(args[3])
-  trial.start <- as.numeric(args[4])
-  trial.stop <- as.numeric(args[5])
+  dataset <- args[3]
+  evaluations <- as.numeric(args[4])
+  trial.start <- as.numeric(args[5])
+  trial.stop <- as.numeric(args[6])
   setwd(path)
   source("dmmoea_functions.R")
   source("dmmoea_parameters.R")
@@ -54,15 +55,15 @@ test_best_configurations <- function(){
     params$convergence_tol <- best_params$convergence_tol
     params$mutation_radius <- best_params$mutation_radius
     params$seed <- runif(1, 0, 1)*1235
-    datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
-    for(j in 1:length(datasets)){
-      dataset <- datasets[j]
-      print("Starting dataset:")
-      print(dataset)
-      output.folder <- file.path(test.path, algorithm, dataset)
-      #limits <- read.table(file.path(tune.path, algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
-      execute_tests(params, path, output.folder, algorithm, dataset, trial.start=trial.start, trial.stop = trial.stop) 
-    }
+    #datasets <- c("arabidopsis", "cell_cycle", "serum", "sporulation")
+    #for(j in 1:length(datasets)){
+    #dataset <- datasets[j]
+    print("Starting dataset:")
+    print(dataset)
+    output.folder <- file.path(test.path, algorithm, dataset)
+    #limits <- read.table(file.path(tune.path, algorithm, dataset, "limits.csv"), sep=",", row.names=NULL, header=TRUE)
+    execute_tests(params, path, output.folder, algorithm, dataset, trial.start=trial.start, trial.stop = trial.stop) 
+    #}
   }
   
   #get_evaluation_limits(test.path)
@@ -197,13 +198,13 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     save_timestamps(status=0,output.path = output.exp)
     if(algorithm.name == "dmnsga2"){
       #print("DMNSGA2")
-      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
+      res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=FALSE)
     }else if(algorithm.name == "dnsga2"){
       #print("DNSGA2")
-      res <- dnsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
+      res <- dnsga2(distances, params, output.exp, debug=TRUE, plot=FALSE)
     }else if(algorithm.name == "nsga2"){
       #print("NSGA2")
-      res <- nsga2(distances, params, output.exp, debug=FALSE, plot=FALSE)
+      res <- nsga2(distances, params, output.exp, debug=TRUE, plot=FALSE)
     }else{
       print("Algorithm not supported!!")
     }
