@@ -208,10 +208,10 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     }else{
       print("Algorithm not supported!!")
     }
-    save_timestamps(status=1,output.path = output.exp)
+    elapsed <- save_timestamps(status=1,output.path = output.exp)
     
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
-                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, plot=FALSE)
+                       params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, time=elapsed, plot=FALSE)
   }
 }
 

@@ -1651,6 +1651,7 @@ save_timestamps <- function(status=0, output.path){
     time <- data.frame("start"=as.character(Sys.time()), "finish"=NA, "elapsed"=NA)
     write.table(time, file = path, row.names = FALSE)
   }
+  return(time$elapsed)
 }
 
 # exp.path: path until database name
@@ -1988,7 +1989,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
 
 ## Evaluation Metrics
 
-evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=-1, pareto.only=TRUE, plot=FALSE){
+evaluate_solutions <- function(population, clustering, distances, K, objDim, obj_maximize, output.base, exp.id, algorithm.name, dataset.name, time=0, pareto.only=TRUE, plot=FALSE){
   dir.create(file.path(output.base), recursive = TRUE, showWarnings = FALSE)
   #if(plot){
   #  output.plots <- file.path(output.base, exp.id) # Path only used when plotting an individual instance's results plots
@@ -2047,8 +2048,6 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   
   # Calculate Delta spread
   delta <- ifelse(N > 1, delta_spread(pareto, obj.index), 0)
-  
-  results <- data.frame("silhouette"=silhouette.res, "delta"=delta)#, "hypervolume"=hv.res)
   # Save silhouette results
   #if(plot){
   #  write.csv(silhouette.res, file.path(output.base, exp.id, "clustering", "silhouette.csv"), row.names=FALSE) 
