@@ -20,6 +20,7 @@ Rplots.pdf
 /Tests/experiments/XieBeni_3/dnsga2/
 /Tests/experiments/XieBeni_3/nsga2/
 
+/Tests/tuning_BallHall/
 /Tests/tuning_BallHall/nsga2/arabidopsis/
 /Tests/tuning_BallHall/nsga2/cell_cycle/
 /Tests/tuning_BallHall/nsga2/serum/
@@ -33,6 +34,7 @@ Rplots.pdf
 /Tests/tuning_BallHall/dmnsga2/serum/
 /Tests/tuning_BallHall/dmnsga2/sporulation/
 
+/Tests/tuning_XieBeni/
 /Tests/tuning_XieBeni/nsga2/arabidopsis/
 /Tests/tuning_XieBeni/nsga2/cell_cycle/
 /Tests/tuning_XieBeni/nsga2/serum/
