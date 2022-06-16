@@ -91,7 +91,7 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
   ## Main generation loop
   while(!has.converged){
     
-    if(debug){
+    if(debug && (g %% 100 == 0)){
       print(paste("Entering selection, crossover, mutation for generation ", g)) 
       print(paste0("Evaluations used (", evaluation.count, "/", evaluations, ")"))
     }
@@ -196,9 +196,9 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     g <- g + 1
     P <- P_next_generation
     current.pareto.front <- new.pareto.front
-    if(debug){
-      print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
-    }
+    #if(debug){
+    #  print(paste("Output: Population of", nrow(P), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    #}
   }
   if(debug){
     sink(type="output") 
@@ -279,7 +279,7 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
   
   ## Main generation loop
   while(!has.converged){
-    if(debug){
+    if(debug && (g %% 100 == 0)){
       Log(paste("Entering selection, crossover, mutation for generation ", g))
       Log(paste0("Evaluations used (", evaluation.count, "/", evaluations, ")"))
     }
@@ -356,9 +356,9 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     }
     
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
-    if(debug){
-      print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
-    }
+    #if(debug){
+    #  print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups)))
+    #}
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -455,7 +455,7 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   
   ## Main generation loop
   while(!has.converged){
-    if(debug){
+    if(debug && (g %% 100 == 0)){
       #Log(paste("Entering selection, crossover, mutation for generation ", g), agent=agent)
       Log(paste0("Generation: ",g, "; Evaluations used (", evaluation.count, "/", evaluations, ")"))
     }
