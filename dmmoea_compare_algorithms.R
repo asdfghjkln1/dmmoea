@@ -29,7 +29,7 @@ compare_algorithms <- function(){
     warning("Limits not found, please run \"dmmoea_evaluate_results.R\" first.")
     return(-1)
   }
-  plot.pareto.norm <- read.table(file.path(results.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
+  #plot.pareto.norm <- read.table(file.path(results.path, "data_pareto_norm_wide.csv"), sep=",", header=TRUE, row.names=NULL)
   #print(plot.pareto.norm)
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
   plot.data.diversity <- read.table(file.path(results.path, "plot_data_diversity.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -39,10 +39,10 @@ compare_algorithms <- function(){
   
   datasets <- unique(plot.data$Dataset)
   metrics <- c("Hypervolume", "Silhouette", "Delta")
-  metrics.div <- c("Diversity", "Cluster_Ratio")
+  metrics.div <- c("Diversity","Cluster_Ratio")
   for(j in 1:length(datasets)){
     dataset <- datasets[j]
-    data.pareto <- plot.pareto.norm[ plot.pareto.norm$Dataset == dataset, ]
+    #data.pareto <- plot.pareto.norm[ plot.pareto.norm$Dataset == dataset, ]
     #compare_pareto_front(data.pareto, dataset, figure.path)
     
     data <- plot.data[plot.data$Dataset == dataset, ]
@@ -163,7 +163,7 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   
   form <- as.formula(call("~", as.symbol(metric), as.symbol(exp.group)))
   algorithms <- as.character(unique(data$Algorithm))
-  data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  data$Algorithm <- factor(data$Algorithm)
   data[is.na(data)] <- 0
   col <- which(colnames(data) == metric)
   for(i in 1:length(algorithms)){
@@ -172,18 +172,9 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
       data <- data[!(data$Algorithm == algorithms[i]), ]
     }
   }
-  algorithms <- unique(data$Algorithm)
-  data$Algorithm <- factor(data$Algorithm, levels=algorithms)
+  #algorithms <- unique(data$Algorithm)
+  data$Algorithm <- factor(data$Algorithm) #, levels=algorithms)
   
-  kruskal.res <- kruskal_test(data, formula=form)
-  pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
-  pwc <- pwc %>% add_xy_position(x = exp.group)
-  signif.label <- ifelse(exp.group > 3 , "p.adj.signif", "p = {p.adj}")
-  w <- 3.5 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
-  #Y <- pwc$y.position
-  #gap.data <- max(data[, metric]) - min(data[, metric])
-  #gap <- max(Y[2] - Y[1], gap.data*0.07)
-  #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
   if(dataset == "arabidopsis"){
     dataset.name = "Arabidopsis"
   }else if(dataset == "cell_cycle"){
@@ -215,15 +206,20 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
   labels <- c()
   values <- c()
   levels <- levels(data$Algorithm)
-  if("dmnsga2" %in% levels){
-    labels <- c(labels, "DMNSGA-II")
-    values <- c(values, "#00AFBB")
-    factors <- c(factors, "dmnsga2")
-  } 
+  if("nsga2" %in% levels){
+    labels <- c(labels, "NSGA-II")
+    values <- c(values, "#FA6941")
+    factors <- c(factors, "nsga2")
+  }
   if("dnsga2" %in% levels){
     labels <- c(labels, "DNSGA-II")
     values <- c(values, "#E7B800")
     factors <- c(factors, "dnsga2")
+  }
+  if("dmnsga2" %in% levels){
+    labels <- c(labels, "DMNSGA-II")
+    values <- c(values, "#00AFBB")
+    factors <- c(factors, "dmnsga2")
   }
   if("mfuzz" %in% levels){
     labels <- c(labels, "Fuzzy")
@@ -240,16 +236,30 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
     values <- c(values, "#B744B8")
     factors <- c(factors, "moc.gapbk")
   }
-  if("nsga2" %in% levels){
-    labels <- c(labels, "NSGA-II")
-    values <- c(values, "#FA6941")
-    factors <- c(factors, "nsga2")
+  if("random" %in% levels){
+    labels <- c(labels, "Aleatorio")
+    values <- c(values, "#a0a887")
+    factors <- c(factors, "random")
   }
+  
+  data$Algorithm <- factor(data$Algorithm, levels = factors, ordered=TRUE)
+  
+  kruskal.res <- kruskal_test(data, formula=form)
+  pwc <- wilcox_test(data, formula=form, p.adjust.method="bonferroni")
+  pwc <- pwc %>% add_xy_position(x = exp.group)
+  signif.label <- ifelse(length(algorithms) > 4 , "p.adj.signif", "p = {p.adj}")
+  w <- 3.8 + 0.6*(length(unique(data[, exp.group])) - 3)#ifelse(exp.group>3, 6,5)
+  print(pwc)
+  
+  #sum <- summary(data[, c(exp.group,metric)])
+  info <- tapply(data[, metric], data$Algorithm, summary)
+  print(info)
   
   ggplot(data, aes_string(x=exp.group, y=metric)) +
     geom_boxplot(aes_string(fill=exp.group)) +
     labs(subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
          caption = get_pwc_label(pwc),
+         y=y.title,
          fill="Algoritmo",
          title=text.title) +
     theme_minimal() +
@@ -260,12 +270,12 @@ kruskal.multi.variable.tests.literature <- function(data, metric, exp.group, dat
           axis.text.x = element_blank(),#element_text(angle=25),
           legend.position="bottom", 
           plot.subtitle=element_text(size=10),
-          legend.title=element_text(size=12),
+          legend.title=element_text(size=11),
           #legend.spacing.x = unit(0, 'cm'),
           axis.title.x=element_blank(),
-          title = element_text(size=15, face="bold")) +
-    guides(fill = guide_legend(label.position = "bottom")) +
-    stat_pvalue_manual(pwc, label = signif.label, hide.ns = TRUE, step.increase=0.025)
+          title = element_text(size=12, face="bold")) +
+          guides(fill = guide_legend(label.position = "bottom")) +
+        stat_pvalue_manual(pwc, label = signif.label, hide.ns = TRUE, step.increase=0.055)
   if(data[1,4] == "NMI"){
     ggsave(file.path(output.path, paste0(metric, "_results_", dataset, "_NMI.png")), width = w, height = 7)
   }else if(data[1,4] == "jaccard"){

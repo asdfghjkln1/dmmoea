@@ -71,7 +71,7 @@ test_hypervolume_contribution <- function(){
   path <- file.path(path, results.path)
   print("Path in:")
   print(path)
-  contribution <- read.table(file.path(path, "contribution.csv"), sep=",", header=TRUE, row.names=NULL)
+  contribution <- read.table(file.path(path, "figures", "contribution", "contribution.csv"), sep=",", header=TRUE, row.names=NULL)
   hypervolume_comparison_tests(contribution, dataset, path)
 }
 
@@ -125,7 +125,7 @@ calculate_hypervolume_manual <- function(){
     }
   }
   colnames(contribution) <- c("id", "Algorithm", "Dataset", "hypervolume", "contributed", "total", "ratio")
-  write.table(contribution, file=file.path(path, "contribution.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
+  write.table(contribution, file=file.path(path, "figures", "contribution", "contribution.csv"), sep=",", append=FALSE, quote=FALSE, col.names=TRUE, row.names=FALSE)
   hypervolume_comparison_tests(contribution, dataset, path)
 }
 
@@ -162,73 +162,88 @@ hypervolume_comparison_tests <- function(data, dataset, output.path, metric="con
   #gap.data <- max(data[, metric]) - min(data[, metric])
   #gap <- max(Y[2] - Y[1], gap.data*0.07)
   #pwc$y.position <- Y - gap*seq(from=1, to=0, length.out=length(unique(data[, exp.group])))
+  legend.pos <- "none"
   if(dataset == "arabidopsis"){
-    dataset.name = "Arabidopsis"
+    dataset.name <- "Arabidopsis"
   }else if(dataset == "cell_cycle"){
-    dataset.name = "Cell Cycle"
+    dataset.name <- "Cell Cycle"
   }else if(dataset == "serum"){
-    dataset.name = "Serum"
+    dataset.name <- "Serum"
   }else if(dataset == "sporulation"){
-    dataset.name = "Sporulation"
+    dataset.name <- "Sporulation"
+    legend.pos <- "right"
   }
   
   if(metric == "contributed"){
-    text.title <- paste0("Soluciones contribuidas a frontera pareto")
+    text.title <- paste0("Contribuci\U00F3n pareto: ", dataset.name) 
+    #paste0("Soluciones contribuidas a frontera pareto")
   }else if(metric == "ratio"){
     text.title <- paste0("Porcentaje contribuci\U00F3n a frontera pareto")
   }
   
   labels <- c()
   values <- c()
+  factors <- c()
   levels <- levels(data$Algorithm)
   if("nsga2" %in% levels){
     labels <- c(labels, "NSGA-II")
     values <- c(values, "#00AFBB")
+    factors <- c(factors, "nsga2")
   } 
   if("dnsga2" %in% levels){
     labels <- c(labels, "DNSGA-II")
-    values <- c(values, "#FC4E07")
+    values <- c(values, "#F19B3E")
+    factors <- c(factors, "dnsga2")
   } 
   if("dmnsga2" %in% levels){
     labels <- c(labels, "DMNSGA-II")
-    values <- c(values, "#F19B3E")
+    values <- c(values, "#FC4E07")
+    factors <- c(factors, "dmnsga2")
   }
   if("tmix" %in% levels){
     labels <- c(labels, "Mixture M.")
     values <- c(values, "#02A9EA")
+    factors <- c(factors, "tmix")
   }
   if("mfuzz" %in% levels){
     labels <- c(labels, "Fuzzy")
     values <- c(values, "#69DC9E")
+    factors <- c(factors, "mfuzz")
   }
   if("moc.gapbk" %in% levels){
     labels <- c(labels, "MOCGaPBK")
     values <- c(values, "#E7B800")
+    factors <- c(factors, "moc.gapbk")
   } 
-  
-  data2 <- data %>% group_by(Algorithm, contributed) %>% summarise("Frecuencia"= n())
-  print(data[, c(2,5)])
 
+  
+  data$Algorithm <- factor(data$Algorithm, levels = factors, ordered=TRUE)
+  data2 <- data %>% group_by(Algorithm, contributed) %>% summarise("Frecuencia"= n())
+  data2$contributed <- as.character(data2$contributed)
+  print(data2[1:10,])
   ggplot(data2, aes(x=contributed, y=Frecuencia)) +
-    geom_bar(aes_string(fill=exp.group), stat="identity",position=position_dodge(), alpha=0.75) +
+    geom_bar(aes_string(fill=exp.group), stat="identity", position=position_dodge(preserve = "single"), alpha=0.75) +
+    #geom_density(aes_string(fill=exp.group), adjust=1.5, alpha=.4) + 
     labs(#subtitle = get_test_label(kruskal.res, detailed = FALSE, p.col="p.adj"), 
          #caption = get_pwc_label(pwc),
          fill="Algoritmo",
          title=text.title,
-         x="Contribuciones a frontera pareto ideal") +
+         x="N\U00B0 de soluciones aportadas") +
     theme_pubr() +
     scale_fill_manual(labels=labels, #c("NSGA-II", "DNSGA-II", "DMNSGA-II"),
                       values=values) +#c("#00AFBB", "#E7B800", "#FC4E07")) +
+    #scale_x_continuous(breaks=c(0,1,2,3,4,5,6,7,8,9,10,11,12)) +
     theme(#strip.text.x = element_blank(), 
           #axis.text.x = element_blank(),#element_text(angle=25),
-          legend.position="bottom", 
-          plot.subtitle=element_text(size=11),
+          legend.position=legend.pos, 
+          plot.subtitle=element_text(size=11)
           #legend.spacing.x = unit(0, 'cm'),
-          axis.title.x=element_blank()) +
+          #axis.title.x=element_blank()) + 
+          ) +
     guides(fill = guide_legend(label.position = "bottom")) +
     #stat_pvalue_manual(pwc, label = "p = {p.adj}", hide.ns = TRUE)
   
-  ggsave(file.path(output.path, paste0("contribution_", dataset, ".png")), width = 5, height = 7) 
+  ggsave(file.path(output.path, "figures", "contribution", paste0("contribution_", dataset, ".png")), width = 5, height = 7) 
   
   print(paste(metric, dataset, "... Done."))
 }
@@ -260,6 +275,16 @@ calculate_hypervolume <- function(pareto, point, maximise=FALSE){
   return(hv)
 }
 
+#1
+#limits <- data.frame("min.f1"=0, "max.f1"=234.74099,"min.f2"=0, "max.f2"=11.269)
+#scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
+#scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
+
+
+#data <- data.frame("f1"=234.740998476092,"f2"=8.37204832561306)
+#data.norm <- data.frame("f1"=unlist(lapply(data[, 1], scaler.f1)), "f2"=unlist(lapply(data[, 2], scaler.f2)))
+
+#eaf::hypervolume(data.norm, c(1,1), maximise=FALSE)
 
 calculate_hypervolume_manual_2 <- function(){
   args <- commandArgs(trailingOnly = TRUE)

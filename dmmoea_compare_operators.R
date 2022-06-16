@@ -116,7 +116,8 @@ plot_diversity_evolution_2 <- function(data, exp.name, output.folder){
                   fill = "Algorithm", palette = "jco",
                   add = "mean_sd", add.params = list(group = "Algorithm"),
                   position = position_dodge(0.2)) + 
-        labs(title=title)
+        labs(title=title) + 
+        theme(legend.position=c(0.8, 0.2))
   bp + stat_pvalue_manual(
     stat.test, x = "generation", y.position = 33, step.increase=-0.2,
     label = "p.signif",
@@ -137,7 +138,8 @@ plot_diversity_evolution_2 <- function(data, exp.name, output.folder){
       #subtitle = get_test_label(stat.test, detailed = TRUE),
       #caption = get_pwc_label(stat.test)) +
       stat_pvalue_manual(pvalues, label = "{p.adj.signif}", hide.ns = TRUE, xmin=NULL, xmax=NULL, x=1:20, y.position = 0.15, step.increase = -0.2) +
-      theme_minimal()
+      theme_minimal() +
+      theme(legend.position=c(0.8, 0.8))
   }else{
     ggplot(data, aes(x=generation, y=diversity)) +
       geom_boxplot(aes(fill=Algorithm)) +
@@ -199,8 +201,8 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
       #geom_errorbar(aes(ymin=Soluciones-se, ymax=Soluciones+se), width=.1, position=pd) +
       labs(x=xlab, y="N\U00FAmero de soluciones en selecci\U00E9n de supervivencia", title=title) +
       scale_fill_discrete(labels=c("Sobreviviente", "Descartado")) +
-      facet_wrap(~Algorithm)
-    theme_minimal()
+      facet_wrap(~Algorithm) +
+      theme_minimal()
     ggsave(file.path(output.folder, "survival_selection.png"))
   }
   
@@ -230,7 +232,10 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
     scale_colour_discrete(labels=labels.sil) +
     #subtitle = get_test_label(res, detailed = TRUE), 
     #caption = get_pwc_label(pwc)) +
-    theme_minimal()
+    theme_minimal() +
+    theme(legend.position = c(0.8, 0.2),
+          text=element_text(size=12),
+          title=element_text(size=14))
   ggsave(file.path(output.folder, paste0("quality_evolution.png")))
   
   #data.se$generation <- as.integer(data.se$generation)
@@ -291,7 +296,10 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
       #  hjust = hjust, vjust = vjust, orientation = orientation))+#, width = unit(0.4, "npc")) +
       #get_pwc_label(stat.test)) +
       #stat_pvalue_manual(pvalues, label = "{p.adj.signif}", hide.ns = TRUE, y.position = 0.15, step.increase = -0.2) +
-      theme_minimal()
+      theme_minimal() +
+      theme(legend.position = c(0.8, 0.8),
+            text=element_text(size=12),
+            title=element_text(size=14))
   }else{
     data$generation <- as.factor(data$generation)
     ggplot(data, aes(x=generation, y=diversity)) +
@@ -301,7 +309,10 @@ plot_diversity_evolution <- function(data, exp.name, output.folder){
            #subtitle = get_test_label(stat.test, detailed = TRUE), 
            #caption = get_pwc_label(stat.test)) +
       scale_fill_discrete(labels=labels) +
-      theme_minimal()
+      theme_minimal() +
+      theme(legend.position = c(0.2, 0.2),
+            text=element_text(size=12),
+            title=element_text(size=14))
   }
   ggsave(file.path(output.folder, paste0("diversity_evolution.png")))
   print("plot finished!")

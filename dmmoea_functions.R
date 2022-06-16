@@ -32,7 +32,7 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
   K <- params$K
   
   #output.path <- get_new_dirname(output.path)
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
+  #dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
   
   if(debug){
     output.log.file <- file.path(output.path, "log.txt")
@@ -179,16 +179,17 @@ nsga2 <- function(distances, params, output.path, initial_population=NULL, limit
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
+    #convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes >= generations.no.change.limit || evaluation.count > evaluations){
+    #if(generations.no.changes >= generations.no.change.limit || evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     ## Continue to next generation
@@ -216,7 +217,7 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
   K <- params$K
   
   #output.path <- get_new_dirname(output.path)
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
+  #dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE) 
   if(debug){ 
     output.log.file <- file.path(output.path, "log.txt")
     sink(output.log.file, append=FALSE)
@@ -387,13 +388,14 @@ dnsga2 <- function(distances, params, output.path, initial_population=NULL, limi
     convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes > generations.no.change.limit ||  evaluation.count > evaluations){
+    #if(generations.no.changes > generations.no.change.limit ||  evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     
@@ -535,16 +537,17 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
     }
     
     ## Measure convergence of pareto front
-    convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
+    #convergence.index <- convergence_coefficient(current.pareto.front, new.pareto.front, g, params$obj_maximize)
     
     ## Check how different is the new pareto front, count generations with no changes
-    if(convergence.index <= params$convergence_tol){
-      generations.no.changes <- generations.no.changes + 1 
-    }else{
-      generations.no.changes <- 0 # Reset counter if changes detected
-    }
+    #if(convergence.index <= params$convergence_tol){
+    #  generations.no.changes <- generations.no.changes + 1 
+    #}else{
+    #  generations.no.changes <- 0 # Reset counter if changes detected
+    #}
     ## Check for stop criteria
-    if(generations.no.changes > generations.no.change.limit || evaluation.count > evaluations){
+    #if(generations.no.changes > generations.no.change.limit || evaluation.count > evaluations){
+    if(evaluation.count > evaluations){
       has.converged <- TRUE
     }
     
@@ -578,7 +581,7 @@ diverse_memetic_nsga2 <- function(distances, params, output.path, initial_popula
   Agents <- list()
   
   #output.path <- get_new_dirname(output.path)
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
+  #dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
   
   if(debug){
     output.log.file <- file.path(output.path, "log.txt")
@@ -1634,6 +1637,22 @@ plot_phase_population <- function(solutions, phase, output.path, limits, is_fina
   suppressWarnings(ggsave(filename, height=5, width=7))
 }
 
+#status == 0 <-- algorithm started
+#status == 1 <-- algorithm finished
+save_timestamps <- function(status=0, output.path){
+  path <- file.path(output.path, "time.csv")
+  if(status){
+    time <- read.csv(path, header = TRUE, sep=" ")
+    time$finish <- as.character(Sys.time())
+    elapsed <- round(difftime(time$finish, time$start, units="mins"), 2)
+    time$elapsed <- elapsed
+    write.table(time, file = path, row.names = FALSE, col.names = TRUE, append = FALSE)
+  }else{
+    time <- data.frame("start"=as.character(Sys.time()), "finish"=NA, "elapsed"=NA)
+    write.table(time, file = path, row.names = FALSE)
+  }
+}
+
 # exp.path: path until database name
 plot_experiment_results <- function(exp.path){
   
@@ -2061,33 +2080,6 @@ evaluate_solutions <- function(population, clustering, distances, K, objDim, obj
   #write.csv(delta, file.path(output.path, "delta.csv"), row.names=FALSE)
   #write(hv.res, file.path(output.path, "hypervolume.txt"))
   return(list("results"=res, "pareto"=pareto[, obj.index]))
-}
-
-#NOT USED
-hipervolume_projection <- function(pareto, ref.vector, output.path){
-  projected.pareto <- pareto
-  size <- nrow(pareto)
-  obj.dim <- ncol(pareto)
-  for(i in 1:size){
-    for(obj in 1:obj.dim){
-      projected.pareto[i, obj] <- pareto[i, obj] + (1 - sum(pareto[i, ]))/obj.dim
-    }
-  }
-  labels <- c( rep("Original", size), rep("Projected", size) )
-  points <- rbind(pareto, projected.pareto)
-  points <- cbind( points, labels)
-  colnames(points) <- c("f1", "f2", "Hypervolume")
-  # Scatterplot of HV
-  ggplot(points, aes(x=f1, y=f2, color=Hypervolume, shape=Hypervolume)) +
-    geom_point() + 
-    labs(main="Hypervolume projection", xlab="Genetic expression", ylab="Biological function") +
-    theme_minimal()
-  # Save the figure
-  dir.create(file.path(output.path), recursive = TRUE, showWarnings = FALSE)
-  filename <- file.path(output.path, "pareto.png")
-  ggsave(filename, height=7, width=7)
-  
-  return(projected.pareto)
 }
 
 #Dev's Delta spread indicator

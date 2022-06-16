@@ -16,7 +16,7 @@ run_normalization <- function(){
   #source("dmmoea_distances.R")
   #source("dmmoea_irace_conf.R")
   
-  test.path <<- file.path(path, "Tests", paste0("tuning_", test))
+  test.path <<- file.path(path, test) #"Tests", paste0("tuning_", test))
   
   if(!file.exists(file.path(test.path, "limits.csv"))){
     print("limits.csv not exists")
