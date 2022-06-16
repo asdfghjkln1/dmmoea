@@ -191,9 +191,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     }
     #output.exp <- get_new_dirname(output.exp)
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
-    dir.create(output.folder, showWarnings=FALSE, recursive=TRUE)
     exp.id <- basename(output.exp)
-    
     dir.create(file.path(output.exp), recursive = TRUE, showWarnings = FALSE) 
     save_timestamps(status=0,output.path = output.exp)
     if(algorithm.name == "dmnsga2"){
