@@ -456,8 +456,8 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
   ## Main generation loop
   while(!has.converged){
     if(debug){
-      Log(paste("Entering selection, crossover, mutation for generation ", g), agent=agent)
-      Log(paste0("Evaluations used (", evaluation.count, "/", evaluations, ")"))
+      #Log(paste("Entering selection, crossover, mutation for generation ", g), agent=agent)
+      Log(paste0("Generation: ",g, "; Evaluations used (", evaluation.count, "/", evaluations, ")"))
     }
     if(nrow(P) < P.size){ # Fill solutions if population size is not enough. Does not happen commonly
       to.fill <- P.size-nrow(P)
@@ -526,9 +526,9 @@ dnsga2_agent <- function(distances, params, output.path, P.size, agent, phase, e
       P_next_generation <- fitness_selection_crowding_distance(R, P.size, K) 
     }
     P.clustering.groups <- R.clustering.groups[as.numeric(row.names(P_next_generation))] # Update clustering
-    if(debug){
-      print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups))) 
-    }
+    #if(debug){
+    #  print(paste("Last update of clustering: Population of", nrow(P_next_generation), "solutions; Number of cluster solutions:", length(P.clustering.groups))) 
+    #}
     row.names(P_next_generation) <- 1:nrow(P_next_generation)
     new.pareto.front <- P_next_generation[P_next_generation$rnkIndex == min(P_next_generation$rnkIndex), ]
     #pareto.clustering <- P.clustering.groups[as.numeric(row.names(new.pareto.front)) ]
@@ -1644,7 +1644,7 @@ save_timestamps <- function(status=0, output.path){
   if(status){
     time <- read.csv(path, header = TRUE, sep=" ")
     time$finish <- as.character(Sys.time())
-    elapsed <- round(difftime(time$finish, time$start, units="mins"), 2)
+    elapsed <- round(difftime(time$finish, time$start, units="hours"), 2)
     time$elapsed <- elapsed
     write.table(time, file = path, row.names = FALSE, col.names = TRUE, append = FALSE)
   }else{
