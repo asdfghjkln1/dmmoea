@@ -84,7 +84,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
     print(paste0("Starting ", algorithm, " in ", dataset, " run: ", i))
     exp.id <- basename(output.exp)
     dir.create(output.exp, showWarnings=FALSE, recursive=TRUE)
-    save_timestamps(status=0, output.path = output.folder)
+    save_timestamps(status=0, output.path = output.exp)
     if(algorithm == "dmnsga2"){
       res <- diverse_memetic_nsga2(distances, params, output.exp, debug=TRUE, plot=FALSE)
     }else if(algorithm == "dnsga2"){
@@ -103,7 +103,7 @@ execute_tests <- function(params, path, output.folder, algorithm, dataset, trial
       warning("Algorithm not supported!!")
       return(NULL)
     }
-    elapsed <- save_timestamps(status=1, output.path = output.folder)
+    elapsed <- save_timestamps(status=1, output.path = output.exp)
     evaluate_solutions(res$population, res$clustering, distances, params$K, 
                        params$objDim, params$obj_maximize, dirname(output.exp), exp.id, algorithm, dataset, time=elapsed, plot=FALSE)
   }
