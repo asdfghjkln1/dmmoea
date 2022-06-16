@@ -28,7 +28,7 @@ literature_comparison_experiments <- function(){
   #Load best params
   best_params <- read.table(file.path(tune.path, ref.algorithm, "best_configurations.csv"), sep=",", header=TRUE, row.names=NULL)
   
-  test.path <- file.path(path, "Tests", "experiments", paste0(best_params$objectives, "_2"))
+  test.path <- file.path(path, "Tests", "experiments", paste0(best_params$objectives))
   # Initialize params
   params <- init_parameters(objectives=best_params$objectives)
   params$K <- as.numeric(best_params$K)
