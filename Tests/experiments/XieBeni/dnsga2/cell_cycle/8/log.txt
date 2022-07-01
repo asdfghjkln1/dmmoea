@@ -1,0 +1,93 @@
+2022-06-27 21:01:42: Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2022-06-27 22:59:45: Entering selection, crossover, mutation for generation  100
+2022-06-27 22:59:45: Evaluations used (4000/1e+05)
+2022-06-28 00:42:20: Entering selection, crossover, mutation for generation  200
+2022-06-28 00:42:20: Evaluations used (8000/1e+05)
+2022-06-28 01:55:33: Entering selection, crossover, mutation for generation  300
+2022-06-28 01:55:33: Evaluations used (12000/1e+05)
+2022-06-28 03:04:47: Entering selection, crossover, mutation for generation  400
+2022-06-28 03:04:47: Evaluations used (16000/1e+05)
+2022-06-28 04:15:38: Entering selection, crossover, mutation for generation  500
+2022-06-28 04:15:38: Evaluations used (20000/1e+05)
+2022-06-28 05:33:10: Entering selection, crossover, mutation for generation  600
+2022-06-28 05:33:10: Evaluations used (24000/1e+05)
+2022-06-28 06:38:30: Entering selection, crossover, mutation for generation  700
+2022-06-28 06:38:30: Evaluations used (28000/1e+05)
+2022-06-28 07:24:37: Entering selection, crossover, mutation for generation  800
+2022-06-28 07:24:37: Evaluations used (32000/1e+05)
+2022-06-28 08:18:22: Entering selection, crossover, mutation for generation  900
+2022-06-28 08:18:22: Evaluations used (36000/1e+05)
+2022-06-28 08:53:35: Entering selection, crossover, mutation for generation  1000
+2022-06-28 08:53:35: Evaluations used (40000/1e+05)
+2022-06-28 09:32:48: Entering selection, crossover, mutation for generation  1100
+2022-06-28 09:32:48: Evaluations used (44000/1e+05)
+2022-06-28 10:22:26: Entering selection, crossover, mutation for generation  1200
+2022-06-28 10:22:26: Evaluations used (48000/1e+05)
+2022-06-28 11:13:20: Entering selection, crossover, mutation for generation  1300
+2022-06-28 11:13:20: Evaluations used (52000/1e+05)
+2022-06-28 12:02:31: Entering selection, crossover, mutation for generation  1400
+2022-06-28 12:02:31: Evaluations used (56000/1e+05)
+2022-06-28 12:56:32: Entering selection, crossover, mutation for generation  1500
+2022-06-28 12:56:32: Evaluations used (60000/1e+05)
+2022-06-28 13:39:16: Entering selection, crossover, mutation for generation  1600
+2022-06-28 13:39:16: Evaluations used (64000/1e+05)
+2022-06-28 14:10:44: Entering selection, crossover, mutation for generation  1700
+2022-06-28 14:10:44: Evaluations used (68000/1e+05)
+2022-06-28 14:44:51: Entering selection, crossover, mutation for generation  1800
+2022-06-28 14:44:51: Evaluations used (72000/1e+05)
+2022-06-28 15:27:14: Entering selection, crossover, mutation for generation  1900
+2022-06-28 15:27:14: Evaluations used (76000/1e+05)
+2022-06-28 15:57:45: Entering selection, crossover, mutation for generation  2000
+2022-06-28 15:57:45: Evaluations used (80000/1e+05)
+2022-06-28 16:42:17: Entering selection, crossover, mutation for generation  2100
+2022-06-28 16:42:17: Evaluations used (84000/1e+05)
+2022-06-28 17:35:13: Entering selection, crossover, mutation for generation  2200
+2022-06-28 17:35:13: Evaluations used (88000/1e+05)
+2022-06-28 18:08:59: Entering selection, crossover, mutation for generation  2300
+2022-06-28 18:08:59: Evaluations used (92000/1e+05)
+2022-06-28 18:47:14: Entering selection, crossover, mutation for generation  2400
+2022-06-28 18:47:14: Evaluations used (96000/1e+05)
+2022-06-28 19:31:37: Entering selection, crossover, mutation for generation  2500
+2022-06-28 19:31:37: Evaluations used (1e+05/1e+05)
+[1] "Output: Population of 40 solutions; Number of cluster solutions: 40"
+    V1  V2  V3  V4  V5       f1         f2 rnkIndex  cd.density
+1  346  84  34 245 125 4.203523   5.901894        1         Inf
+2  374 169  92 119 251 6.769340   3.281642        1         Inf
+3  148  21 383 119 145 4.426646   4.857265        1 0.013027876
+4   21 119 374 145  58 4.540403   4.132282        1 0.009223049
+5  374  92 383 261 119 5.313270   3.409043        1 0.007593264
+6   21 383  58 169 119 4.494090   4.670654        1 0.007431302
+7  231  92 112 169 119 6.057599   3.307625        1 0.007312469
+8  191 112  92 119 169 4.954160   3.909893        1 0.006664379
+9  315 112  92 169 119 5.205217   3.727477        1 0.006307192
+10 374  57 346  34 145 4.215655   6.271234        2         Inf
+11 112 119  92 169 251 7.117074   3.281642        2         Inf
+12  21 383 119 145  58 4.515342   4.670654        2 0.019891427
+13 127 161  25 374 383 5.397725   3.409043        2 0.008010203
+14  90 350   7 161 127 6.289872   3.365018        2 0.006065735
+15 374  30  92 119 383 5.380601   3.803527        2 0.005440037
+16 191  58 383 119 169 4.562818   4.349269        2 0.004809011
+17 234  34  62 374 119 4.797851   4.292566        2 0.004519068
+18 231  92 278 169 374 6.615317   3.307625        2 0.004259777
+19 231 307 112 119  89 5.160114   4.138637        2 0.003719608
+20  90   7 292 127 278 5.181647   4.072186        2 0.002125196
+21 119 161  92 374  34 5.241382   3.907907        2 0.002012074
+22 127   7 292 374 278 5.208675   3.938295        2 0.001825943
+23 374 108  92 169 251 9.452719   3.281642        3         Inf
+24  34   8 145 346 374 4.260455 107.513215        3         Inf
+25 374 119  34 145  58 4.310634   9.045857        3 0.964780122
+26 292  84  29 346 374 4.330488   6.983197        3 0.023690990
+27 127   7 374 231 278 6.623226   3.307625        3 0.012967682
+28 374  88 145 119  34 4.444570   6.634899        3 0.010871210
+29 119  51 383 112  92 5.399270   3.803527        3 0.010804189
+30   7 127 278 292 328 4.911377   4.311424        3 0.009164965
+31 383 161  92 374 119 5.424624   3.409043        3 0.008993331
+32 292  84  34 346 374 4.638723   5.984453        3 0.008729532
+33 374 119  21 145  57 4.779909   4.488788        3 0.008023707
+34 145  84  34 346 374 4.638823   5.809693        3 0.008016252
+35 383 350   7 161 299 4.701791   5.176401        3 0.007490703
+36  21 383  57 169 119 4.732551   5.069787        3 0.006923710
+37  90 350   7 158 127 6.543592   3.365018        3 0.005986304
+38 346  84  34 105 125 4.583545   6.992993        4         Inf
+39   7 170 278 158  90 6.697429   3.365018        4         Inf
+40 383 374  92 119  34 5.818796   4.410437        4 0.043648450

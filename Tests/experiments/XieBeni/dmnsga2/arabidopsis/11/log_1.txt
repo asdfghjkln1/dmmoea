@@ -1,0 +1,63 @@
+2022-06-17 23:40:30: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-17 23:43:28: Generation: 100; Evaluations used (990/8333)
+2022-06-17 23:46:25: Generation: 200; Evaluations used (1990/8333)
+2022-06-17 23:49:18: Generation: 300; Evaluations used (2990/8333)
+2022-06-17 23:52:09: Generation: 400; Evaluations used (3990/8333)
+2022-06-17 23:55:00: Generation: 500; Evaluations used (4990/8333)
+2022-06-17 23:57:53: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 00:00:48: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 00:03:45: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1   41  83  18 117   1  6.152510 10.264635        1        Inf
+2   36   1 121  78  94 19.434820  3.927062        1        Inf
+3   86  10   1 130  55  6.258941  8.217058        1 0.29613959
+4    5  41  46 117 125  6.311827  6.336625        1 0.27701072
+5    5  86  55 117  46  7.031169  4.573070        1 0.14462849
+6    1 124  45  86  96  7.538669  4.122146        1 0.06046418
+7  113  46 122  25   7 15.993253  4.081545        1 0.05819261
+8    5  86  46 124  55  7.355217  4.465205        1 0.03578533
+9   81   5  46  17  51 43.981933  4.447776        2        Inf
+10  41  86 125  46   5  8.326809  5.490645        2        Inf
+2022-06-18 00:04:56: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 00:07:50: Generation: 100; Evaluations used (990/8333)
+2022-06-18 00:10:39: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 00:13:29: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 00:16:26: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 00:19:15: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 00:22:05: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 00:24:59: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 00:27:59: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1   63 125  88  41 106  5.589436 10.475993        1        Inf
+2  121   1  92 125 128 68.231117  3.896297        1        Inf
+3    3 125 105 113  72  5.739062  7.422499        1 0.59011090
+4   46 125  36  72 113  6.080602  5.356255        1 0.38480705
+5    1 125  36 121  20 19.901499  3.926878        1 0.35295529
+6   86  46  36 121  20  7.238219  4.149869        1 0.17854624
+7  121  86   9   1  94 13.719907  3.927062        1 0.07392225
+8   36  46  76 113 122 11.135760  4.081545        1 0.06709301
+9  125 127  19 121  20 25.752331  4.313483        2        Inf
+10  46   9  97 125 128 10.280518 10.186906        2 0.27829510
+2022-06-18 00:29:06: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 00:32:04: Generation: 100; Evaluations used (990/8333)
+2022-06-18 00:35:03: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 00:38:03: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 00:40:54: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 00:43:52: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 00:46:54: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 00:49:53: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 00:52:48: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1   63 125  88  41 106  5.589436 10.475993        1        Inf
+2   59 107  92 121  45 29.406708  3.815282        1        Inf
+3   89 111  41  23 125  5.725669  8.614465        1 0.40134413
+4   34  46  86 120   9  5.952379  4.533489        1 0.29310102
+5    1   9  31  94 121 10.648083  3.927062        1 0.19538722
+6   86 130  34   9 101  5.699735 10.214873        1 0.13193805
+7  107  46  31 121  92  8.639626  4.184867        1 0.06092506
+8   34  86   9 127  15  7.834974  4.467427        1 0.03169437
+9  128  46  34  41   9  7.198470  4.468561        1 0.01555675
+10  86  46 130   9  34  6.109064  4.488445        1 0.01472844

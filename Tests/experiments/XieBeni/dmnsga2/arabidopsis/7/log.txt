@@ -1,0 +1,23 @@
+2022-06-16 05:46:06: Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-16 05:46:52: Evaluations used (40/1e+05)
+[1] "Agent 1 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 2 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 3 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 4 has now 10 solutions"
+[1] "Cluster numbers: 10"
+2022-06-16 06:11:52: Phase 1 agents finished!. Starting sync stage...
+2022-06-16 06:11:56: Evaluations used (33373/1e+05)
+[1] "Agent 1 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 2 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 3 has now 10 solutions"
+[1] "Cluster numbers: 10"
+[1] "Agent 4 has now 10 solutions"
+[1] "Cluster numbers: 10"
+2022-06-16 06:37:03: Phase 2 agents finished!. Starting sync stage...
+2022-06-16 06:37:08: Evaluations used (66706/1e+05)
+2022-06-16 07:01:42: Agent finished last phase!, exiting...

@@ -1,0 +1,63 @@
+2022-06-18 07:31:35: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 07:40:31: Generation: 100; Evaluations used (990/8333)
+2022-06-18 07:49:24: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 07:58:13: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 08:06:59: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 08:15:19: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 08:24:09: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 08:33:02: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 08:42:03: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5       f1       f2 rnkIndex cd.density
+1   22  65 292 151 103 7.186934 3.739901        1        Inf
+2   65  16  74 151 375 6.103437 7.771387        1        Inf
+3   19  65  74 151 375 6.223171 6.858221        1 0.07128934
+4  151  65 292  22  97 6.737557 4.482855        1 0.05789849
+5   65 292  19 151 103 7.174232 4.404898        1 0.01819059
+6   16  65  74 394 151 6.162662 7.613776        1 0.01779715
+7   16  65  74 372 151 6.111010 7.645641        1 0.00371198
+8  151 292  65  20  66 7.510062 3.739901        2        Inf
+9  151  65 292  16 394 6.431214 7.497989        2        Inf
+10  20  65 292 151  97 7.197349 4.482855        2 0.08715222
+2022-06-18 08:45:29: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 08:54:20: Generation: 100; Evaluations used (990/8333)
+2022-06-18 09:03:29: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 09:12:27: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 09:21:15: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 09:30:06: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 09:38:27: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 09:47:46: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 09:56:55: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5         f1        f2 rnkIndex cd.density
+1   22  65 292 151 103   7.186934  3.739901        1        Inf
+2   65  19 347 196 375   5.939300 11.524616        1        Inf
+3   65 277  19 111 347   6.202109  9.286770        1 0.73362944
+4   65 292  19 151 375   6.491723  4.898905        1 0.61730282
+5   19  65 347 375 208   6.061765 10.608707        1 0.18499029
+6   19  65 347 248 375   5.971750 10.726173        1 0.11770225
+7   65 292  19 151 103   7.174232  4.404898        1 0.09561144
+8  151  65 292  22  97   6.737557  4.482855        1 0.06372261
+9   19  65 227 151 248 467.852285  4.853867        2        Inf
+10  79  65  22 151 414  16.772742  4.935728        2 0.91903712
+2022-06-18 10:01:09: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 10:09:59: Generation: 100; Evaluations used (990/8333)
+2022-06-18 10:18:57: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 10:28:06: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 10:37:07: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 10:46:12: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 10:55:38: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 11:04:51: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 11:14:03: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+   V1  V2  V3  V4  V5        f1       f2 rnkIndex   cd.density
+1  22  65 292 151 103  7.186934 3.739901        1          Inf
+2  22  65 376 255 103  5.325753 8.418825        1          Inf
+3  65  32 376 255 103  5.348005 8.016581        1 0.0118278016
+4  65  22 376 311 103  5.366597 4.987580        1 0.0109491664
+5  65 292  19 151 103  7.174232 4.404898        1 0.0026486871
+6  65  22 376 267 103  5.540863 4.594982        1 0.0013989445
+7  32  65 376 311 103  5.388976 4.840359        1 0.0013774801
+8  32  65 267 376 103  5.563114 4.441525        1 0.0008875888
+9  22  65 292 195 103 25.315691 4.052277        2          Inf
+10 65  22 292 248 103 19.949174 4.314554        2          Inf

@@ -1,0 +1,63 @@
+2022-06-18 16:31:09: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 16:40:38: Generation: 100; Evaluations used (990/8333)
+2022-06-18 16:50:00: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 16:59:18: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 17:08:49: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 17:18:12: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 17:27:36: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 17:36:46: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 17:46:15: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  387 249 341 393 251 18.983364 4.251468        1        Inf
+2  387 293 341  19 251  5.866899 5.528945        1        Inf
+3  258 249 112 341 474  6.309369 4.616354        1 0.08325174
+4  335 347 251 407  19  7.101002 4.338772        1 0.02635375
+5  293 341 251 393  19  8.565645 4.256241        1 0.01339722
+6  251 387 112 393  36 19.175003 4.251468        2        Inf
+7  341 407 337  19 251  5.987345 8.562180        2        Inf
+8  347 253 407 341  19  6.401120 4.647946        2 0.27388703
+9  494 293 367  19 393  8.602197 4.256241        2 0.03303395
+10 474 249 407  87 258  6.648845 4.616354        2 0.02850921
+2022-06-18 17:50:04: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 17:59:20: Generation: 100; Evaluations used (990/8333)
+2022-06-18 18:08:48: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 18:18:14: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 18:27:39: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 18:37:18: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 18:47:10: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 18:56:55: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 19:06:42: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5       f1       f2 rnkIndex cd.density
+1  240 294 247 490 223 8.822309 3.620584        1        Inf
+2  261  15 292 367 330 5.029886 9.723460        1        Inf
+3  292 261 258 367  15 5.045472 4.307948        1 0.50314726
+4  294 240 287 223 463 7.860546 3.993455        1 0.06379464
+5  261 258 292 129 381 6.897805 4.212474        1 0.04404047
+6  392 240 247 490 223 9.118757 3.620584        2        Inf
+7  258 367 292 223 261 5.774885 7.632004        2        Inf
+8  381  27 219 258 292 7.771086 4.650034        2 0.33722867
+9  240 294  74 223 463 7.897489 3.993455        2 0.06916601
+10 247 292 413 240 490 8.980496 3.952772        2 0.04023878
+2022-06-18 19:10:32: [Agent 1] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 19:20:19: Generation: 100; Evaluations used (990/8333)
+2022-06-18 19:30:09: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 19:40:01: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 19:49:51: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 19:59:45: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 20:09:33: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 20:19:18: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 20:29:05: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex  cd.density
+1  261 292 367  21 258  4.801702 9.310365        1         Inf
+2  287 354 185 392 246 11.658733 4.195400        1         Inf
+3  292 185 355 261 246  6.858613 4.198321        1 0.040686506
+4  292 261 258 367  15  5.045472 4.307948        1 0.019218568
+5  292 261  15 367 319  5.529979 8.801899        2         Inf
+6  287 354 185 461 246 12.257098 4.195400        2         Inf
+7  261 292 185 413 246  7.954167 4.198321        2 0.032842169
+8  261 129 367 292 258  6.903311 4.212474        2 0.013122189
+9  261 292 367 322  15  5.836726 4.307948        2 0.011446788
+10 307 383  38 257 479  5.551855 6.658220        2 0.007690503
