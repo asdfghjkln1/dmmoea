@@ -2466,15 +2466,15 @@ get_normalization_limits <- function(base.path){
         print(paste0("Dataset ", dataset))
         ratio <- quantile(data.dataset$max.f1, 0.9, na.rm=TRUE)/quantile(data.dataset$max.f2, 0.9, na.rm=TRUE)
         print(ratio)
-	if(ratio > 35){
-          cut.f1 <- 0.5
-	}else if(ratio < 0.02){
-          cut.f2 <- 0.5
-	}else if(ratio > 10){
-          cut.f1 <- 0.7
-	}else if(ratio < 0.1){
-	  cut.f2 <- 0.7
-	}
+      	#if(ratio > 35){
+        #        cut.f1 <- 0.5
+      	#}else if(ratio < 0.02){
+        #        cut.f2 <- 0.5
+      	#}else if(ratio > 10){
+        #        cut.f1 <- 0.7
+      	#}else if(ratio < 0.1){
+      	#  cut.f2 <- 0.7
+      	#}
         limits <- data.frame("min.f1"=min.f1, "max.f1"=quantile(data.dataset$max.f1, cut.f1, na.rm=TRUE), "min.f2"=min.f2, "max.f2"=quantile(data.dataset$max.f2, cut.f2, na.rm=TRUE))
         write.table(limits, file=file.path(base.path, algorithm, dataset, "limits.csv"), sep=",", append=FALSE, row.names = FALSE, col.names = TRUE)
       }
