@@ -2350,14 +2350,14 @@ remove_duplicated <- function(population, K){
   return(population[!duplicated(pop), ])
 }
 
-normalise_pareto <- function(data, limits=NULL, dims=2){
+normalise_pareto <- function(data, limits=NULL){
   if(is.null(limits)){
-    max <- apply(data, 2, max)
-    min <- apply(data, 2, min)
-    for(i in 1:dims){
-      scaler <- function(x){ min(1, (x-min[i])/(max[i]-min[i])) }
-      data[, i] <- scaler(data[, i])
-    }
+    max.a <<- apply(data, 2, max)
+    min.a <<- apply(data, 2, min)
+    print(min.a)
+    print(max.a)
+    data[, 1] <- (data[, 1]-min.a[1])/(max.a[1]-min.a[1]) 
+    data[, 2] <- (data[, 2]-min.a[2])/(max.a[2]-min.a[2])
   }else{
     data[,1] <- ifelse(data[, 1] < limits$max.f1, data[, 1], limits$max.f1)
     data[,2] <- ifelse(data[, 2] < limits$max.f2, data[, 2], limits$max.f2)

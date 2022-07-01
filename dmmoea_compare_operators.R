@@ -24,6 +24,15 @@ compare_operators <- function(){
   source("dmmoea_functions.R")
 
   results.path <- file.path(path, results.path, operator)
+  if(file.exists(file.path(results.path, "diversity_evolution.csv"))){
+    print("Previous file found!")
+    dat <- read.csv(file.path(results.path, "diversity_evolution.csv"), header = TRUE)
+    curr.trial <- max(as.numeric(dat$id))
+    print("Latest trial is: ")
+    print(curr.trial)
+  }else{
+    curr.trial <- NULL
+  }
   dir.create(results.path, recursive = TRUE, showWarnings = FALSE)
   print("Path in:")
   print(results.path)
@@ -66,13 +75,13 @@ compare_operators <- function(){
     params$dataset <- dataset
     distances <- load.gene.distance(dataset, params$alpha)
     if(operator == "lv1"){
-      test_operator_lv1(params, distances, dataset, results.path, runs) 
+      test_operator_lv1(params, distances, dataset, results.path, runs, curr.trial) 
     }else if(operator == "lv2"){
-      test_operator_lv2(params, distances, dataset, results.path, runs)
+      test_operator_lv2(params, distances, dataset, results.path, runs, curr.trial)
     }else if(operator == "lv3"){
-      test_operator_lv3(params, distances, dataset, results.path, runs)
+      test_operator_lv3(params, distances, dataset, results.path, runs, curr.trial)
     }else if(operator == "lv4"){
-      test_operator_lv4(params, distances, dataset, results.path, runs)
+      test_operator_lv4(params, distances, dataset, results.path, runs, curr.trial)
     }
   }
   #}
@@ -362,7 +371,7 @@ test_operator_lv1_v2 <- function(params, distances, dataset, output.folder, runs
   write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
 }
 
-test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31, curr.trial=NULL){
   operators <- c("Random", "Selective", "Selective_Diverse", "Selective_Diverse+")
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
     res <- as.data.frame(matrix(nrow=1, ncol=8))
@@ -371,7 +380,10 @@ test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31
   }
   seeds <- c()
   count <- 1
-  for(i in 1:runs){
+  if(is.null(curr.trial)){
+    start <- 1
+  }else { start <- curr.trial}
+  for(i in start:runs){
     params$auto_adjust_initial_params <- FALSE
     print(paste0("dataset ", dataset, " run ", i))
     seed <- as.numeric(Sys.time())
@@ -401,13 +413,18 @@ test_operator_lv1 <- function(params, distances, dataset, output.folder, runs=31
     nsga2(distances, params, output.exp, initial_population=P, debug=FALSE, plot=FALSE, calculate.diversity=TRUE, experiment.name="Selective_Diverse+", base.path=output.folder)
     
     count <- count + 4
-  } 
-  write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  if(curr.trial){
+    write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=TRUE, sep=",", row.names = FALSE, col.names = TRUE) 
+  }else{
+    write.table(as.data.frame(seeds), file=file.path(output.folder, "seeds.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
+  }
+  
 }
 
 
 
-test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31, curr.trial=NULL){
   operators <- c("Crowding_Distance", "Jaccard", "NMI")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
@@ -415,8 +432,10 @@ test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31
     colnames(res) <- c("id", "Algorithm", "Dataset", "diversity", "generation", "silhouette", "survived", "discarded")
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
-  
-  for(i in 1:runs){
+  if(is.null(curr.trial)){
+    start <- 1
+  }else { start <- curr.trial}
+  for(i in start:runs){
     seed <- as.numeric(Sys.time())
     P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
     for(j in 1:length(operators)){
@@ -451,7 +470,7 @@ test_operator_lv2 <- function(params, distances, dataset, output.folder, runs=31
   } 
 }
 
-test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31, curr.trial=NULL){
   operators <- c("Direct_Crossover", "Selective_Crossover", "Diverse_Mutation", "Combined")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
@@ -460,7 +479,10 @@ test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
-  for(i in 1:runs){
+  if(is.null(curr.trial)){
+    start <- 1
+  }else { start <- curr.trial}
+  for(i in start:runs){
     seed <- as.numeric(Sys.time())
     P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
     for(j in 1:length(operators)){
@@ -495,7 +517,7 @@ test_operator_lv3 <- function(params, distances, dataset, output.folder, runs=31
   } 
 }
 
-test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31){
+test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31, curr.trial=NULL){
   operators <- c("Elitist_sync", "Diverse_sync")
   
   if(!file.exists(file.path(output.folder, "diversity_evolution.csv"))){
@@ -504,7 +526,10 @@ test_operator_lv4 <- function(params, distances, dataset, output.folder, runs=31
     write.table(res, file=file.path(output.folder, "diversity_evolution.csv"), append=FALSE, sep=",", row.names = FALSE, col.names = TRUE)
   }
   
-  for(i in 1:runs){
+  if(is.null(curr.trial)){
+    start <- 1
+  }else { start <- curr.trial}
+  for(i in start:runs){
     seed <- as.numeric(Sys.time())
     P <- generate_initial_pop(params$popSize, params$K, distances$n.genes, seed)
     for(j in 1:length(operators)){
