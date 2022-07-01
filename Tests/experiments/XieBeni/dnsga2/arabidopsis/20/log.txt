@@ -1,0 +1,93 @@
+2022-06-19 06:33:53: Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2022-06-19 07:00:45: Entering selection, crossover, mutation for generation  100
+2022-06-19 07:00:45: Evaluations used (4000/1e+05)
+2022-06-19 07:23:11: Entering selection, crossover, mutation for generation  200
+2022-06-19 07:23:11: Evaluations used (8000/1e+05)
+2022-06-19 07:42:46: Entering selection, crossover, mutation for generation  300
+2022-06-19 07:42:46: Evaluations used (12000/1e+05)
+2022-06-19 08:04:05: Entering selection, crossover, mutation for generation  400
+2022-06-19 08:04:05: Evaluations used (16000/1e+05)
+2022-06-19 08:25:02: Entering selection, crossover, mutation for generation  500
+2022-06-19 08:25:02: Evaluations used (20000/1e+05)
+2022-06-19 08:42:44: Entering selection, crossover, mutation for generation  600
+2022-06-19 08:42:44: Evaluations used (24000/1e+05)
+2022-06-19 09:01:23: Entering selection, crossover, mutation for generation  700
+2022-06-19 09:01:23: Evaluations used (28000/1e+05)
+2022-06-19 09:19:03: Entering selection, crossover, mutation for generation  800
+2022-06-19 09:19:03: Evaluations used (32000/1e+05)
+2022-06-19 09:38:10: Entering selection, crossover, mutation for generation  900
+2022-06-19 09:38:10: Evaluations used (36000/1e+05)
+2022-06-19 09:57:18: Entering selection, crossover, mutation for generation  1000
+2022-06-19 09:57:18: Evaluations used (40000/1e+05)
+2022-06-19 10:15:33: Entering selection, crossover, mutation for generation  1100
+2022-06-19 10:15:33: Evaluations used (44000/1e+05)
+2022-06-19 10:34:54: Entering selection, crossover, mutation for generation  1200
+2022-06-19 10:34:54: Evaluations used (48000/1e+05)
+2022-06-19 10:53:23: Entering selection, crossover, mutation for generation  1300
+2022-06-19 10:53:23: Evaluations used (52000/1e+05)
+2022-06-19 11:15:34: Entering selection, crossover, mutation for generation  1400
+2022-06-19 11:15:34: Evaluations used (56000/1e+05)
+2022-06-19 11:36:27: Entering selection, crossover, mutation for generation  1500
+2022-06-19 11:36:27: Evaluations used (60000/1e+05)
+2022-06-19 11:57:16: Entering selection, crossover, mutation for generation  1600
+2022-06-19 11:57:16: Evaluations used (64000/1e+05)
+2022-06-19 12:15:01: Entering selection, crossover, mutation for generation  1700
+2022-06-19 12:15:01: Evaluations used (68000/1e+05)
+2022-06-19 12:30:33: Entering selection, crossover, mutation for generation  1800
+2022-06-19 12:30:33: Evaluations used (72000/1e+05)
+2022-06-19 12:46:22: Entering selection, crossover, mutation for generation  1900
+2022-06-19 12:46:22: Evaluations used (76000/1e+05)
+2022-06-19 13:04:06: Entering selection, crossover, mutation for generation  2000
+2022-06-19 13:04:06: Evaluations used (80000/1e+05)
+2022-06-19 13:19:49: Entering selection, crossover, mutation for generation  2100
+2022-06-19 13:19:49: Evaluations used (84000/1e+05)
+2022-06-19 13:35:44: Entering selection, crossover, mutation for generation  2200
+2022-06-19 13:35:44: Evaluations used (88000/1e+05)
+2022-06-19 13:51:36: Entering selection, crossover, mutation for generation  2300
+2022-06-19 13:51:36: Evaluations used (92000/1e+05)
+2022-06-19 14:06:44: Entering selection, crossover, mutation for generation  2400
+2022-06-19 14:06:44: Evaluations used (96000/1e+05)
+2022-06-19 14:22:28: Entering selection, crossover, mutation for generation  2500
+2022-06-19 14:22:28: Evaluations used (1e+05/1e+05)
+[1] "Output: Population of 40 solutions; Number of cluster solutions: 40"
+    V1  V2  V3  V4  V5        f1        f2 rnkIndex   cd.density
+1   96  58 122 118 113 49.720330  3.200684        1          Inf
+2   83  13  52 125 111  5.053304  7.631223        1          Inf
+3   96  23 113 118 122 27.410284  3.267868        1 0.0065427136
+4  125  13 109  44  72  5.858048  5.827527        1 0.0054438054
+5  118  46 113  96  23  9.727134  3.708299        1 0.0049136032
+6  122  58  36 118  96 24.819164  3.641114        1 0.0049039662
+7  121  46  34   9  78  6.189895  4.483612        1 0.0029615056
+8   36   2  84 111 125  5.515444  7.103970        1 0.0027172337
+9   46 113   9 118  25  7.093567  4.081545        1 0.0021957816
+10 109  46  34  82   9  6.823844  4.469358        1 0.0010169672
+11  13  84  52 125 111  5.131479  7.318881        1 0.0007596748
+12  13  49  84 111 125  5.247019  7.276755        1 0.0004588683
+13  84 125  13  15  62  5.464782  7.129092        1 0.0004098076
+14  84 125  13  41  62  5.100890 12.705664        2          Inf
+15 122  36  58 118 113 50.145454  3.200684        2          Inf
+16  32  83  13 125 111  5.244791  9.304958        2 0.0086099813
+17 122 118 113  36  23 27.631069  3.267868        2 0.0065297227
+18  36  46 113 118  23  9.738951  3.708299        2 0.0050214419
+19 122 118  96  25  58 25.301508  3.641114        2 0.0049514093
+20 127  78  46  13  59  5.981573  6.275080        2 0.0047846045
+21 128  34  46  78  13  6.300226  4.601679        2 0.0036470146
+22  13 125  83  36 111  5.283952  8.461915        2 0.0024282082
+23   9  34  46 113 118  7.100925  4.081545        2 0.0023885508
+24  84 111 125  13  36  5.346330  8.113738        2 0.0023032202
+25  13  56  15 111 125  5.511088  7.346721        2 0.0021900919
+26 109 125  13  41  56  5.967758  6.934003        2 0.0016665062
+27  78 109  46 100  34  6.319242  4.506763        2 0.0012319727
+28  13  84 125  15 111  5.873984  7.088366        2 0.0009369855
+29 122  58 113 118  25 51.074215  3.200684        3          Inf
+30  16 128  79  13  46  5.731245  7.722200        3          Inf
+31 122 118 113  23  55 27.755722  3.267868        3 0.0066185742
+32  96  36 122 118 113 25.838913  3.641114        3 0.0049643200
+33  96  23 113  78 118  9.806738  3.708299        3 0.0048145808
+34 128  46  78  13  59  6.272730  6.275080        3 0.0040046329
+35  78  46  34   9 113  6.695869  4.521975        3 0.0036700527
+36  16 128  78  13  46  6.007895  6.882001        3 0.0026758436
+37   5 118  36  46 113  8.549470  4.081545        3 0.0019514240
+38 112  78  46  13  59  6.027687  6.430248        3 0.0012855427
+39   9 128  46  79  19  7.920808  4.462731        3 0.0012757456
+40 100 108  34  46  78  6.711872  4.506763        3 0.0003977230

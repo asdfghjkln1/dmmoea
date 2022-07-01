@@ -1,0 +1,156 @@
+[1] "Initiating TMixClust..."
+[1] "Solution 1/40"
+[1] "Solution 1/40"
+  V1 V2 V3 V4 V5
+1  9  4 12 26  6
+[1] "Solution 2/40"
+  V1 V2 V3 V4 V5
+1 25  3 13 18  8
+[1] "Solution 3/40"
+  V1 V2 V3 V4 V5
+1  8 16  3 25 13
+[1] "Solution 4/40"
+  V1 V2 V3 V4 V5
+1 19  3  6 12  8
+[1] "Solution 5/40"
+  V1 V2 V3 V4 V5
+1 15  7 23  3 16
+[1] "Solution 6/40"
+  V1 V2 V3 V4 V5
+1 25  8 15 13  3
+[1] "Solution 7/40"
+  V1 V2 V3 V4 V5
+1  3  8 14 23 13
+[1] "Solution 8/40"
+  V1 V2 V3 V4 V5
+1 13  3 23 14  8
+[1] "Solution 9/40"
+  V1 V2 V3 V4 V5
+1 16  4 25 15  8
+[1] "Solution 10/40"
+  V1 V2 V3 V4 V5
+1 15  3  7 23 16
+[1] "Solution 11/40"
+  V1 V2 V3 V4 V5
+1  3 25 13  8 15
+[1] "Solution 12/40"
+[1] "Solution 12/40"
+[1] "Solution 12/40"
+  V1 V2 V3 V4 V5
+1 15  3 23  7 16
+[1] "Solution 13/40"
+[1] "Solution 13/40"
+  V1 V2 V3 V4 V5
+1  4  5  8 22 16
+[1] "Solution 14/40"
+  V1 V2 V3 V4 V5
+1  8 25 13 16  3
+[1] "Solution 15/40"
+  V1 V2 V3 V4 V5
+1 10 19  8 13 12
+[1] "Solution 16/40"
+[1] "Solution 16/40"
+  V1 V2 V3 V4 V5
+1 13  3 23 14  8
+[1] "Solution 17/40"
+[1] "Solution 17/40"
+  V1 V2 V3 V4 V5
+1  6 24  4 11 21
+[1] "Solution 18/40"
+[1] "Solution 18/40"
+  V1 V2 V3 V4 V5
+1 24  8  4  3 15
+[1] "Solution 19/40"
+  V1 V2 V3 V4 V5
+1 15  8 24  3 13
+[1] "Solution 20/40"
+  V1 V2 V3 V4 V5
+1 16  7 23 15  3
+[1] "Solution 21/40"
+[1] "Solution 21/40"
+  V1 V2 V3 V4 V5
+1 14 13  3  8 23
+[1] "Solution 22/40"
+[1] "Solution 22/40"
+  V1 V2 V3 V4 V5
+1 25  3 15  8 13
+[1] "Solution 23/40"
+  V1 V2 V3 V4 V5
+1  4  8 16 15 25
+[1] "Solution 24/40"
+  V1 V2 V3 V4 V5
+1  3 16 23 15  7
+[1] "Solution 25/40"
+  V1 V2 V3 V4 V5
+1  3  8  4 15 24
+[1] "Solution 26/40"
+  V1 V2 V3 V4 V5
+1 16 15  3  7 23
+[1] "Solution 27/40"
+[1] "Solution 27/40"
+  V1 V2 V3 V4 V5
+1  8 16  4 15 25
+[1] "Solution 28/40"
+  V1 V2 V3 V4 V5
+1  8 16 25 13  3
+[1] "Solution 29/40"
+  V1 V2 V3 V4 V5
+1  4 16 25  8 15
+[1] "Solution 30/40"
+[1] "Solution 30/40"
+[1] "Solution 30/40"
+[1] "Solution 30/40"
+  V1 V2 V3 V4 V5
+1  7 23  3 16 15
+[1] "Solution 31/40"
+[1] "Solution 31/40"
+  V1 V2 V3 V4 V5
+1 13 23  3 14  8
+[1] "Solution 32/40"
+[1] "Solution 32/40"
+  V1 V2 V3 V4 V5
+1  7 15  3 23 16
+[1] "Solution 33/40"
+  V1 V2 V3 V4 V5
+1  8  9 24 16  4
+[1] "Solution 34/40"
+  V1 V2 V3 V4 V5
+1 12 26  4  6  9
+[1] "Solution 35/40"
+  V1 V2 V3 V4 V5
+1 24  9  4  8 16
+[1] "Solution 36/40"
+[1] "Solution 36/40"
+  V1 V2 V3 V4 V5
+1  8 16  4 15 25
+[1] "Solution 37/40"
+[1] "Solution 37/40"
+  V1 V2 V3 V4 V5
+1 15  3 23  7 16
+[1] "Solution 38/40"
+  V1 V2 V3 V4 V5
+1 19  8 12 14 16
+[1] "Solution 39/40"
+[1] "Solution 39/40"
+  V1 V2 V3 V4 V5
+1  4  8 25 16 15
+[1] "Solution 40/40"
+  V1 V2 V3 V4 V5
+1 25  8  4 15 16
+[1] "Popualtion Results:"
+   V1 V2 V3 V4 V5         f1        f2 rnkIndex cd.density
+5  15  7 23  3 16   57.87540  7.830884        1        Inf
+15 10 19  8 13 12  315.50259  7.260145        1        Inf
+7   3  8 14 23 13  118.61561  9.270454        2        Inf
+33  8  9 24 16  4   89.64489 76.533664        2        Inf
+9  16  4 25 15  8  107.31816 10.724783        2 0.97646200
+18 24  8  4  3 15  113.75649  9.659178        2 0.02619176
+3   8 16  3 25 13  114.99898 11.135340        3        Inf
+19 15  8 24  3 13  127.42586  9.421073        3        Inf
+6  25  8 15 13  3  123.22974 10.782339        3 0.03046374
+2  25  3 13 18  8  211.74282 11.613092        4        Inf
+38 19  8 12 14 16  274.11606 10.512354        4        Inf
+1   9  4 12 26  6  237.78918 36.733692        5        Inf
+13  4  5  8 22 16  276.15729 10.897322        5        Inf
+4  19  3  6 12  8  359.17315 35.254703        6        Inf
+17  6 24  4 11 21 2231.39942 25.046115        6        Inf

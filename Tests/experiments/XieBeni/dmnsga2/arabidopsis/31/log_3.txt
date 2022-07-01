@@ -1,0 +1,83 @@
+2022-06-18 18:54:08: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 18:57:18: Generation: 100; Evaluations used (990/8333)
+2022-06-18 19:00:26: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 19:03:30: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 19:06:32: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 19:09:33: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 19:12:36: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 19:15:38: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 19:18:44: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1   46 122  20  59  88  5.414529 6.552732        1        Inf
+2  122  23  96 113 118 27.410284 3.267868        1        Inf
+3  127   9  46  25  68  6.382338 4.439734        1 0.30339657
+4   45 118  96 113  23  9.296537 3.708299        1 0.26943971
+5   68  46 127   9  29  6.303996 6.357804        1 0.21952303
+6   20 122   1  59  88  5.542706 6.442017        1 0.02691537
+7   46 120 113   5  88  6.478930 7.472673        2        Inf
+8   20  10  96  88  46  8.550192 6.331642        2 0.33446578
+9   96 118 122 113 109 27.622486 3.641114        2        Inf
+10  25 127   9 113  46  9.313328 4.521975        2 0.24196403
+2022-06-18 19:19:53: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 19:23:00: Generation: 100; Evaluations used (990/8333)
+2022-06-18 19:26:03: Generation: 200; Evaluations used (1990/8333)
+2022-06-18 19:29:13: Generation: 300; Evaluations used (2990/8333)
+2022-06-18 19:32:14: Generation: 400; Evaluations used (3990/8333)
+2022-06-18 19:35:16: Generation: 500; Evaluations used (4990/8333)
+2022-06-18 19:38:18: Generation: 600; Evaluations used (5990/8333)
+2022-06-18 19:41:21: Generation: 700; Evaluations used (6990/8333)
+2022-06-18 19:44:30: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1 V2  V3  V4  V5        f1        f2 rnkIndex cd.density
+1  118  9 101  92  58  5.408373  8.392813        1        Inf
+2   92  1 125 121  55 19.293041  3.896297        1        Inf
+3  103 13 121  34  78  5.864749  7.171670        1 0.16114097
+4  103  9 121  34  78  6.147654  3.986157        1 0.15714554
+5    9 31   1 121  94 10.648083  3.927062        1 0.08997294
+6   92 31 121   9   1 10.402351  3.955354        1 0.04656327
+7   94  9 121  34   1 15.785937  3.927062        2        Inf
+8   78 13 119  60 103  5.894375 12.211266        2        Inf
+9   92  9 118  34 101  6.336524  9.549744        2 0.29270500
+10 103 31 121   9  78  6.458346  3.986157        2 0.28971689
+2022-06-18 19:45:39: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-18 19:45:39: [Agent 3] Not enough solutions in population. Filling 4 solutions
+     [,1] [,2] [,3] [,4] [,5]
+[1,]    9   31   26  121   94
+[2,]    9   31    1  110   94
+[3,]   94    9  121    8    1
+[4,]   92   31  121    9  122
+2022-06-18 19:45:40: Filling finished!. Population is now: 
+    V1 V2  V3  V4  V5        f1        f2 rnkIndex  cd.density
+1  118  9 101  92  58  5.408373  8.392813        1         Inf
+2   92  1 125 121  55 19.293041  3.896297        1         Inf
+3   92 31 121   9   1 10.402351  3.955354        1 0.555156828
+4    9 31   1 121  94 10.648083  3.927062        1 0.143827570
+5    1 94  31 121   9 10.648083  3.927062        1 0.007240141
+6   94  9 121  34   1 15.785937  3.927062        2         Inf
+7    9 31   1 110  94 11.083777  5.892364        2         Inf
+8   92 31 121   9 122 16.678987  6.976372        3         Inf
+9    9 31  26 121  94 48.598073  7.008598        4         Inf
+10  94  9 121   8   1 66.784829 13.402207        5         Inf
+2022-06-18 19:45:40: Clustering length is:
+[1] 10
+2022-06-18 19:48:48: Generation: 100; Evaluations used (994/8333)
+2022-06-18 19:52:00: Generation: 200; Evaluations used (1994/8333)
+2022-06-18 19:55:01: Generation: 300; Evaluations used (2994/8333)
+2022-06-18 19:58:03: Generation: 400; Evaluations used (3994/8333)
+2022-06-18 20:01:13: Generation: 500; Evaluations used (4994/8333)
+2022-06-18 20:04:20: Generation: 600; Evaluations used (5994/8333)
+2022-06-18 20:07:23: Generation: 700; Evaluations used (6994/8333)
+2022-06-18 20:10:24: Generation: 800; Evaluations used (7994/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  118   9 101  92  58  5.408373 8.392813        1        Inf
+2  118  86  58  23  96 27.878652 3.708299        1        Inf
+3  102   1 125  96  33  7.031180 6.574758        1 0.23710489
+4   96  31 125  86   1  7.570492 4.711612        1 0.18757781
+5  106 118  92   9  33  5.745310 7.143643        1 0.17960463
+6   92   1 125 121  55 19.293041 3.896297        1 0.17705071
+7    9  31   1 121  94 10.648083 3.927062        1 0.10336604
+8   45   1 124  96   9 10.208308 4.122146        1 0.07000664
+9   45  86 127   8  96  8.185250 4.451466        1 0.06372847
+10  96  86   1  45 127  8.163294 4.619347        1 0.02919027

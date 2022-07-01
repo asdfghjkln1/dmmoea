@@ -1,0 +1,93 @@
+2022-06-18 22:20:26: Initiating DNSGA-2 with diversity level 3 and metric jaccard ...
+2022-06-18 22:46:25: Entering selection, crossover, mutation for generation  100
+2022-06-18 22:46:25: Evaluations used (4000/1e+05)
+2022-06-18 23:07:07: Entering selection, crossover, mutation for generation  200
+2022-06-18 23:07:07: Evaluations used (8000/1e+05)
+2022-06-18 23:27:46: Entering selection, crossover, mutation for generation  300
+2022-06-18 23:27:46: Evaluations used (12000/1e+05)
+2022-06-18 23:47:12: Entering selection, crossover, mutation for generation  400
+2022-06-18 23:47:12: Evaluations used (16000/1e+05)
+2022-06-19 00:05:03: Entering selection, crossover, mutation for generation  500
+2022-06-19 00:05:03: Evaluations used (20000/1e+05)
+2022-06-19 00:24:07: Entering selection, crossover, mutation for generation  600
+2022-06-19 00:24:07: Evaluations used (24000/1e+05)
+2022-06-19 00:43:08: Entering selection, crossover, mutation for generation  700
+2022-06-19 00:43:08: Evaluations used (28000/1e+05)
+2022-06-19 01:04:47: Entering selection, crossover, mutation for generation  800
+2022-06-19 01:04:47: Evaluations used (32000/1e+05)
+2022-06-19 01:27:29: Entering selection, crossover, mutation for generation  900
+2022-06-19 01:27:29: Evaluations used (36000/1e+05)
+2022-06-19 01:44:35: Entering selection, crossover, mutation for generation  1000
+2022-06-19 01:44:35: Evaluations used (40000/1e+05)
+2022-06-19 02:02:26: Entering selection, crossover, mutation for generation  1100
+2022-06-19 02:02:26: Evaluations used (44000/1e+05)
+2022-06-19 02:20:12: Entering selection, crossover, mutation for generation  1200
+2022-06-19 02:20:12: Evaluations used (48000/1e+05)
+2022-06-19 02:40:17: Entering selection, crossover, mutation for generation  1300
+2022-06-19 02:40:17: Evaluations used (52000/1e+05)
+2022-06-19 02:58:07: Entering selection, crossover, mutation for generation  1400
+2022-06-19 02:58:07: Evaluations used (56000/1e+05)
+2022-06-19 03:20:36: Entering selection, crossover, mutation for generation  1500
+2022-06-19 03:20:36: Evaluations used (60000/1e+05)
+2022-06-19 03:40:14: Entering selection, crossover, mutation for generation  1600
+2022-06-19 03:40:14: Evaluations used (64000/1e+05)
+2022-06-19 03:59:35: Entering selection, crossover, mutation for generation  1700
+2022-06-19 03:59:35: Evaluations used (68000/1e+05)
+2022-06-19 04:20:33: Entering selection, crossover, mutation for generation  1800
+2022-06-19 04:20:33: Evaluations used (72000/1e+05)
+2022-06-19 04:37:10: Entering selection, crossover, mutation for generation  1900
+2022-06-19 04:37:10: Evaluations used (76000/1e+05)
+2022-06-19 04:54:18: Entering selection, crossover, mutation for generation  2000
+2022-06-19 04:54:18: Evaluations used (80000/1e+05)
+2022-06-19 05:11:34: Entering selection, crossover, mutation for generation  2100
+2022-06-19 05:11:34: Evaluations used (84000/1e+05)
+2022-06-19 05:31:00: Entering selection, crossover, mutation for generation  2200
+2022-06-19 05:31:00: Evaluations used (88000/1e+05)
+2022-06-19 05:50:43: Entering selection, crossover, mutation for generation  2300
+2022-06-19 05:50:43: Evaluations used (92000/1e+05)
+2022-06-19 06:11:59: Entering selection, crossover, mutation for generation  2400
+2022-06-19 06:11:59: Evaluations used (96000/1e+05)
+2022-06-19 06:33:38: Entering selection, crossover, mutation for generation  2500
+2022-06-19 06:33:38: Evaluations used (1e+05/1e+05)
+[1] "Output: Population of 40 solutions; Number of cluster solutions: 40"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex   cd.density
+1    9 120  86  64  46  5.094450 8.771559        1          Inf
+2  122  36  58 113 118 50.145454 3.200684        1          Inf
+3  122 118  23  96 113 27.410284 3.267868        1 0.0547122595
+4  118  46  23  36 113  9.738951 3.708299        1 0.0455438836
+5   55  36 122 113 118 26.184352 3.641114        1 0.0413818898
+6   34  46  88 120 113  5.649072 7.472673        1 0.0269530931
+7   34 126  88  13  46  5.828507 5.925120        1 0.0268676838
+8    9  78  34 103 121  6.147654 3.986157        1 0.0143995525
+9    9 120  34  86  46  5.952379 4.533489        1 0.0129651949
+10  46  34   9  86 124  6.131254 4.465205        1 0.0050115926
+11  34   9  86 126  46  6.061634 4.527405        1 0.0009883678
+12 122 118  58 113  46 55.319967 3.200684        2          Inf
+13  34  46  68 120 113  5.184486 9.378749        2          Inf
+14  36 118  23 122 113 27.631069 3.267868        2 0.0648289423
+15 118  45 122  58  36 26.585433 3.641114        2 0.0417061505
+16  78 118  23  96 113  9.806738 3.708299        2 0.0405859196
+17   2 113  79  88 105  5.971019 6.723532        2 0.0208156980
+18  88   9  34 126  46  6.006549 5.010008        2 0.0195549886
+19 120  46  88  79 113  5.670306 8.159704        2 0.0139598100
+20 120  79   2  88 113  5.937806 7.326624        2 0.0113983212
+21   9 118 113  46  25  7.093567 4.081545        2 0.0101570235
+22  92 121  17  46  36  9.186259 4.056982        2 0.0090805104
+23  46 120  34  86 113  5.712508 7.939608        2 0.0080000840
+24  46   9  34 121  78  6.189895 4.483612        2 0.0063972381
+25 117  46  34   9  78  6.144414 4.573070        2 0.0050853473
+26 120  46  68  22 113  5.355906 9.866613        3          Inf
+27 122 118  23  25 113 28.113414 3.267868        3          Inf
+28 118 109 122  58  36 26.823522 3.641114        3 0.0412990448
+29  23 122  96  45 113 10.481170 3.708299        3 0.0375999766
+30  46  88   9  34 124  6.076170 5.297503        3 0.0281245131
+31  46 120  88  24 113  6.025654 7.608894        3 0.0257966365
+32  13 120  34  86  46  5.773538 8.116808        3 0.0172636298
+33 120 113  46  64  86  5.698563 9.466042        3 0.0164977563
+34  46   9  34 113 118  7.100925 4.081545        3 0.0100576904
+35  92 121   9  46  36  9.483856 4.056982        3 0.0081293073
+36  34  46  78   9 126  6.322880 4.527405        3 0.0078649230
+37  34   9   1  92 121 10.405378 3.955354        3 0.0052248043
+38  34  46  78   9 113  6.695869 4.521975        3 0.0051563032
+39 111   9  34  46  86  6.534492 4.524898        3 0.0008389490
+40  12  46  86  23  96  9.110739 6.218413        4 0.0392221047

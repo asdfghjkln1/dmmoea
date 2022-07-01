@@ -1,0 +1,63 @@
+2022-06-19 12:26:24: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-19 12:34:05: Generation: 100; Evaluations used (990/8333)
+2022-06-19 12:41:44: Generation: 200; Evaluations used (1990/8333)
+2022-06-19 12:49:14: Generation: 300; Evaluations used (2990/8333)
+2022-06-19 12:56:49: Generation: 400; Evaluations used (3990/8333)
+2022-06-19 13:04:26: Generation: 500; Evaluations used (4990/8333)
+2022-06-19 13:11:57: Generation: 600; Evaluations used (5990/8333)
+2022-06-19 13:19:34: Generation: 700; Evaluations used (6990/8333)
+2022-06-19 13:27:11: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5        f1       f2 rnkIndex cd.density
+1  112   3 173 364 127  3.980280 6.434868        1        Inf
+2  112 251 127   7 161 11.973749 3.281642        1        Inf
+3    7 335 112 150 161  4.798210 4.512164        1 0.46913617
+4  112 176   7 296 127  9.501431 3.310513        1 0.17451048
+5  112 346   7 284 161  6.192694 3.409043        1 0.14249618
+6    7 335 116 112 161  5.474395 4.182793        1 0.12250328
+7  112 335 127   7 161  5.495693 3.703264        1 0.10159867
+8    7 112  55  89 161  5.036427 4.250361        1 0.08403441
+9  112 132 127   7 161  5.808854 3.545261        1 0.07342487
+10 359   7 112 124 161  5.619156 3.699027        1 0.04002387
+2022-06-19 13:30:39: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-19 13:38:08: Generation: 100; Evaluations used (990/8333)
+2022-06-19 13:45:51: Generation: 200; Evaluations used (1990/8333)
+2022-06-19 13:53:31: Generation: 300; Evaluations used (2990/8333)
+2022-06-19 14:01:20: Generation: 400; Evaluations used (3990/8333)
+2022-06-19 14:09:08: Generation: 500; Evaluations used (4990/8333)
+2022-06-19 14:16:51: Generation: 600; Evaluations used (5990/8333)
+2022-06-19 14:24:35: Generation: 700; Evaluations used (6990/8333)
+2022-06-19 14:32:19: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5       f1       f2 rnkIndex cd.density
+1  112   3 173 364 127 3.980280 6.434868        1        Inf
+2    7 251 127 112  89 7.358274 3.281642        1        Inf
+3    7 335 112  56 161 4.703475 6.033826        1 0.23436767
+4    7 335 112 150 161 4.798210 4.512164        1 0.22197025
+5  112 335 127   7 161 5.495693 3.703264        1 0.06584099
+6  112 161  90 157   7 5.327333 4.061743        1 0.05991845
+7  112   7 337 161  89 4.863996 4.155100        1 0.05862249
+8  112 132 127   7 161 5.808854 3.545261        1 0.04545058
+9  284 112   7 161  90 6.022626 3.365018        1 0.02738002
+10   7 346 161 157 112 6.202327 3.348644        1 0.02448758
+2022-06-19 14:35:20: [Agent 3] Initiating DNSGA-2 with diversity level 4 and metric NMI ...
+2022-06-19 14:42:51: Generation: 100; Evaluations used (990/8333)
+2022-06-19 14:50:17: Generation: 200; Evaluations used (1990/8333)
+2022-06-19 14:57:43: Generation: 300; Evaluations used (2990/8333)
+2022-06-19 15:05:09: Generation: 400; Evaluations used (3990/8333)
+2022-06-19 15:12:37: Generation: 500; Evaluations used (4990/8333)
+2022-06-19 15:20:02: Generation: 600; Evaluations used (5990/8333)
+2022-06-19 15:27:32: Generation: 700; Evaluations used (6990/8333)
+2022-06-19 15:35:05: Generation: 800; Evaluations used (7990/8333)
+[1] "Output: Population of 10 solutions; Number of cluster solutions: 10"
+    V1  V2  V3  V4  V5       f1        f2 rnkIndex  cd.density
+1  350 251 127   7  89 6.967828  3.281642        1         Inf
+2  112   7  95  90 135 3.678997 15.387635        1         Inf
+3  112   3 173 364 127 3.980280  6.434868        1 0.291891811
+4    7 335 112  56 161 4.703475  6.033826        1 0.071880279
+5    7 112 337  89 135 4.818187  4.175975        1 0.058520390
+6  112 161  90 157   7 5.327333  4.061743        1 0.025286989
+7    7  90 127 112 161 5.516651  3.365018        1 0.022795812
+8  161 346 112 157  25 5.636149  3.348644        1 0.005996292
+9    7 335  80 112 161 5.064462  4.147707        1 0.003979873
+10 112   7 337 161  89 4.863996  4.155100        1 0.001454529
