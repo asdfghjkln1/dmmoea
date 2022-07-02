@@ -1028,7 +1028,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
           g=1
 
           while (g<=generation && evaluation.count<evaluations) {
-            if(debug && (g %% 100 == 0){
+            if(debug && (g %% 100 == 0)){
               print(paste("Entering selection, crossover, mutation for generation ", g)) 
               print(paste0("Evaluations used (", evaluation.count, "/", evaluations, ")"))
             }
@@ -1078,10 +1078,19 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
 
             if(local_search==TRUE){
               #Path relinking
+              if(debug && (g %% 100 == 0)){
+                print(paste0("Evaluations before Path Relinking: ", evaluation.count)) 
+              }
               population.R<-generate.path.relinking(population.pareto, num_k, dmatrix1, dmatrix2, number.objectives, cores)#, lista_funciones, lista_paquetes, cores) #devuelve poblacion R pero solo  Paretos sin repeticiones
               #Pareto Local Search
+              if(debug && (g %% 100 == 0)){
+                print(paste0("Evaluations before Local Search: ", evaluation.count)) 
+              }
               population.R<-generate.pareto.local.search(population.R, neighborhood, num_k, num_objects, pop_size,
                                                          dmatrix1, dmatrix2, number.objectives) #Recibe solo Paretos (devueltos en population.R por PR) con Rnk y crowding
+              if(debug && (g %% 100 == 0)){
+                print(paste0("Evaluations after Path Relinking: ", evaluation.count)) 
+              }
             }
 
             # Population P+1
@@ -1108,7 +1117,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
               population.P<-as.matrix(population.P)
             }
 
-            if(debug && (g %% 100 == 0){
+            if(debug && (g %% 100 == 0)){
               print(population.P) 
               print(paste0("Evaluations at the end of generation ",g,": ", evaluation.count))
             }
