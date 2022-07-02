@@ -758,7 +758,7 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
           if(length(arreglar$groups)>0){
             dominanciasIntermedias<-calculate.ranking.crowding(nrow(soluciones_intermedias), as.matrix(soluciones_intermedias[,1:(num_k)]), tablagroupsIntermedias, number.objectives, FALSE, dmatrix1, dmatrix2, num_k)
             
-            evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR
+            #evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR, doesnt work on parallel
             
             dominanciasIntermedias<-as.data.frame(dominanciasIntermedias)
             dominanciasIntermedias <- dominanciasIntermedias[, 1:num_k]
@@ -773,7 +773,8 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
           }
 
 
-        }else{
+        }
+        else{
 
           #ver si la unica solucion en soluciones_intermedia es singleton.
           #de ser afirmativo asigno s_guide como s_initial para que salga del while
@@ -822,10 +823,8 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
     #cat("soluciones en path", nrow(iteraciones_path), "\n")
     #print(iteraciones_path)
-    
-    #evaluation.count <<- evaluation.count + iteraciones_path$eval #round(0.2*sum(iteraciones_path$eval)) # Added VR
 
-        #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
+    #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
     #print("Path relinking finished:")
     #print(iteraciones_path)
 
