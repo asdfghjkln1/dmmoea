@@ -507,10 +507,9 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
 
 
             dominanciasPU<-calculate.ranking.crowding(nrow(poblacion_unida), as.matrix(poblacion_unida[,1:(num_k+1)]), table.groups.PU, number.objectives, TRUE, dmatrix1, dmatrix2, num_k)
-            #p <- runif(1)
-            #if(p > 0.5){
+            
             evaluation.count <<- evaluation.count + 1 # Added VR
-            #}
+            
             dominanciasPU<-as.data.frame(dominanciasPU)
 
             #Une las columnas comunes (medoides en este caso) de dominancias (medoides y jerarquia) y s_prima
@@ -633,10 +632,7 @@ generate.pareto.local.search<-function(population_pareto, neighborhood, num_k, n
     #print(paste0("Evaluations after PLS:", evaluation.count))
     return(as.data.frame(poblacion_A[,]))
 
-
   }else{
-
-
     rownames(population_pareto)<-c(1:nrow(population_pareto))
     poblacion_A<-population_pareto[1,]
     #print(paste0("Evaluations after PLS:", evaluation.count))
@@ -761,7 +757,9 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
           if(length(arreglar$groups)>0){
             dominanciasIntermedias<-calculate.ranking.crowding(nrow(soluciones_intermedias), as.matrix(soluciones_intermedias[,1:(num_k)]), tablagroupsIntermedias, number.objectives, FALSE, dmatrix1, dmatrix2, num_k)
-            #evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR
+            
+            evaluation.count <<- evaluation.count + nrow(soluciones_intermedias) # Added VR
+            
             dominanciasIntermedias<-as.data.frame(dominanciasIntermedias)
             dominanciasIntermedias <- dominanciasIntermedias[, 1:num_k]
             dominanciasIntermedias[, "eval"] <- nrow(dominanciasIntermedias)
@@ -824,10 +822,10 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
     #cat("soluciones en path", nrow(iteraciones_path), "\n")
     #print(iteraciones_path)
+    
+    #evaluation.count <<- evaluation.count + iteraciones_path$eval #round(0.2*sum(iteraciones_path$eval)) # Added VR
 
-    #print(paste0("new evaluations: ", round(0.2*sum(iteraciones_path$eval))))
-    evaluation.count <<- evaluation.count + iteraciones_path$eval #round(0.2*sum(iteraciones_path$eval)) # Added VR
-    #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
+        #soluciones_path <- soluciones_path[, 1:num_k]  # Added VR
     #print("Path relinking finished:")
     #print(iteraciones_path)
 
@@ -860,7 +858,8 @@ generate.path.relinking<-function(population_mejorar, num_k, dmatrix1, dmatrix2,
 
       dominanciasMerge<-calculate.ranking.crowding(nrow(soluciones_merge), as.matrix(soluciones_merge[,1:(num_k)]), tablagroupsMerge, number.objectives, FALSE, dmatrix1, dmatrix2, num_k)
       dominanciasMerge<-as.data.frame(dominanciasMerge)
-
+      
+      evaluation.count <<- evaluation.count + nrow(soluciones_merge) # Added VR
 
       #print(dominanciasMerge)
 
@@ -1029,7 +1028,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
           g=1
 
           while (g<=generation && evaluation.count<evaluations) {
-            if(debug){
+            if(debug && (g %% 100 == 0){
               print(paste("Entering selection, crossover, mutation for generation ", g)) 
               print(paste0("Evaluations used (", evaluation.count, "/", evaluations, ")"))
             }
@@ -1109,7 +1108,7 @@ moc.gabk<-function(dmatrix1, dmatrix2, num_k,
               population.P<-as.matrix(population.P)
             }
 
-            if(debug){
+            if(debug && (g %% 100 == 0){
               print(population.P) 
               print(paste0("Evaluations at the end of generation ",g,": ", evaluation.count))
             }
