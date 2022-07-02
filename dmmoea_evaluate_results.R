@@ -3,12 +3,11 @@ evaluate_results <- function(){
   args <- commandArgs(trailingOnly = TRUE)
   argnum <- length(args)
   if(argnum < 2){
-    print(paste0("Not enough parameters (", argnum, "/3)"))
+    print(paste0("Not enough parameters (", argnum, "/2)"))
     return(-1)
   }
   path <- args[1]
   results.path <- args[2]
-  limit.run <- as.numeric(args[3])
   
   setwd(path)
   source("dmmoea_functions.R")
@@ -28,23 +27,23 @@ evaluate_results <- function(){
   #  limits <- get_normalization_limits(results.path) 
   #}
   #limits <- read.csv(file.path(results.path, "limits.csv"), header = TRUE)
-  print("Finished.")
+  #print("Finished.")
   #return()
   
-  #if(!file.exists(file.path(results.path, "plot_data.csv"))){
-  #  print("Quality plot data not found!. Initiating evaluation...")
-  #  evaluate_run_results(results.path, limits, limit.run = limit.run)
-  #}
-  #else if(!file.exists(file.path(results.path, "data_pareto.csv"))){
-  #  print("Pareto data not found!. Initiating evaluation...")
-  #  evaluate_run_results(results.path, limits, limit.run = limit.run)
-  #}
+  if(!file.exists(file.path(results.path, "plot_data.csv"))){
+    print("Quality plot data not found!. Initiating evaluation...")
+    evaluate_run_results(results.path, limits)
+  }
+  else if(!file.exists(file.path(results.path, "data_pareto.csv"))){
+    print("Pareto data not found!. Initiating evaluation...")
+    evaluate_run_results(results.path, limits)
+  }
   #if(file.exists(file.path(results.path, "data_pareto.csv"))){
   #  print("Experiment evaluation done. Plotting results...")
-  #  plot_algorithm_comparison_pareto(results.path, load.data=TRUE, limit.run = limit.run)
+  #  plot_algorithm_comparison_pareto(results.path, load.data=TRUE)
   #}else{
   #  print("Getting pareto front and plotting...")
-    plot_algorithm_comparison_pareto(results.path, load.data=FALSE, limit.run = limit.run)
+  #  plot_algorithm_comparison_pareto(results.path, load.data=FALSE)
   #}
   
   plot.data <- read.table(file.path(results.path, "plot_data.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -55,10 +54,10 @@ evaluate_results <- function(){
   print("Done.")
 }
 
-evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.run=Inf){
+evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5){
   algorithms <- list.dirs(path=path, full.names = FALSE, recursive = FALSE)
   algorithms <- algorithms[!(algorithms %in% "figures")]
-  plot.data <- as.data.frame(matrix(nrow=0, ncol=6))
+  plot.data <- as.data.frame(matrix(nrow=0, ncol=7))
   plot.data.diversity <- as.data.frame(matrix(nrow=0, ncol=6))
   colnames(plot.data) <- c("id", "Algorithm", "Dataset", "Hypervolume", "Silhouette", "Delta", "Time")
   colnames(plot.data.diversity) <- c("id", "Algorithm", "Dataset", "Metric", "Diversity", "Cluster_Ratio")
@@ -70,18 +69,16 @@ evaluate_run_results <- function(path, limits, maximize=FALSE, alpha=0.5, limit.
       distances <- load.gene.distance(dataset, alpha=alpha)
       exp.path <- file.path(path, algorithm, dataset)
       limits <- read.table(file.path(exp.path, "limits.csv"), sep=",", header=TRUE, row.names=NULL)
-      scaler.f1 <- function(x){ min(1, (x-limits$min.f1)/(limits$max.f1-limits$min.f1)) }
-      scaler.f2 <- function(x){ min(1, (x-limits$min.f2)/(limits$max.f2-limits$min.f2)) }
       evaluation.file <- read.table(file.path(exp.path, "evaluations.csv"), header=TRUE, sep=",", row.names=NULL)
       experiments <- list.dirs(path=exp.path, full.names = FALSE, recursive = FALSE)
-      experiments <- experiments[as.numeric(experiments) <= limit.run]
+      experiments <- as.numeric(experiments)
       for(k in 1:length(experiments)){
         experiment <- experiments[k]
         data <- read.table(file.path(exp.path, experiment, paste0(experiment, ".csv")), sep=",", header=FALSE, row.names=NULL)
         data.pareto <- read.table(file.path(exp.path, experiment, "population.csv"), sep=",", header=TRUE, row.names=NULL)
-        data <- data.frame("f1"=scaler.f1(data[, 1]), "f2"=scaler.f2(data[, 2]))
+        data <- normalise_pareto(data, limits=limits)
         time <- read.table(file.path(exp.path, experiment, "time.csv"), sep=" ", header=TRUE, row.names=NULL)
-        hv <- calculate_hypervolume(data, c(1,1), maximize) #eaf::hypervolume(data, c(1,1), maximize=FALSE) #
+        hv <- calculate_hypervolume(data, c(1,1), maximize) #eaf::hypervolume(data, c(1,1), maximize=FALSE) #Same result!
         sil <- evaluation.file[k, "avg_sil"]
         delta <- evaluation.file[k, "delta"]
         diversity.jaccard <- diversity_analysis(data.pareto, distances, metric="jaccard", 

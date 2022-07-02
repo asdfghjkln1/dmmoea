@@ -1799,8 +1799,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
   algorithms <- algorithms[!(algorithms %in% c("figures"))]#, "nsga2", "random"))]
   if(!load.data){
     print("data not loaded!")
-    selected <- read.table(file.path(exp.path, "data_pareto_selected.csv"), sep=",", header=TRUE, row.names=NULL)
-    print("Loaded pareto selected")
+    selected <- read.table(file.path(exp.path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
+    print("Loaded pareto")
     print(selected)
     plot.data <- as.data.frame(matrix(nrow=0, ncol=5))
     colnames(plot.data) <- c("f1", "f2", "rnkIndex", "Dataset", "Algorithm")
@@ -1809,35 +1809,35 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       #datasets <- list.dirs(path=file.path(folder.path, algorithm), recursive = FALSE, full.names=FALSE)
       datasets <- c("arabidopsis","cell_cycle","serum","sporulation")
       for(j in 1:length(datasets)){
-        #pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) #** N of objectives hardcoded! **
+        pareto.dataset <- as.data.frame(matrix(nrow=0, ncol=2)) 
         dataset <- datasets[j]
-        #print(paste0("Starting dataset ", dataset, " in ", algorithm))
-        #dataset.path <- file.path(folder.path, algorithm, dataset)
-        #experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
-        #experiments <- experiments[as.numeric(experiments) <= limit.run]
-        #for(k in 1:length(experiments)){
-        #  experiment <- experiments[k]
-        #  if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
-        #    obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE, row.names=NULL)
-        #    pareto.dataset <- rbind(pareto.dataset, obj.values)
-        #  }
-        #}
-        #ranking <- nsga2R::fastNonDominatedSorting(as.matrix(pareto.dataset))
-        #rnkIndex <- integer(nrow(pareto.dataset))
-        #i <- 1
-        #while (i <= length(ranking)) {
-        #  rnkIndex[ranking[[i]]] <- i
-        #  i <- i + 1
-        #}
-	pareto.dataset <- selected[selected$Dataset == dataset, ]
-        print("Selecting:")
-        print(pareto.dataset) 
-        #pareto.dataset[, "rnkIndex"] <- rnkIndex
-        #pareto.dataset <- pareto.dataset[order(rnkIndex), ]
-        #pareto.dataset <- pareto.dataset[pareto.dataset$rnkIndex == 1, ]
-        #colnames(pareto.dataset) <- c("f1", "f2", "rnkIndex")
-        #pareto.dataset[, "Dataset"] <- rep(dataset, nrow(pareto.dataset))
-        #pareto.dataset[, "Algorithm"] <- rep(algorithm, nrow(pareto.dataset))
+        print(paste0("Starting dataset ", dataset, " in ", algorithm))
+        dataset.path <- file.path(folder.path, algorithm, dataset)
+        experiments <- list.dirs(path=dataset.path, recursive = FALSE, full.names=FALSE)
+        experiments <- experiments[as.numeric(experiments) <= limit.run]
+        for(k in 1:length(experiments)){
+          experiment <- experiments[k]
+          if(file.exists(file.path(dataset.path, experiment, paste0(experiment, ".csv")))){
+            obj.values <- read.table(file=file.path(dataset.path, experiment, paste0(experiment, ".csv")), sep=",", header = FALSE, row.names=NULL)
+            pareto.dataset <- rbind(pareto.dataset, obj.values)
+          }
+        }
+        ranking <- nsga2R::fastNonDominatedSorting(as.matrix(pareto.dataset))
+        rnkIndex <- integer(nrow(pareto.dataset))
+        i <- 1
+        while (i <= length(ranking)) {
+          rnkIndex[ranking[[i]]] <- i
+          i <- i + 1
+        }
+	      #pareto.dataset <- selected[selected$Dataset == dataset, ]
+        #print("Selecting:")
+        #print(pareto.dataset) 
+        pareto.dataset[, "rnkIndex"] <- rnkIndex
+        pareto.dataset <- pareto.dataset[order(rnkIndex), ]
+        pareto.dataset <- pareto.dataset[pareto.dataset$rnkIndex == 1, ]
+        colnames(pareto.dataset) <- c("f1", "f2", "rnkIndex")
+        pareto.dataset[, "Dataset"] <- rep(dataset, nrow(pareto.dataset))
+        pareto.dataset[, "Algorithm"] <- rep(algorithm, nrow(pareto.dataset))
         plot.data <- rbind(plot.data, pareto.dataset)
       }
     }
@@ -1846,8 +1846,8 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     
     # Generate ideal pareto for each dataset
     for(j in 1:length(datasets)){
-      #data <- plot.data[plot.data$Dataset == datasets[j], ]
-      data <- selected[selected$Dataset == datasets[j], ]
+      data <- plot.data[plot.data$Dataset == datasets[j], ]
+      #data <- selected[selected$Dataset == datasets[j], ]
       ranking <- nsga2R::fastNonDominatedSorting(as.matrix(data[, c("f1", "f2")]))
       rnkIndex <- integer(nrow(data))
       i <- 1
@@ -1863,8 +1863,6 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     
   }else{
     print("Previous run data found!. Plotting results...")
-    #print("blocking load")
-    #return()
     plot.data <- read.table(file.path(exp.path, "data_pareto.csv"), sep=",", header=TRUE, row.names=NULL)
     #plot.data$Algorithm <- factor(plot.data$Algorithm, levels=c("nsga2", "dnsga2", "dmnsga2", "Ideal pareto"))
     plot.data.norm <- read.table(file.path(exp.path, "data_pareto_norm.csv"), sep=",", header=TRUE, row.names=NULL)
@@ -1885,7 +1883,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       data.norm <- plot.data.norm[plot.data.norm$Dataset == dataset, ]
     }else{
       dataset.path <- file.path(folder.path, algorithms[1], dataset) # A little hardcoded, but it should work
-      limits <- read.table(file.path(dataset.path, "limits_alt.csv"), sep=",", header = TRUE, row.names=NULL)
+      limits <- read.table(file.path(dataset.path, "limits.csv"), sep=",", header = TRUE, row.names=NULL)
       data.norm <- data
       data.norm$Algorithm <- factor(data.norm$Algorithm)
       data.norm[, c("f1", "f2")] <- normalise_pareto(as.matrix(data.norm[, c("f1", "f2")]), limits=limits)
@@ -1902,46 +1900,46 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       dataset.name = "Sporulation"
     }
     labels <- c()
-	values <- c()
-	factors <- c()
-	levels <- levels(data.norm$Algorithm)
+	  values <- c()
+	  factors <- c()
+	  levels <- levels(data.norm$Algorithm)
     print("Levels are:")
     print(levels)
-	if("dmnsga2" %in% levels){
-	labels <- c(labels, "DMNSGA-II")
-	values <- c(values, "#00AFBB")
-	factors <- c(factors, "dmnsga2")
-	} 
-	if("dnsga2" %in% levels){
-	labels <- c(labels, "DNSGA-II")
-	values <- c(values, "#E7B800")
-	factors <- c(factors, "dnsga2")
-	}
-  if("mfuzz" %in% levels){
-	labels <- c(labels, "Fuzzy")
-	values <- c(values, "#48D125")
-	factors <- c(factors, "mfuzz")
-	}
-	if("tmix" %in% levels){
-	labels <- c(labels, "Mixture M.")
-	values <- c(values, "#FC3408")
-	factors <- c(factors, "tmix")
-	}
-	if("moc.gapbk" %in% levels){
-	labels <- c(labels, "MOCGaPBK")
-	values <- c(values, "#B744B8")
-	factors <- c(factors, "moc.gapbk")
-	}
-	if("nsga2" %in% levels){
-	labels <- c(labels, "NSGA-II")
-	values <- c(values, "#FA6941")
-	factors <- c(factors, "nsga2")
-	}
-        if("Pareto ideal" %in% levels){
-	labels <- c(labels, "Pareto ideal")
-        values<- c(values, "#ADBFD3")
-        factors <- c(factors, "Pareto ideal")
-	} 
+  	if("dmnsga2" %in% levels){
+  	labels <- c(labels, "DMNSGA-II")
+  	values <- c(values, "#00AFBB")
+  	factors <- c(factors, "dmnsga2")
+  	} 
+  	if("dnsga2" %in% levels){
+  	labels <- c(labels, "DNSGA-II")
+  	values <- c(values, "#E7B800")
+  	factors <- c(factors, "dnsga2")
+  	}
+    if("mfuzz" %in% levels){
+  	labels <- c(labels, "Fuzzy")
+  	values <- c(values, "#48D125")
+  	factors <- c(factors, "mfuzz")
+  	}
+  	if("tmix" %in% levels){
+  	labels <- c(labels, "Mixture M.")
+  	values <- c(values, "#FC3408")
+  	factors <- c(factors, "tmix")
+  	}
+  	if("moc.gapbk" %in% levels){
+  	labels <- c(labels, "MOCGaPBK")
+  	values <- c(values, "#B744B8")
+  	factors <- c(factors, "moc.gapbk")
+  	}
+  	if("nsga2" %in% levels){
+  	labels <- c(labels, "NSGA-II")
+  	values <- c(values, "#FA6941")
+  	factors <- c(factors, "nsga2")
+  	}
+    if("Pareto ideal" %in% levels){
+	  labels <- c(labels, "Pareto ideal")
+    values<- c(values, "#ADBFD3")
+    factors <- c(factors, "Pareto ideal")
+	  } 
     data.norm$Algorithm <- factor(data.norm$Algorithm, levels = factors)
     print("Colors are:")
     print(values)
@@ -1957,8 +1955,7 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
     #  scale_colour_discrete(labels=c("NSGA-II", "DNSGA-II", "DMNSGA-II", "Pareto ideal"))
     #
     #ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,".png")), height=7, width=7) 
-    
-    print(data.norm)
+    print("Plotting data from levels:")
     print(levels(data.norm$Algorithm))
     ggplot(data.norm, aes(x=f1, y=f2, color=Algorithm)) +
       labs(title=paste0("Fronteras de pareto: ", dataset.name), color="Algoritmo", x="Expresi\U00F3n g\U00E9nica", y="Funci\U00F3n Biol\U00F3gica") +
@@ -1979,11 +1976,11 @@ plot_algorithm_comparison_pareto <- function(exp.path, load.data = FALSE, limit.
       guides(shape = FALSE)
     #facet_wrap(~Dataset, scale="free")
     
-    ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm_wide.png")), height=7, width=7) 
+    ggsave(file.path(folder.path, "figures", paste0("pareto_comparison_",dataset ,"_norm.png")), height=7, width=7) 
   }
   if(!load.data){
-    write.table(plot.data, file=file.path(folder.path, "data_pareto_wide.csv"), sep=",", row.names = FALSE, col.names = TRUE)
-    write.table(plot.data.norm, file=file.path(folder.path, "data_pareto_norm_wide.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(plot.data, file=file.path(folder.path, "data_pareto.csv"), sep=",", row.names = FALSE, col.names = TRUE)
+    write.table(plot.data.norm, file=file.path(folder.path, "data_pareto_norm.csv"), sep=",", row.names = FALSE, col.names = TRUE)
   }
 }
 
