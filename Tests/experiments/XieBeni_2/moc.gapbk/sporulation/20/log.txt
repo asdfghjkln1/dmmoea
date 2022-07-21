@@ -1,0 +1,69 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (20463/1e+05)"
+[1] "Evaluations before Path Relinking: 20483"
+[1] "Evaluations before Local Search: 21265"
+[1] "Evaluations after Path Relinking: 21692"
+    V1  V2  V3  V4  V5
+1  268 136  49 312 146
+2  409 137  65 376 305
+8  417 136  50 312 146
+3  409 137 444 376 305
+4  382 137 357  23 200
+9  382 442 444 376 152
+5  409 137 444  23 324
+6  382 442 444 104 152
+7  409 137 444  23 305
+10 409 137 444  23 333
+[1] "Evaluations at the end of generation 20: 21692"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (40923/1e+05)"
+[1] "Evaluations before Path Relinking: 40943"
+[1] "Evaluations before Local Search: 41579"
+[1] "Evaluations after Path Relinking: 42006"
+    V1  V2  V3  V4  V5
+1  409   7  65 376 305
+2  268 136  48 312 146
+3  417 136  48 312 146
+4  409 137 444 376 305
+5  382 137 357  23 200
+6  409 137 444  23 324
+7  382 442 444 104 152
+8  382 442 444 376 152
+9  409 137 444  23 305
+10 260 258 266 323   6
+[1] "Evaluations at the end of generation 40: 42006"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (62804/1e+05)"
+[1] "Evaluations before Path Relinking: 62824"
+[1] "Evaluations before Local Search: 63251"
+[1] "Evaluations after Path Relinking: 63683"
+    V1  V2  V3  V4  V5
+1  268 136  48 312 146
+2  409   7  65 376 305
+3  417 136  48 312 146
+5  409 137 385 376 200
+4  409 137 385  23 200
+6  409 137 385  23 146
+7  382   7  48 445 200
+8  382 159  48 364  37
+9  409 137 444  23 305
+10 382 137  48 445 200
+[1] "Evaluations at the end of generation 60: 63683"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (83188/1e+05)"
+[1] "Evaluations before Path Relinking: 83208"
+[1] "Evaluations before Local Search: 83754"
+[1] "Evaluations after Path Relinking: 84186"
+    V1  V2  V3  V4  V5
+1  268 136  48 312 272
+2  409   7  65 376 258
+3  417 136  48 312 146
+4  382 159  48 364  37
+5  409 137 444  23 305
+7  382   7  48 445 200
+6  409 137 385  23 146
+8  409 136 444  23 272
+9  409 137 385  23 200
+10 409 137 385 376 200
+[1] "Evaluations at the end of generation 80: 84186"

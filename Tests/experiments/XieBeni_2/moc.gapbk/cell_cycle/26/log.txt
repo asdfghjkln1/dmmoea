@@ -1,0 +1,103 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (16843/1e+05)"
+[1] "Evaluations before Path Relinking: 16863"
+[1] "Evaluations before Local Search: 17549"
+[1] "Evaluations after Path Relinking: 17900"
+    V1  V2  V3  V4  V5
+1  312 314  31 116 128
+2  295 134 357  20 262
+3  312 208 111 116 128
+4  312 187 111 116 128
+5  312 380  31 116 128
+6  312 277  31 116 128
+8  295 134 360  20 262
+7  312 134  68  20 262
+9  312 134 360 125 262
+10 295 134 101  20 262
+[1] "Evaluations at the end of generation 20: 17900"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (34031/1e+05)"
+[1] "Evaluations before Path Relinking: 34051"
+[1] "Evaluations before Local Search: 34736"
+[1] "Evaluations after Path Relinking: 35009"
+    V1  V2  V3  V4  V5
+1  312 134  33 125 191
+2  312 314 107 116 383
+3  312 134 107 125 191
+4  312 134 107 257 191
+5  312 246  31 116 128
+6  312 277  31 116 128
+7  312 187 107 116 128
+8  312 380  31 116 128
+9    6 196  37 349 221
+10  73  38 346  69 227
+[1] "Evaluations at the end of generation 40: 35009"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (49454/1e+05)"
+[1] "Evaluations before Path Relinking: 49474"
+[1] "Evaluations before Local Search: 49932"
+[1] "Evaluations after Path Relinking: 50205"
+    V1  V2  V3  V4  V5
+1  312 314 383 116 272
+2  312 134  32 355 182
+3  312 134 107 125 191
+4  312 134 107 125 272
+5  312 134  32 333 191
+6  312 277  32 116 128
+7  312 134  32 333 182
+8  312 134  33 333 182
+9  325  86 109 285  84
+10  74 343 248 147 229
+[1] "Evaluations at the end of generation 60: 50205"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (65059/1e+05)"
+[1] "Evaluations before Path Relinking: 65079"
+[1] "Evaluations before Local Search: 65391"
+[1] "Evaluations after Path Relinking: 65742"
+    V1  V2  V3  V4  V5
+1  312 134  32 355 182
+2  312 314 383 116 272
+5  312 134 107 125 191
+7  312 206 383 116 272
+3  312   2 383 116 272
+8  312 134  32 333 191
+4  312 318 383 116 272
+10 312 134  32 333 182
+9  312 134  33 333 182
+6  312  38 383 116 272
+[1] "Evaluations at the end of generation 80: 65742"
+[1] "Entering selection, crossover, mutation for generation  100"
+[1] "Evaluations used (79629/1e+05)"
+[1] "Evaluations before Path Relinking: 79649"
+[1] "Evaluations before Local Search: 79950"
+[1] "Evaluations after Path Relinking: 80301"
+    V1  V2  V3  V4  V5
+1  312 314 383 116 272
+2  312 134  32 355 182
+3  312 134 107 125 191
+4  312 206 383 116 272
+8  312   2 383 116 272
+6  312 134  32 333 191
+9  312 318 383 116 272
+7  312 134  32 333 182
+5  312 134  33 333 182
+10 312  38 383 116 272
+[1] "Evaluations at the end of generation 100: 80301"
+[1] "Entering selection, crossover, mutation for generation  120"
+[1] "Evaluations used (93979/1e+05)"
+[1] "Evaluations before Path Relinking: 93999"
+[1] "Evaluations before Local Search: 94335"
+[1] "Evaluations after Path Relinking: 94686"
+    V1  V2  V3  V4  V5
+1  312 314 383 116 272
+2  312 134  32 355 182
+5  312 134 107 125 191
+7  312 206 383 116 272
+6  312   2 383 116 272
+8  312 134  32 333 191
+3  312 318 383 116 272
+9  312 134  32 333 182
+10 312 134  33 333 182
+4  312  38 383 116 272
+[1] "Evaluations at the end of generation 120: 94686"

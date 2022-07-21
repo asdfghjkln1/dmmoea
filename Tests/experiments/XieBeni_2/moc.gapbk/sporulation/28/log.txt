@@ -1,0 +1,69 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (19534/1e+05)"
+[1] "Evaluations before Path Relinking: 19554"
+[1] "Evaluations before Local Search: 20043"
+[1] "Evaluations after Path Relinking: 20475"
+    V1  V2  V3 V4  V5
+1  392 201 200 51 357
+2  225 347 380 51 434
+6  225 378 448 66 434
+3  163 347 412 51 434
+8  297 378 448 66 434
+4  340 347 198 78 380
+5  163 347 380 51 434
+9  297  19 448 66 434
+10 163  19 448 66 434
+7  163 347  19 51 434
+[1] "Evaluations at the end of generation 20: 20475"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (41101/1e+05)"
+[1] "Evaluations before Path Relinking: 41121"
+[1] "Evaluations before Local Search: 41903"
+[1] "Evaluations after Path Relinking: 42335"
+    V1  V2  V3  V4  V5
+1  392 201 200 331 423
+2  225 347 380  51 189
+6  225 378 448  66 189
+3  163 347 412  51 434
+8  297 347 380 448 434
+4  340 347 380 198 423
+9  163 347 380 448 434
+7  297 378 448  66 434
+10 163  19 448  66 434
+5  163 347 448 380 434
+[1] "Evaluations at the end of generation 40: 42335"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (61725/1e+05)"
+[1] "Evaluations before Path Relinking: 61745"
+[1] "Evaluations before Local Search: 62363"
+[1] "Evaluations after Path Relinking: 62795"
+    V1  V2  V3  V4  V5
+1  392 201 200 331 423
+2  225 347 380  51 189
+6  225 378 448  66 189
+3  163 347 412  51 434
+8  297 347 448 380 434
+4  340 347 380 198 423
+9  163 347 448 380 434
+7  297 378 448  66 434
+10 163  19 448  66 434
+5  163 347 380 448 434
+[1] "Evaluations at the end of generation 60: 62795"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (83441/1e+05)"
+[1] "Evaluations before Path Relinking: 83461"
+[1] "Evaluations before Local Search: 84113"
+[1] "Evaluations after Path Relinking: 84497"
+    V1  V2  V3  V4  V5
+1  225 347 380  51 189
+2  340 346  37 198  44
+3  225 378 448  66 189
+4  340 347  37 198 423
+5  297 347 380 448 434
+6  163 347 448 380 434
+7  297 378 448  66 434
+8  163 347 380 448 434
+9  297 347 448 380 434
+10 379 160 306  13 170
+[1] "Evaluations at the end of generation 80: 84497"

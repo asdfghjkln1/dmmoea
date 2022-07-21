@@ -1,0 +1,69 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (18511/1e+05)"
+[1] "Evaluations before Path Relinking: 18531"
+[1] "Evaluations before Local Search: 19193"
+[1] "Evaluations after Path Relinking: 19577"
+    V1  V2  V3  V4  V5
+1   65 261 101   3 376
+2   44 382  37 331 346
+3   44 382  37 312 407
+4   65 261 345   3 376
+5   76 261 345   1 376
+6  104 261 345   1 376
+7   76 261 345   3 376
+8   44 238 345   1 407
+9   44 193 345   1 407
+10 179 472 434  55 205
+[1] "Evaluations at the end of generation 20: 19577"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (38059/1e+05)"
+[1] "Evaluations before Path Relinking: 38079"
+[1] "Evaluations before Local Search: 38561"
+[1] "Evaluations after Path Relinking: 38989"
+    V1  V2  V3  V4  V5
+1   44 382  37 331 346
+2   65 205 101 394 376
+4   44 382  37 312 407
+3   44 382  37 331 409
+5   76 261 345   1 376
+6   65 205 101   1 376
+7  104 261 345   1 376
+9   76 205 345   1 376
+8   44 193 345   1 407
+10  65 205 101   3 376
+[1] "Evaluations at the end of generation 40: 38989"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (59724/1e+05)"
+[1] "Evaluations before Path Relinking: 59744"
+[1] "Evaluations before Local Search: 59996"
+[1] "Evaluations after Path Relinking: 60427"
+    V1  V2  V3  V4  V5
+1   44 382  37 331 346
+2   65 205 101 394 376
+3   44 382  37 331 292
+4   44 382  37 312 407
+5   76 261 345   1 376
+6   65 205 101   1 376
+7  104 261 345   1 376
+9   76 205 345   1 376
+8   44 193 345   1 407
+10  65 205 101   3 376
+[1] "Evaluations at the end of generation 60: 60427"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (80605/1e+05)"
+[1] "Evaluations before Path Relinking: 80625"
+[1] "Evaluations before Local Search: 81133"
+[1] "Evaluations after Path Relinking: 81560"
+    V1  V2  V3  V4  V5
+1   44 382   4 340 346
+2   65 231 101 394 376
+4   44 382   4 340 407
+3   44 382  37 312 407
+6   44 382   4 331 292
+5   76 261 345   1 376
+7  104 261 345   1 376
+9   76 205 345   1 376
+10  44 193 345   1 407
+8   65 205 101   1 376
+[1] "Evaluations at the end of generation 80: 81560"

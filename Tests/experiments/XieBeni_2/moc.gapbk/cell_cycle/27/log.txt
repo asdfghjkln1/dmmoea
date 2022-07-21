@@ -1,0 +1,69 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (21037/1e+05)"
+[1] "Evaluations before Path Relinking: 21057"
+[1] "Evaluations before Local Search: 21857"
+[1] "Evaluations after Path Relinking: 22208"
+    V1  V2  V3  V4  V5
+1    2 272 168 294 337
+2  109 199 261 148 130
+3  247 199 261  86 130
+8  106 190 168 294 337
+7  106 133 199 294 337
+10 247 133   6 368 130
+5  230 133   6 368 130
+9  247 133   6 325 130
+4  106 272 199 294 337
+6  109 199 133 347 130
+[1] "Evaluations at the end of generation 20: 22208"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (41038/1e+05)"
+[1] "Evaluations before Path Relinking: 41058"
+[1] "Evaluations before Local Search: 41655"
+[1] "Evaluations after Path Relinking: 42006"
+    V1  V2  V3  V4  V5
+1  109 313 348 148 237
+2    2 272 152 294 337
+3    2 272 168 294 337
+5  106 133 199 294 337
+4  247 133   6 368 130
+7  230 133   6 368 130
+8  109 313 348 148 130
+6  106 190 168 294 337
+9  106 272 199 294 337
+10 106 313 348 148 237
+[1] "Evaluations at the end of generation 40: 42006"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (61686/1e+05)"
+[1] "Evaluations before Path Relinking: 61706"
+[1] "Evaluations before Local Search: 62192"
+[1] "Evaluations after Path Relinking: 62543"
+    V1  V2  V3  V4  V5
+1  109 313 372 148 164
+2    2 308 152 294 337
+4    2 272 168 294 337
+9   21 133   6 294 349
+8  109 313 372 148 130
+3  106 272 199 294 337
+6  354 133 199 294 349
+5  106 190 168 294 337
+10 106 133 199 294 337
+7  106 313 372 148 164
+[1] "Evaluations at the end of generation 60: 62543"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (80820/1e+05)"
+[1] "Evaluations before Path Relinking: 80840"
+[1] "Evaluations before Local Search: 81374"
+[1] "Evaluations after Path Relinking: 81724"
+    V1  V2  V3  V4  V5
+1    2 308 121 382 330
+2  109 313 168  26 165
+3  109 313 372  26 130
+6    2 272 168 294 337
+10 106 133 199 294 337
+9  109 313 372 148 130
+4  109 313 372 148 164
+7  354 133 199 294 349
+8  106 272 199 294 337
+5  109 133 372 382 337
+[1] "Evaluations at the end of generation 80: 81724"

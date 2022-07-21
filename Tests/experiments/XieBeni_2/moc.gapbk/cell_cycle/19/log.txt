@@ -1,0 +1,86 @@
+[1] "Initiating MOC_GaPBK..."
+[1] "Entering selection, crossover, mutation for generation  20"
+[1] "Evaluations used (18612/1e+05)"
+[1] "Evaluations before Path Relinking: 18632"
+[1] "Evaluations before Local Search: 18875"
+[1] "Evaluations after Path Relinking: 19187"
+    V1  V2  V3  V4  V5
+1  295  71 302 311  34
+2  346 379 373 109  30
+3  379 346 373 109  30
+4  295 352 191 311   5
+5  379 346 373 104  30
+6  346 352 191 311  30
+7  379 346 373 311  30
+8  346 379 373 311  30
+9  346 379 373 104  30
+10 282  28 252 248 130
+[1] "Evaluations at the end of generation 20: 19187"
+[1] "Entering selection, crossover, mutation for generation  40"
+[1] "Evaluations used (35885/1e+05)"
+[1] "Evaluations before Path Relinking: 35905"
+[1] "Evaluations before Local Search: 36451"
+[1] "Evaluations after Path Relinking: 36802"
+    V1  V2  V3  V4  V5
+1  151 367 302 311  34
+2  379 346 373 109 254
+3  379 346 373 104  30
+9  295  71 302 311  34
+10 151 115 302 311  34
+5  346 352 191 311  30
+4  379 346 373 311  30
+6  295 352 191 311   5
+7  151 367 302 199  34
+8  151  71 302 199  34
+[1] "Evaluations at the end of generation 40: 36802"
+[1] "Entering selection, crossover, mutation for generation  60"
+[1] "Evaluations used (54941/1e+05)"
+[1] "Evaluations before Path Relinking: 54961"
+[1] "Evaluations before Local Search: 55507"
+[1] "Evaluations after Path Relinking: 55858"
+    V1  V2  V3  V4  V5
+1  379 312 373 109 254
+2  151 367 302 311  34
+3  379 346 373 104  30
+10 295 367 302 199  34
+5  352 346 191 311  30
+4  379 346 373 311  30
+8  295 352 191 311   5
+7  295  71 302 311  34
+6  151 367 302 199  34
+9  151  71 302 199  34
+[1] "Evaluations at the end of generation 60: 55858"
+[1] "Entering selection, crossover, mutation for generation  80"
+[1] "Evaluations used (74762/1e+05)"
+[1] "Evaluations before Path Relinking: 74782"
+[1] "Evaluations before Local Search: 75336"
+[1] "Evaluations after Path Relinking: 75609"
+    V1  V2  V3  V4  V5
+1  151  71 302 239  34
+2  202 312 373 104 116
+3  352 346 191 311  30
+4  379 346 373 104  30
+5  295  98 191 311   5
+6  379 346 373 311  30
+7  141 352 191 311   5
+8  379 346 349 311  30
+9  215 157   4 360 159
+10  90 117  51 128 237
+[1] "Evaluations at the end of generation 80: 75609"
+[1] "Entering selection, crossover, mutation for generation  100"
+[1] "Evaluations used (95802/1e+05)"
+[1] "Evaluations before Path Relinking: 95822"
+[1] "Evaluations before Local Search: 96570"
+[1] "Evaluations after Path Relinking: 96804"
+    V1  V2  V3  V4  V5
+1  151  71 302 239  34
+2  202 312 373 104 116
+3  352 346 191 311  30
+4  295  98 302 311   5
+5  379 346 373 104  30
+6  379 346 373 311  30
+7  379 346 349 311  30
+8  302 259  53 134 374
+9  319  65 349 123  32
+10 235   4 176 198 357
+[1] "Evaluations at the end of generation 100: 96804"
